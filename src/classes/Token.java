@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package compiladores.trabalho.analisadorlexico;
 
 /**
  *
@@ -14,36 +13,37 @@ public class Token {
     public TOKEN_TYPE t;
     public String lexeme;
     public Object info;
-    
-    public Token(TOKEN_TYPE t, String lex, Object o, int l, int c){
+
+    public Token(TOKEN_TYPE t, String lex, Object o, int l, int c) {
         this.t = t;
         lexeme = lex;
         info = o;
         this.l = l;
         this.c = c;
-                
+
     }
-    
-    public Token(TOKEN_TYPE t, String lex, int l, int c){
+
+    public Token(TOKEN_TYPE t, String lex, int l, int c) {
         this.t = t;
         lexeme = lex;
         info = null;
         this.l = l;
         this.c = c;
-        
+
     }
-    
-    public Token(TOKEN_TYPE t, Object o, int l, int c){
+
+    public Token(TOKEN_TYPE t, Object o, int l, int c) {
         this.t = t;
         lexeme = "";
         info = o;
         this.l = l;
         this.c = c;
-        
+
     }
-    
+
     @Override
-    public String toString(){
-        return "[("+l+","+ c+ ") \"" + lexeme + "\" : <" + (info == null ? "" : info.toString()) + ">]";
+    public String toString() {
+        return this.t + (((this.lexeme == "") || (this.lexeme == null)) ? "" : ":" + this.lexeme)
+                + (((this.info == "") || (this.info == null)) ? "" : ":" + this.info.toString());
     }
 }

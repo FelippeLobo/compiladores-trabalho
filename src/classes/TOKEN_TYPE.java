@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package compiladores.trabalho.analisadorlexico;
 
 /**
  *
  * @author felip
  */
 public enum TOKEN_TYPE {
-    ID, INT, TYPE, FLOAT, CHAR, BOOL, NULL, OP, SEP, PRINT;
+    ID, INT, TYPE, FLOAT, CHAR, BOOL, NULL, OP, SEP, PRINT, DEFOP;
     
 }

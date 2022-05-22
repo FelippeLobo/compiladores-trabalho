@@ -43,11 +43,12 @@
   FimDeLinha  = \r|\n|\r\n
   Brancos     = {FimDeLinha} | [ \t\f]
   type = [:uppercase:] [:uppercase:]*
-  inteiro      = [:digit:] [:digit:]* "." [:digit:] [:digit:]*
-  float = [:digit:] [:digit:]*
+  float      = [:digit:] [:digit:]* "." [:digit:] [:digit:]*
+  inteiro = [:digit:] [:digit:]*
   char = [:lowercase:] | [:uppercase:]
   boolean = true | false
-  op = "="| "+"| "*" | "/" | "-"| "%"| "<"| ">"| "=="| "!="| "&&"| "||"| "!" | "::"
+  op = "="| "+"| "*" | "/" | "-"| "%"| "<"| ">"| "=="| "!="| "&&"| "||"| "!"
+  defOp = "::" | ":"
   sep = ";"| "("| ")"| "["| "]"| "{"| "}"| "."| ","
   identificador = {char} {char}*
   LineComment = "//" (.)* {FimDeLinha}
@@ -59,17 +60,15 @@
 %%
 
 <YYINITIAL>{
-    "print"         {return symbol(TOKEN_TYPE.PRINT);}
-    {nulo}          {return symbol(TOKEN_TYPE.NULL, null);}
+    "print"         { return symbol(TOKEN_TYPE.PRINT);}
+    {nulo}          { return symbol(TOKEN_TYPE.NULL, null);}
     {type}          { return symbol(TOKEN_TYPE.TYPE, yytext()); }
-    {boolean}       {return symbol(TOKEN_TYPE.BOOL, Boolean.parseBoolean(yytext()));}
+    {boolean}       { return symbol(TOKEN_TYPE.BOOL, Boolean.parseBoolean(yytext()));}
     {identificador} { return symbol(TOKEN_TYPE.ID);   }
     {inteiro}       { return symbol(TOKEN_TYPE.INT, Integer.parseInt(yytext()) );  }
     {float}         { return symbol(TOKEN_TYPE.FLOAT, Float.parseFloat(yytext()) );  }
-    
-    {op}            { return symbol(TOKEN_TYPE.OP, yytext()); }
-    
-    
+    {defOp}         { return symbol(TOKEN_TYPE.DEFOP);  }
+    {op}            { return symbol(TOKEN_TYPE.OP, yytext()); }    
     {sep}           {return symbol(TOKEN_TYPE.SEP, yytext());}
     "/*"            { yybegin(COMMENT);               }
     {Brancos}       { /* Não faz nada  */             }
