@@ -42,18 +42,13 @@
   /* Agora vamos definir algumas macros */
   FimDeLinha  = \r|\n|\r\n
   Brancos     = {FimDeLinha} | [ \t\f]
-  type = [:uppercase:] [:uppercase:]*
-  float      = [:digit:] [:digit:]* "." [:digit:] [:digit:]*
+  type = [:uppercase:] ( [:letter:] | [:digit:] | "_" )*
+  float      = [:digit:]*[.] [:digit:]*
   inteiro = [:digit:] [:digit:]*
   char = [:lowercase:] | [:uppercase:]
-  boolean = true | false
-  op = "="| "+"| "*" | "/" | "-"| "%"| "<"| ">"| "=="| "!="| "&&"| "||"| "!"
-  defOp = "::" | ":"
-  sep = ";"| "("| ")"| "["| "]"| "{"| "}"| "."| ","
-  identificador = {char} {char}*
+  boolean = "true" | "false"
+  identificador = [:lowercase:] ( [:letter:] | [:digit:] | "_" )*
   LineComment = "//" (.)* {FimDeLinha}
-  nulo = NULL
-  
   
 %state COMMENT
 
@@ -61,6 +56,36 @@
 
 <YYINITIAL>{
     "print"         { return symbol(TOKEN_TYPE.PRINT);}
+    "read"          { return symbol(TOKEN_TYPE.READ);}
+    "if"            { return symbol(TOKEN_TYPE.IF);}
+    "elseif"        { return symbol(TOKEN_TYPE.ELSEIF);}
+    "else"          { return symbol(TOKEN_TYPE.ELSE);}
+    "return"        { return symbol(TOKEN_TYPE.RETURN);}
+    "new"           { return symbol(TOKEN_TYPE.NEW);}
+    "["             { return symbol(TOKEN_TYPE.RBRACK)}
+    "]"             { return symbol(TOKEN_TYPE.RBRACK)}
+    "("             { return symbol(TOKEN_TYPE.LPAREN)}
+    ")"             { return symbol(TOKEN_TYPE.RPAREN)}
+    "{"             { return symbol(TOKEN_TYPE.LBRACE)}
+    "}"             { return symbol(TOKEN_TYPE.RBRACE)}
+    "+"             { return symbol(TOKEN_TYPE.ADD)}
+    "-"             { return symbol(TOKEN_TYPE.SUB)}
+    "*"             { return symbol(TOKEN_TYPE.MULT)}
+    "/"             { return symbol(TOKEN_TYPE.DIV)}
+    "%"             { return symbol(TOKEN_TYPE.RES)}
+    "="             { return symbol(TOKEN_TYPE.EQUAL)}
+    "=="            { return symbol(TOKEN_TYPE.EQUALTO)}
+    "!="            { return symbol(TOKEN_TYPE.DIF)}
+    "!"             { return symbol(TOKEN_TYPE.NOT)}
+    ">"             { return symbol(TOKEN_TYPE.GREATER)}
+    "<"             { return symbol(TOKEN_TYPE.LESSER)}
+    ">="            { return symbol(TOKEN_TYPE.GREATEREQUAL)}
+    "<="            { return symbol(TOKEN_TYPE.LESSEREQUAL)}
+    "&&"            { return symbol(TOKEN_TYPE.AND)}
+    "||"            { return symbol(TOKEN_TYPE.OR)}
+    ":"             { return symbol(TOKEN_TYPE.COLON)}
+    "::"            { return symbol(TOKEN_TYPE.DOUBLECOLON)}
+    ";"             { return symbol(TOKEN_TYPE.SEMICOLON)}
     {nulo}          { return symbol(TOKEN_TYPE.NULL, null);}
     {type}          { return symbol(TOKEN_TYPE.TYPE, yytext()); }
     {boolean}       { return symbol(TOKEN_TYPE.BOOL, Boolean.parseBoolean(yytext()));}
