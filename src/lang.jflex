@@ -48,6 +48,7 @@
   char = [:lowercase:] | [:uppercase:]
   boolean = "true" | "false"
   identificador = [:lowercase:] ( [:letter:] | [:digit:] | "_" )*
+  Literal = "'" (.)  "'" | "'" "\\n" "'" | "'" "\\r" "'" | "'" "\\t" "'" | "'" "\\b" "'" | "'" "\\\\" "'"
   LineComment = "//" (.)* {FimDeLinha}
   
 %state COMMENT
@@ -62,6 +63,7 @@
     "else"          { return symbol(TOKEN_TYPE.ELSE);}
     "return"        { return symbol(TOKEN_TYPE.RETURN);}
     "new"           { return symbol(TOKEN_TYPE.NEW);}
+    "iterate"       { return symbol(TOKEN_TYPE.ITERATE); }
     "["             { return symbol(TOKEN_TYPE.RBRACK)}
     "]"             { return symbol(TOKEN_TYPE.RBRACK)}
     "("             { return symbol(TOKEN_TYPE.LPAREN)}
