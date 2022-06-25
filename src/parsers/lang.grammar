@@ -66,30 +66,5 @@ parametroList = parametro*;
 
 parametro = typeOrLiteral identificador COLON | null;
 
-functionBody = variasCoisa RETURN typeOrLiteral;
+functionBody = body RETURN typeOrLiteral;
 //
-
-
-
-
-
-
-
-
-
-
-data Carro { 
-    modelo :: String;
-    placa :: String;
-    serie :: Int;
-}
-
-     Expr
-   /   |         \
-Expr MULT        Expr
-|           /       |   \
-ID          Expr PLUS Expr
-|           |           |
-A           Num         ID
-            |           |
-            2           B
