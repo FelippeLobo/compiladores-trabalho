@@ -73,7 +73,10 @@ return newToken(Terminals.EOF, "end−of−file") ;
     "else"          { return symbol(Terminals.ELSE);}
     "return"        { return symbol(Terminals.RETURN);}
     "new"           { return symbol(Terminals.NEW);}
-    "iterate"       { return symbol(Terminals.ITERATE); }
+    "iterate"       { return symbol(Terminals.ITERATE);}
+    "private"       { return symbol(Terminals.PRIVATE);}
+    "public"       { return symbol(Terminals.PUBLIC);}
+    "protected"       { return symbol(Terminals.PROTECTED);}
     "["             { return symbol(Terminals.RBRACK)}
     "]"             { return symbol(Terminals.RBRACK)}
     "("             { return symbol(Terminals.LPAREN)}

@@ -9,6 +9,7 @@
             GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, AND, OR, COLON,
             DOUBLECOLON, SEMICOLON, RBRACE, LBRACE, IF, ELSE, ELSEIF, 
             RETURN, NEW, ITERATE;
+            PRIVATE, PUBLIC, PROTECTED;
 
 
 //Prescedencia
@@ -59,7 +60,7 @@ typeOrLiteral = TYPE | STRING | INT | FLOAT | CHAR | BOOL; {: return typeOrLiter
 
 
 //function
-function = typeOrLiteral identificador LPAREN parametroList | parametro RPAREN LBRACE functionBody RBRACE;
+function = PRIVATE | PUBLIC | PROTECTED typeOrLiteral identificador LPAREN parametroList | parametro RPAREN LBRACE functionBody RBRACE;
 
 parametroList = parametro*;
 
