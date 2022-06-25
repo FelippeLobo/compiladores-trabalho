@@ -13,47 +13,54 @@
 
 
 //Prescedencia
-%left FP;
-%left MULT;
-%left PLUS;
+%left RPAREN;
+%left MULT, DIV;
+%left ADD, SUB;
 
 %typeof INT = "Integer";
 %typeof FLOAT = "Float";
-%typeof Expr = "Expr";
+%typeof Exp = "Exp";
 %typeof ID = "String";
-%typeof Stmt = "Node";
-%typeof StmtList = "Node";
+%typeof Cmd = "Node";
+%typeof CmdList = "Node";
 %typeof Prog = "Node";
 
 %goal Prog;
 
-Prog = StmtList.s                     {:  return s;     :}  
+Prog = CmdList.s                     {:  return s;     :}  
      ;
 
-StmtList = Stmt.s SEMICOLON StmtList.l     {: return new StmtList(s,l); :}
-         | Stmt.s SEMICOLON                {: return s; :}  
+CmdList = Cmd.s SEMICOLON CmdList.l     {: return new CmdList(s,l); :}
+         | Cmd.s SEMICOLON                {: return s; :}  
          ;
 
-Stmt = ID.s EQUAL Expr.e                             {: return new Attr(new ID(s), e); :}
-     | Expr.e IF LB Stmt.s RB COLON LB Stmt.a RB  {: return new If(e,s,a);          :}
-     | Expr.e IF LB Stmt.s RB                     {: return new If(e,s);            :}
-     | Expr.e                                     {: return new Print(e);           :}
+Cmd = LBRACE Cmd.c RBRACE                       {: return c;                     :}   
+     | IF LPAREN Exp.e RPAREN Cmd.c             {: return new If(e, c);       :}   
+     | IF LPAREN Exp.e RPAREN Cmd.c ELSE Cmd.m  {: return new If(e, c, m);    :}          
+     | ITERATE LPAREN Exp.e RPAREN Cmd.c        {: return new Iterate(e, c);     :}
+     | READ lvalue.l SEMICOLON                  {: return new Read(l);     :}
+     | PRINT exp.e SEMICOLON                    {: return new Print(e);     :}
+     | RETURN exp.e ?{',' exp.e} SEMICOLON      {: return new Return(e);     :}
+     | lvalue.l = exp.e SEMICOLON               {: return new Attr(l, e);     :}
+     | ID.x LPAREN Exps.e RPAREN LESSER lvalue.v ?{',' lvalue.l} GREATER SEMICOLON                          
      ;
 
-
+Lvalue =    ID.i {: return new ID(i);     :}
+          | Lvalue.v LBRACK Exp.e RBRACK   {: return new Call(v, e); :}
+          | Lvalue.v '.' ID.i;   {: return new Call(v, i); :}
       
-Expr = Expr.a MULT  Expr.b           {: return new Mul(a,b);                :}
-     | Expr.a PLUS  Expr.b           {: return new Add(a, b);               :}
+Exp = Exp.a MULT  Exp.b           {: return new Mul(a,b);                :}
+     | Exp.a PLUS  Exp.b           {: return new Add(a, b);               :}
      | ID.v                          {: return new ID(v);                   :}
      | NUM.n                         {: return new Num(n);                  :}
-     | AP Expr.e FP                  {: return e;                  :}
+     | AP Exp.e FP                  {: return e;                  :}
      ;
 
 
 
 
 //data
-DataDeclaration = DATA TYPE LBRACE dataBody RBRACE;
+DataDeclaration = DATA ID LBRACE DataBody.d RBRACE;
 
 DataBody =  variableDeclarationList;
 
