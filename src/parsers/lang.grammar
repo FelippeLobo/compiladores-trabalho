@@ -30,15 +30,17 @@
 Prog = StmtList.s                     {:  return s;     :}  
      ;
 
-StmtList = Stmt.s SEMI StmtList.l     {: return new StmtList(s,l); :}
-         | Stmt.s SEMI                {: return s; :}  
+StmtList = Stmt.s SEMICOLON StmtList.l     {: return new StmtList(s,l); :}
+         | Stmt.s SEMICOLON                {: return s; :}  
          ;
 
-Stmt = ID.s EQ Expr.e                             {: return new Attr(new ID(s), e); :}
+Stmt = ID.s EQUAL Expr.e                             {: return new Attr(new ID(s), e); :}
      | Expr.e IF LB Stmt.s RB COLON LB Stmt.a RB  {: return new If(e,s,a);          :}
      | Expr.e IF LB Stmt.s RB                     {: return new If(e,s);            :}
      | Expr.e                                     {: return new Print(e);           :}
      ;
+
+
       
 Expr = Expr.a MULT  Expr.b           {: return new Mul(a,b);                :}
      | Expr.a PLUS  Expr.b           {: return new Add(a, b);               :}
@@ -47,26 +49,30 @@ Expr = Expr.a MULT  Expr.b           {: return new Mul(a,b);                :}
      | AP Expr.e FP                  {: return e;                  :}
      ;
 
-dataDeclaration = DATA TYPE LBRACE dataBody RBRACE;
-
-dataBody =  variableDeclarationList;
-
-variableDeclarationList = variableDeclaration*;
-
-variableDeclaration = identificador DOUBLECOLON typeOrLiteral SEMICOLON;
 
 
-typeOrLiteral = TYPE | STRING | INT | FLOAT | CHAR | BOOL; {: return typeOrLiteral()}
+
+//data
+DataDeclaration = DATA TYPE LBRACE dataBody RBRACE;
+
+DataBody =  variableDeclarationList;
+
+VariableDeclarationList = variableDeclaration variableDeclaration*;
+
+VariableDeclaration = ID DOUBLECOLON typeOrLiteral SEMICOLON;
+
+
+TypeOrLiteral = TYPE | STRING | INT | FLOAT | CHAR | BOOL; {: return typeOrLiteral() :}
 
 
 //function
-function = PRIVATE | PUBLIC | PROTECTED typeOrLiteral identificador LPAREN parametroList | parametro RPAREN LBRACE functionBody RBRACE;
+Function = ID  LPAREN parameter | parameterList  RPAREN LBRACE functionBody RBRACE;
 
-parametroList = parametro*;
+ParametroList = parametro*;
 
-parametro = typeOrLiteral identificador COLON | null;
+Parametro = typeOrLiteral ID COLON | null;
 
-functionBody = variasCoisa RETURN typeOrLiteral;
+FunctionBody = variasCoisa RETURN typeOrLiteral;
 //
 
 
