@@ -59,13 +59,14 @@ typeOrLiteral = TYPE | STRING | INT | FLOAT | CHAR | BOOL; {: return typeOrLiter
 
 
 //function
-function = typeOrLiteral identificador LPAREN parametroList | parametro RPAREN
+function = typeOrLiteral identificador LPAREN parametroList | parametro RPAREN LBRACE functionBody RBRACE;
 
-parametroList = parametro*
+parametroList = parametro*;
 
-parametro = typeOrLiteral identificador COLON | null
+parametro = typeOrLiteral identificador COLON | null;
+
+functionBody = variasCoisa RETURN;
 //
-
 
 
 
