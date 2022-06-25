@@ -57,6 +57,25 @@ variableDeclaration = identificador DOUBLECOLON typeOrLiteral SEMICOLON;
 
 typeOrLiteral = TYPE | STRING | INT | FLOAT | CHAR | BOOL; {: return typeOrLiteral()}
 
+
+//function
+function = typeOrLiteral identificador LPAREN parametroList | parametro RPAREN
+
+parametroList = parametro*
+
+parametro = typeOrLiteral identificador COLON | null
+//
+
+
+
+
+
+
+
+
+
+
+
 data Carro { 
     modelo :: String;
     placa :: String;
