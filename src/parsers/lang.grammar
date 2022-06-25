@@ -65,7 +65,7 @@ parametroList = parametro*;
 
 parametro = typeOrLiteral identificador COLON | null;
 
-functionBody = variasCoisa RETURN;
+functionBody = variasCoisa RETURN typeOrLiteral;
 //
 
 
