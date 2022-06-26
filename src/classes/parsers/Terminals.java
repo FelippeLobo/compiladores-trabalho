@@ -1,3 +1,5 @@
+package parsers;
+
 /**
  * This class lists terminals used by the
  * grammar specified in "lang.grammar".
@@ -41,4 +43,9 @@ public class Terminals {
 	static public final short RBRACE = 35;
 	static public final short EQUAL = 36;
 	static public final short ELSE = 37;
+	static public final short COLON = 38;
+	static public final short DOUBLECOLON = 39;
+	static public final short OR = 40;
+	static public final short DATA = 41;
+	static public final short ELSEIF = 42;
 }

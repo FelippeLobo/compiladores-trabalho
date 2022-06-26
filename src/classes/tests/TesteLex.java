@@ -6,6 +6,8 @@
  * and open the template in the editor.
  */
 
+package tests;
+
 import java.io.FileReader;
 import java.io.IOException;
 

@@ -1,3 +1,5 @@
+package ast;
+
 import java.util.HashMap;
 
 public abstract class Node extends beaver.Symbol {

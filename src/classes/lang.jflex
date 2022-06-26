@@ -65,47 +65,47 @@ return newToken(Terminals.EOF, "end−of−file") ;
 %%
 
 <YYINITIAL>{
-    "data"          { return symbol(Terminals.DATA);}
-    "print"         { return symbol(Terminals.PRINT);}
-    "read"          { return symbol(Terminals.READ);}
-    "if"            { return symbol(Terminals.IF);}
-    "elseif"        { return symbol(Terminals.ELSEIF);}
-    "else"          { return symbol(Terminals.ELSE);}
-    "return"        { return symbol(Terminals.RETURN);}
-    "new"           { return symbol(Terminals.NEW);}
-    "iterate"       { return symbol(Terminals.ITERATE);}
-    "["             { return symbol(Terminals.LBRACK)}
-    "]"             { return symbol(Terminals.RBRACK)}
-    "("             { return symbol(Terminals.LPAREN)}
-    ")"             { return symbol(Terminals.RPAREN)}
-    "{"             { return symbol(Terminals.LBRACE)}
-    "}"             { return symbol(Terminals.RBRACE)}
-    "."             { return symbol(Terminals.DOT)}
-    "+"             { return symbol(Terminals.ADD)}
-    "-"             { return symbol(Terminals.SUB)}
-    "*"             { return symbol(Terminals.MULT)}
-    "/"             { return symbol(Terminals.DIV)}
-    "%"             { return symbol(Terminals.RES)}
-    "="             { return symbol(Terminals.EQUAL)}
-    "=="            { return symbol(Terminals.EQUALTO)}
-    "!="            { return symbol(Terminals.DIF)}
-    "!"             { return symbol(Terminals.NOT)}
-    "-"             { return symbol(Terminals.TRA)}
-    ">"             { return symbol(Terminals.GREATER)}
-    "<"             { return symbol(Terminals.LESSER)}
-    ">="            { return symbol(Terminals.GREATEREQUAL)}
-    "<="            { return symbol(Terminals.LESSEREQUAL)}
-    "&&"            { return symbol(Terminals.AND)}
-    "||"            { return symbol(Terminals.OR)}
-    ":"             { return symbol(Terminals.COLON)}
-    "::"            { return symbol(Terminals.DOUBLECOLON)}
-    ";"             { return symbol(Terminals.SEMICOLON)}
-    "null"          { return symbol(Terminals.NULL, null);}
-    {type}          { return symbol(Terminals.TYPE, yytext()); }
-    {boolean}       { return symbol(Terminals.BOOL, Boolean.parseBoolean(yytext()));}
-    {identificador} { return symbol(Terminals.ID);   }
-    {inteiro}       { return symbol(Terminals.INT, Integer.parseInt(yytext()) );  }
-    {float}         { return symbol(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
+    "data"          { return new Symbol(Terminals.DATA);}
+    "print"         { return new Symbol(Terminals.PRINT);}
+    "read"          { return new Symbol(Terminals.READ);}
+    "if"            { return new Symbol(Terminals.IF);}
+    "elseif"        { return new Symbol(Terminals.ELSEIF);}
+    "else"          { return new Symbol(Terminals.ELSE);}
+    "return"        { return new Symbol(Terminals.RETURN);}
+    "new"           { return new Symbol(Terminals.NEW);}
+    "iterate"       { return new Symbol(Terminals.ITERATE);}
+    "["             { return new Symbol(Terminals.LBRACK);}
+    "]"             { return new Symbol(Terminals.RBRACK);}
+    "("             { return new Symbol(Terminals.LPAREN);}
+    ")"             { return new Symbol(Terminals.RPAREN);}
+    "{"             { return new Symbol(Terminals.LBRACE);}
+    "}"             { return new Symbol(Terminals.RBRACE);}
+    "."             { return new Symbol(Terminals.DOT);}
+    "+"             { return new Symbol(Terminals.ADD);}
+    "-"             { return new Symbol(Terminals.SUB);}
+    "*"             { return new Symbol(Terminals.MULT);}
+    "/"             { return new Symbol(Terminals.DIV);}
+    "%"             { return new Symbol(Terminals.RES);}
+    "="             { return new Symbol(Terminals.EQUAL);}
+    "=="            { return new Symbol(Terminals.EQUALTO);}
+    "!="            { return new Symbol(Terminals.DIF);}
+    "!"             { return new Symbol(Terminals.NOT);}
+    "-"             { return new Symbol(Terminals.TRA);}
+    ">"             { return new Symbol(Terminals.GREATER);}
+    "<"             { return new Symbol(Terminals.LESSER);}
+    ">="            { return new Symbol(Terminals.GREATEREQUAL);}
+    "<="            { return new Symbol(Terminals.LESSEREQUAL);}
+    "&&"            { return new Symbol(Terminals.AND);}
+    "||"            { return new Symbol(Terminals.OR);}
+    ":"             { return new Symbol(Terminals.COLON);}
+    "::"            { return new Symbol(Terminals.DOUBLECOLON);}
+    ";"             { return new Symbol(Terminals.SEMICOLON);}
+    "null"          { return new Symbol(Terminals.NULL, null);}
+    {type}          { return new Symbol(Terminals.TYPE, yytext()); }
+    {boolean}       { return new Symbol(Terminals.BOOL, Boolean.parseBoolean(yytext()));}
+    {identificador} { return new Symbol(Terminals.ID);   }
+    {inteiro}       { return new Symbol(Terminals.INT, Integer.parseInt(yytext()) );  }
+    {float}         { return new Symbol(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
     "/*"            { yybegin(COMMENT);               }
     {Brancos}       { /* Não faz nada  */             }
     {LineComment}   {                       }

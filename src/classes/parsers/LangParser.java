@@ -1,4 +1,6 @@
-import src\ast.*;
+package parsers;
+
+import ast.*;
 import beaver.*;
 import java.util.ArrayList;
 
