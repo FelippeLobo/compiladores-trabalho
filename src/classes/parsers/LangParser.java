@@ -1,6 +1,6 @@
-package parsers;
+package classes.parsers;
 
-import ast.*;
+import classes.ast.*;
 import beaver.*;
 import java.util.ArrayList;
 
@@ -123,7 +123,8 @@ public class LangParser extends Parser {
 			},
 			new Action() {	// [7] Cmd = READ Lvalue.l SEMICOLON
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol l = _symbols[offset + 2];
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final String l = (String) _symbol_l.value;
 					 return new Read(l);
 				}
 			},
@@ -154,7 +155,8 @@ public class LangParser extends Parser {
 			},
 			new Action() {	// [12] Cmd = Lvalue.l EQUAL Exp.e SEMICOLON
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol l = _symbols[offset + 1];
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
 					final Symbol _symbol_e = _symbols[offset + 3];
 					final Exp e = (Exp) _symbol_e.value;
 					 return new Attr(l, e);
@@ -162,12 +164,12 @@ public class LangParser extends Parser {
 			},
 			new Action() {	// [13] lst$Lvalue = Lvalue
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1]); return new Symbol(lst);
+					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
 				}
 			},
 			new Action() {	// [14] lst$Lvalue = lst$Lvalue Lvalue
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2]); return _symbols[offset + 1];
+					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2].value); return _symbols[offset + 1];
 				}
 			},
 			RETURN6,	// [15] Cmd = ID.x LPAREN Exps.e RPAREN LESSER lst$Lvalue.v GREATER SEMICOLON; returns 'v' although more are marked
@@ -180,7 +182,8 @@ public class LangParser extends Parser {
 			},
 			new Action() {	// [17] Lvalue = Lvalue.v LBRACK Exp.e RBRACK
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol v = _symbols[offset + 1];
+					final Symbol _symbol_v = _symbols[offset + 1];
+					final String v = (String) _symbol_v.value;
 					final Symbol _symbol_e = _symbols[offset + 3];
 					final Exp e = (Exp) _symbol_e.value;
 					 return new Call(v, e);
@@ -188,7 +191,8 @@ public class LangParser extends Parser {
 			},
 			new Action() {	// [18] Lvalue = Lvalue.v DOT ID.i
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol v = _symbols[offset + 1];
+					final Symbol _symbol_v = _symbols[offset + 1];
+					final String v = (String) _symbol_v.value;
 					final Symbol _symbol_i = _symbols[offset + 3];
 					final String i = (String) _symbol_i.value;
 					 return new Call(v, i);

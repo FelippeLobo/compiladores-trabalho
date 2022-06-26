@@ -1,12 +1,12 @@
-package ast;
+package classes.ast;
 
 /*
  * Esta classe representa um comando de Impressão.
- * Expr
+ * Exp
  */
-public abstract class Expr extends Node {
+public abstract class Exp extends Node {
       
-      public Expr(){
+      public Exp(){
       }
       
 

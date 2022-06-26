@@ -696,7 +696,7 @@ class LextTest {
 
 
   /**
-   * Returns the text matched by the current regular expression.
+   * Returns the text matched by the current regular Expession.
    *
    * @return the matched text.
    */
@@ -774,7 +774,7 @@ class LextTest {
 
 
   /**
-   * Resumes scanning until the next regular expression is matched, the end of input is encountered
+   * Resumes scanning until the next regular Expession is matched, the end of input is encountered
    * or an I/O-Error occurs.
    *
    * @return the next token.

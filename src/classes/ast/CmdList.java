@@ -1,4 +1,4 @@
-package ast;
+package classes.ast;
 
 /*
  * Esta classe representa um comando de atribuição.

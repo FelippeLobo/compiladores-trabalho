@@ -1,20 +1,20 @@
-package ast;
+package classes.ast;
 
 /*
  * Esta classe representa um comando de Impressão.
- * Expr
+ * Exp
  */
 import java.util.HashMap; 
  
 public class Print extends Node {
       
-      private Expr e; 
+      private Exp e; 
       
-      public Print( Expr e){
+      public Print( Exp e){
            this.e  = e;
       }
       
-      public Expr getExpr(){ return e;}
+      public Exp getExp(){ return e;}
       
       //@Override
       public String toString(){

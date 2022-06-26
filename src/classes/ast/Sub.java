@@ -1,14 +1,14 @@
-package ast;
+package classes.ast;
 
 /*
- * Esta classe representa uma expressão de subtração.
- * Expr - Expr
+ * Esta classe representa uma Expessão de subtração.
+ * Exp - Exp
  */
  
 import java.util.HashMap; 
 public class Sub extends BinOP {
 
-      public Sub(Expr l, Expr r){
+      public Sub(Exp l, Exp r){
            super(l,r);
       }
       

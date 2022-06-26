@@ -1,13 +1,13 @@
-package ast;
+package classes.ast;
 
 /*
- * Esta classe representa uma expressão de Divisão.
- * Expr / Expr
+ * Esta classe representa uma Expessão de Divisão.
+ * Exp / Exp
  */
 import java.util.HashMap; 
 
 public class Div extends BinOP {
-      public Div(Expr l, Expr r){
+      public Div(Exp l, Exp r){
            super(l,r);
       }
       

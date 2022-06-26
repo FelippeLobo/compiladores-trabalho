@@ -1,12 +1,12 @@
-package ast;
+package classes.ast;
 
 /*
  * Esta classe representa um comando de Impressão.
- * Expr
+ * Exp
  */ 
 import java.util.HashMap; 
 
-public class Num extends Expr {
+public class Num extends Exp {
       
       private int l;
      

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.HashMap; 
 import beaver.Symbol;
 import beaver.Parser;
+import classes.parsers.*;
+import classes.ast.*;
 
 public class TesteSin{
       public static void main(String[] args){
@@ -19,10 +21,10 @@ public class TesteSin{
             result.interpret(h);
         }
         catch (IOException e){
-            System.err.println("Failed to read expression: " + e.getMessage());
+            System.err.println("Failed to read Expession: " + e.getMessage());
         }
         catch (beaver.Parser.Exception e){
-            System.err.println("Invalid expression: " + e.getMessage());
+            System.err.println("Invalid Expession: " + e.getMessage());
         }
         catch (Exception e){
             System.err.println("Exceção: " + e.getMessage());

@@ -7,7 +7,7 @@
   *  É nesta seção que se deve incluir imports e declaração de pacotes.
   *  Neste exemplo não temos nada a incluir nesta seção.
   */
-  package parsers;
+package classes.parsers;
 
 import beaver.Symbol;
 import beaver.Scanner;
@@ -873,7 +873,7 @@ public class LangLex extends Scanner {
 
 
   /**
-   * Returns the text matched by the current regular expression.
+   * Returns the text matched by the current regular Expession.
    *
    * @return the matched text.
    */
@@ -951,7 +951,7 @@ public class LangLex extends Scanner {
 
 
   /**
-   * Resumes scanning until the next regular expression is matched, the end of input is encountered
+   * Resumes scanning until the next regular Expession is matched, the end of input is encountered
    * or an I/O-Error occurs.
    *
    * @return the next token.

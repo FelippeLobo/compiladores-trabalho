@@ -21,7 +21,7 @@
 %typeof Cmd = "Node";
 %typeof CmdList = "Node";
 %typeof Prog = "Node";
-
+%typeof Lvalue = "String";
 %goal Prog;
 
 Prog = CmdList.s                     {:  return s;     :}  

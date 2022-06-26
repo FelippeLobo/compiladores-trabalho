@@ -1,13 +1,13 @@
-package ast;
+package classes.ast;
 
 /*
- * Esta classe representa uma expressão de Resto.
- * Expr / Expr
+ * Esta classe representa uma Expessão de Resto.
+ * Exp / Exp
  */
 import java.util.HashMap; 
 
 public class Res extends BinOP {
-      public Res(Expr l, Expr r){
+      public Res(Exp l, Exp r){
            super(l,r);
       }
       

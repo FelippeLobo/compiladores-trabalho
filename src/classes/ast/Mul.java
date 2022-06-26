@@ -1,14 +1,14 @@
-package ast;
+package classes.ast;
 
 /*
- * Esta classe representa uma expressão de multiplicação.
- * Expr * Expr
+ * Esta classe representa uma Expessão de multiplicação.
+ * Exp * Exp
  */
  
 import java.util.HashMap; 
 public class Mul extends BinOP {
 
-      public Mul(Expr l, Expr r){
+      public Mul(Exp l, Exp r){
            super(l,r);
       }
       
@@ -18,7 +18,6 @@ public class Mul extends BinOP {
          if(getLeft() instanceof Add || getLeft() instanceof Sub || getLeft() instanceof Mul || getLeft() instanceof Div){
             s = "(" + s + ")";
          } 
-         String ss = getRight().toString();
          if( getRight() instanceof Add || getRight() instanceof Sub){
             ss = "(" + ss+ ")";
          }

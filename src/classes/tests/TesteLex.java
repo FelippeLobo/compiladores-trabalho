@@ -10,19 +10,20 @@ package tests;
 
 import java.io.FileReader;
 import java.io.IOException;
+import classes.parsers.*;
 
 public class TesteLex {
 
     public static void main(String args[]) throws IOException {
         {
-            LextTest lx;
-            lx = new LextTest(new FileReader(args[0]));
-            Token t = lx.nextToken();
-            while (t != null) {
-                System.out.println(t.toString());
-                t = lx.nextToken();
-            }
-            System.out.println("Total de tokens lidos " + lx.readedTokens());
+            // LangLex lx;
+            // lx = new LangLex(new FileReader(args[0]));
+            // Token t = lx.nextToken();
+            // while (t != null) {
+            //     System.out.println(t.toString());
+            //     t = lx.nextToken();
+            // }
+            // System.out.println("Total de tokens lidos " + lx.readedTokens());
         }
     }
 
