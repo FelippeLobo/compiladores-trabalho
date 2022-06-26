@@ -1113,47 +1113,47 @@ public class LangLex extends Scanner {
             // fall through
           case 48: break;
           case 4:
-            { return symbol(Terminals.NOT)
+            { return symbol(Terminals.NOT);
             }
             // fall through
           case 49: break;
           case 5:
-            { return symbol(Terminals.RES)
+            { return symbol(Terminals.RES);
             }
             // fall through
           case 50: break;
           case 6:
-            { return symbol(Terminals.LPAREN)
+            { return symbol(Terminals.LPAREN);
             }
             // fall through
           case 51: break;
           case 7:
-            { return symbol(Terminals.RPAREN)
+            { return symbol(Terminals.RPAREN);
             }
             // fall through
           case 52: break;
           case 8:
-            { return symbol(Terminals.MULT)
+            { return symbol(Terminals.MULT);
             }
             // fall through
           case 53: break;
           case 9:
-            { return symbol(Terminals.ADD)
+            { return symbol(Terminals.ADD);
             }
             // fall through
           case 54: break;
           case 10:
-            { return symbol(Terminals.SUB)
+            { return symbol(Terminals.SUB);
             }
             // fall through
           case 55: break;
           case 11:
-            { return symbol(Terminals.DOT)
+            { return symbol(Terminals.DOT);
             }
             // fall through
           case 56: break;
           case 12:
-            { return symbol(Terminals.DIV)
+            { return symbol(Terminals.DIV);
             }
             // fall through
           case 57: break;
@@ -1163,27 +1163,27 @@ public class LangLex extends Scanner {
             // fall through
           case 58: break;
           case 14:
-            { return symbol(Terminals.COLON)
+            { return symbol(Terminals.COLON);
             }
             // fall through
           case 59: break;
           case 15:
-            { return symbol(Terminals.SEMICOLON)
+            { return symbol(Terminals.SEMICOLON);
             }
             // fall through
           case 60: break;
           case 16:
-            { return symbol(Terminals.LESSER)
+            { return symbol(Terminals.LESSER);
             }
             // fall through
           case 61: break;
           case 17:
-            { return symbol(Terminals.EQUAL)
+            { return symbol(Terminals.EQUAL);
             }
             // fall through
           case 62: break;
           case 18:
-            { return symbol(Terminals.GREATER)
+            { return symbol(Terminals.GREATER);
             }
             // fall through
           case 63: break;
@@ -1193,12 +1193,12 @@ public class LangLex extends Scanner {
             // fall through
           case 64: break;
           case 20:
-            { return symbol(Terminals.LBRACK)
+            { return symbol(Terminals.LBRACK);
             }
             // fall through
           case 65: break;
           case 21:
-            { return symbol(Terminals.RBRACK)
+            { return symbol(Terminals.RBRACK);
             }
             // fall through
           case 66: break;
@@ -1208,22 +1208,22 @@ public class LangLex extends Scanner {
             // fall through
           case 67: break;
           case 23:
-            { return symbol(Terminals.LBRACE)
+            { return symbol(Terminals.LBRACE);
             }
             // fall through
           case 68: break;
           case 24:
-            { return symbol(Terminals.RBRACE)
+            { return symbol(Terminals.RBRACE);
             }
             // fall through
           case 69: break;
           case 25:
-            { return symbol(Terminals.DIF)
+            { return symbol(Terminals.DIF);
             }
             // fall through
           case 70: break;
           case 26:
-            { return symbol(Terminals.AND)
+            { return symbol(Terminals.AND);
             }
             // fall through
           case 71: break;
@@ -1238,22 +1238,22 @@ public class LangLex extends Scanner {
             // fall through
           case 73: break;
           case 29:
-            { return symbol(Terminals.DOUBLECOLON)
+            { return symbol(Terminals.DOUBLECOLON);
             }
             // fall through
           case 74: break;
           case 30:
-            { return symbol(Terminals.LESSEREQUAL)
+            { return symbol(Terminals.LESSEREQUAL);
             }
             // fall through
           case 75: break;
           case 31:
-            { return symbol(Terminals.EQUALTO)
+            { return symbol(Terminals.EQUALTO);
             }
             // fall through
           case 76: break;
           case 32:
-            { return symbol(Terminals.GREATEREQUAL)
+            { return symbol(Terminals.GREATEREQUAL);
             }
             // fall through
           case 77: break;
@@ -1263,7 +1263,7 @@ public class LangLex extends Scanner {
             // fall through
           case 78: break;
           case 34:
-            { return symbol(Terminals.OR)
+            { return symbol(Terminals.OR);
             }
             // fall through
           case 79: break;

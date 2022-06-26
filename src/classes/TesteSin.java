@@ -1,7 +1,7 @@
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap; 
-import LangLex.java;
+
 public class TesteSin{
       public static void main(String[] args){
         HashMap<String,Integer> h = new HashMap<String,Integer>();
