@@ -12,4 +12,5 @@ compilar Jflex:
 executar teste: 
 	java -cp src\bin\ Teste src\testes\testeLexico.txt
 
-
+compilar grammar:
+	java -jar beaver-cc-0.9.11.jar -T lang.grammar

@@ -1,0 +1,92 @@
+%package "parsers";
+%import "src\ast.*";
+
+%class "LangParser";
+
+%terminals  ID, INT, TYPE, FLOAT, CHAR, BOOL, NULL, 
+            ADD, MULT, SUB, DIV, SEP, PRINT, READ, RBRACK, 
+            LBRACK, RPAREN, LPAREN, RES, EQUAL, EQUALTO, DIF, NOT, TRA,
+            GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, AND, OR, DIF, NOT, COLON,
+            DOUBLECOLON, SEMICOLON, RBRACE, LBRACE, IF, ELSE, ELSEIF, 
+            RETURN, NEW, ITERATE, DOT;
+
+
+//Prescedencia
+%left RPAREN;
+%left MULT, DIV;
+%left ADD, SUB;
+
+%typeof INT = "Integer";
+%typeof FLOAT = "Float";
+%typeof Exp = "Exp";
+%typeof ID = "String";
+%typeof Cmd = "Node";
+%typeof CmdList = "Node";
+%typeof Prog = "Node";
+
+%goal Prog;
+
+Prog = CmdList.s                     {:  return s;     :}  
+     ;
+
+CmdList = Cmd.s SEMICOLON CmdList.l     {: return new CmdList(s,l); :}
+         | Cmd.s SEMICOLON                {: return s; :}  
+         ;
+
+Cmd = LBRACE Cmd.c RBRACE                       {: return c;                     :}   
+     | IF LPAREN Exp.e RPAREN Cmd.c             {: return new If(e, c);       :}   
+     | IF LPAREN Exp.e RPAREN Cmd.c ELSE Cmd.m  {: return new If(e, c, m);    :}          
+     | ITERATE LPAREN Exp.e RPAREN Cmd.c        {: return new Iterate(e, c);     :}
+     | READ Lvalue.l SEMICOLON                  {: return new Read(l);     :}
+     | PRINT Exp.e SEMICOLON                    {: return new Print(e);     :}
+     | RETURN Exp.e+ SEMICOLON      {: return new Return(e);     :}
+     | Lvalue.l EQUAL Exp.e SEMICOLON               {: return new Attr(l, e);     :}
+     | ID.x LPAREN Exps.e RPAREN LESSER Lvalue.v+ GREATER SEMICOLON                          
+     ;
+
+
+
+Lvalue =    ID.i {: return new ID(i);     :}
+          | Lvalue.v LBRACK Exp.e RBRACK   {: return new Call(v, e); :}
+          | Lvalue.v DOT ID.i   {: return new Call(v, i); :};
+      
+
+Exp = Exp.a AND Exp.b             {: return new And(a, b);               :}
+     | Rexp;
+
+Rexp = Exp.a GREATER Exp.b         {: return new Greater(a, b);           :}
+     | Exp.a LESSER Exp.b          {: return new Lesser(a, b);              :}
+     | Exp.a GREATEREQUAL Exp.b    {: return new GreaterEqual(a, b);        :}
+     | Exp.a LESSEREQUAL Exp.b     {: return new LesserEqual(a, b);         :}
+     | Exp.a EQUALTO Exp.b         {: return new Equal(a, b);               :}
+     | Exp.a DIF Exp.b             {: return new Diff(a, b);                :}
+     | Aexp;
+
+Aexp = Exp.a ADD  Exp.b            {: return new Add(a, b);               :}
+     | Exp.a SUB Exp.b             {: return new Sub(a, b);               :}
+     | Mexp;
+
+Mexp = Exp.a MULT  Exp.b           {: return new Mul(a,b);                :}
+     | Exp.a DIV Exp.b             {: return new Div(a, b);               :}
+     | Exp.a RES Exp.b             {: return new Res(a, b);               :}
+     | Sexp;
+
+Sexp = Exp.a NOT                    {: return new Not(a);                  :}
+     | Exp.a TRA                    {: return new Tra(a);                  :}
+     | BOOL
+     | NULL
+     | INT
+     | FLOAT
+     | CHAR
+     | Pexp;
+
+Pexp = Lvalue
+     | LPAREN Exp RPAREN
+     | NEW TYPE LBRACK Exp RBRACK 
+     | ID LPAREN Exps+ RPAREN LBRACK Exp+ RBRACK;
+
+Exps = Exp+;
+
+
+
+

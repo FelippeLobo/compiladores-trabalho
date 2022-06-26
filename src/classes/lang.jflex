@@ -74,12 +74,13 @@ return newToken(Terminals.EOF, "end−of−file") ;
     "return"        { return symbol(Terminals.RETURN);}
     "new"           { return symbol(Terminals.NEW);}
     "iterate"       { return symbol(Terminals.ITERATE);}
-    "["             { return symbol(Terminals.RBRACK)}
+    "["             { return symbol(Terminals.LBRACK)}
     "]"             { return symbol(Terminals.RBRACK)}
     "("             { return symbol(Terminals.LPAREN)}
     ")"             { return symbol(Terminals.RPAREN)}
     "{"             { return symbol(Terminals.LBRACE)}
     "}"             { return symbol(Terminals.RBRACE)}
+    "."             { return symbol(Terminals.DOT)}
     "+"             { return symbol(Terminals.ADD)}
     "-"             { return symbol(Terminals.SUB)}
     "*"             { return symbol(Terminals.MULT)}
@@ -99,13 +100,12 @@ return newToken(Terminals.EOF, "end−of−file") ;
     ":"             { return symbol(Terminals.COLON)}
     "::"            { return symbol(Terminals.DOUBLECOLON)}
     ";"             { return symbol(Terminals.SEMICOLON)}
-    {nulo}          { return symbol(Terminals.NULL, null);}
+    "null"          { return symbol(Terminals.NULL, null);}
     {type}          { return symbol(Terminals.TYPE, yytext()); }
     {boolean}       { return symbol(Terminals.BOOL, Boolean.parseBoolean(yytext()));}
     {identificador} { return symbol(Terminals.ID);   }
     {inteiro}       { return symbol(Terminals.INT, Integer.parseInt(yytext()) );  }
     {float}         { return symbol(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
-    {sep}           {return symbol(Terminals.SEP, yytext());}
     "/*"            { yybegin(COMMENT);               }
     {Brancos}       { /* Não faz nada  */             }
     {LineComment}   {                       }
