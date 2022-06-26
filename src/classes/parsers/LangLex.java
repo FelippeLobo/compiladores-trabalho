@@ -8,6 +8,7 @@
   *  Neste exemplo não temos nada a incluir nesta seção.
   */
   package parsers;
+
 import beaver.Symbol;
 import beaver.Scanner;
 
