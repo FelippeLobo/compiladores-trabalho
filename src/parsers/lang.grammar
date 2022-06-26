@@ -5,8 +5,8 @@
 
 %terminals  ID, INT, TYPE, FLOAT, CHAR, BOOL, NULL, 
             ADD, MULT, SUB, DIV, SEP, PRINT, READ, DEFOP, RBRACK, 
-            LBRACK, RPAREN, LPAREN, RES, EQUAL, EQUALTO, DIF, NOT, 
-            GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, AND, OR, COLON,
+            LBRACK, RPAREN, LPAREN, RES, EQUAL, EQUALTO, DIF, NOT, TRA,
+            GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, AND, OR, DIF, NOT COLON,
             DOUBLECOLON, SEMICOLON, RBRACE, LBRACE, IF, ELSE, ELSEIF, 
             RETURN, NEW, ITERATE;
             PRIVATE, PUBLIC, PROTECTED;
@@ -49,18 +49,54 @@ Lvalue =    ID.i {: return new ID(i);     :}
           | Lvalue.v LBRACK Exp.e RBRACK   {: return new Call(v, e); :}
           | Lvalue.v '.' ID.i;   {: return new Call(v, i); :}
       
-Exp = Exp.a MULT  Exp.b           {: return new Mul(a,b);                :}
-     | Exp.a PLUS  Exp.b           {: return new Add(a, b);               :}
-     | ID.v                          {: return new ID(v);                   :}
+
+Exp = Expr.a AND Expr.b             {: return new And(a, b);               :}
+     | Rexp
+
+Rexp = | Expr.a GREATER Expr.b         {: return new Greater(a, b);           :}
+     | Expr.a LESSER Expr.b          {: return new Lesser(a, b);              :}
+     | Expr.a GREATEREQUAL Expr.b    {: return new GreaterEqual(a, b);        :}
+     | Expr.a LESSEREQUAL Expr.b     {: return new LesserEqual(a, b);         :}
+     | Expr.a EQUALTO Expr.b         {: return new Equal(a, b);               :}
+     | Expr.a DIF Expr.b             {: return new Diff(a, b);                :}
+     | Aexp
+
+Aexp = Expr.a ADD  Expr.b            {: return new Add(a, b);               :}
+     | Expr.a SUB Expr.b             {: return new Sub(a, b);               :}
+     | Mexp
+
+Mexp = Expr.a MULT  Expr.b           {: return new Mul(a,b);                :}
+     | Expr.a DIV Expr.b             {: return new Div(a, b);               :}
+     | Expr.a RES Expr.b             {: return new Res(a, b);               :}
+     | Sexp
+
+Sexp = Expr.a NOT                    {: return new Not(a);                  :}
+     | Expr.a TRA                    {: return new Tra(a);                  :}
+     | true
+     | false
+     | null
+     | INT
+     | FLOAT
+     | CHAR
+     | Pexp
+
+Pexp = lvalue
+     | ‘(’ Exp ‘)’
+     | new type [ ‘[’ Exp ‘]’ ]
+     | ID ‘(’ [exps] ‘)’ ‘[’ exp ‘]’
+
+Lvalue = ID.v 
      | NUM.n                         {: return new Num(n);                  :}
-     | AP Exp.e FP                  {: return e;                  :}
+     | AP Expr.e FP                  {: return e;                           :}
      ;
+
+Exps = Exp { , Exp }
 
 
 
 
 //data
-DataDeclaration = DATA ID LBRACE DataBody.d RBRACE;
+DataDeclaration = DATA ID.i LBRACE DataBody.d RBRACE {: return new Data(i, d);                  :} ;
 
 DataBody =  variableDeclarationList;
 
@@ -79,30 +115,5 @@ ParametroList = parametro*;
 
 Parametro = typeOrLiteral ID COLON | null;
 
-FunctionBody = variasCoisa RETURN typeOrLiteral;
+functionBody = body RETURN typeOrLiteral;
 //
-
-
-
-
-
-
-
-
-
-
-data Carro { 
-    modelo :: String;
-    placa :: String;
-    serie :: Int;
-}
-
-     Expr
-   /   |         \
-Expr MULT        Expr
-|           /       |   \
-ID          Expr PLUS Expr
-|           |           |
-A           Num         ID
-            |           |
-            2           B

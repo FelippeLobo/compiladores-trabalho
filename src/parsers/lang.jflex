@@ -92,6 +92,7 @@ return newToken(Terminals.EOF, "end−of−file") ;
     "=="            { return symbol(Terminals.EQUALTO)}
     "!="            { return symbol(Terminals.DIF)}
     "!"             { return symbol(Terminals.NOT)}
+    "-"             { return symbol(Terminals.TRA)}
     ">"             { return symbol(Terminals.GREATER)}
     "<"             { return symbol(Terminals.LESSER)}
     ">="            { return symbol(Terminals.GREATEREQUAL)}
