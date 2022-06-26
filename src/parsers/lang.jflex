@@ -74,9 +74,6 @@ return newToken(Terminals.EOF, "end−of−file") ;
     "return"        { return symbol(Terminals.RETURN);}
     "new"           { return symbol(Terminals.NEW);}
     "iterate"       { return symbol(Terminals.ITERATE);}
-    "private"       { return symbol(Terminals.PRIVATE);}
-    "public"       { return symbol(Terminals.PUBLIC);}
-    "protected"       { return symbol(Terminals.PROTECTED);}
     "["             { return symbol(Terminals.RBRACK)}
     "]"             { return symbol(Terminals.RBRACK)}
     "("             { return symbol(Terminals.LPAREN)}
@@ -108,8 +105,6 @@ return newToken(Terminals.EOF, "end−of−file") ;
     {identificador} { return symbol(Terminals.ID);   }
     {inteiro}       { return symbol(Terminals.INT, Integer.parseInt(yytext()) );  }
     {float}         { return symbol(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
-    {defOp}         { return symbol(Terminals.DEFOP);  }
-    {op}            { return symbol(Terminals.OP, yytext()); }    
     {sep}           {return symbol(Terminals.SEP, yytext());}
     "/*"            { yybegin(COMMENT);               }
     {Brancos}       { /* Não faz nada  */             }
