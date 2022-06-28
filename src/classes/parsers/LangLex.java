@@ -7,16 +7,15 @@
   *  É nesta seção que se deve incluir imports e declaração de pacotes.
   *  Neste exemplo não temos nada a incluir nesta seção.
   */
-package classes.parsers;
+package src.classes.parsers;
 
-import beaver.Symbol;
-import beaver.Scanner;
+import src.classes.beaver.*;
 
   
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
-public class LangLex extends Scanner {
+public class LangLex extends src.classes.beaver.Scanner {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;

@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        ""
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "src/beaver-rt-0.9.11.jar",
+        "src/beaver-cc-0.9.11.jar"
+    ]
+}

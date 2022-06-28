@@ -4,8 +4,8 @@
   *  Neste exemplo não temos nada a incluir nesta seção.
   */
 
-import beaver.Symbol;
-import beaver.Scanner;
+import Symbol;
+import Symbol;
 
   
 %%
