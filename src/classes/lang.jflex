@@ -100,6 +100,7 @@ return newToken(Terminals.EOF, "end−of−file") ;
     ":"             { return new Symbol(Terminals.COLON);}
     "::"            { return new Symbol(Terminals.DOUBLECOLON);}
     ";"             { return new Symbol(Terminals.SEMICOLON);}
+    ","             { return new Symbol(Terminals.COMMA);}
     "null"          { return new Symbol(Terminals.NULL, null);}
     {type}          { return new Symbol(Terminals.TYPE, yytext()); }
     {boolean}       { return new Symbol(Terminals.BOOL, Boolean.parseBoolean(yytext()));}

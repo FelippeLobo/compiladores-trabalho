@@ -8,7 +8,7 @@
             LBRACK, RPAREN, LPAREN, RES, EQUAL, EQUALTO, DIF, NOT, TRA,
             GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, AND, OR, DIF, NOT, COLON,
             DOUBLECOLON, SEMICOLON, RBRACE, LBRACE, IF, ELSE, ELSEIF, 
-            RETURN, NEW, ITERATE, DOT, DATA;
+            RETURN, NEW, ITERATE, DOT, COMMA, DATA;
 
 %left RPAREN;
 %left MULT, DIV;
@@ -85,6 +85,15 @@ Pexp = Lvalue
 
 Exps = Exp+;
 
+Parameter = ID DOUBLECOLON Type COMMA
+Parameters = Parameter+
 
+Ret =  Type SEMICOLON COMMA
+Rets = Ret+
 
+Function = ID LPAREN Parameters RPAREN DOUBLECOLON Rets LBRACE CmdList RBRACE
 
+Decl = ID DOUBLECOLON Type SEMICOLON
+Decls = Decl+
+
+Data = data ID LBRACK Decls RBRACK
