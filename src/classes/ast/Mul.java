@@ -8,11 +8,28 @@ package src.classes.ast;
 import java.util.HashMap; 
 public class Mul extends BinOP {
 
-      public Mul(){
-        
+      public Mul(Exp l, Exp r){
+           super(l,r);
       }
       
-    
+      public String toString(){
+         String s = getLeft().toString();
+         String ss = getRight().toString();
+         if(getLeft() instanceof Add || getLeft() instanceof Sub || getLeft() instanceof Mul || getLeft() instanceof Div){
+            s = "(" + s + ")";
+         } 
+         if( getRight() instanceof Add || getRight() instanceof Sub){
+            ss = "(" + ss+ ")";
+         }
+         return   s + " + " + ss;
+      }
+      
+      public int interpret(HashMap<String,Integer> m){
+         System.Out.Println(this.toString());
+         
+          return getLeft().interpret(m) * getRight().interpret(m);
+      }
+      
 }
 
 

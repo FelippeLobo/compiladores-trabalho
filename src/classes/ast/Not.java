@@ -8,10 +8,20 @@ package src.classes.ast;
 import java.util.HashMap; 
 public class Not extends Node {
 
-   
-      public Not(){
-          
+    private Exp l;
+      public Not(Exp l){
+           this.l = l;
       }
-  
+      
+      
+      public int interpret(HashMap<String,Integer> m){
+          System.Out.Println(this.toString());
+          
+        if(l.interpret(m) == 1){
+           return 0;
+        }
+         return 1;
+
+     }
       
 }

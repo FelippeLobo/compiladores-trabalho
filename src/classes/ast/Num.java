@@ -8,10 +8,22 @@ import java.util.HashMap;
 
 public class Num extends Exp {
       
-      
+      private int l;
      
-      public  Num(){
-          
+      public  Num(int v){
+           this.l = v;
       }
- 
+      
+      public int getValue(){ return l;}
+      
+      //@Override
+      public String toString(){
+         return   "" + l ; 
+      }
+      
+      public int interpret(HashMap<String,Integer> m){
+            System.Out.Println(this.toString());
+            
+            return l;
+      }
 }
