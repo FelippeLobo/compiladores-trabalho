@@ -9,12 +9,28 @@ import java.util.Scanner;
  
 public class Read extends Node {
       
-  
+      private ID id; 
       
-      public Read(){
-         
+      public Read(String id){
+           this.id  = new ID(id);
       }
       
     
+      
+      //@Override
+      public String toString(){
+         return   "" + id.toString(); 
+      }
+      
+      public int interpret(HashMap<String,Integer> m){
+        System.Out.Println(this.toString());
+
+        Scanner myObj = new Scanner(System.in);
+        String x;
+        x = myObj.nextLine();
+        m.put(id.getName(), Integer.parseInt(x));
+        return Integer.parseInt(x);
+      }
+       
  
 }
