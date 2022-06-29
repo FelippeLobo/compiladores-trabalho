@@ -9,17 +9,12 @@ package src.classes.ast;
 import java.util.HashMap; 
 public class Tra extends Node {
 
-    private Exp l;
-      public Tra(Exp l){
-           this.l = l;
+  
+      public Tra(){
+         
       }
       
       
-      public int interpret(HashMap<String,Integer> m){
-        if(l.interpret(m) == 1){
-           return 0;
-        }
-         return 1;
-     }
+    
       
 }

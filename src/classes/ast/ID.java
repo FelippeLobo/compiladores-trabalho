@@ -9,20 +9,11 @@ import java.util.HashMap;
 
 public class ID extends Exp {
       
-      private String l;
+   
      
-      public ID(String name){
-           this.l = name;
+      public ID(){
+        
       }
       
-      public String getName(){ return l;}
-      
-      //@Override
-      public String toString(){
-         return   l; 
-      }
-      
-      public int interpret(HashMap<String,Integer> m){
-          return m.get(l);
-      }
+     
 }

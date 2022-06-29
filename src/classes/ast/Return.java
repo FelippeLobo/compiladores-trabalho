@@ -8,21 +8,12 @@ package src.classes.ast;
 import java.util.HashMap; 
 public class Return extends Node  {
 
-      private Exp l;
-      public Return(Exp[] l){
+     
+      public Return(){
            
       }
       
-      public String toString(){
-        System.out.println(l.toString());  
-        
-        return l.toString();
-      }
 
-      public int interpret(HashMap<String,Integer> m){
-        System.out.println(l.toString());  
-        return 0;
-     }
       
 
       
