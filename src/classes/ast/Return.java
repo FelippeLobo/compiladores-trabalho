@@ -20,7 +20,7 @@ public class Return extends Node  {
       }
 
       public int interpret(HashMap<String,Integer> m){
-        System.Out.Println(this.toString());
+        System.out.println(this.toString());
         
         System.out.println(l.toString());  
         return 0;

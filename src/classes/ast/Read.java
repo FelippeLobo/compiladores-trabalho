@@ -23,13 +23,18 @@ public class Read extends Node {
       }
       
       public int interpret(HashMap<String,Integer> m){
-        System.Out.Println(this.toString());
+        System.out.println(this.toString());
 
-        Scanner myObj = new Scanner(System.in);
-        String x;
-        x = myObj.nextLine();
-        m.put(id.getName(), Integer.parseInt(x));
-        return Integer.parseInt(x);
+        try (Scanner myObj = new Scanner(System.in)) {
+          String x;
+          x = myObj.nextLine();
+          m.put(id.getName(), Integer.parseInt(x));
+          return Integer.parseInt(x);
+        } catch (NumberFormatException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+        return 0;
       }
        
  

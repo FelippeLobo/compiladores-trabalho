@@ -16,7 +16,13 @@ public class Attr extends Node {
            this.id = new ID(id);
            this.e  = e;
       }
-      
+           
+      public Attr(ID id, Exp e){
+        this.id = id;
+        this.e  = e;
+   }
+
+   
       public ID getID(){ return id;} 
       public Exp getExp(){   return e; }
       
@@ -25,7 +31,7 @@ public class Attr extends Node {
       }
       
       public int interpret(HashMap<String,Integer> m){
-          System.Out.Println(this.toString());
+          System.out.println(this.toString());
 
            int x = e.interpret(m);
            m.put(id.getName(), x);

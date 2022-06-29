@@ -10,19 +10,22 @@ package src.classes;
 
 import java.io.FileReader;
 import java.io.IOException;
+import src.classes.parsers.*;
+import src.classes.beaver.*;
+import src.classes.beaver.Scanner.Exception;
 
 public class TesteLex {
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, Exception {
         {
-            // LangLex lx;
-            // lx = new LangLex(new FileReader(args[0]));
-            // Token t = lx.nextToken();
-            // while (t != null) {
-            //     System.out.println(t.toString());
-            //     t = lx.nextToken();
-            // }
-            // System.out.println("Total de tokens lidos " + lx.readedTokens());
+            LangLex lx;
+            lx = new LangLex(new FileReader(args[0]));
+          
+            while (lx.nextToken() != null) {
+                System.out.println(lx.yytext());
+                lx.nextToken();
+            }
+            System.out.println("Total de tokens lidos " + lx.readedTokens());
         }
     }
 

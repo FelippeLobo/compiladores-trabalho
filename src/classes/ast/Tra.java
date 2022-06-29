@@ -5,8 +5,7 @@ package src.classes.ast;
  * Esta classe representa uma Expessão de soma.
  * Exp + Exp
  */
- 
-import java.util.HashMap; 
+ import java.util.HashMap;
 public class Tra extends Node {
 
     private Exp l;
@@ -16,7 +15,7 @@ public class Tra extends Node {
       
       
       public int interpret(HashMap<String,Integer> m){
-          System.Out.Println(this.toString());
+          System.out.println(this.toString());
           
         if(l.interpret(m) == 1){
            return 0;

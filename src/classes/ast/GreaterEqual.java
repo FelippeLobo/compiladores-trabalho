@@ -25,7 +25,7 @@ public class GreaterEqual extends BinOP {
       }
       
       public int interpret(HashMap<String,Integer> m){
-         System.Out.Println(this.toString());
+         System.out.println(this.toString());
          
          if(getLeft().interpret(m) >= getRight().interpret(m)){
             return 1;

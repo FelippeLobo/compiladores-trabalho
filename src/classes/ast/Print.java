@@ -22,7 +22,7 @@ public class Print extends Node {
       }
       
       public int interpret(HashMap<String,Integer> m){
-        System.Out.Println(this.toString());
+        System.out.println(this.toString());
 
           int n = e.interpret(m);
           System.out.println("" + n);

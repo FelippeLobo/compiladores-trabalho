@@ -33,7 +33,7 @@ public class CmdList extends Node {
       }
       
       public int interpret(HashMap<String,Integer> m){
-          System.Out.Println(this.toString());
+          System.out.println(this.toString());
           
            cmd1.interpret(m);
            return cmd2.interpret(m);

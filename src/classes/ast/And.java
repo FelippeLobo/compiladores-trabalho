@@ -25,7 +25,7 @@ public class And extends BinOP {
       }
       
       public int interpret(HashMap<String,Integer> m){
-         System.Out.Println(this.toString());
+         System.out.println(this.toString());
 
             int left =  getLeft().interpret(m);
             int right = getRight().interpret(m);

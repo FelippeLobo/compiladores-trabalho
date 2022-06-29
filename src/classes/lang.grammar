@@ -1,5 +1,6 @@
 %package "classes.parsers";
 %import "src.classes.ast.*";
+%import "src.classes.beaver.*";
 
 %class "LangParser";
 
@@ -14,8 +15,23 @@
 %left MULT, DIV;
 %left ADD, SUB;
 
+%embed {: private boolean good;
+          
+          public boolean isGood(){ return good;}
+          
+          protected void recoverFromError(Symbol token, TokenStream in) throws IOException, Parser.Exception{
+              super.recoverFromError(token, in);
+              good = false;
+          }
+:} ;
+
+%init {: good = true; :} ;
+
 %typeof INT = "Integer";
+%typeof TYPE = "String";
 %typeof FLOAT = "Float";
+%typeof BOOL = "boolean";
+%typeof CHAR = "char";
 %typeof Exp = "Exp";
 %typeof ID = "String";
 %typeof Cmd = "Node";
@@ -24,84 +40,92 @@
 %typeof Lvalue = "String";
 %typeof Function = "Function";
 %typeof Data = "Data";
-
+%typeof Pexp = "Exp";
+%typeof Aexp = "Exp";
+%typeof Mexp = "Exp";
+%typeof Sexp = "Exp";
 %goal Prog;
 
 Prog = Data.a Function.b | CmdList.c               {:  return new Prog();     :}  
      ;
 
-CmdList = Cmd.s SEMICOLON CmdList.l     {: return new CmdList(); :}
+CmdList = Cmd.s SEMICOLON CmdList.l     {: return new CmdList(s, l); :}
          | Cmd.s SEMICOLON                {: return s; :}  
          ;
 
 Cmd = LBRACE Cmd.c RBRACE                       {: return c;                     :}   
-     | IF LPAREN Exp.e RPAREN Cmd.c             {: return new If();       :}   
-     | IF LPAREN Exp.e RPAREN Cmd.c ELSE Cmd.m  {: return new If();    :}          
-     | ITERATE LPAREN Exp.e RPAREN Cmd.c        {: return new Iterate();     :}
-     | READ Lvalue.l SEMICOLON                  {: return new Read();     :}
-     | PRINT Exp.e SEMICOLON                    {: return new Print();     :}
-     | RETURN Exp.e+ SEMICOLON      {: return new Return();     :}
-     | Lvalue.l EQUAL Exp.e SEMICOLON               {: return new Attr();     :}
-     | ID.x LPAREN Exps.e RPAREN LESSER Lvalue.v+ GREATER SEMICOLON                          
-     ;
+     | IF LPAREN Exp.e RPAREN Cmd.c             {: return new If(e, c);       :}   
+     | IF LPAREN Exp.e RPAREN Cmd.c ELSE Cmd.m  {: return new If(e, c, m);    :}          
+     | ITERATE LPAREN Exp.e RPAREN Cmd.c        {: return new Iterate(e, c);     :}
+     | READ Lvalue.l SEMICOLON                  {: return new Read(l);     :}
+     | PRINT Exp.e SEMICOLON                    {: return new Print(e);     :}
+     | RETURN Exp.e+ SEMICOLON      {: return new Return(e);     :}
+     | Lvalue.l EQUAL Exp.e SEMICOLON               {: return new Attr(l, e);     :}
+     | ID.x LPAREN Exps.e RPAREN LESSER Lvalue.v+ GREATER SEMICOLON  {: return new Call(x, e, v);     :}                        
+     ; 
 
 
 
-Lvalue =    ID.i {: return new ID();     :}
-          | Lvalue.v LBRACK Exp.e RBRACK   {: return new Call(); :}
-          | Lvalue.v DOT ID.i   {: return new Call(); :};
+Lvalue =    ID.i {: return new ID(i);     :}
+          | Lvalue.v LBRACK Exp.e RBRACK   {: return new Call(v, e); :}
+          | Lvalue.v DOT ID.i   {: return new Call(v, i); :};
       
 
-Exp = Exp.a AND Exp.b             {: return new And();               :}
-     | Exp.a OR Exp.b             {: return new Or();               :}
-     | Rexp;
+Exp = Exp.a AND Exp.b             {: return new And(a, b);               :}
+     | Exp.a OR Exp.b             {: return new Or(a, b);               :}
+     | Rexp.e                     {: return e;               :};
 
-Rexp = Exp.a GREATER Exp.b         {: return new Greater();           :}
-     | Exp.a LESSER Exp.b          {: return new Lesser();              :}
-     | Exp.a GREATEREQUAL Exp.b    {: return new GreaterEqual();        :}
-     | Exp.a LESSEREQUAL Exp.b     {: return new LesserEqual();         :}
-     | Exp.a EQUALTO Exp.b         {: return new Equal();               :}
-     | Exp.a DIF Exp.b             {: return new Diff();                :}
-     | Aexp;
+Rexp = Exp.a GREATER Exp.b         {: return new Greater(a, b);           :}
+     | Exp.a LESSER Exp.b          {: return new Lesser(a, b);              :}
+     | Exp.a GREATEREQUAL Exp.b    {: return new GreaterEqual(a, b);        :}
+     | Exp.a LESSEREQUAL Exp.b     {: return new LesserEqual(a, b);         :}
+     | Exp.a EQUALTO Exp.b         {: return new Equal(a, b);               :}
+     | Exp.a DIF Exp.b             {: return new Diff(a, b);                :}
+     | Aexp.a                       {: return a;                :};
 
-Aexp = Exp.a ADD  Exp.b            {: return new Add();               :}
-     | Exp.a SUB Exp.b             {: return new Sub();               :}
-     | Mexp;
+Aexp = Exp.a ADD  Exp.b            {: return new Add(a, b);               :}
+     | Exp.a SUB Exp.b             {: return new Sub(a, b);               :}
+     | Mexp.a                     {: return a;                :};
 
-Mexp = Exp.a MULT  Exp.b           {: return new Mul();                :}
-     | Exp.a DIV Exp.b             {: return new Div();               :}
-     | Exp.a RES Exp.b             {: return new Res();               :}
-     | Sexp;
+Mexp = Exp.a MULT  Exp.b           {: return new Mul(a, b);                :}
+     | Exp.a DIV Exp.b             {: return new Div(a, b);               :}
+     | Exp.a RES Exp.b             {: return new Res(a, b);               :}
+     | Sexp.a;
 
-Sexp = Exp.a NOT                    {: return new Not();                  :}
-     | Exp.a TRA                    {: return new Tra();                  :}
-     | BOOL                        
-     | NULL
-     | INT
-     | FLOAT
-     | CHAR
-     | Pexp;
+Sexp = Exp.a NOT                    {: return a;                  :}
+     | Exp.a TRA                    {: return a;                  :}
+     | BOOL.a                        {: return new Btype(a);                :}
+     | NULL.a                      {: return null;                :}
+     | INT.a                       {: return new Btype(a);                :}
+     | FLOAT.a                          {: return new Btype(a);                :}
+     | CHAR.a                           {: return new Btype(a);                :}
+     | Pexp.a                           {: return a;                :};
 
-Pexp = Lvalue
-     | LPAREN Exp RPAREN
-     | NEW TYPE LBRACK Exp RBRACK 
-     | ID LPAREN Exps+ RPAREN LBRACK Exp+ RBRACK;
+Pexp = Lvalue.a                                   {: return new ID(a);                :}
+     | LPAREN Exp.a RPAREN                        {: return a;                :}
+     | NEW TYPE.a LBRACK Exp.b RBRACK             {: return new Attr(new ID(a), b);                :}
+     | ID.a LPAREN Exps.b RPAREN LBRACK Exp.c RBRACK {: return new Call(a, b, c);                :};
 
-Exps = Exp+;
+Exps = Exp.a+ ;
 
-Type = TYPE | Btype;
+Type = TYPE.a {: return new ID(a);                :}
+     | Btype.a  {: return a;                :};
 
-Btype = INT | CHAR | FLOAT | BOOL | ID;
+Btype = INT.a  {: return new Btype(a);                :}
+ | CHAR.a  {: return new Btype(a);                :}
+  | FLOAT.a  {: return new Btype(a);                :}
+   | BOOL.a  {: return new Btype(a);                :} 
+    | ID.a  {: return new ID(a);                :};
 
-Parameter = ID.a DOUBLECOLON Type.b COMMA {: return new Parameter();    :};
-Parameters = Parameter+               {: return new Parameters();    :};
+Parameter = ID.a DOUBLECOLON Type.b COMMA {: return new Parameter(a, b);    :};
+Parameters = Parameter.a+               ;
 
-Ret =  Type.a SEMICOLON COMMA ;          
-Rets = Ret+;
+Ret =  Type.a SEMICOLON COMMA  {: return a;                :} ;          
+Rets = Ret.a+ ;
 
 Function = ID.a LPAREN Parameters.b RPAREN DOUBLECOLON Rets.c LBRACE CmdList.d RBRACE {: return new Function();    :};
 
-Decl = ID.a DOUBLECOLON Type.b SEMICOLON    {: return new Decl();    :};
-Decls = Decl.a+                            {: return new Decls();    :};
+Decl = ID.a DOUBLECOLON Type.b SEMICOLON    {: return new Decl(a, b);    :};
+Decls = Decl.a+                           ;
 
-Data = DATA ID.a LBRACK Decls.b RBRACK  {: return new Data();                  :};
+Data = DATA ID.a LBRACK Decls.b RBRACK  {: return new Data(a, b);                  :};

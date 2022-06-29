@@ -25,7 +25,7 @@ public class Iterate extends Node {
       }
       
       public int interpret(HashMap<String,Integer> m){
-         System.Out.Println(this.toString());
+         System.out.println(this.toString());
          
           int n =  teste.interpret(m);
           if(n > 0){

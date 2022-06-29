@@ -23,7 +23,7 @@ public class ID extends Exp {
       }
       
       public int interpret(HashMap<String,Integer> m){
-        System.Out.Println(this.toString());
+        System.out.println(this.toString());
         
           return m.get(l);
       }
