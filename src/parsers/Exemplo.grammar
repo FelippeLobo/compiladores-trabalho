@@ -1,0 +1,54 @@
+%package "src.parsers";
+%import "src.ast.*";
+%import "src.beaver.*";
+
+%class "LangParser";
+
+%terminals NUM, ID,  MULT, PLUS, SUB, DIV, 
+           EQ, IF,
+           RB, LB, AP, FP, COLON, SEMI; 
+           
+
+%left FP;
+%left MULT, DIV;
+%left PLUS, SUB;
+
+
+%typeof NUM = "Integer";
+%typeof Expr = "Expr";
+%typeof ID = "String";
+%typeof Stmt = "Node";
+%typeof StmtList = "Node";
+%typeof Els = "Node";
+%typeof Prog = "Node";
+
+%goal Prog;
+
+Prog = StmtList                      
+     ;
+
+StmtList = Stmt SEMI StmtList     
+         | Stmt SEMI                  
+         ;
+
+Stmt = ID EQ Expr                     
+     | Expr IF LB StmtList ?Els RB  
+     | Expr                             
+     ;
+     
+Els = COLON StmtList               
+     ;
+      
+Expr = Expr MULT Expr           
+     | Expr DIV Expr            
+     | Expr PLUS Expr           
+     | Expr SUB Expr               
+     | ID                          
+     | NUM                        
+     | AP Expr FP   
+              
+     ;
+
+
+            
+                         

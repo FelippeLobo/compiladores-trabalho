@@ -1,7 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "beaver-rt-0.9.11.jar",
-        "parsers/beaver-cc-0.9.11.jar"
-    ]
-}

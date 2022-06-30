@@ -1,11 +1,16 @@
-output: main.o message.o
-	g++ main.o message.o -o output
+compile: genparser genlex
+	javac -cp .:beaver-rt-0.9.11.jar Teste.java
 
-main.o: main.cpp
-	g++ -c main.cpp
+genparser: parsers/lang.grammar
+	java -jar beaver-cc-0.9.11.jar -T parsers/lang.grammar
 
-message.o: message.cpp message.h
-	g++ -c message.cpp
+genlex: parsers/lang.jflex genparser
+	java -jar jflex-full-1.8.2.jar parsers/lang.jflex
+
+run: compile
+	java -cp .:beaver-rt-0.9.11.jar Teste $(filter-out $@,$(MAKECMDGOALS))
 
 clean:
-	rm *.o
+	rm -R parsers/MiniLang*.java parsers/Terminals.java
+	find . -type f -name "*.class" -delete
+	find . -type f -name "*~" -delete
