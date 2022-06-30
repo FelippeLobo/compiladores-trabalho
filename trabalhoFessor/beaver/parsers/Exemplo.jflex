@@ -55,15 +55,16 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     {numero}        { return newToken(Terminals.NUM, Integer.parseInt(yytext()) );  }
     "="             { return newToken(Terminals.EQ);   }
     ";"             { return newToken(Terminals.SEMI); }
-    
     ":"             { return newToken(Terminals.COLON);}
     "?"             { return newToken(Terminals.IF);   }
     "("             { return newToken(Terminals.AP);   }
     ")"             { return newToken(Terminals.FP);   }
     "["             { return newToken(Terminals.LB);   }
     "]"             { return newToken(Terminals.RB);   }
-    "*"             { return newToken(Terminals.MULT);}
+    "*"             { return newToken(Terminals.MULT); }
+    "/"             { return newToken(Terminals.DIV);  }
     "+"             { return newToken(Terminals.PLUS); }
+    "-"             { return newToken(Terminals.SUB); }
     "/*"            { yybegin(COMMENT);               }    
     {Brancos}       { /* Não faz nada  */             }
     {lineCmt}       { /* Não faz nada  */             }

@@ -3,13 +3,13 @@
 
 %class "MiniLangParser";
 
-%terminals NUM, ID,  MULT, PLUS, 
+%terminals NUM, ID,  MULT, PLUS, SUB, DIV, 
            EQ, IF,
            RB, LB, AP, FP, COLON, SEMI;
 
 %left FP;
-%left MULT;
-%left PLUS;
+%left MULT, DIV;
+%left PLUS, SUB;
 
 
 %typeof NUM = "Integer";
@@ -37,8 +37,10 @@ Stmt = ID.s EQ Expr.e                     {: return new Attr(new ID(s), e);  :}
 Els = COLON StmtList.s               {: return s; :}
      ;
       
-Expr = Expr.a MULT  Expr.b           {: return new Mul(a,b);                :}
+Expr = Expr.a MULT  Expr.b           {: return new Mul(a, b);               :}
+     | Expr.a DIV  Expr.b            {: return new Div(a, b);               :}
      | Expr.a PLUS  Expr.b           {: return new Add(a, b);               :}
+     | Expr.a SUB  Expr.b            {: return new Sub(a, b);               :}
      | ID.v                          {: return new ID(v);                   :}
      | NUM.n                         {: return new Num(n);                  :}
      | AP Expr.e FP                  {: return e;                  :}
