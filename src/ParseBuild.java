@@ -6,8 +6,8 @@ import java.io.IOException;
 import src.ast.Node;
 import src.ast.StmtList;
 import src.beaver.Parser.Exception;
-import src.parsers.LangLex;
-import src.parsers.LangParser;
+import src.parsers.*;
+
 
 public class ParseBuild implements ParseAdaptor {
 
@@ -15,9 +15,9 @@ public class ParseBuild implements ParseAdaptor {
     public Node parseFile(String path) throws IOException, Exception {
 
         System.out.println(path);
-        LangLex input = new LangLex(new FileReader(path));
+        MiniLangLex input = new MiniLangLex(new FileReader(path));
  
-        StmtList result = (StmtList) new LangParser().parse(input);
+        StmtList result = (StmtList) new MiniLangParser().parse(input);
         
        
         return result;

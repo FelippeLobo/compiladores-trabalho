@@ -1,3 +1,4 @@
+
  /*  Esta seção é copiada antes da declaração da classe do analisador léxico.
   *  É nesta seção que se deve incluir imports e declaração de pacotes.
   *  Neste exemplo não temos nada a incluir nesta seção.
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 
 %%
 %public
-%class LangLex
+%class MiniLangLex
 %extends Scanner
 %function nextToken
 %type Symbol
@@ -76,5 +77,6 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 }
 
 [^]                 { throw new RuntimeException("Illegal character <"+yytext()+">"); }
+
 
 
