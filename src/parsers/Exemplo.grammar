@@ -1,19 +1,21 @@
 %package "src.parsers";
 %import "src.ast.*";
+%import "src.beaver.*";
 
 %class "MiniLangParser";
 
-%terminals NUM, ID,  MULT, PLUS, SUB, DIV, 
+%terminals NUM, ID,  MULT, PLUS, SUB, DIV, RES, 
            EQ, IF,
-           RB, LB, AP, FP, COLON, SEMI;
+           RB, LB, AP, FP, COLON, SEMI,
+           GREATER;
 
 %left FP;
-%left MULT, DIV;
+%left MULT, DIV, RES;
 %left PLUS, SUB;
-
 
 %typeof NUM = "Integer";
 %typeof Expr = "Expr";
+%typeof Exp = "Exp";
 %typeof ID = "String";
 %typeof Stmt = "Node";
 %typeof StmtList = "Node";
@@ -29,18 +31,23 @@ StmtList = Stmt SEMI StmtList
          | Stmt SEMI                
          ;
 
-Stmt = ID EQ Expr                     
-     | Expr IF LB StmtList ?Els RB  
-     | Expr                            
+Stmt = ID EQ Exp                     
+     | Exp IF LB StmtList ?Els RB  
+     | Exp                        
      ;
      
 Els = COLON StmtList               
      ;
+
+Exp = Exp GREATER Exp
+     | Expr
+;
       
 Expr = Expr MULT  Expr           
-     | Expr DIV  Expr            
+     | Expr DIV  Expr
+     | Expr RES  Expr              
      | Expr PLUS  Expr           
-     | Expr SUB  Expr            
+     | Expr SUB  Expr           
      | ID                          
      | NUM                         
      | AP Expr FP                  

@@ -63,8 +63,10 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "]"             { return newToken(Terminals.RB);   }
     "*"             { return newToken(Terminals.MULT); }
     "/"             { return newToken(Terminals.DIV);  }
+    "%"             { return newToken(Terminals.DIV);  }
     "+"             { return newToken(Terminals.PLUS); }
     "-"             { return newToken(Terminals.SUB); }
+    ">"             { return newToken(Terminals.GREATER); }
     "/*"            { yybegin(COMMENT);               }    
     {Brancos}       { /* Não faz nada  */             }
     {lineCmt}       { /* Não faz nada  */             }
