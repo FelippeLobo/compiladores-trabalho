@@ -1,0 +1,41 @@
+%package "parsers";
+%import "ast.*";
+
+%class "MiniLangParser";
+
+%terminals NUM, ID,  MULT, PLUS, 
+           EQ, IF,
+           RB, LB, AP, FP, COLON, SEMI;
+
+%left FP;
+%left MULT;
+%left PLUS;
+
+%typeof NUM = "Integer";
+%typeof Expr = "Expr";
+%typeof ID = "String";
+%typeof Stmt = "Node";
+%typeof StmtList = "Node";
+%typeof Prog = "Node";
+
+%goal Prog;
+
+Prog = StmtList                     
+     ;
+
+StmtList = Stmt SEMI StmtList     
+         | Stmt SEMI                 
+         ;
+
+Stmt = ID EQ Expr                             
+     | Expr IF LB Stmt RB COLON LB Stmt RB  
+     | Expr IF LB Stmt RB                     
+     | Expr                                     
+     ;
+      
+Expr = Expr MULT  Expr          
+     | Expr PLUS  Expr          
+     | ID                         
+     | NUM                         
+     | AP Expr FP                  
+     ;
