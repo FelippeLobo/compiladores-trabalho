@@ -46,86 +46,95 @@
 %typeof Sexp = "Exp";
 %goal Prog;
 
-Prog = Data.a Function.b | CmdList.c               {:  return new Prog();     :}  
+Prog = Data.a Function.b | CmdList.c               
      ;
 
-CmdList = Cmd.s SEMICOLON CmdList.l     {: return new CmdList(s, l); :}
-         | Cmd.s SEMICOLON                {: return s; :}  
+CmdList = Cmd.s SEMICOLON CmdList.l     
+         | Cmd.s SEMICOLON               
          ;
 
-Cmd = LBRACE Cmd.c RBRACE                       {: return c;                     :}   
-     | IF LPAREN Exp.e RPAREN Cmd.c             {: return new If(e, c);       :}   
-     | IF LPAREN Exp.e RPAREN Cmd.c ELSE Cmd.m  {: return new If(e, c, m);    :}          
-     | ITERATE LPAREN Exp.e RPAREN Cmd.c        {: return new Iterate(e, c);     :}
-     | READ Lvalue.l SEMICOLON                  {: return new Read(l);     :}
-     | PRINT Exp.e SEMICOLON                    {: return new Print(e);     :}
-     | RETURN Exp.e+ SEMICOLON      {: return new Return(e);     :}
-     | Lvalue.l EQUAL Exp.e SEMICOLON               {: return new Attr(l, e);     :}
-     | ID.x LPAREN Exps.e RPAREN LESSER Lvalue.v+ GREATER SEMICOLON  {: return new Call(x, e, v);     :}                        
-     ; 
+Cmd = LBRACE Cmd.c RBRACE                         
+     | IF LPAREN Exp.e RPAREN Cmd.c             
+     | IF LPAREN Exp.e RPAREN Cmd.c ELSE Cmd.m      
+     | ITERATE LPAREN Exp.e RPAREN Cmd.c        
+     | READ Lvalue.l SEMICOLON                  
+     | PRINT Exp.e SEMICOLON                    
+     | RETURN Exp.e+ SEMICOLON      
+     | Lvalue.l EQUAL Exp.e SEMICOLON               
+     | ID.x LPAREN Exps.e RPAREN LESSER Lvalue.v+ GREATER SEMICOLON                      
+     ;
 
 
 
-Lvalue =    ID.i {: return new ID(i);     :}
-          | Lvalue.v LBRACK Exp.e RBRACK   {: return new Call(v, e); :}
-          | Lvalue.v DOT ID.i   {: return new Call(v, i); :};
-      
+Lvalue = ID.i 
+     | Lvalue.v LBRACK Exp.e RBRACK  
+     | Lvalue.v DOT ID.i   
+      ;
 
-Exp = Exp.a AND Exp.b             {: return new And(a, b);               :}
-     | Exp.a OR Exp.b             {: return new Or(a, b);               :}
-     | Rexp.e                     {: return e;               :};
+Exp = Exp.a AND Exp.b             
+     | Exp.a OR Exp.b             
+     | Rexp.e                     
+;
 
-Rexp = Exp.a GREATER Exp.b         {: return new Greater(a, b);           :}
-     | Exp.a LESSER Exp.b          {: return new Lesser(a, b);              :}
-     | Exp.a GREATEREQUAL Exp.b    {: return new GreaterEqual(a, b);        :}
-     | Exp.a LESSEREQUAL Exp.b     {: return new LesserEqual(a, b);         :}
-     | Exp.a EQUALTO Exp.b         {: return new Equal(a, b);               :}
-     | Exp.a DIF Exp.b             {: return new Diff(a, b);                :}
-     | Aexp.a                       {: return a;                :};
+Rexp = Exp.a GREATER Exp.b         
+     | Exp.a LESSER Exp.b          
+     | Exp.a GREATEREQUAL Exp.b    
+     | Exp.a LESSEREQUAL Exp.b     
+     | Exp.a EQUALTO Exp.b         
+     | Exp.a DIF Exp.b            
+     | Aexp.a                       
+;
 
-Aexp = Exp.a ADD  Exp.b            {: return new Add(a, b);               :}
-     | Exp.a SUB Exp.b             {: return new Sub(a, b);               :}
-     | Mexp.a                     {: return a;                :};
+Aexp = Exp.a ADD  Exp.b            
+     | Exp.a SUB Exp.b             
+     | Mexp.a                     
+;
 
-Mexp = Exp.a MULT  Exp.b           {: return new Mul(a, b);                :}
-     | Exp.a DIV Exp.b             {: return new Div(a, b);               :}
-     | Exp.a RES Exp.b             {: return new Res(a, b);               :}
+Mexp = Exp.a MULT  Exp.b           
+     | Exp.a DIV Exp.b             
+     | Exp.a RES Exp.b             
      | Sexp.a;
+;
 
-Sexp = Exp.a NOT                    {: return a;                  :}
-     | Exp.a TRA                    {: return a;                  :}
-     | BOOL.a                        {: return new Btype(a);                :}
-     | NULL.a                      {: return null;                :}
-     | INT.a                       {: return new Btype(a);                :}
-     | FLOAT.a                          {: return new Btype(a);                :}
-     | CHAR.a                           {: return new Btype(a);                :}
-     | Pexp.a                           {: return a;                :};
+Sexp = Exp.a NOT                    
+     | Exp.a TRA                    
+     | BOOL.a                        
+     | NULL.a                     
+     | INT.a                       
+     | FLOAT.a                          
+     | CHAR.a                           
+     | Pexp.a                           
+;
 
-Pexp = Lvalue.a                                   {: return new ID(a);                :}
-     | LPAREN Exp.a RPAREN                        {: return a;                :}
-     | NEW TYPE.a LBRACK Exp.b RBRACK             {: return new Attr(new ID(a), b);                :}
-     | ID.a LPAREN Exps.b RPAREN LBRACK Exp.c RBRACK {: return new Call(a, b, c);                :};
+Pexp = Lvalue.a                                   
+     | LPAREN Exp.a RPAREN                        
+     | NEW TYPE.a LBRACK Exp.b RBRACK             
+     | ID.a LPAREN Exps.b RPAREN LBRACK Exp.c RBRACK 
+;
 
-Exps = Exp.a+ ;
+Exps = Exp.a+ 
+;
 
-Type = TYPE.a {: return new ID(a);                :}
-     | Btype.a  {: return a;                :};
+Type = TYPE.a 
+     | Btype.a  
+;
 
-Btype = INT.a  {: return new Btype(a);                :}
- | CHAR.a  {: return new Btype(a);                :}
-  | FLOAT.a  {: return new Btype(a);                :}
-   | BOOL.a  {: return new Btype(a);                :} 
-    | ID.a  {: return new ID(a);                :};
+Btype = INT.a  
+ | CHAR.a  
+  | FLOAT.a  
+   | BOOL.a  
+    | ID.a  
+;
 
-Parameter = ID.a DOUBLECOLON Type.b COMMA {: return new Parameter(a, b);    :};
+Parameter = ID.a DOUBLECOLON Type.b COMMA; 
 Parameters = Parameter.a+               ;
 
-Ret =  Type.a SEMICOLON COMMA  {: return a;                :} ;          
+Ret =  Type.a SEMICOLON COMMA    ;
 Rets = Ret.a+ ;
 
-Function = ID.a LPAREN Parameters.b RPAREN DOUBLECOLON Rets.c LBRACE CmdList.d RBRACE {: return new Function();    :};
+Function = ID.a LPAREN Parameters.b RPAREN DOUBLECOLON Rets.c LBRACE CmdList.d RBRACE ;
 
-Decl = ID.a DOUBLECOLON Type.b SEMICOLON    {: return new Decl(a, b);    :};
-Decls = Decl.a+                           ;
+Decl = ID.a DOUBLECOLON Type.b SEMICOLON    ;
+Decls = Decl.a+             ;              
 
-Data = DATA ID.a LBRACK Decls.b RBRACK  {: return new Data(a, b);                  :};
+Data = DATA ID.a LBRACK Decls.b RBRACK  ;

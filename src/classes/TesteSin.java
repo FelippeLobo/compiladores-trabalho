@@ -17,7 +17,13 @@ public class TesteSin{
             Node result = (new Parser()).parseFile(args[0]);
             
             System.out.println("Parsado !");
-            System.out.println(result.toString());
+
+            if(result != null){
+                System.out.println(result.toString());
+            }else{
+                System.out.println(result.toString());
+            }
+            
             
             System.out.println("--------- Executando ---------");
             
