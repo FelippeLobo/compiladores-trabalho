@@ -12,13 +12,15 @@ import src.beaver.*;
 public class MiniLangParser extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9oDajbBmq0GnhzajKbQczw7rhj540H141KyNhoAYYygwAD$YN#mMk#hsl5BCWc5zg6x$6R" +
-		"ccvtiRDW5S8i9#CYhBQ8i4bXC8OC636nwL#vLDJ6hqJXIgAEcQb6wgYDR7S567GTZHxvqbo" +
-		"my#MM7DAOn1eypXm9Ag60ICrZ0d7nZNZxb9poDepR3tH3QFAkBh2#7lfQeIX9P$3#JA5Vrw" +
-		"3RgE1ZdUDvuRuznq26h$r18fi#ELMRJd2xFtBf3E9eaqETaINDRP9cSa1LoAY8z#bLTNrE$" +
-		"hdwJR91TiXFaDB$FxxeQ7v0pqY0Nv9BSa3Qv8jT1NLoltpXnpBneRgzlVJlUM$sX#YFrnt6" +
-		"jwdQ$rfmTrwls##8MTCYVzAIZyOUyqxwHL$92dicJTEGnN7$0i57Ycx1uxuROL8Ol0yHYd2" +
-		"8MRyVcpHbYyRxC42p5eFuFgS9T4m==");
+		"U9p5apapH44KXSzOnXZhZ6KmRyQ#hu5GA1GAXH9LGY82eL16mWyGaOX48f4gCQNi#xxlrvc" +
+		"PLkwyHmsbYdxrrJct#zwkxdxT06vHYm8K8e0YX96C916ao1Ogu4OfYb6282o4xB4ysUfQqU" +
+		"2eYSz8vNYDRSx$ZTEG0n$oa8uCPCczYUeIxACbhkfPHt6#7DNmg4glyZelK$LdAv#hl5$vV" +
+		"ENBbAzop5#9UZIZKHxH90#0t9dnZvs1cMLm8OdxIk4VSlDCF8xOvwWBEtBi6Odc$EiudwVj" +
+		"vNbdyiIpkUjOb9Tm7vzLnIBj2$YtTANsEk#hdD$usFn#VZxUMXzNaiCtdCj$spQ2QFCJZmZ" +
+		"l0L1b#lf8EnaZ7MIMT99XqaKsIBV9xJ7Q6z7lmjPFnerV8GDaKeqFabNY9MjaasoJKR93rY" +
+		"DvNFUXgWaeFs5qokYqqHcZSqRdZIxySFsBjdZfYpmtMLRnaF9jC4rUv5MsZRyXL#IId9CpS" +
+		"YgtSYqNSYB7SYI7SY3xiXVDtZLLE#$rjcP5tt28zpZ4ssnHm#oDl56BQxEefUmlf0Ou5g0M" +
+		"KMEuU8kI5IxUgSy9SZp8bnAaBty3vc2Sz0==");
 
 	static final Action RETURN3 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -38,6 +40,12 @@ public class MiniLangParser extends Parser {
 		}
 	};
 
+	static final Action RETURN4 = new Action() {
+		public Symbol reduce(Symbol[] _symbols, int offset) {
+			return _symbols[offset + 4];
+		}
+	};
+
 	private final Action[] actions;
 
 	public MiniLangParser() {
@@ -52,16 +60,25 @@ public class MiniLangParser extends Parser {
 			RETURN6,	// [6] Stmt = Exp IF LB opt$StmtList Els RB; returns 'RB' although none is marked
 			Action.RETURN,	// [7] Stmt = Exp
 			RETURN2,	// [8] Els = COLON StmtList; returns 'StmtList' although none is marked
-			RETURN3,	// [9] Exp = Exp GREATER Exp; returns 'Exp' although none is marked
-			Action.RETURN,	// [10] Exp = Expr
-			RETURN3,	// [11] Expr = Expr MULT Expr; returns 'Expr' although none is marked
-			RETURN3,	// [12] Expr = Expr DIV Expr; returns 'Expr' although none is marked
-			RETURN3,	// [13] Expr = Expr RES Expr; returns 'Expr' although none is marked
-			RETURN3,	// [14] Expr = Expr PLUS Expr; returns 'Expr' although none is marked
-			RETURN3,	// [15] Expr = Expr SUB Expr; returns 'Expr' although none is marked
-			Action.RETURN,	// [16] Expr = ID
-			Action.RETURN,	// [17] Expr = NUM
-			RETURN3	// [18] Expr = AP Expr FP; returns 'FP' although none is marked
+			Action.RETURN,	// [9] Exp = Rexp
+			RETURN3,	// [10] Rexp = Exp GREATER Exp; returns 'Exp' although none is marked
+			Action.RETURN,	// [11] Rexp = Aexp
+			RETURN3,	// [12] Aexp = Exp PLUS Exp; returns 'Exp' although none is marked
+			RETURN3,	// [13] Aexp = Exp SUB Exp; returns 'Exp' although none is marked
+			Action.RETURN,	// [14] Aexp = Mexp
+			RETURN3,	// [15] Mexp = Exp MULT Exp; returns 'Exp' although none is marked
+			RETURN3,	// [16] Mexp = Exp DIV Exp; returns 'Exp' although none is marked
+			RETURN3,	// [17] Mexp = Exp RES Exp; returns 'Exp' although none is marked
+			Action.RETURN,	// [18] Mexp = Sexp
+			Action.RETURN,	// [19] Sexp = BOOL
+			Action.RETURN,	// [20] Sexp = NULL
+			Action.RETURN,	// [21] Sexp = INT
+			Action.RETURN,	// [22] Sexp = FLOAT
+			Action.RETURN,	// [23] Sexp = CHAR
+			Action.RETURN,	// [24] Sexp = Pexp
+			RETURN3,	// [25] Pexp = AP Exp FP; returns 'FP' although none is marked
+			RETURN4,	// [26] Pexp = TYPE LB Exp RB; returns 'RB' although none is marked
+			Action.RETURN	// [27] Pexp = ID
 		};
 	}
 

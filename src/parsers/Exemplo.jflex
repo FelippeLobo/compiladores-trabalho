@@ -42,17 +42,21 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
   /* Agora vamos definir algumas macros */
   FimDeLinha  = \r|\n|\r\n
   Brancos     = {FimDeLinha} | [ \t\f]
-  numero      = [:digit:] [:digit:]*
-  identificador = [:lowercase:] ([:lowercase:] | [:uppercase:] | [:digit:])*
-  lineCmt       = "//" .* {FimDeLinha}
-  
+  type = [:uppercase:] ( [:letter:] | [:digit:] | "_" )*
+  float      = [:digit:]*[.] [:digit:]*
+  inteiro = [:digit:] [:digit:]*
+  char = [:lowercase:] | [:uppercase:]
+  boolean = "true" | "false"
+  identificador = [:lowercase:] ( [:letter:] | [:digit:] | "_" )*
+  Literal = "'" (.)  "'" | "'" "\\n" "'" | "'" "\\r" "'" | "'" "\\t" "'" | "'" "\\b" "'" | "'" "\\\\" "'"
+  LineComment = "//" (.)* {FimDeLinha}
+
 %state COMMENT
 
 %%
 
 <YYINITIAL>{
     {identificador} { return newToken(Terminals.ID, yytext());   }
-    {numero}        { return newToken(Terminals.NUM, Integer.parseInt(yytext()) );  }
     "="             { return newToken(Terminals.EQ);   }
     ";"             { return newToken(Terminals.SEMI); }
     ":"             { return newToken(Terminals.COLON);}
@@ -67,9 +71,15 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "+"             { return newToken(Terminals.PLUS); }
     "-"             { return newToken(Terminals.SUB); }
     ">"             { return newToken(Terminals.GREATER); }
-    "/*"            { yybegin(COMMENT);               }    
     {Brancos}       { /* Não faz nada  */             }
-    {lineCmt}       { /* Não faz nada  */             }
+    "null"          { return newToken(Terminals.NULL, null);}
+    {type}          { return newToken(Terminals.TYPE, yytext()); }
+    {boolean}       { return newToken(Terminals.BOOL, Boolean.parseBoolean(yytext()));}
+    {identificador} { return newToken(Terminals.ID);   }
+    {inteiro}       { return newToken(Terminals.INT, Integer.parseInt(yytext()) );  }
+    {float}         { return newToken(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
+    "/*"            { yybegin(COMMENT);               }
+    {LineComment}   {                       }
 
 }
 
