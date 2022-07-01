@@ -45,7 +45,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
   type = [:uppercase:] ( [:letter:] | [:digit:] | "_" )*
   float      = [:digit:]*[.] [:digit:]*
   inteiro = [:digit:] [:digit:]*
-  char = [:lowercase:] | [:uppercase:]
+  char = "'" [:lowercase:] "'" | "'" [:uppercase:] "'" 
   boolean = "true" | "false"
   identificador = [:lowercase:] ( [:letter:] | [:digit:] | "_" )*
   Literal = "'" (.)  "'" | "'" "\\n" "'" | "'" "\\r" "'" | "'" "\\t" "'" | "'" "\\b" "'" | "'" "\\\\" "'"
@@ -56,23 +56,33 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
 %%
 
 <YYINITIAL>{
-    {identificador} { return newToken(Terminals.ID, yytext());   }
+    "print"         { return newToken(Terminals.PRINT);}
+    "read"          { return newToken(Terminals.READ);}
+    "return"        { return newToken(Terminals.RETURN);}
+    "if"            { return newToken(Terminals.IF);}
+    "else"          { return newToken(Terminals.ELSE);}
+    "null"          { return newToken(Terminals.NULL, null);}
+    "iterate"       { return newToken(Terminals.ITERATE);}
     "="             { return newToken(Terminals.EQ);   }
     ";"             { return newToken(Terminals.SEMI); }
-    ":"             { return newToken(Terminals.COLON);}
-    "?"             { return newToken(Terminals.IF);   }
     "("             { return newToken(Terminals.AP);   }
     ")"             { return newToken(Terminals.FP);   }
     "["             { return newToken(Terminals.LB);   }
     "]"             { return newToken(Terminals.RB);   }
     "*"             { return newToken(Terminals.MULT); }
     "/"             { return newToken(Terminals.DIV);  }
-    "%"             { return newToken(Terminals.DIV);  }
+    "%"             { return newToken(Terminals.RES);  }
     "+"             { return newToken(Terminals.PLUS); }
     "-"             { return newToken(Terminals.SUB); }
     ">"             { return newToken(Terminals.GREATER); }
+    "<"             { return newToken(Terminals.LESSER);}
+    ">="            { return newToken(Terminals.GREATEREQUAL);}
+    "<="            { return newToken(Terminals.LESSEREQUAL);}
+    "=="            { return newToken(Terminals.EQUALTO);}
+    "!="            { return newToken(Terminals.DIF);}
+    "!"             { return newToken(Terminals.NOT);}
+    "."             { return newToken(Terminals.DOT);}
     {Brancos}       { /* Não faz nada  */             }
-    "null"          { return newToken(Terminals.NULL, null);}
     {type}          { return newToken(Terminals.TYPE, yytext()); }
     {boolean}       { return newToken(Terminals.BOOL, Boolean.parseBoolean(yytext()));}
     {identificador} { return newToken(Terminals.ID);   }

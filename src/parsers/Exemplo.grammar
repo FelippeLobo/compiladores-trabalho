@@ -4,11 +4,12 @@
 
 %class "MiniLangParser";
 
-%terminals ID, INT, TYPE, FLOAT, CHAR, BOOL, NULL,   
+%terminals ID, INT, TYPE, FLOAT, CHAR, BOOL, NULL, NOT,   
            MULT, PLUS, SUB, DIV, RES, 
-           EQ, IF,
-           RB, LB, AP, FP, COLON, SEMI,
-           GREATER;
+           EQ, IF, ELSE, ITERATE,
+           RB, LB, AP, FP, SEMI, DOT,
+           READ, PRINT, RETURN,
+           GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, EQUALTO, DIF;
 
 %left FP;
 %left MULT, DIV, RES;
@@ -25,10 +26,11 @@
 %typeof Mexp = "Node";
 %typeof Aexp = "Node";
 %typeof Rexp = "Node";
+%typeof Exps = "Node";
 %typeof ID = "String";
+%typeof Lvalue = "String";
 %typeof Stmt = "Node";
 %typeof StmtList = "Node";
-%typeof Els = "Node";
 %typeof Prog = "Node";
 
 %goal Prog;
@@ -37,21 +39,35 @@ Prog = StmtList
      ;
 
 StmtList = Stmt SEMI StmtList     
-         | Stmt SEMI                
+         | Stmt SEMI              
          ;
 
-Stmt = ID EQ Exp                     
-     | Exp IF LB StmtList ?Els RB  
-     | Exp                        
+Stmt = ID EQ Exp
+     | IF AP Exp FP Stmt ELSE Stmt
+     | IF AP Exp FP Stmt             
+     | ITERATE AP Exp FP Stmt                        
+     | Exp
+     | READ Lvalue               
+     | PRINT Exp                   
+     | RETURN Exp+ 
+     | Lvalue EQ Exp           
+     | ID AP Exps FP LESSER Lvalue+ GREATER                          
      ;
-     
-Els = COLON StmtList               
+
+Lvalue = ID 
+     | Lvalue LB Exp RB  
+     | Lvalue DOT ID   
      ;
 
 Exp = Rexp
 ;
 
 Rexp = Exp GREATER Exp
+     | Exp LESSER Exp          
+     | Exp GREATEREQUAL Exp    
+     | Exp LESSEREQUAL Exp     
+     | Exp EQUALTO Exp         
+     | Exp DIF Exp  
      | Aexp
 ;
 
@@ -66,7 +82,8 @@ Mexp = Exp MULT  Exp
      | Sexp                          
 ;
 
-Sexp = BOOL                        
+Sexp = Exp NOT
+     | BOOL                        
      | NULL                     
      | INT                       
      | FLOAT                          
@@ -77,4 +94,7 @@ Sexp = BOOL
 Pexp = AP Exp FP                        
      | TYPE LB Exp RB
      | ID             
+;
+
+Exps = Exp+
 ;
