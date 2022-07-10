@@ -1,52 +1,46 @@
 
+//Nathan Toschi Reis / 201865064C
+//Felippe Rocha Lobo de Abreu / 201765185AC
+
  /*  Esta seção é copiada antes da declaração da classe do analisador léxico.
   *  É nesta seção que se deve incluir imports e declaração de pacotes.
   *  Neste exemplo não temos nada a incluir nesta seção.
   */
-
-import Symbol;
-import Symbol;
-
   
-%%
+package src.parsers;
 
-%unicode
-%line
-%column
+import src.beaver.Symbol;
+import src.beaver.Scanner;
+import java.math.BigDecimal;
+
+%%
 %public
-%class LangLex
+%class MiniLangLex
 %extends Scanner
 %function nextToken
 %type Symbol
 %yylexthrow Scanner.Exception
 %eofval{
-return newToken(Terminals.EOF, "end−of−file") ;
+	return newToken(Terminals.EOF, "end-of-file");
 %eofval}
-
+%unicode
+%line
+%column
 %{
-    
-    /* Código arbitrário pode ser inserido diretamente no analisador dessa forma. 
-     * Aqui podemos declarar variáveis e métodos adicionais que julgarmos necessários. 
-     */
-    private int ntk;
-    
-    public int readedTokens(){
-       return ntk;
-    }
+	private Symbol newToken(short id)
+	{
+		return new Symbol(id, yyline + 1, yycolumn + 1, yylength());
+	}
 
-    private Symbol newToken(short id) {
-        return new Symbol(id, yyline+1, yycolumn+1, yylength() ) ;
-    }
-
-    private Symbol newToken(short id, Object value) {
-        return new Symbol(id, yyline+1, yycolumn+1, yylength() , value) ;
-    }
+	private Symbol newToken(short id, Object value)
+	{
+		return new Symbol(id, yyline + 1, yycolumn + 1, yylength(), value);
+	}
 %}
+LineTerminator = \r|\n|\r\n
+WhiteSpace     = {LineTerminator} | [ \t\f]
 
-%init{
-    ntk = 0; // Isto é copiado direto no construtor do lexer. 
-%init}
-
+  
   
   /* Agora vamos definir algumas macros */
   FimDeLinha  = \r|\n|\r\n
@@ -54,62 +48,52 @@ return newToken(Terminals.EOF, "end−of−file") ;
   type = [:uppercase:] ( [:letter:] | [:digit:] | "_" )*
   float      = [:digit:]*[.] [:digit:]*
   inteiro = [:digit:] [:digit:]*
-  char = [:lowercase:] | [:uppercase:]
+  char = "'" [:lowercase:] "'" | "'" [:uppercase:] "'" 
   boolean = "true" | "false"
   identificador = [:lowercase:] ( [:letter:] | [:digit:] | "_" )*
   Literal = "'" (.)  "'" | "'" "\\n" "'" | "'" "\\r" "'" | "'" "\\t" "'" | "'" "\\b" "'" | "'" "\\\\" "'"
   LineComment = "//" (.)* {FimDeLinha}
-  
+
 %state COMMENT
 
 %%
 
 <YYINITIAL>{
-    "data"          { return new Symbol(Terminals.DATA);}
-    "print"         { return new Symbol(Terminals.PRINT);}
-    "read"          { return new Symbol(Terminals.READ);}
-    "if"            { return new Symbol(Terminals.IF);}
-    "elseif"        { return new Symbol(Terminals.ELSEIF);}
-    "else"          { return new Symbol(Terminals.ELSE);}
-    "return"        { return new Symbol(Terminals.RETURN);}
-    "new"           { return new Symbol(Terminals.NEW);}
-    "iterate"       { return new Symbol(Terminals.ITERATE);}
-    "["             { return new Symbol(Terminals.LBRACK);}
-    "]"             { return new Symbol(Terminals.RBRACK);}
-    "("             { return new Symbol(Terminals.LPAREN);}
-    ")"             { return new Symbol(Terminals.RPAREN);}
-    "{"             { return new Symbol(Terminals.LBRACE);}
-    "}"             { return new Symbol(Terminals.RBRACE);}
-    "."             { return new Symbol(Terminals.DOT);}
-    "+"             { return new Symbol(Terminals.ADD);}
-    "-"             { return new Symbol(Terminals.SUB);}
-    "*"             { return new Symbol(Terminals.MULT);}
-    "/"             { return new Symbol(Terminals.DIV);}
-    "%"             { return new Symbol(Terminals.RES);}
-    "="             { return new Symbol(Terminals.EQUAL);}
-    "=="            { return new Symbol(Terminals.EQUALTO);}
-    "!="            { return new Symbol(Terminals.DIF);}
-    "!"             { return new Symbol(Terminals.NOT);}
-    "-"             { return new Symbol(Terminals.TRA);}
-    ">"             { return new Symbol(Terminals.GREATER);}
-    "<"             { return new Symbol(Terminals.LESSER);}
-    ">="            { return new Symbol(Terminals.GREATEREQUAL);}
-    "<="            { return new Symbol(Terminals.LESSEREQUAL);}
-    "&&"            { return new Symbol(Terminals.AND);}
-    "||"            { return new Symbol(Terminals.OR);}
-    ":"             { return new Symbol(Terminals.COLON);}
-    "::"            { return new Symbol(Terminals.DOUBLECOLON);}
-    ";"             { return new Symbol(Terminals.SEMICOLON);}
-    ","             { return new Symbol(Terminals.COMMA);}
-    "null"          { return new Symbol(Terminals.NULL, null);}
-    {type}          { return new Symbol(Terminals.TYPE, yytext()); }
-    {boolean}       { return new Symbol(Terminals.BOOL, Boolean.parseBoolean(yytext()));}
-    {identificador} { return new Symbol(Terminals.ID);   }
-    {inteiro}       { return new Symbol(Terminals.INT, Integer.parseInt(yytext()) );  }
-    {float}         { return new Symbol(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
-    "/*"            { yybegin(COMMENT);               }
+    "print"         { return newToken(Terminals.PRINT);}
+    "read"          { return newToken(Terminals.READ);}
+    "return"        { return newToken(Terminals.RETURN);}
+    "if"            { return newToken(Terminals.IF);}
+    "else"          { return newToken(Terminals.ELSE);}
+    "null"          { return newToken(Terminals.NULL, null);}
+    "iterate"       { return newToken(Terminals.ITERATE);}
+    "="             { return newToken(Terminals.EQ);   }
+    ";"             { return newToken(Terminals.SEMI); }
+    "("             { return newToken(Terminals.AP);   }
+    ")"             { return newToken(Terminals.FP);   }
+    "["             { return newToken(Terminals.LB);   }
+    "]"             { return newToken(Terminals.RB);   }
+    "*"             { return newToken(Terminals.MULT); }
+    "/"             { return newToken(Terminals.DIV);  }
+    "%"             { return newToken(Terminals.RES);  }
+    "+"             { return newToken(Terminals.PLUS); }
+    "-"             { return newToken(Terminals.SUB); }
+    ">"             { return newToken(Terminals.GREATER); }
+    "<"             { return newToken(Terminals.LESSER);}
+    ">="            { return newToken(Terminals.GREATEREQUAL);}
+    "<="            { return newToken(Terminals.LESSEREQUAL);}
+    "=="            { return newToken(Terminals.EQUALTO);}
+    "!="            { return newToken(Terminals.DIF);}
+    "!"             { return newToken(Terminals.NOT);}
+    "."             { return newToken(Terminals.DOT);}
     {Brancos}       { /* Não faz nada  */             }
+    {type}          { return newToken(Terminals.TYPE, yytext()); }
+    {boolean}       { return newToken(Terminals.BOOL, Boolean.parseBoolean(yytext()));}
+    {identificador} { return newToken(Terminals.ID);   }
+    {inteiro}       { return newToken(Terminals.INT, Integer.parseInt(yytext()) );  }
+    {float}         { return newToken(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
+    "/*"            { yybegin(COMMENT);               }
     {LineComment}   {                       }
+
 }
 
 <COMMENT>{
@@ -117,7 +101,7 @@ return newToken(Terminals.EOF, "end−of−file") ;
    [^"*/"]* {                     }
 }
 
-
-
 [^]                 { throw new RuntimeException("Illegal character <"+yytext()+">"); }
+
+
 

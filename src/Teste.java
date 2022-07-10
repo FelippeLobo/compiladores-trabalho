@@ -1,3 +1,6 @@
+//Nathan Toschi Reis / 201865064C
+//Felippe Rocha Lobo de Abreu / 201765185AC
+
 package src;
 
 import java.io.FileReader;

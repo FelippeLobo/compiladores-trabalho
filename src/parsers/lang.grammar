@@ -1,140 +1,104 @@
-%package "classes.parsers";
-%import "src.classes.ast.*";
-%import "src.classes.beaver.*";
 
-%class "LangParser";
+//Nathan Toschi Reis / 201865064C
+//Felippe Rocha Lobo de Abreu / 201765185AC
 
-%terminals  ID, INT, TYPE, FLOAT, CHAR, BOOL, NULL, 
-            ADD, MULT, SUB, DIV, PRINT, READ, RBRACK, 
-            LBRACK, RPAREN, LPAREN, RES, EQUAL, EQUALTO, DIF, NOT, TRA,
-            GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, AND, OR, DIF, NOT, COLON,
-            DOUBLECOLON, SEMICOLON, RBRACE, LBRACE, IF, ELSE, 
-            RETURN, NEW, ITERATE, DOT, DATA, COMMA, ELSEIF;
+%package "src.parsers";
+%import "src.ast.*";
+%import "src.beaver.*";
 
-%left RPAREN;
-%left MULT, DIV;
-%left ADD, SUB;
+%class "MiniLangParser";
 
-%embed {: private boolean good;
-          
-          public boolean isGood(){ return good;}
-          
-          protected void recoverFromError(Symbol token, TokenStream in) throws IOException, Parser.Exception{
-              super.recoverFromError(token, in);
-              good = false;
-          }
-:} ;
+%terminals ID, INT, TYPE, FLOAT, CHAR, BOOL, NULL, NOT,   
+           MULT, PLUS, SUB, DIV, RES, 
+           EQ, IF, ELSE, ITERATE,
+           RB, LB, AP, FP, SEMI, DOT,
+           READ, PRINT, RETURN,
+           GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, EQUALTO, DIF;
 
-%init {: good = true; :} ;
+%left FP;
+%left MULT, DIV, RES;
+%left PLUS, SUB;
 
 %typeof INT = "Integer";
 %typeof TYPE = "String";
-%typeof FLOAT = "Float";
+%typeof FLOAT = "float";
 %typeof BOOL = "boolean";
 %typeof CHAR = "char";
-%typeof Exp = "Exp";
+%typeof Exp = "Node";
+%typeof Pexp = "Node";
+%typeof Sexp = "Node";
+%typeof Mexp = "Node";
+%typeof Aexp = "Node";
+%typeof Rexp = "Node";
+%typeof Exps = "Node";
 %typeof ID = "String";
-%typeof Cmd = "Node";
-%typeof CmdList = "Node";
-%typeof Prog = "Node";
 %typeof Lvalue = "String";
-%typeof Function = "Function";
-%typeof Data = "Data";
-%typeof Pexp = "Exp";
-%typeof Aexp = "Exp";
-%typeof Mexp = "Exp";
-%typeof Sexp = "Exp";
+%typeof Stmt = "Node";
+%typeof StmtList = "Node";
+%typeof Prog = "Node";
+
 %goal Prog;
 
-Prog = Data.a Function.b | CmdList.c               
+Prog = StmtList                     
      ;
 
-CmdList = Cmd.s SEMICOLON CmdList.l     
-         | Cmd.s SEMICOLON               
+StmtList = Stmt SEMI StmtList     
+         | Stmt SEMI              
          ;
 
-Cmd = LBRACE Cmd.c RBRACE                         
-     | IF LPAREN Exp.e RPAREN Cmd.c             
-     | IF LPAREN Exp.e RPAREN Cmd.c ELSE Cmd.m      
-     | ITERATE LPAREN Exp.e RPAREN Cmd.c        
-     | READ Lvalue.l SEMICOLON                  
-     | PRINT Exp.e SEMICOLON                    
-     | RETURN Exp.e+ SEMICOLON      
-     | Lvalue.l EQUAL Exp.e SEMICOLON               
-     | ID.x LPAREN Exps.e RPAREN LESSER Lvalue.v+ GREATER SEMICOLON                      
+Stmt = ID EQ Exp
+     | IF AP Exp FP Stmt ELSE Stmt
+     | IF AP Exp FP Stmt             
+     | ITERATE AP Exp FP Stmt                        
+     | Exp
+     | READ Lvalue               
+     | PRINT Exp                   
+     | RETURN Exp+ 
+     | Lvalue EQ Exp           
+     | ID AP Exps FP LESSER Lvalue+ GREATER                          
      ;
 
+Lvalue = ID 
+     | Lvalue LB Exp RB  
+     | Lvalue DOT ID   
+     ;
 
-
-Lvalue = ID.i 
-     | Lvalue.v LBRACK Exp.e RBRACK  
-     | Lvalue.v DOT ID.i   
-      ;
-
-Exp = Exp.a AND Exp.b             
-     | Exp.a OR Exp.b             
-     | Rexp.e                     
+Exp = Rexp
 ;
 
-Rexp = Exp.a GREATER Exp.b         
-     | Exp.a LESSER Exp.b          
-     | Exp.a GREATEREQUAL Exp.b    
-     | Exp.a LESSEREQUAL Exp.b     
-     | Exp.a EQUALTO Exp.b         
-     | Exp.a DIF Exp.b            
-     | Aexp.a                       
+Rexp = Exp GREATER Exp
+     | Exp LESSER Exp          
+     | Exp GREATEREQUAL Exp    
+     | Exp LESSEREQUAL Exp     
+     | Exp EQUALTO Exp         
+     | Exp DIF Exp  
+     | Aexp
 ;
 
-Aexp = Exp.a ADD  Exp.b            
-     | Exp.a SUB Exp.b             
-     | Mexp.a                     
+Aexp = Exp PLUS  Exp           
+     | Exp SUB  Exp
+     | Mexp  
+;
+      
+Mexp = Exp MULT  Exp           
+     | Exp DIV  Exp
+     | Exp RES  Exp  
+     | Sexp                          
 ;
 
-Mexp = Exp.a MULT  Exp.b           
-     | Exp.a DIV Exp.b             
-     | Exp.a RES Exp.b             
-     | Sexp.a;
+Sexp = Exp NOT
+     | BOOL                        
+     | NULL                     
+     | INT                       
+     | FLOAT                          
+     | CHAR
+     | Pexp                                                     
 ;
 
-Sexp = Exp.a NOT                    
-     | Exp.a TRA                    
-     | BOOL.a                        
-     | NULL.a                     
-     | INT.a                       
-     | FLOAT.a                          
-     | CHAR.a                           
-     | Pexp.a                           
+Pexp = AP Exp FP                        
+     | TYPE LB Exp RB
+     | ID             
 ;
 
-Pexp = Lvalue.a                                   
-     | LPAREN Exp.a RPAREN                        
-     | NEW TYPE.a LBRACK Exp.b RBRACK             
-     | ID.a LPAREN Exps.b RPAREN LBRACK Exp.c RBRACK 
+Exps = Exp+
 ;
-
-Exps = Exp.a+ 
-;
-
-Type = TYPE.a 
-     | Btype.a  
-;
-
-Btype = INT.a  
- | CHAR.a  
-  | FLOAT.a  
-   | BOOL.a  
-    | ID.a  
-;
-
-Parameter = ID.a DOUBLECOLON Type.b COMMA; 
-Parameters = Parameter.a+               ;
-
-Ret =  Type.a SEMICOLON COMMA    ;
-Rets = Ret.a+ ;
-
-Function = ID.a LPAREN Parameters.b RPAREN DOUBLECOLON Rets.c LBRACE CmdList.d RBRACE ;
-
-Decl = ID.a DOUBLECOLON Type.b SEMICOLON    ;
-Decls = Decl.a+             ;              
-
-Data = DATA ID.a LBRACK Decls.b RBRACK  ;
