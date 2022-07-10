@@ -1,13 +1,13 @@
 package src.classes.ast;
 
 /*
- * Esta classe representa uma Expessão de Divisão.
+ * Esta classe representa uma Expessão de Resto.
  * Exp / Exp
  */
 import java.util.HashMap; 
 
-public class Div extends BinOP {
-      public Div(Exp l, Exp r){
+public class Res extends BinOP {
+      public Res(Exp l, Exp r){
            super(l,r);
       }
       
@@ -21,10 +21,10 @@ public class Div extends BinOP {
          if( getRight() instanceof Add || getLeft() instanceof Sub){
             ss = "(" + ss+ ")";
          }
-         return   s + " / " + ss;
+         return   s + " % " + ss;
       }
       
       public int interpret(HashMap<String,Integer> m){
-          return getLeft().interpret(m) / getRight().interpret(m);
+          return getLeft().interpret(m) % getRight().interpret(m);
       }
 }

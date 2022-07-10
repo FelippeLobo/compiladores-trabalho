@@ -1,23 +1,23 @@
 package src.ast;
 
 /*
- * Esta classe representa uma expressão de soma.
- * Expr + Expr
+ * Esta classe representa uma Expessão de soma.
+ * Exp + Exp
  */
  
 import java.util.HashMap; 
 public class Add extends BinOP {
 
-      public Add(Expr l, Expr r){
+      public Add(Exp l, Exp r){
            super(l,r);
       }
       
       public String toString(){
          String s = getLeft().toString();
          String ss = getRight().toString();
-         if(getRight() instanceof Add ||  getRight() instanceof Sub){
+         if(getRight() instanceof Add || getRight() instanceof Sub){
             ss = "(" + ss + ")";
-         }
+         }  
          return   s + " + " + ss;
       }
       

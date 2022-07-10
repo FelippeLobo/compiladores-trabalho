@@ -1,8 +1,8 @@
-package src.ast;
+package src.classes.ast;
 
 /*
  * Esta classe representa um comando de atribuição.
- * ID = Expr
+ * ID = Exp
  */
  
 import java.util.HashMap; 
@@ -10,15 +10,15 @@ import java.util.HashMap;
 public class Attr extends Node {
       
       private ID id;
-      private Expr e; 
+      private Exp e; 
       
-      public Attr(ID id, Expr e){
-           this.id = id;
+      public Attr(String id, Exp e){
+           this.id = new ID(id);
            this.e  = e;
       }
       
       public ID getID(){ return id;} 
-      public Expr getExp(){   return e; }
+      public Exp getExp(){   return e; }
       
       public String toString(){
           return id.toString() + " = " + e.toString();

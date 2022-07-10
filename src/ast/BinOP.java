@@ -1,25 +1,25 @@
-package src.ast;
+package src.classes.ast;
 
 /*
  * Esta classe representa uma Operção binária.
- * Expr [opreação] Expr
+ * Exp [opreação] Exp
  */
 import java.util.HashMap; 
 
-public abstract class BinOP extends Expr {
+public abstract class BinOP extends Exp {
       
-      private Expr l;
-      private Expr r;
+      private Exp l;
+      private Exp r;
       
-      public BinOP(Expr l, Expr r){
+      public BinOP(Exp l, Exp r){
            this.l = l;
            this.r = r;
       }
       
-      public void setLeft(Expr n){  l = n; }
-      public void setRight(Expr n){ r = n; }
+      public void setLeft(Exp n){  l = n; }
+      public void setRight(Exp n){ r = n; }
       
-      public Expr getLeft(){ return l;}
-      public Expr getRight(){ return r;}
+      public Exp getLeft(){ return l;}
+      public Exp getRight(){ return r;}
       
 }
