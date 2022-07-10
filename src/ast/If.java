@@ -1,25 +1,22 @@
-package src.ast;
 
-/*
- * Esta classe representa uma expressão de soma.
- * Expr + Expr
- */
+package src.classes.ast;
+
  
 import java.util.HashMap; 
 public class If extends Node {
       
-      private Expr teste;
+      private Exp teste;
       private Node thn;
       private Node els;
       
-      public If(Expr teste, Node thn, Node els){
+      public If(Exp teste, Node thn, Node els){
            this.teste = teste;
            this.thn = thn;
            this.els = els;
       }
       
             
-      public If(Expr teste, Node thn){
+      public If(Exp teste, Node thn){
            this.teste = teste;
            this.thn = thn;
            this.els = null;
