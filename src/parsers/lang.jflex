@@ -72,6 +72,8 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     ")"             { return newToken(Terminals.FP);   }
     "["             { return newToken(Terminals.LB);   }
     "]"             { return newToken(Terminals.RB);   }
+    "{"             { return newToken(Terminals.AC);   }
+    "}"             { return newToken(Terminals.FC);   }
     "*"             { return newToken(Terminals.MULT); }
     "/"             { return newToken(Terminals.DIV);  }
     "%"             { return newToken(Terminals.RES);  }
@@ -85,6 +87,9 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "!="            { return newToken(Terminals.DIF);}
     "!"             { return newToken(Terminals.NOT);}
     "."             { return newToken(Terminals.DOT);}
+    "::"            { return newToken(Terminals.DBCOLON);}
+    ":"             { return newToken(Terminals.COLON);}
+    ","             { return newToken(Terminals.COMMA);}
     {Brancos}       { /* Não faz nada  */             }
     {type}          { return newToken(Terminals.TYPE, yytext()); }
     {boolean}       { return newToken(Terminals.BOOL, Boolean.parseBoolean(yytext()));}

@@ -11,10 +11,13 @@
 %terminals ID, INT, TYPE, FLOAT, CHAR, BOOL, NULL, NOT,   
            MULT, PLUS, SUB, DIV, RES, 
            EQ, IF, ELSE, ITERATE,
-           RB, LB, AP, FP, SEMI, DOT,
+           RB, LB, AP, FP, AC, FC, SEMI, DOT,
            READ, PRINT, RETURN,
-           GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, EQUALTO, DIF;
-
+           GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, EQUALTO, DIF,
+           COMMA, COLON, DBCOLON;
+           
+%left COMMA;
+%left ELSE;
 %left FP;
 %left MULT, DIV, RES;
 %left PLUS, SUB;
@@ -36,26 +39,68 @@
 %typeof Stmt = "Node";
 %typeof StmtList = "Node";
 %typeof Prog = "Node";
+%typeof ParamList = "Node";
+%typeof Param = "Node";
+%typeof Func = "Node";
+%typeof Return = "Node";
+%typeof FuncStmtList = "Node";
+%typeof FuncStmt = "Node";
+%typeof Ret = "Node";
 
 %goal Prog;
 
-Prog = StmtList                     
+Prog = StmtList
+     | Func
+     | Func StmtList                     
      ;
 
 StmtList = Stmt SEMI StmtList     
-         | Stmt SEMI              
+         | Stmt SEMI  
          ;
 
 Stmt = ID EQ Exp
-     | IF AP Exp FP Stmt ELSE Stmt
-     | IF AP Exp FP Stmt             
+     | IF AP Exp FP Stmt
+     | IF AP Exp FP Stmt ELSE Stmt             
      | ITERATE AP Exp FP Stmt                        
      | Exp
      | READ Lvalue               
      | PRINT Exp                   
      | RETURN Exp+ 
      | Lvalue EQ Exp           
-     | ID AP Exps FP LESSER Lvalue+ GREATER                          
+     | ID AP Exps FP LESSER Lvalue+ GREATER                      
+     ;
+
+Func = ID AP ParamList FP COLON Return AC FuncStmtList RETURN Ret SEMI FC
+     ;
+
+FuncStmtList = FuncStmt SEMI FuncStmtList     
+         | FuncStmt SEMI  
+         ;
+
+FuncStmt = ID EQ Exp
+     | IF AP Exp FP Stmt
+     | IF AP Exp FP Stmt ELSE Stmt             
+     | ITERATE AP Exp FP Stmt                        
+     | Exp
+     | READ Lvalue               
+     | PRINT Exp                   
+     | Lvalue EQ Exp           
+     | ID AP Exps FP LESSER Lvalue+ GREATER                      
+     ;
+
+Ret = Exp COMMA Ret
+     | Exp
+     ;
+
+Return = TYPE COMMA Return
+          | TYPE
+     ;
+
+ParamList = Param COMMA ParamList
+          | Param
+          ;
+
+Param = ID DBCOLON TYPE 
      ;
 
 Lvalue = ID 
@@ -102,3 +147,4 @@ Pexp = AP Exp FP
 
 Exps = Exp+
 ;
+

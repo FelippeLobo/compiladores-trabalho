@@ -20,10 +20,10 @@ public class Teste{
             StmtList result = (StmtList)new MiniLangParser().parse(input);
             System.out.println("Parsado !");
 
-            System.out.println(result.toString());
+            //System.out.println(result.toString());
            
-            System.out.println("--------- Executando ---------");
-            result.interpret(h);
+            //System.out.println("--------- Executando ---------");
+            //result.interpret(h);
         }
         catch (IOException e){
             System.err.println("Failed to read expression: " + e.getMessage());
