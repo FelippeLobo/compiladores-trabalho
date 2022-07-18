@@ -37,7 +37,6 @@
 %typeof ID = "String";
 %typeof Lvalue = "String";
 %typeof Stmt = "Node";
-%typeof StmtList = "Node";
 %typeof Prog = "Node";
 %typeof ParamList = "Node";
 %typeof Param = "Node";
@@ -46,17 +45,25 @@
 %typeof FuncStmtList = "Node";
 %typeof FuncStmt = "Node";
 %typeof Ret = "Node";
+%typeof Data = "Node";
+%typeof Decl = "Node";
 
 %goal Prog;
 
-Prog = StmtList
+Prog = Stmt SEMI
+     | Stmt SEMI Prog
      | Func
-     | Func StmtList                     
+     | Func Prog
+     | Data 
+     | Data Prog                
      ;
 
-StmtList = Stmt SEMI StmtList     
-         | Stmt SEMI  
-         ;
+Data = ID AC Decl FC
+     ;
+
+Decl = ID DBCOLON TYPE SEMI
+     | ID DBCOLON TYPE SEMI Decl
+     ;
 
 Stmt = ID EQ Exp
      | IF AP Exp FP Stmt
