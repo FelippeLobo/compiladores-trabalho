@@ -1,10 +1,12 @@
-package src.classes.ast;
+package src.ast;
 
 /*
  * Esta classe representa um comando de Impressão.
  * Exp
  */
-import java.util.HashMap; 
+import java.util.HashMap;
+
+import src.visitors.Visitor; 
  
 public class Print extends Node {
       
@@ -20,10 +22,12 @@ public class Print extends Node {
       public String toString(){
          return   "" + e.toString(); 
       }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+        
+    }
       
-      public int interpret(HashMap<String,Integer> m){
-          int n = e.interpret(m);
-          System.out.println("" + n);
-          return n;
-      }
+      
 }

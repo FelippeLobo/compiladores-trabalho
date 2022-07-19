@@ -5,7 +5,9 @@ package src.ast;
  * Exp + Exp
  */
  
-import java.util.HashMap; 
+import java.util.HashMap;
+
+import src.visitors.Visitor; 
 public class Add extends BinOP {
 
       public Add(Exp l, Exp r){
@@ -15,14 +17,10 @@ public class Add extends BinOP {
       public String toString(){
          String s = getLeft().toString();
          String ss = getRight().toString();
-         if(getRight() instanceof Add || getRight() instanceof Sub){
-            ss = "(" + ss + ")";
-         }  
+        
          return   s + " + " + ss;
       }
       
-      public int interpret(HashMap<String,Integer> m){
-          return getLeft().interpret(m) + getRight().interpret(m);
-      }
+      public void accept(Visitor v){v.visit(this);}
       
 }

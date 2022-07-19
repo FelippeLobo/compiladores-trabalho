@@ -1,13 +1,24 @@
-package src.classes.ast;
+package src.ast;
+
+import java.util.HashMap;
+
+import src.visitors.Visitor;
 
 /*
  * Esta classe representa um comando de Impressão.
  * Exp
  */
-public abstract class Exp extends Node {
+public class Exp extends Node {
       
       public Exp(){
       }
+
+      @Override
+      public void accept(Visitor v) {
+            v.visit(this);          
+      }
+
+      
       
 
       

@@ -1,4 +1,4 @@
-package src.classes.ast;
+package src.ast;
 
 /*
  * Esta classe representa um comando de Impressão.
@@ -21,7 +21,5 @@ public class Num extends Exp {
          return   "" + l ; 
       }
       
-      public int interpret(HashMap<String,Integer> m){
-            return l;
-      }
+
 }

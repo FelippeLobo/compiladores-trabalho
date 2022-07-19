@@ -43,18 +43,6 @@ public class MiniLangParser extends Parser {
 		"X6tWQ7iHkOXszpviIouW5#XNiQFVp7diJnxbPfIRauDXyMPr32pUiOw0nHlN9gn0vD8dbst" +
 		"aKdPVS1t$1cS0gJi=");
 
-	static final Action RETURN2 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 2];
-		}
-	};
-
-	static final Action RETURN3 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 3];
-		}
-	};
-
 	static final Action RETURN4 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
 			return _symbols[offset + 4];
@@ -73,9 +61,21 @@ public class MiniLangParser extends Parser {
 		}
 	};
 
-	static final Action RETURN12 = new Action() {
+	static final Action RETURN2 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 12];
+			return _symbols[offset + 2];
+		}
+	};
+
+	static final Action RETURN3 = new Action() {
+		public Symbol reduce(Symbol[] _symbols, int offset) {
+			return _symbols[offset + 3];
+		}
+	};
+
+	static final Action RETURN10 = new Action() {
+		public Symbol reduce(Symbol[] _symbols, int offset) {
+			return _symbols[offset + 10];
 		}
 	};
 
@@ -85,22 +85,78 @@ public class MiniLangParser extends Parser {
 		super(PARSING_TABLES);
 		actions = new Action[] {
 			Action.RETURN,	// [0] $goal = Prog
-			RETURN2,	// [1] Prog = Stmt SEMI; returns 'SEMI' although none is marked
-			RETURN3,	// [2] Prog = Stmt SEMI Prog; returns 'Prog' although none is marked
-			Action.RETURN,	// [3] Prog = Func
-			RETURN2,	// [4] Prog = Func Prog; returns 'Prog' although none is marked
-			Action.RETURN,	// [5] Prog = Data
-			RETURN2,	// [6] Prog = Data Prog; returns 'Prog' although none is marked
+			new Action() {	// [1] Prog = Stmt.l SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					 return new Prog(l);
+				}
+			},
+			new Action() {	// [2] Prog = Stmt.l SEMI Prog.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Node r = (Node) _symbol_r.value;
+					 return new Prog(l, r);
+				}
+			},
+			new Action() {	// [3] Prog = Func.l
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					 return new Prog(l);
+				}
+			},
+			new Action() {	// [4] Prog = Func.l Prog.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 2];
+					final Node r = (Node) _symbol_r.value;
+					 return new Prog(l, r);
+				}
+			},
+			new Action() {	// [5] Prog = Data.l
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					 return new Prog(l);
+				}
+			},
+			new Action() {	// [6] Prog = Data.l Prog.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 2];
+					final Node r = (Node) _symbol_r.value;
+					 return new Prog(l, r);
+				}
+			},
 			RETURN4,	// [7] Data = ID AC Decl FC; returns 'FC' although none is marked
 			RETURN4,	// [8] Decl = ID DBCOLON TYPE SEMI; returns 'SEMI' although none is marked
 			RETURN5,	// [9] Decl = ID DBCOLON TYPE SEMI Decl; returns 'Decl' although none is marked
-			RETURN3,	// [10] Stmt = ID EQ Exp; returns 'Exp' although none is marked
+			new Action() {	// [10] Stmt = ID.l EQ Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					 return new Attr(new ID(l), r);
+				}
+			},
 			RETURN5,	// [11] Stmt = IF AP Exp FP Stmt; returns 'Stmt' although none is marked
 			RETURN7,	// [12] Stmt = IF AP Exp FP Stmt ELSE Stmt; returns 'Stmt' although none is marked
 			RETURN5,	// [13] Stmt = ITERATE AP Exp FP Stmt; returns 'Stmt' although none is marked
 			Action.RETURN,	// [14] Stmt = Exp
 			RETURN2,	// [15] Stmt = READ Lvalue; returns 'Lvalue' although none is marked
-			RETURN2,	// [16] Stmt = PRINT Exp; returns 'Exp' although none is marked
+			new Action() {	// [16] Stmt = PRINT Exp.e
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_e = _symbols[offset + 2];
+					final Exp e = (Exp) _symbol_e.value;
+					 return new Print(e);
+				}
+			},
 			new Action() {	// [17] lst$Exp = Exp
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
@@ -124,10 +180,18 @@ public class MiniLangParser extends Parser {
 				}
 			},
 			RETURN7,	// [23] Stmt = ID AP Exps FP LESSER lst$Lvalue GREATER; returns 'GREATER' although none is marked
-			RETURN12,	// [24] Func = ID AP ParamList FP COLON Return AC FuncStmtList RETURN Ret SEMI FC; returns 'FC' although none is marked
+			RETURN10,	// [24] Func = ID.a AP ParamList.b FP COLON Return AC FuncStmtList.c RETURN Ret.d SEMI FC; returns 'd' although more are marked
 			RETURN3,	// [25] FuncStmtList = FuncStmt SEMI FuncStmtList; returns 'FuncStmtList' although none is marked
 			RETURN2,	// [26] FuncStmtList = FuncStmt SEMI; returns 'SEMI' although none is marked
-			RETURN3,	// [27] FuncStmt = ID EQ Exp; returns 'Exp' although none is marked
+			new Action() {	// [27] FuncStmt = ID.l EQ Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					 return new Attr(l, r);
+				}
+			},
 			RETURN5,	// [28] FuncStmt = IF AP Exp FP Stmt; returns 'Stmt' although none is marked
 			RETURN7,	// [29] FuncStmt = IF AP Exp FP Stmt ELSE Stmt; returns 'Stmt' although none is marked
 			RETURN5,	// [30] FuncStmt = ITERATE AP Exp FP Stmt; returns 'Stmt' although none is marked
@@ -154,7 +218,15 @@ public class MiniLangParser extends Parser {
 			RETURN3,	// [51] Rexp = Exp EQUALTO Exp; returns 'Exp' although none is marked
 			RETURN3,	// [52] Rexp = Exp DIF Exp; returns 'Exp' although none is marked
 			Action.RETURN,	// [53] Rexp = Aexp
-			RETURN3,	// [54] Aexp = Exp PLUS Exp; returns 'Exp' although none is marked
+			new Action() {	// [54] Aexp = Exp.l PLUS Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Add(l, r);
+				}
+			},
 			RETURN3,	// [55] Aexp = Exp SUB Exp; returns 'Exp' although none is marked
 			Action.RETURN,	// [56] Aexp = Mexp
 			RETURN3,	// [57] Mexp = Exp MULT Exp; returns 'Exp' although none is marked
@@ -164,13 +236,25 @@ public class MiniLangParser extends Parser {
 			RETURN2,	// [61] Sexp = Exp NOT; returns 'NOT' although none is marked
 			Action.RETURN,	// [62] Sexp = BOOL
 			Action.RETURN,	// [63] Sexp = NULL
-			Action.RETURN,	// [64] Sexp = INT
+			new Action() {	// [64] Sexp = INT.n
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_n = _symbols[offset + 1];
+					final Integer n = (Integer) _symbol_n.value;
+					return new Num(n);
+				}
+			},
 			Action.RETURN,	// [65] Sexp = FLOAT
 			Action.RETURN,	// [66] Sexp = CHAR
 			Action.RETURN,	// [67] Sexp = Pexp
 			RETURN3,	// [68] Pexp = AP Exp FP; returns 'FP' although none is marked
 			RETURN4,	// [69] Pexp = TYPE LB Exp RB; returns 'RB' although none is marked
-			Action.RETURN,	// [70] Pexp = ID
+			new Action() {	// [70] Pexp = ID.l
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					return new ID(l);
+				}
+			},
 			Action.RETURN	// [71] Exps = lst$Exp
 		};
 	}

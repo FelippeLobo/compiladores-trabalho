@@ -1,18 +1,4 @@
-divmod(num :: Int , div :: Int ) : Int , Int {
-q = num / div ;
-r = num % div ;
-return q,r;
-}
-
 a = 3;
 b = 2;
-c = a*b;
-c;
-
+c = a + b;
 print c;
-
-func(num :: Int) : Int {
-a = num+3;
-return a;
-}
-

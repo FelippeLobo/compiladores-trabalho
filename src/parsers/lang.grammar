@@ -27,13 +27,13 @@
 %typeof FLOAT = "float";
 %typeof BOOL = "boolean";
 %typeof CHAR = "char";
-%typeof Exp = "Node";
-%typeof Pexp = "Node";
-%typeof Sexp = "Node";
-%typeof Mexp = "Node";
-%typeof Aexp = "Node";
-%typeof Rexp = "Node";
-%typeof Exps = "Node";
+%typeof Exp = "Exp";
+%typeof Pexp = "Pexp";
+%typeof Sexp = "Sexp";
+%typeof Mexp = "Mexp";
+%typeof Aexp = "Aexp";
+%typeof Rexp = "Rexp";
+%typeof Exps = "Exps";
 %typeof ID = "String";
 %typeof Lvalue = "String";
 %typeof Stmt = "Node";
@@ -50,12 +50,12 @@
 
 %goal Prog;
 
-Prog = Stmt SEMI
-     | Stmt SEMI Prog
-     | Func
-     | Func Prog
-     | Data 
-     | Data Prog                
+Prog = Stmt.l SEMI        {: return new Prog(l);:}
+     | Stmt.l SEMI Prog.r {: return new Prog(l, r);:}
+     | Func.l             {: return new Prog(l);:}
+     | Func.l Prog.r      {: return new Prog(l, r);:}
+     | Data.l             {: return new Prog(l);:}
+     | Data.l Prog.r      {: return new Prog(l, r);:}               
      ;
 
 Data = ID AC Decl FC
@@ -65,26 +65,26 @@ Decl = ID DBCOLON TYPE SEMI
      | ID DBCOLON TYPE SEMI Decl
      ;
 
-Stmt = ID EQ Exp
+Stmt = ID.l EQ Exp.r                   {: return new Attr(new ID(l), r);:}
      | IF AP Exp FP Stmt
      | IF AP Exp FP Stmt ELSE Stmt             
      | ITERATE AP Exp FP Stmt                        
      | Exp
      | READ Lvalue               
-     | PRINT Exp                   
+     | PRINT Exp.e                      {: return new Print(e);:} 
      | RETURN Exp+ 
      | Lvalue EQ Exp           
      | ID AP Exps FP LESSER Lvalue+ GREATER                      
      ;
 
-Func = ID AP ParamList FP COLON Return AC FuncStmtList RETURN Ret SEMI FC
+Func = ID.a AP ParamList.b FP COLON Return AC FuncStmtList.c RETURN Ret.d SEMI FC 
      ;
 
 FuncStmtList = FuncStmt SEMI FuncStmtList     
          | FuncStmt SEMI  
          ;
 
-FuncStmt = ID EQ Exp
+FuncStmt = ID.l EQ Exp.r     {: return new Attr(l, r);:}
      | IF AP Exp FP Stmt
      | IF AP Exp FP Stmt ELSE Stmt             
      | ITERATE AP Exp FP Stmt                        
@@ -127,7 +127,7 @@ Rexp = Exp GREATER Exp
      | Aexp
 ;
 
-Aexp = Exp PLUS  Exp           
+Aexp = Exp.l PLUS  Exp.r  {:return new Add(l, r);:}          
      | Exp SUB  Exp
      | Mexp  
 ;
@@ -141,7 +141,7 @@ Mexp = Exp MULT  Exp
 Sexp = Exp NOT
      | BOOL                        
      | NULL                     
-     | INT                       
+     | INT.n             {:return new Num(n);:}                   
      | FLOAT                          
      | CHAR
      | Pexp                                                     
@@ -149,7 +149,7 @@ Sexp = Exp NOT
 
 Pexp = AP Exp FP                        
      | TYPE LB Exp RB
-     | ID             
+     | ID.l             {:return new ID(l);:}
 ;
 
 Exps = Exp+

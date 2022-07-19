@@ -1,4 +1,4 @@
-package src.classes.ast;
+package src.ast;
 
 /*
  * Esta classe representa uma Operção binária.
@@ -6,7 +6,7 @@ package src.classes.ast;
  */
 import java.util.HashMap; 
 
-public abstract class BinOP extends Exp {
+public abstract class BinOP extends Pexp {
       
       private Exp l;
       private Exp r;
