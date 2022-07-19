@@ -50,7 +50,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
   inteiro = [:digit:] [:digit:]*
   char = "'" [:lowercase:] "'" | "'" [:uppercase:] "'" 
   boolean = "true" | "false"
-  identificador = [:lowercase:] ( [:letter:] | [:digit:] | "_" )*
+  identificador = [:lowercase:] ([:lowercase:] | [:uppercase:] | [:digit:] | "_")*
   Literal = "'" (.)  "'" | "'" "\\n" "'" | "'" "\\r" "'" | "'" "\\t" "'" | "'" "\\b" "'" | "'" "\\\\" "'"
   LineComment = "//" (.)* {FimDeLinha}
 
@@ -93,7 +93,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     {Brancos}       { /* Não faz nada  */             }
     {type}          { return newToken(Terminals.TYPE, yytext()); }
     {boolean}       { return newToken(Terminals.BOOL, Boolean.parseBoolean(yytext()));}
-    {identificador} { return newToken(Terminals.ID);   }
+    {identificador} { return newToken(Terminals.ID, yytext());   }
     {inteiro}       { return newToken(Terminals.INT, Integer.parseInt(yytext()) );  }
     {float}         { return newToken(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
     "/*"            { yybegin(COMMENT);               }

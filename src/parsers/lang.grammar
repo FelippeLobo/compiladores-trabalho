@@ -22,19 +22,19 @@
 %left MULT, DIV, RES;
 %left PLUS, SUB;
 
+%typeof ID = "String";
 %typeof INT = "Integer";
 %typeof TYPE = "String";
 %typeof FLOAT = "float";
 %typeof BOOL = "boolean";
 %typeof CHAR = "char";
 %typeof Exp = "Exp";
-%typeof Pexp = "Pexp";
-%typeof Sexp = "Sexp";
-%typeof Mexp = "Mexp";
-%typeof Aexp = "Aexp";
-%typeof Rexp = "Rexp";
-%typeof Exps = "Exps";
-%typeof ID = "String";
+%typeof Pexp = "Exp";
+%typeof Sexp = "Exp";
+%typeof Mexp = "Exp";
+%typeof Aexp = "Exp";
+%typeof Rexp = "Exp";
+%typeof Exps = "Exp";
 %typeof Lvalue = "String";
 %typeof Stmt = "Node";
 %typeof Prog = "Node";
@@ -65,7 +65,7 @@ Decl = ID DBCOLON TYPE SEMI
      | ID DBCOLON TYPE SEMI Decl
      ;
 
-Stmt = ID.l EQ Exp.r                   {: return new Attr(new ID(l), r);:}
+Stmt = ID.l EQ Exp.r                   {: return new Attr((String)l, r);:}
      | IF AP Exp FP Stmt
      | IF AP Exp FP Stmt ELSE Stmt             
      | ITERATE AP Exp FP Stmt                        
@@ -84,7 +84,7 @@ FuncStmtList = FuncStmt SEMI FuncStmtList
          | FuncStmt SEMI  
          ;
 
-FuncStmt = ID.l EQ Exp.r     {: return new Attr(l, r);:}
+FuncStmt = ID.l EQ Exp.r     
      | IF AP Exp FP Stmt
      | IF AP Exp FP Stmt ELSE Stmt             
      | ITERATE AP Exp FP Stmt                        
@@ -110,7 +110,7 @@ ParamList = Param COMMA ParamList
 Param = ID DBCOLON TYPE 
      ;
 
-Lvalue = ID 
+Lvalue = ID.l 
      | Lvalue LB Exp RB  
      | Lvalue DOT ID   
      ;
@@ -149,7 +149,7 @@ Sexp = Exp NOT
 
 Pexp = AP Exp FP                        
      | TYPE LB Exp RB
-     | ID.l             {:return new ID(l);:}
+     | ID.l             {:return new Var(l);:}
 ;
 
 Exps = Exp+

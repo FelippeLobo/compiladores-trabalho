@@ -1,5 +1,6 @@
 package src.parsers;
 
+
 import src.ast.*;
 import java.util.ArrayList;
 import src.beaver.*;
@@ -142,7 +143,7 @@ public class MiniLangParser extends Parser {
 					final String l = (String) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					 return new Attr(new ID(l), r);
+					 return new Attr((String)l, r);
 				}
 			},
 			RETURN5,	// [11] Stmt = IF AP Exp FP Stmt; returns 'Stmt' although none is marked
@@ -183,15 +184,7 @@ public class MiniLangParser extends Parser {
 			RETURN10,	// [24] Func = ID.a AP ParamList.b FP COLON Return AC FuncStmtList.c RETURN Ret.d SEMI FC; returns 'd' although more are marked
 			RETURN3,	// [25] FuncStmtList = FuncStmt SEMI FuncStmtList; returns 'FuncStmtList' although none is marked
 			RETURN2,	// [26] FuncStmtList = FuncStmt SEMI; returns 'SEMI' although none is marked
-			new Action() {	// [27] FuncStmt = ID.l EQ Exp.r
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_l = _symbols[offset + 1];
-					final String l = (String) _symbol_l.value;
-					final Symbol _symbol_r = _symbols[offset + 3];
-					final Exp r = (Exp) _symbol_r.value;
-					 return new Attr(l, r);
-				}
-			},
+			RETURN3,	// [27] FuncStmt = ID.l EQ Exp.r; returns 'r' although more are marked
 			RETURN5,	// [28] FuncStmt = IF AP Exp FP Stmt; returns 'Stmt' although none is marked
 			RETURN7,	// [29] FuncStmt = IF AP Exp FP Stmt ELSE Stmt; returns 'Stmt' although none is marked
 			RETURN5,	// [30] FuncStmt = ITERATE AP Exp FP Stmt; returns 'Stmt' although none is marked
@@ -207,7 +200,7 @@ public class MiniLangParser extends Parser {
 			RETURN3,	// [40] ParamList = Param COMMA ParamList; returns 'ParamList' although none is marked
 			Action.RETURN,	// [41] ParamList = Param
 			RETURN3,	// [42] Param = ID DBCOLON TYPE; returns 'TYPE' although none is marked
-			Action.RETURN,	// [43] Lvalue = ID
+			Action.RETURN,	// [43] Lvalue = ID.l
 			RETURN4,	// [44] Lvalue = Lvalue LB Exp RB; returns 'RB' although none is marked
 			RETURN3,	// [45] Lvalue = Lvalue DOT ID; returns 'ID' although none is marked
 			Action.RETURN,	// [46] Exp = Rexp
@@ -252,7 +245,7 @@ public class MiniLangParser extends Parser {
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final String l = (String) _symbol_l.value;
-					return new ID(l);
+					return new Var(l);
 				}
 			},
 			Action.RETURN	// [71] Exps = lst$Exp

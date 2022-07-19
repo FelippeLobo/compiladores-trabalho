@@ -14,4 +14,7 @@ public abstract class Visitor {
 
      public abstract void visit(Print print);
 
+     public abstract void visit(Var var);
+
+     public abstract void visit(Num num);
 }

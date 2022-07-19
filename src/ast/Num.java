@@ -4,7 +4,9 @@ package src.ast;
  * Esta classe representa um comando de Impressão.
  * Exp
  */ 
-import java.util.HashMap; 
+import java.util.HashMap;
+
+import src.visitors.Visitor; 
 
 public class Num extends Exp {
       
@@ -21,5 +23,5 @@ public class Num extends Exp {
          return   "" + l ; 
       }
       
-
+      public void accept(Visitor v){v.visit(this);}
 }

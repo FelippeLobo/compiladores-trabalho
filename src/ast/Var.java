@@ -5,13 +5,16 @@ package src.ast;
  * Exp
  */
  
-import java.util.HashMap; 
+import java.util.HashMap;
 
-public class ID extends Exp {
+import src.visitors.Visitor; 
+
+public class Var extends Exp {
       
       private String l;
+      
      
-      public ID(String name){
+      public Var(String name){
            this.l = name;
       }
       
@@ -21,6 +24,8 @@ public class ID extends Exp {
       public String toString(){
          return   l; 
       }
+      
+      public void accept(Visitor v){v.visit(this);}
       
       public int interpret(HashMap<String,Integer> m){
           return m.get(l);

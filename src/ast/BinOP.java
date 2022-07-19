@@ -6,7 +6,7 @@ package src.ast;
  */
 import java.util.HashMap; 
 
-public abstract class BinOP extends Pexp {
+public abstract class BinOP extends Exp {
       
       private Exp l;
       private Exp r;

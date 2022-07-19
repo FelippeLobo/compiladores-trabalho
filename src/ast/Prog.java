@@ -11,11 +11,13 @@ public class Prog extends Node{
     private Node command2;
 
     public Prog(Node command1){
+   
         this.command1 = command1;
         this.command2 = null;
     }
 
     public Prog(Node command1, Node command2){
+        
         this.command1 = command1;
         this.command2 = command2;
     }
