@@ -1195,7 +1195,7 @@ public class MiniLangLex extends Scanner {
             // fall through
           case 63: break;
           case 23:
-            { return newToken(Terminals.ID);
+            { return newToken(Terminals.ID, yytext());
             }
             // fall through
           case 64: break;

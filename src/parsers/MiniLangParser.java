@@ -12,36 +12,30 @@ import src.beaver.*;
 public class MiniLangParser extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pbLtkKZLKK$ttVTpMCHqDco61cl3CpeZ5Z39Lt4pta5ULHGkb592KLUaafeLBAQgdLKgr" +
-		"MrgfL2X4LlLIQaCghGj5BBrHEl#$S8$j#ZxbtSlkZvSxwVR#zzzbddtFsUGuGcQeE8HL5Q8" +
-		"$MQ8DJK82swa#l1KtH72UX9wRX6boFcp75MCuyOb47VN4KwY3TU9w8J3H05dBG6BaYJeY7s" +
-		"kphGpUSWTjH0#VZL4z9$6YRr194y83w7SDG7DghiDfbgWn3q1630teq6psy$L5$gQzn6Ux4" +
-		"JDmN6lEhq5xKHXxoqGeden1NO8odJO#k$a0lTK1jPLwEPC7jLvVuMK66QEdQU2tfg2wgULg" +
-		"gda1BTKLBD$eY7v$0Ead335#zcaUnlhQ5bcm9BVa2Dubnt0O7Dev3PTzwhAL#KozNT9KbpU" +
-		"vTfIMXdftYhTAasRrvgwJpvhMc15ghQEkbmjeBFTK6TEPvD1AduonqnJoCm2KenKEuH$ZTx" +
-		"z4Undau1sTZ4ERIyrnSYDxeGyqxV$yt$R7$EBxCVJ$r6VhZ0WndxY$oUSREtPKU$Uho8gkT" +
-		"k9WpsbLzhcUr$CWJFFh4EFwJavwJsFXtn$KV8FobF5hjm3Zr9VggNt03ntyBfcDWJCQlKjj" +
-		"n7KlknQse9#prXTnGoDb2RYJa9a9k9kGMGcufv7P2xY3axa8UAkHHGhvSoEE5F4d8KqFgtY" +
-		"7akuGyIyXpX7mQ7iHSzId6uX6r4VFnA17dfs$q4r3LC63n97VuGd3FfHIUDdvBLTvxrMdDu" +
-		"1bNbwTRFMD95PQWE5Ne4VMimNikZNTMBRPOMzGAyqZtHQlF4xKXhOry9V6ZPV4yJcVDRDRC" +
-		"3FKAiqTRRXBI8xyT2OqlhAGPRv0Ml4DQykR8zCNsjvL7fCVCZTklTWdqeM8jkL5Tb7XQoZx" +
-		"gbd8IM2TEGBtm71vD$iihaUCul0TR#$fLmfnqgF0gIvRTFszXdfbnivGiUt3U$htLqhlOCl" +
-		"TB7dTsAbUynJidrYzMA#1vsPGrYvcVzhoL2dakP52Bj$AFTLrcCPr$sNgFkBalpzETEwzUd" +
-		"d#6tk5vZ9tio47boSn98l6blvHjZjT5aMPt$3PbwT6O9OrrIPlGACUoR7CdEzp9jZuLSYZd" +
-		"g3W$StDd6GOMJ8a#ZNeH#SGmyrHwMhzXWAr44s8x41bAtk4#Tg9rh6oYDr5APG1v1lbneYb" +
-		"bijKViEbgFK6UJdwUF8kyb3oFl8Ri#drCNiHwAUJ5v3JoacWRzah3Qrsk25ZdGtw6cBwMKT" +
-		"z4OQmetqOxnsFt9GRJK9lOJtatURBn6H4R4mTf6qBq8IOIp9UrYpoQ#15mRF81urj4cV4SX" +
-		"wX4VIwv5Na2sIr$YintZDEIg4Lqf$yWSW7B1Z8k#s4TeBwSQ43R2yGwoi#HDv2VvPmC9nSI" +
-		"AuYUjBjrtFQOQwjgj1$EQe9#5cDOnMPSx8$p9dNsrnb7lIPv4Z6DXSLapgLDV#SjOZRzsXF" +
-		"zA2yZZoAlfz$xv8NKnrEUIlaPocvuvZF2l4IwCKOdyWY2wolIWnWPRJzIQkP5paSrmtKCDn" +
-		"9vtn8ynzOOKxxGy4PZDx6SnOPVChpCy2h3QmslCrncUBFXRK7jbWVMsUdHzyRgThuOrulK2" +
-		"utVliJYsoPtTcTJRsP07#Pu$Orzlx7jaVsXFTEK7ugD4uaO##7wbKMikiOdrUZvXWj5$JHZ" +
-		"woxgpJTb6KP$ad9zOnDp7cbXoYU8kejCMIlXrrR88hTs5pcM8tOiGC1FlQA$#sDiln8yHTG" +
-		"717UUuefNxn7l4cyJQmdk4CMTfDvGgzH7wXsrHgrMhwkLQeLwJIrNotISfIRUgz5MZFQD$l" +
-		"BqK#lLRlvF#cr0htRv##Zn#4vz7pGIeV$yZxHF$SGlpodr0x5Ns$O4PIFufpxHiKlvnhVuE" +
-		"hK9XpWiHxarx$uIZKgyKHp2vHJ35c5hjD6lMDleZdx5jjDo2j#zrVX6TGXRlrcBMRUOzYXR" +
-		"X6tWQ7iHkOXszpviIouW5#XNiQFVp7diJnxbPfIRauDXyMPr32pUiOw0nHlN9gn0vD8dbst" +
-		"aKdPVS1t$1cS0gJi=");
+		"U9pTLrbiLLKKNVTUeAMs32q5fBKZPR2bSrydeQLKSKQKIQcA8ZWXMWS4bMYYFqP3WFXZeed" +
+		"J1$we7oOc9YRKWTa99voeGq750LG4HNIxxkbftlRUTtbjY56voJfhdNtssUUSVNltUGMynV" +
+		"8dhaGbQd0gIb66AIYNeq4Bsf6FGXJZB5o0ULY0Isn$HjmYHqApvc829c8I9gC2bsCeF0p2O" +
+		"AI8XEACn71a8HjZS39oS0fAP4yesZHCDxWKzO6HUBJmYgw$8j839zoOm7E8yKo#ir#YHZ1C" +
+		"nQoEz8go#sUBoH$oEnO5zulMo5dn$F#6SqFpqfBFGpCk2iqBPoVLPAUs7$dvCN9aV#J8zw4" +
+		"TDFLZvmFDyBzbFrDbSuJIo$XTDM8gLk2CKCPF2lsL1ptE2rbcILV8rXcASwBrTNQ3Oureat" +
+		"tCRh8OVy$QdEFUqrs1VeUAhxHyAPzZ9HRYLfoD5V8pRiTbo5I#evGUhVHOfSSfdQjqdj85I" +
+		"XSfFLxfAgNhb6vHUgRIvoXzeT8NAts5qjVB0PoE1Zc8fV8JPfjwruxvyeFinLASXgkm1DVW" +
+		"QfoFQt4TRf13M2xTqet5fit0BRWH6N8ODr7TZDka1wjmfto1Em03XxM#zuOPmagLci3Yy7j" +
+		"8uvSrcj$cM7wTusm$Grd2i$fE47#R5NoxLVGCnabdf67y#aUm1cIo1enY5GX6osL5y54K6e" +
+		"b7YrenEACfqhC$EuiQqJ5p8hsYxFxPYk4$XQ7z5aVEqldF2SsBtcjyNdg2UL7PoJsk$1nh9" +
+		"BY3wFmbty5$pQwpgNKrJrtB$CPO1SCPJ$vEmfQSViGvqVhwnC6nMbgocTs1nF2pza$kKUiy" +
+		"lh5gtXb5z8znfqNg$WZw$j#ro$ELcTP$9wwfTmujsSRIY0R#2lHutvQmty2yvFEEzNtoJ5l" +
+		"8iHgs#UnxR6l83bKE2lXVKG6ht#fxJF7axGf6wtqs4qE9BSHueeVuaEZizVNgs2mWxkNbjP" +
+		"#OGHmcvX12B0BS5F8oyd3oIl8OydtaVCvB8qyaPv8hUcEwzPPRV1u8E6SccxNs74VOdqL#K" +
+		"etFvzgL50V9Bv574WsqBo4$QtsMMrveupJHTpknbdY4zYwYa$Pjn5RcmBzpzj3s73NpvgvY" +
+		"Vozz7VPBo5dagGHpxDxFli$hs2#bNupwOUeowWtKZtDy2llLn7HYWiqpS#GnjrujmVrwz76" +
+		"V9lCitcHYDk7liutSRFV$6FKyOXhrK#GEefre9UpPl3PxnbRBAPRdMkw9vyvvDAvnjxMjis" +
+		"izONc3vMSiFs$vHSiRBM#olCFoJikx#jReBpXdTw3V4#WtnRN7lpVd8MlVboJkWK3$a3spF" +
+		"PlpWXexQhb3hPLbsRLZ3oh$zSelLUdqn7lnCksQ3oXRaRLr1NmdgNNM98w7rKZmo5VojRng" +
+		"zSV4HmI$Tjb5V42yJxnBl4EyJRn5l2clooVodkoKDsI7R9TjibMso6OJOvEDzLfVLDFxrhI" +
+		"xYK#9RlcExSloIg8T7VlfZIg$Hev$4x9yPkQqy9js#8lCXnlYAjux3GQ3UPDvXCyfbXt2LV" +
+		"1OA$tgwngVIbRBSjhAsQyZrt6inbHUX$UKPtwnnCXbfd8F8ZpMU8TLtek0m$hlMJYy2Jm5X" +
+		"$U2IpW9KKgVKgxXt#hr1gwvpvl$0l4PuOW=");
 
 	static final Action RETURN4 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -73,9 +67,9 @@ public class MiniLangParser extends Parser {
 		}
 	};
 
-	static final Action RETURN10 = new Action() {
+	static final Action RETURN8 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 10];
+			return _symbols[offset + 8];
 		}
 	};
 
@@ -85,18 +79,18 @@ public class MiniLangParser extends Parser {
 		super(PARSING_TABLES);
 		actions = new Action[] {
 			Action.RETURN,	// [0] $goal = Prog
-			new Action() {	// [1] Prog = Stmt.l SEMI
+			new Action() {	// [1] Prog = StmtList.l
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Node l = (Node) _symbol_l.value;
 					 return new Prog(l);
 				}
 			},
-			new Action() {	// [2] Prog = Stmt.l SEMI Prog.r
+			new Action() {	// [2] Prog = StmtList.l Prog.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Node l = (Node) _symbol_l.value;
-					final Symbol _symbol_r = _symbols[offset + 3];
+					final Symbol _symbol_r = _symbols[offset + 2];
 					final Node r = (Node) _symbol_r.value;
 					 return new Prog(l, r);
 				}
@@ -145,8 +139,8 @@ public class MiniLangParser extends Parser {
 					 return new Attr(new ID(l), r);
 				}
 			},
-			RETURN5,	// [11] Stmt = IF AP Exp FP Stmt; returns 'Stmt' although none is marked
-			RETURN7,	// [12] Stmt = IF AP Exp FP Stmt ELSE Stmt; returns 'Stmt' although none is marked
+			RETURN5,	// [11] Stmt = IF AP Exp FP StmtList; returns 'StmtList' although none is marked
+			RETURN7,	// [12] Stmt = IF AP Exp FP StmtList ELSE StmtList; returns 'StmtList' although none is marked
 			RETURN5,	// [13] Stmt = ITERATE AP Exp FP Stmt; returns 'Stmt' although none is marked
 			Action.RETURN,	// [14] Stmt = Exp
 			RETURN2,	// [15] Stmt = READ Lvalue; returns 'Lvalue' although none is marked
@@ -157,68 +151,41 @@ public class MiniLangParser extends Parser {
 					 return new Print(e);
 				}
 			},
-			new Action() {	// [17] lst$Exp = Exp
+			RETURN2,	// [17] Stmt = RETURN Ret; returns 'Ret' although none is marked
+			RETURN3,	// [18] Stmt = Lvalue EQ Exp; returns 'Exp' although none is marked
+			new Action() {	// [19] lst$Lvalue = Lvalue
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [18] lst$Exp = lst$Exp Exp
+			new Action() {	// [20] lst$Lvalue = lst$Lvalue Lvalue
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2].value); return _symbols[offset + 1];
 				}
 			},
-			RETURN2,	// [19] Stmt = RETURN lst$Exp; returns 'lst$Exp' although none is marked
-			RETURN3,	// [20] Stmt = Lvalue EQ Exp; returns 'Exp' although none is marked
-			new Action() {	// [21] lst$Lvalue = Lvalue
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
-				}
-			},
-			new Action() {	// [22] lst$Lvalue = lst$Lvalue Lvalue
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2].value); return _symbols[offset + 1];
-				}
-			},
-			RETURN7,	// [23] Stmt = ID AP Exps FP LESSER lst$Lvalue GREATER; returns 'GREATER' although none is marked
-			RETURN10,	// [24] Func = ID.a AP ParamList.b FP COLON Return AC FuncStmtList.c RETURN Ret.d SEMI FC; returns 'd' although more are marked
-			RETURN3,	// [25] FuncStmtList = FuncStmt SEMI FuncStmtList; returns 'FuncStmtList' although none is marked
-			RETURN2,	// [26] FuncStmtList = FuncStmt SEMI; returns 'SEMI' although none is marked
-			new Action() {	// [27] FuncStmt = ID.l EQ Exp.r
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_l = _symbols[offset + 1];
-					final String l = (String) _symbol_l.value;
-					final Symbol _symbol_r = _symbols[offset + 3];
-					final Exp r = (Exp) _symbol_r.value;
-					 return new Attr(l, r);
-				}
-			},
-			RETURN5,	// [28] FuncStmt = IF AP Exp FP Stmt; returns 'Stmt' although none is marked
-			RETURN7,	// [29] FuncStmt = IF AP Exp FP Stmt ELSE Stmt; returns 'Stmt' although none is marked
-			RETURN5,	// [30] FuncStmt = ITERATE AP Exp FP Stmt; returns 'Stmt' although none is marked
-			Action.RETURN,	// [31] FuncStmt = Exp
-			RETURN2,	// [32] FuncStmt = READ Lvalue; returns 'Lvalue' although none is marked
-			RETURN2,	// [33] FuncStmt = PRINT Exp; returns 'Exp' although none is marked
-			RETURN3,	// [34] FuncStmt = Lvalue EQ Exp; returns 'Exp' although none is marked
-			RETURN7,	// [35] FuncStmt = ID AP Exps FP LESSER lst$Lvalue GREATER; returns 'GREATER' although none is marked
-			RETURN3,	// [36] Ret = Exp COMMA Ret; returns 'Ret' although none is marked
-			Action.RETURN,	// [37] Ret = Exp
-			RETURN3,	// [38] Return = TYPE COMMA Return; returns 'Return' although none is marked
-			Action.RETURN,	// [39] Return = TYPE
-			RETURN3,	// [40] ParamList = Param COMMA ParamList; returns 'ParamList' although none is marked
-			Action.RETURN,	// [41] ParamList = Param
-			RETURN3,	// [42] Param = ID DBCOLON TYPE; returns 'TYPE' although none is marked
-			Action.RETURN,	// [43] Lvalue = ID
-			RETURN4,	// [44] Lvalue = Lvalue LB Exp RB; returns 'RB' although none is marked
-			RETURN3,	// [45] Lvalue = Lvalue DOT ID; returns 'ID' although none is marked
-			Action.RETURN,	// [46] Exp = Rexp
-			RETURN3,	// [47] Rexp = Exp GREATER Exp; returns 'Exp' although none is marked
-			RETURN3,	// [48] Rexp = Exp LESSER Exp; returns 'Exp' although none is marked
-			RETURN3,	// [49] Rexp = Exp GREATEREQUAL Exp; returns 'Exp' although none is marked
-			RETURN3,	// [50] Rexp = Exp LESSEREQUAL Exp; returns 'Exp' although none is marked
-			RETURN3,	// [51] Rexp = Exp EQUALTO Exp; returns 'Exp' although none is marked
-			RETURN3,	// [52] Rexp = Exp DIF Exp; returns 'Exp' although none is marked
-			Action.RETURN,	// [53] Rexp = Aexp
-			new Action() {	// [54] Aexp = Exp.l PLUS Exp.r
+			RETURN7,	// [21] Stmt = ID AP Exps FP LESSER lst$Lvalue GREATER; returns 'GREATER' although none is marked
+			RETURN8,	// [22] Func = ID.a AP ParamList.b FP COLON Return AC StmtList.c FC; returns 'c' although more are marked
+			RETURN3,	// [23] StmtList = Stmt.l SEMI StmtList.r; returns 'r' although more are marked
+			Action.RETURN,	// [24] StmtList = Stmt.l SEMI
+			RETURN3,	// [25] Ret = Exp COMMA Ret; returns 'Ret' although none is marked
+			Action.RETURN,	// [26] Ret = Exp
+			RETURN3,	// [27] Return = TYPE COMMA Return; returns 'Return' although none is marked
+			Action.RETURN,	// [28] Return = TYPE
+			RETURN3,	// [29] ParamList = Param COMMA ParamList; returns 'ParamList' although none is marked
+			Action.RETURN,	// [30] ParamList = Param
+			RETURN3,	// [31] Param = ID DBCOLON TYPE; returns 'TYPE' although none is marked
+			Action.RETURN,	// [32] Lvalue = ID
+			RETURN4,	// [33] Lvalue = Lvalue LB Exp RB; returns 'RB' although none is marked
+			RETURN3,	// [34] Lvalue = Lvalue DOT ID; returns 'ID' although none is marked
+			Action.RETURN,	// [35] Exp = Rexp
+			RETURN3,	// [36] Rexp = Exp GREATER Exp; returns 'Exp' although none is marked
+			RETURN3,	// [37] Rexp = Exp LESSER Exp; returns 'Exp' although none is marked
+			RETURN3,	// [38] Rexp = Exp GREATEREQUAL Exp; returns 'Exp' although none is marked
+			RETURN3,	// [39] Rexp = Exp LESSEREQUAL Exp; returns 'Exp' although none is marked
+			RETURN3,	// [40] Rexp = Exp EQUALTO Exp; returns 'Exp' although none is marked
+			RETURN3,	// [41] Rexp = Exp DIF Exp; returns 'Exp' although none is marked
+			Action.RETURN,	// [42] Rexp = Aexp
+			new Action() {	// [43] Aexp = Exp.l PLUS Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
@@ -227,35 +194,45 @@ public class MiniLangParser extends Parser {
 					return new Add(l, r);
 				}
 			},
-			RETURN3,	// [55] Aexp = Exp SUB Exp; returns 'Exp' although none is marked
-			Action.RETURN,	// [56] Aexp = Mexp
-			RETURN3,	// [57] Mexp = Exp MULT Exp; returns 'Exp' although none is marked
-			RETURN3,	// [58] Mexp = Exp DIV Exp; returns 'Exp' although none is marked
-			RETURN3,	// [59] Mexp = Exp RES Exp; returns 'Exp' although none is marked
-			Action.RETURN,	// [60] Mexp = Sexp
-			RETURN2,	// [61] Sexp = Exp NOT; returns 'NOT' although none is marked
-			Action.RETURN,	// [62] Sexp = BOOL
-			Action.RETURN,	// [63] Sexp = NULL
-			new Action() {	// [64] Sexp = INT.n
+			RETURN3,	// [44] Aexp = Exp SUB Exp; returns 'Exp' although none is marked
+			Action.RETURN,	// [45] Aexp = Mexp
+			RETURN3,	// [46] Mexp = Exp MULT Exp; returns 'Exp' although none is marked
+			RETURN3,	// [47] Mexp = Exp DIV Exp; returns 'Exp' although none is marked
+			RETURN3,	// [48] Mexp = Exp RES Exp; returns 'Exp' although none is marked
+			Action.RETURN,	// [49] Mexp = Sexp
+			RETURN2,	// [50] Sexp = Exp NOT; returns 'NOT' although none is marked
+			Action.RETURN,	// [51] Sexp = BOOL
+			Action.RETURN,	// [52] Sexp = NULL
+			new Action() {	// [53] Sexp = INT.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_n = _symbols[offset + 1];
 					final Integer n = (Integer) _symbol_n.value;
 					return new Num(n);
 				}
 			},
-			Action.RETURN,	// [65] Sexp = FLOAT
-			Action.RETURN,	// [66] Sexp = CHAR
-			Action.RETURN,	// [67] Sexp = Pexp
-			RETURN3,	// [68] Pexp = AP Exp FP; returns 'FP' although none is marked
-			RETURN4,	// [69] Pexp = TYPE LB Exp RB; returns 'RB' although none is marked
-			new Action() {	// [70] Pexp = ID.l
+			Action.RETURN,	// [54] Sexp = FLOAT
+			Action.RETURN,	// [55] Sexp = CHAR
+			Action.RETURN,	// [56] Sexp = Pexp
+			RETURN3,	// [57] Pexp = AP Exp FP; returns 'FP' although none is marked
+			RETURN4,	// [58] Pexp = TYPE LB Exp RB; returns 'RB' although none is marked
+			new Action() {	// [59] Pexp = ID.l
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final String l = (String) _symbol_l.value;
 					return new ID(l);
 				}
 			},
-			Action.RETURN	// [71] Exps = lst$Exp
+			new Action() {	// [60] lst$Exp = Exp
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
+				}
+			},
+			new Action() {	// [61] lst$Exp = lst$Exp Exp
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2].value); return _symbols[offset + 1];
+				}
+			},
+			Action.RETURN	// [62] Exps = lst$Exp
 		};
 	}
 
