@@ -8,6 +8,12 @@ public abstract class Visitor {
 
      public abstract void visit(Sub sub);
 
+     public abstract void visit(Mult mult);
+
+     public abstract void visit(Div div);
+
+     public abstract void visit(Res res);
+
      public abstract void visit(Greater greater);
 
      public abstract void visit(Lesser lesser);

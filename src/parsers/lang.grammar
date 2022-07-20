@@ -119,9 +119,9 @@ Aexp = Exp.l PLUS  Exp.r      {:return new Add(l, r);:}
      | Mexp  
 ;
       
-Mexp = Exp MULT  Exp           
-     | Exp DIV  Exp
-     | Exp RES  Exp  
+Mexp = Exp.l MULT Exp.r       {:return new Mult(l, r);:}      
+     | Exp.l DIV Exp.r        {:return new Div(l, r);:}
+     | Exp.l RES Exp.r        {:return new Res(l, r);:}
      | Sexp                          
 ;
 

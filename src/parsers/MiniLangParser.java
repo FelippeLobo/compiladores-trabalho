@@ -252,9 +252,33 @@ public class MiniLangParser extends Parser {
 				}
 			},
 			Action.RETURN,	// [45] Aexp = Mexp
-			RETURN3,	// [46] Mexp = Exp MULT Exp; returns 'Exp' although none is marked
-			RETURN3,	// [47] Mexp = Exp DIV Exp; returns 'Exp' although none is marked
-			RETURN3,	// [48] Mexp = Exp RES Exp; returns 'Exp' although none is marked
+			new Action() {	// [46] Mexp = Exp.l MULT Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Mult(l, r);
+				}
+			},
+			new Action() {	// [47] Mexp = Exp.l DIV Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Div(l, r);
+				}
+			},
+			new Action() {	// [48] Mexp = Exp.l RES Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Res(l, r);
+				}
+			},
 			Action.RETURN,	// [49] Mexp = Sexp
 			RETURN2,	// [50] Sexp = Exp NOT; returns 'NOT' although none is marked
 			Action.RETURN,	// [51] Sexp = BOOL

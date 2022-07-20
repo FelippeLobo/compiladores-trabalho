@@ -69,6 +69,69 @@ public class FunctionsVisitor extends Visitor {
         envLocal.push(left - right);
     }
 
+    public void visit(Mult e) {
+        System.out.println("Entrei Mult");
+        e.getLeft().accept(this);
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
+
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
+        envLocal.push(left * right);
+    }
+
+    public void visit(Div e) {
+        System.out.println("Entrei Div");
+        e.getLeft().accept(this);
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
+
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
+        envLocal.push(left / right);
+    }
+
+    public void visit(Res e) {
+        System.out.println("Entrei Res");
+        e.getLeft().accept(this);
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
+
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
+        envLocal.push(left % right);
+    }
+
     public void visit(Greater e) {
         System.out.println("Entrei Greater");
         e.getLeft().accept(this);
