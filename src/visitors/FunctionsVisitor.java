@@ -75,211 +75,433 @@ public class FunctionsVisitor extends Visitor {
     public void visit(Sub e) {
         System.out.println("Entrei Sub");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left - right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt - rightInt);
+        } else if (leftInt != null && rightFloat != null) {
+            envLocal.push(leftInt - rightFloat);
+        } else if (leftFloat != null && rightInt != null) {
+            envLocal.push(leftFloat - rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat - rightFloat);
+        }
     }
 
     public void visit(Mult e) {
         System.out.println("Entrei Mult");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left * right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt * rightInt);
+        } else if (leftInt != null && rightFloat != null) {
+            envLocal.push(leftInt * rightFloat);
+        } else if (leftFloat != null && rightInt != null) {
+            envLocal.push(leftFloat * rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat * rightFloat);
+        }
     }
 
     public void visit(Div e) {
         System.out.println("Entrei Div");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left / right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt / rightInt);
+        } else if (leftInt != null && rightFloat != null) {
+            envLocal.push(leftInt / rightFloat);
+        } else if (leftFloat != null && rightInt != null) {
+            envLocal.push(leftFloat / rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat / rightFloat);
+        }
     }
 
     public void visit(Res e) {
         System.out.println("Entrei Res");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left % right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt % rightInt);
+        } else if (leftInt != null && rightFloat != null) {
+            envLocal.push(leftInt % rightFloat);
+        } else if (leftFloat != null && rightInt != null) {
+            envLocal.push(leftFloat % rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat % rightFloat);
+        }
     }
 
     public void visit(Greater e) {
         System.out.println("Entrei Greater");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left > right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt > rightInt);
+        } else if (leftInt != null && rightFloat != null) {
+            envLocal.push(leftInt > rightFloat);
+        } else if (leftFloat != null && rightInt != null) {
+            envLocal.push(leftFloat > rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat > rightFloat);
+        }
     }
 
     public void visit(Lesser e) {
         System.out.println("Entrei Lesser");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left < right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt < rightInt);
+        } else if (leftInt != null && rightFloat != null) {
+            envLocal.push(leftInt < rightFloat);
+        } else if (leftFloat != null && rightInt != null) {
+            envLocal.push(leftFloat < rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat < rightFloat);
+        }
     }
 
     public void visit(GreaterEqual e) {
         System.out.println("Entrei GreaterEqual");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left >= right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt >= rightInt);
+        } else if (leftInt != null && rightFloat != null) {
+            envLocal.push(leftInt >= rightFloat);
+        } else if (leftFloat != null && rightInt != null) {
+            envLocal.push(leftFloat >= rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat >= rightFloat);
+        }
     }
 
     public void visit(LesserEqual e) {
         System.out.println("Entrei LesserEqual");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left <= right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt <= rightInt);
+        } else if (leftInt != null && rightFloat != null) {
+            envLocal.push(leftInt <= rightFloat);
+        } else if (leftFloat != null && rightInt != null) {
+            envLocal.push(leftFloat <= rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat <= rightFloat);
+        }
     }
 
     public void visit(Equal e) {
         System.out.println("Entrei Equal");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left == right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt == rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat == rightFloat);
+        }
     }
 
     public void visit(Dif e) {
         System.out.println("Entrei Dif");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left != right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt != rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat != rightFloat);
+        }
     }
 
     public void visit(Attr e) {
