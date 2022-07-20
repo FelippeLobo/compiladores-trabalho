@@ -572,27 +572,11 @@ public class FunctionsVisitor extends Visitor {
             e.getVar().accept(this);
             String variableName = (String) envLocal.pop();
             System.out.println("Valor removido da pilha: " + variableName);
-            Integer valueInt=null;
-            Float valueFloat=null;
-            Boolean valueBool=null;
-            Character valueChar=null;
-            if (envLocal.peek() instanceof Integer) {
-                valueInt = (int) envLocal.pop();
-                System.out.println("Valor removido da pilha: " + valueInt);
-                variablesValues.put(variableName, valueInt);
-            } else if (envLocal.peek() instanceof Float) {
-               valueFloat = (float) envLocal.pop(); 
-               System.out.println("Valor removido da pilha: " + valueFloat);
-               variablesValues.put(variableName, valueFloat);
-            } else if (envLocal.peek() instanceof Boolean) {
-                valueBool = (boolean) envLocal.pop(); 
-                System.out.println("Valor removido da pilha: " + valueBool);
-                variablesValues.put(variableName, valueBool);
-            } else if (envLocal.peek() instanceof Character) {
-                valueChar = (char) envLocal.pop(); 
-                System.out.println("Valor removido da pilha: " + valueChar);
-                variablesValues.put(variableName, valueChar);
-            }
+            Object value = null;
+
+            value = envLocal.pop();
+            System.out.println("Valor removido da pilha: " + value);
+            variablesValues.put(variableName, value);
 
         } else {
             boolean flag = false;
@@ -607,27 +591,12 @@ public class FunctionsVisitor extends Visitor {
                 e.getVar().accept(this);
                 String variableName = (String) envLocal.pop();
                 System.out.println("Valor removido da pilha: " + variableName);
-                Integer valueInt=null;
-                Float valueFloat=null;
-                Boolean valueBool=null;
-                Character valueChar=null;
-                if (envLocal.peek() instanceof Integer) {
-                    valueInt = (int) envLocal.pop();
-                    System.out.println("Valor removido da pilha: " + valueInt);
-                    variablesValues.put(variableName, valueInt);
-                } else if (envLocal.peek() instanceof Float) {
-                   valueFloat = (float) envLocal.pop(); 
-                   System.out.println("Valor removido da pilha: " + valueFloat);
-                   variablesValues.put(variableName, valueFloat);
-                } else if (envLocal.peek() instanceof Boolean) {
-                    valueBool = (boolean) envLocal.pop(); 
-                    System.out.println("Valor removido da pilha: " + valueBool);
-                    variablesValues.put(variableName, valueBool);
-                } else if (envLocal.peek() instanceof Character) {
-                    valueChar = (char) envLocal.pop(); 
-                    System.out.println("Valor removido da pilha: " + valueChar);
-                    variablesValues.put(variableName, valueChar);
-                }
+                Object value = null;
+
+                value = envLocal.pop();
+                System.out.println("Valor removido da pilha: " + value);
+                variablesValues.put(variableName, value);
+
             }
         }
 
