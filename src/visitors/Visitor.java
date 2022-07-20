@@ -6,6 +6,8 @@ public abstract class Visitor {
 
      public abstract void visit(Add add);
 
+     public abstract void visit(Sub sub);
+
      public abstract void visit(Prog prog);
 
      public abstract void visit(Attr attr);

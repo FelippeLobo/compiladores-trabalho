@@ -114,8 +114,8 @@ Rexp = Exp GREATER Exp
      | Aexp
 ;
 
-Aexp = Exp.l PLUS  Exp.r  {:return new Add(l, r);:}          
-     | Exp SUB  Exp
+Aexp = Exp.l PLUS  Exp.r      {:return new Add(l, r);:}          
+     | Exp.l SUB  Exp.r       {:return new Sub(l, r);:}  
      | Mexp  
 ;
       
