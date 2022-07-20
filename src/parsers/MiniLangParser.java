@@ -178,12 +178,60 @@ public class MiniLangParser extends Parser {
 			RETURN4,	// [33] Lvalue = Lvalue LB Exp RB; returns 'RB' although none is marked
 			RETURN3,	// [34] Lvalue = Lvalue DOT ID; returns 'ID' although none is marked
 			Action.RETURN,	// [35] Exp = Rexp
-			RETURN3,	// [36] Rexp = Exp GREATER Exp; returns 'Exp' although none is marked
-			RETURN3,	// [37] Rexp = Exp LESSER Exp; returns 'Exp' although none is marked
-			RETURN3,	// [38] Rexp = Exp GREATEREQUAL Exp; returns 'Exp' although none is marked
-			RETURN3,	// [39] Rexp = Exp LESSEREQUAL Exp; returns 'Exp' although none is marked
-			RETURN3,	// [40] Rexp = Exp EQUALTO Exp; returns 'Exp' although none is marked
-			RETURN3,	// [41] Rexp = Exp DIF Exp; returns 'Exp' although none is marked
+			new Action() {	// [36] Rexp = Exp.l GREATER Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Greater(l, r);
+				}
+			},
+			new Action() {	// [37] Rexp = Exp.l LESSER Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Lesser(l, r);
+				}
+			},
+			new Action() {	// [38] Rexp = Exp.l GREATEREQUAL Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new GreaterEqual(l, r);
+				}
+			},
+			new Action() {	// [39] Rexp = Exp.l LESSEREQUAL Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new LesserEqual(l, r);
+				}
+			},
+			new Action() {	// [40] Rexp = Exp.l EQUALTO Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Equal(l, r);
+				}
+			},
+			new Action() {	// [41] Rexp = Exp.l DIF Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Dif(l, r);
+				}
+			},
 			Action.RETURN,	// [42] Rexp = Aexp
 			new Action() {	// [43] Aexp = Exp.l PLUS Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {

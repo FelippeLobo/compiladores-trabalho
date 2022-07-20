@@ -69,6 +69,131 @@ public class FunctionsVisitor extends Visitor {
         envLocal.push(left - right);
     }
 
+    public void visit(Greater e) {
+        System.out.println("Entrei Greater");
+        e.getLeft().accept(this);
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
+
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
+        envLocal.push(left > right);
+    }
+
+    public void visit(Lesser e) {
+        System.out.println("Entrei Lesser");
+        e.getLeft().accept(this);
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
+
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
+        envLocal.push(left < right);
+    }
+
+    public void visit(GreaterEqual e) {
+        System.out.println("Entrei GreaterEqual");
+        e.getLeft().accept(this);
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
+
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
+        envLocal.push(left >= right);
+    }
+
+    public void visit(LesserEqual e) {
+        System.out.println("Entrei LesserEqual");
+        e.getLeft().accept(this);
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
+
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
+        envLocal.push(left <= right);
+    }
+
+    public void visit(Equal e) {
+        System.out.println("Entrei Equal");
+        e.getLeft().accept(this);
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
+
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
+        envLocal.push(left == right);
+    }
+
+    public void visit(Dif e) {
+        System.out.println("Entrei Dif");
+        e.getLeft().accept(this);
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
+
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
+        envLocal.push(left != right);
+    }
 
     public void visit(Attr e) {
         System.out.println(e.toString());
@@ -106,7 +231,24 @@ public class FunctionsVisitor extends Visitor {
 
     public void visit(Print e) {
         e.getExp().accept(this);
-        System.out.println(variablesValues.get(envLocal.pop()));
+        boolean flag = false;
+
+        if(envLocal.peek() instanceof Boolean || envLocal.peek() instanceof Integer || envLocal.peek() instanceof Float){
+            System.out.println(envLocal.pop());
+
+        }else if(envLocal.peek() instanceof String){
+
+            for(int i = 0; i < variables.size(); i++){
+                if(variables.get(i).equals(envLocal.peek())) {
+                    System.out.println(variablesValues.get(envLocal.pop()));
+                    flag = true;
+                }
+            }
+
+            if(!flag){
+                System.out.println(envLocal.pop());
+            }
+        }
     }
 
     @Override

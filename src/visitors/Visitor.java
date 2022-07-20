@@ -8,6 +8,18 @@ public abstract class Visitor {
 
      public abstract void visit(Sub sub);
 
+     public abstract void visit(Greater greater);
+
+     public abstract void visit(Lesser lesser);
+
+     public abstract void visit(GreaterEqual greaterEqual);
+
+     public abstract void visit(LesserEqual lesserEqual);
+
+     public abstract void visit(Equal equal);
+
+     public abstract void visit(Dif dif);
+
      public abstract void visit(Prog prog);
 
      public abstract void visit(Attr attr);

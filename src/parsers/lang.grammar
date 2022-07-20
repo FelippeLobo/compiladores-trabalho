@@ -105,12 +105,12 @@ Lvalue = ID.l
 Exp = Rexp
 ;
 
-Rexp = Exp GREATER Exp
-     | Exp LESSER Exp          
-     | Exp GREATEREQUAL Exp    
-     | Exp LESSEREQUAL Exp     
-     | Exp EQUALTO Exp         
-     | Exp DIF Exp  
+Rexp = Exp.l GREATER Exp.r        {:return new Greater(l, r);:}
+     | Exp.l LESSER Exp.r             {:return new Lesser(l, r);:}       
+     | Exp.l GREATEREQUAL Exp.r       {:return new GreaterEqual(l, r);:}
+     | Exp.l LESSEREQUAL Exp.r        {:return new LesserEqual(l, r);:}
+     | Exp.l EQUALTO Exp.r            {:return new Equal(l, r);:}
+     | Exp.l DIF Exp.r                {:return new Dif(l, r);:}
      | Aexp
 ;
 
