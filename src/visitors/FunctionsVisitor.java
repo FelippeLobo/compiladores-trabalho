@@ -30,11 +30,24 @@ public class FunctionsVisitor extends Visitor {
     public void visit(Add e) {
         System.out.println("Entrei ADD");
         e.getLeft().accept(this);
-        int left = (int) variablesValues.get((String) (envLocal.pop()));
-        e.getRight().accept(this);
-        int right = (int) variablesValues.get((String) (envLocal.pop()));
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
 
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
         envLocal.push(left + right);
+
+        
 
     }
 
