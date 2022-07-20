@@ -17,4 +17,6 @@ public abstract class Visitor {
      public abstract void visit(Var var);
 
      public abstract void visit(Num num);
+     
+     public abstract <T> void visit(LiteralValue<T> literalValue);
 }

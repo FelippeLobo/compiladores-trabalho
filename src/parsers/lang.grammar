@@ -126,11 +126,11 @@ Mexp = Exp MULT  Exp
 ;
 
 Sexp = Exp NOT
-     | BOOL                        
-     | NULL                     
-     | INT.n             {:return new Num(n);:}                   
-     | FLOAT                          
-     | CHAR
+     | BOOL.n            {:return new LiteralValue<Boolean>(n);:}                      
+     | NULL                                   
+     | INT.n             {:return new LiteralValue<Integer>(n);:}                   
+     | FLOAT.n           {:return new LiteralValue<Float>(n);:}           
+     | CHAR.n            {:return new LiteralValue<Character>(n);:}     
      | Pexp                                                     
 ;
 
