@@ -42,16 +42,15 @@
 %typeof Param = "Node";
 %typeof Func = "Node";
 %typeof Return = "Node";
-%typeof FuncStmtList = "Node";
-%typeof FuncStmt = "Node";
+%typeof StmtList = "Node";
 %typeof Ret = "Node";
 %typeof Data = "Node";
 %typeof Decl = "Node";
 
 %goal Prog;
 
-Prog = Stmt.l SEMI        {: return new Prog(l);:}
-     | Stmt.l SEMI Prog.r {: return new Prog(l, r);:}
+Prog = StmtList.l SEMI        {: return new Prog(l);:}
+     | StmtList.l SEMI Prog.r {: return new Prog(l, r);:}
      | Func.l             {: return new Prog(l);:}
      | Func.l Prog.r      {: return new Prog(l, r);:}
      | Data.l             {: return new Prog(l);:}
@@ -66,35 +65,23 @@ Decl = ID DBCOLON TYPE SEMI
      ;
 
 Stmt = ID.l EQ Exp.r                   {: return new Attr((String)l, r);:}
-     | IF AP Exp FP Stmt
-     | IF AP Exp FP Stmt ELSE Stmt             
+     | IF AP Exp FP StmtList
+     | IF AP Exp FP StmtList ELSE StmtList             
      | ITERATE AP Exp FP Stmt                        
      | Exp
      | READ Lvalue               
      | PRINT Exp.e                      {: return new Print(e);:} 
-     | RETURN Exp+ 
+     | RETURN Ret 
      | Lvalue EQ Exp           
      | ID AP Exps FP LESSER Lvalue+ GREATER                      
      ;
 
-Func = ID.a AP ParamList.b FP COLON Return AC FuncStmtList.c RETURN Ret.d SEMI FC 
+Func = ID AP ParamList FP COLON Return AC StmtList FC
      ;
 
-FuncStmtList = FuncStmt SEMI FuncStmtList     
-         | FuncStmt SEMI  
+StmtList = Stmt SEMI StmtList     
+         | Stmt SEMI  
          ;
-
-FuncStmt = ID.l EQ Exp.r     
-     | IF AP Exp FP Stmt
-     | IF AP Exp FP Stmt ELSE Stmt             
-     | ITERATE AP Exp FP Stmt                        
-     | Exp
-     | READ Lvalue               
-     | PRINT Exp                   
-     | Lvalue EQ Exp           
-     | ID AP Exps FP LESSER Lvalue+ GREATER                      
-     ;
-
 Ret = Exp COMMA Ret
      | Exp
      ;
