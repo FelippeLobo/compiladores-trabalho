@@ -194,7 +194,15 @@ public class MiniLangParser extends Parser {
 					return new Add(l, r);
 				}
 			},
-			RETURN3,	// [44] Aexp = Exp SUB Exp; returns 'Exp' although none is marked
+			new Action() {	// [44] Aexp = Exp.l SUB Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Sub(l, r);
+				}
+			},
 			Action.RETURN,	// [45] Aexp = Mexp
 			RETURN3,	// [46] Mexp = Exp MULT Exp; returns 'Exp' although none is marked
 			RETURN3,	// [47] Mexp = Exp DIV Exp; returns 'Exp' although none is marked

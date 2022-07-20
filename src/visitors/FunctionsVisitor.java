@@ -72,6 +72,28 @@ public class FunctionsVisitor extends Visitor {
 
     }
 
+    public void visit(Sub e) {
+        System.out.println("Entrei Sub");
+        e.getLeft().accept(this);
+        int left, right;
+        if (envLocal.peek() instanceof Integer) {
+            left = (int) envLocal.pop();
+
+        } else {
+            left = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+
+        e.getRight().accept(this);
+        if(envLocal.peek() instanceof Integer){
+            right = (int) envLocal.pop();
+        }else{
+            right = (int) variablesValues.get((String) (envLocal.pop()));
+        }
+        
+        envLocal.push(left - right);
+    }
+
+
     public void visit(Attr e) {
         System.out.println(e.toString());
         e.getExp().accept(this);
