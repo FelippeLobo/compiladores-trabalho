@@ -429,6 +429,8 @@ public class FunctionsVisitor extends Visitor {
         e.getLeft().accept(this);
         Integer leftInt = null, rightInt = null;
         Float leftFloat = null, rightFloat = null;
+        Boolean leftBool = null, rightBool = null;
+        Character leftChar = null, rightChar = null;
 
         if (envLocal.peek() instanceof Integer) {
             leftInt = (int) envLocal.pop();
@@ -436,13 +438,25 @@ public class FunctionsVisitor extends Visitor {
         } else if (envLocal.peek() instanceof Float) {
             leftFloat = (float) envLocal.pop();
 
+        } else if (envLocal.peek() instanceof Boolean) {
+            leftBool = (boolean) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Character) {
+            leftChar = (char) envLocal.pop();
+
         } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
             leftInt = (int) variablesValues.get((String) (envLocal.pop()));
 
         } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
             leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
-        }
 
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Boolean) {
+            leftBool = (boolean) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Character) {
+            leftChar = (char) variablesValues.get((String) (envLocal.pop()));
+        }
+    
         e.getRight().accept(this);
         if (envLocal.peek() instanceof Integer) {
             rightInt = (int) envLocal.pop();
@@ -450,17 +464,33 @@ public class FunctionsVisitor extends Visitor {
         } else if (envLocal.peek() instanceof Float) {
             rightFloat = (float) envLocal.pop();
 
+        } else if (envLocal.peek() instanceof Boolean) {
+            rightBool = (boolean) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Character) {
+            rightChar = (char) envLocal.pop();
+
         } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
             rightInt = (int) variablesValues.get((String) (envLocal.pop()));
 
         } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
             rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Boolean) {
+            rightBool = (boolean) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Character) {
+            rightChar = (char) variablesValues.get((String) (envLocal.pop()));
         }
 
         if (leftInt != null && rightInt != null) {
             envLocal.push(leftInt == rightInt);
         } else if (leftFloat != null && rightFloat != null) {
             envLocal.push(leftFloat == rightFloat);
+        } else if (leftBool != null && rightBool != null) {
+            envLocal.push(leftBool == rightBool);
+        } else if (leftChar != null && rightChar != null) {
+            envLocal.push(leftChar== rightChar);
         }
     }
 
@@ -469,6 +499,8 @@ public class FunctionsVisitor extends Visitor {
         e.getLeft().accept(this);
         Integer leftInt = null, rightInt = null;
         Float leftFloat = null, rightFloat = null;
+        Boolean leftBool = null, rightBool = null;
+        Character leftChar = null, rightChar = null;
 
         if (envLocal.peek() instanceof Integer) {
             leftInt = (int) envLocal.pop();
@@ -476,13 +508,25 @@ public class FunctionsVisitor extends Visitor {
         } else if (envLocal.peek() instanceof Float) {
             leftFloat = (float) envLocal.pop();
 
+        } else if (envLocal.peek() instanceof Boolean) {
+            leftBool = (boolean) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Character) {
+            leftChar = (char) envLocal.pop();
+
         } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
             leftInt = (int) variablesValues.get((String) (envLocal.pop()));
 
         } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
             leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
-        }
 
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Boolean) {
+            leftBool = (boolean) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Character) {
+            leftChar = (char) variablesValues.get((String) (envLocal.pop()));
+        }
+    
         e.getRight().accept(this);
         if (envLocal.peek() instanceof Integer) {
             rightInt = (int) envLocal.pop();
@@ -490,17 +534,33 @@ public class FunctionsVisitor extends Visitor {
         } else if (envLocal.peek() instanceof Float) {
             rightFloat = (float) envLocal.pop();
 
+        } else if (envLocal.peek() instanceof Boolean) {
+            rightBool = (boolean) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Character) {
+            rightChar = (char) envLocal.pop();
+
         } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
             rightInt = (int) variablesValues.get((String) (envLocal.pop()));
 
         } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
             rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Boolean) {
+            rightBool = (boolean) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Character) {
+            rightChar = (char) variablesValues.get((String) (envLocal.pop()));
         }
 
         if (leftInt != null && rightInt != null) {
             envLocal.push(leftInt != rightInt);
         } else if (leftFloat != null && rightFloat != null) {
             envLocal.push(leftFloat != rightFloat);
+        } else if (leftBool != null && rightBool != null) {
+            envLocal.push(leftBool != rightBool);
+        } else if (leftChar != null && rightChar != null) {
+            envLocal.push(leftChar != rightChar);
         }
     }
 
@@ -514,6 +574,8 @@ public class FunctionsVisitor extends Visitor {
             System.out.println("Valor removido da pilha: " + variableName);
             Integer valueInt=null;
             Float valueFloat=null;
+            Boolean valueBool=null;
+            Character valueChar=null;
             if (envLocal.peek() instanceof Integer) {
                 valueInt = (int) envLocal.pop();
                 System.out.println("Valor removido da pilha: " + valueInt);
@@ -522,6 +584,14 @@ public class FunctionsVisitor extends Visitor {
                valueFloat = (float) envLocal.pop(); 
                System.out.println("Valor removido da pilha: " + valueFloat);
                variablesValues.put(variableName, valueFloat);
+            } else if (envLocal.peek() instanceof Boolean) {
+                valueBool = (boolean) envLocal.pop(); 
+                System.out.println("Valor removido da pilha: " + valueBool);
+                variablesValues.put(variableName, valueBool);
+            } else if (envLocal.peek() instanceof Character) {
+                valueChar = (char) envLocal.pop(); 
+                System.out.println("Valor removido da pilha: " + valueChar);
+                variablesValues.put(variableName, valueChar);
             }
 
         } else {
@@ -539,6 +609,8 @@ public class FunctionsVisitor extends Visitor {
                 System.out.println("Valor removido da pilha: " + variableName);
                 Integer valueInt=null;
                 Float valueFloat=null;
+                Boolean valueBool=null;
+                Character valueChar=null;
                 if (envLocal.peek() instanceof Integer) {
                     valueInt = (int) envLocal.pop();
                     System.out.println("Valor removido da pilha: " + valueInt);
@@ -547,10 +619,15 @@ public class FunctionsVisitor extends Visitor {
                    valueFloat = (float) envLocal.pop(); 
                    System.out.println("Valor removido da pilha: " + valueFloat);
                    variablesValues.put(variableName, valueFloat);
+                } else if (envLocal.peek() instanceof Boolean) {
+                    valueBool = (boolean) envLocal.pop(); 
+                    System.out.println("Valor removido da pilha: " + valueBool);
+                    variablesValues.put(variableName, valueBool);
+                } else if (envLocal.peek() instanceof Character) {
+                    valueChar = (char) envLocal.pop(); 
+                    System.out.println("Valor removido da pilha: " + valueChar);
+                    variablesValues.put(variableName, valueChar);
                 }
-
-
-              
             }
         }
 

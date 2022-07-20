@@ -1,4 +1,6 @@
 a = 3.2;
 b = 2.8;
 
-print a == 3;
+c = true != true;
+
+print c;
