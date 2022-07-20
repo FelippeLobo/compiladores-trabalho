@@ -1,4 +1,3 @@
-
 //Nathan Toschi Reis / 201865064C
 //Felippe Rocha Lobo de Abreu / 201765185AC
 
@@ -37,20 +36,21 @@
 %typeof Exps = "Exp";
 %typeof Lvalue = "String";
 %typeof Stmt = "Node";
-%typeof StmtList = "Node";
 %typeof Prog = "Node";
 %typeof ParamList = "Node";
 %typeof Param = "Node";
 %typeof Func = "Node";
 %typeof Return = "Node";
+%typeof FuncStmtList = "Node";
+%typeof FuncStmt = "Node";
 %typeof Ret = "Node";
 %typeof Data = "Node";
 %typeof Decl = "Node";
 
 %goal Prog;
 
-Prog = StmtList.l SEMI        {: return new Prog(l);:}
-     | StmtList.l SEMI Prog.r {: return new Prog(l, r);:}
+Prog = Stmt.l SEMI        {: return new Prog(l);:}
+     | Stmt.l SEMI Prog.r {: return new Prog(l, r);:}
      | Func.l             {: return new Prog(l);:}
      | Func.l Prog.r      {: return new Prog(l, r);:}
      | Data.l             {: return new Prog(l);:}
@@ -65,23 +65,35 @@ Decl = ID DBCOLON TYPE SEMI
      ;
 
 Stmt = ID.l EQ Exp.r                   {: return new Attr((String)l, r);:}
-     | IF AP Exp FP StmtList
-     | IF AP Exp FP StmtList ELSE StmtList             
+     | IF AP Exp FP Stmt
+     | IF AP Exp FP Stmt ELSE Stmt             
      | ITERATE AP Exp FP Stmt                        
      | Exp
      | READ Lvalue               
      | PRINT Exp.e                      {: return new Print(e);:} 
-     | RETURN Ret 
+     | RETURN Exp+ 
      | Lvalue EQ Exp           
      | ID AP Exps FP LESSER Lvalue+ GREATER                      
      ;
 
-Func = ID AP ParamList FP COLON Return AC StmtList FC
+Func = ID.a AP ParamList.b FP COLON Return AC FuncStmtList.c RETURN Ret.d SEMI FC 
      ;
 
-StmtList = Stmt SEMI StmtList     
-         | Stmt SEMI  
+FuncStmtList = FuncStmt SEMI FuncStmtList     
+         | FuncStmt SEMI  
          ;
+
+FuncStmt = ID.l EQ Exp.r     
+     | IF AP Exp FP Stmt
+     | IF AP Exp FP Stmt ELSE Stmt             
+     | ITERATE AP Exp FP Stmt                        
+     | Exp
+     | READ Lvalue               
+     | PRINT Exp                   
+     | Lvalue EQ Exp           
+     | ID AP Exps FP LESSER Lvalue+ GREATER                      
+     ;
+
 Ret = Exp COMMA Ret
      | Exp
      ;
@@ -141,4 +153,3 @@ Pexp = AP Exp FP
 
 Exps = Exp+
 ;
-

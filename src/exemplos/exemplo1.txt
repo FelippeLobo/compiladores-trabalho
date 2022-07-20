@@ -1,11 +1,4 @@
-fat (num :: Int ) : Int {
-num = num*2;
-a = num % 2;
-
-if(a>b) 
-    return a; 
-else 
-    return b; 
-;
-
-}
+a = 3;
+b = 2;
+c = a + b;
+print c;
