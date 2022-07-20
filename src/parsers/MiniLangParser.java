@@ -281,17 +281,35 @@ public class MiniLangParser extends Parser {
 			},
 			Action.RETURN,	// [49] Mexp = Sexp
 			RETURN2,	// [50] Sexp = Exp NOT; returns 'NOT' although none is marked
-			Action.RETURN,	// [51] Sexp = BOOL
+			new Action() {	// [51] Sexp = BOOL.n
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_n = _symbols[offset + 1];
+					final boolean n = (boolean) _symbol_n.value;
+					return new LiteralValue<Boolean>(n);
+				}
+			},
 			Action.RETURN,	// [52] Sexp = NULL
 			new Action() {	// [53] Sexp = INT.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_n = _symbols[offset + 1];
 					final Integer n = (Integer) _symbol_n.value;
-					return new Num(n);
+					return new LiteralValue<Integer>(n);
 				}
 			},
-			Action.RETURN,	// [54] Sexp = FLOAT
-			Action.RETURN,	// [55] Sexp = CHAR
+			new Action() {	// [54] Sexp = FLOAT.n
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_n = _symbols[offset + 1];
+					final float n = (float) _symbol_n.value;
+					return new LiteralValue<Float>(n);
+				}
+			},
+			new Action() {	// [55] Sexp = CHAR.n
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_n = _symbols[offset + 1];
+					final char n = (char) _symbol_n.value;
+					return new LiteralValue<Character>(n);
+				}
+			},
 			Action.RETURN,	// [56] Sexp = Pexp
 			RETURN3,	// [57] Pexp = AP Exp FP; returns 'FP' although none is marked
 			RETURN4,	// [58] Pexp = TYPE LB Exp RB; returns 'RB' although none is marked

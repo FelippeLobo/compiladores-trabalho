@@ -30,22 +30,46 @@ public class FunctionsVisitor extends Visitor {
     public void visit(Add e) {
         System.out.println("Entrei ADD");
         e.getLeft().accept(this);
-        int left, right;
-        if (envLocal.peek() instanceof Integer) {
-            left = (int) envLocal.pop();
+        Integer leftInt = null, rightInt = null;
+        Float leftFloat = null, rightFloat = null;
 
-        } else {
-            left = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            leftInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            leftFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            leftInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            leftFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
 
         e.getRight().accept(this);
-        if(envLocal.peek() instanceof Integer){
-            right = (int) envLocal.pop();
-        }else{
-            right = (int) variablesValues.get((String) (envLocal.pop()));
+        if (envLocal.peek() instanceof Integer) {
+            rightInt = (int) envLocal.pop();
+
+        } else if (envLocal.peek() instanceof Float) {
+            rightFloat = (float) envLocal.pop();
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Integer) {
+            rightInt = (int) variablesValues.get((String) (envLocal.pop()));
+
+        } else if (variablesValues.get((String) (envLocal.peek())) instanceof Float) {
+            rightFloat = (float) variablesValues.get((String) (envLocal.pop()));
         }
-        
-        envLocal.push(left + right);
+
+        if (leftInt != null && rightInt != null) {
+            envLocal.push(leftInt + rightInt);
+        } else if (leftInt != null && rightFloat != null) {
+            envLocal.push(leftInt + rightFloat);
+        } else if (leftFloat != null && rightInt != null) {
+            envLocal.push(leftFloat + rightInt);
+        } else if (leftFloat != null && rightFloat != null) {
+            envLocal.push(leftFloat + rightFloat);
+        }
+
     }
 
     public void visit(Sub e) {
@@ -261,15 +285,22 @@ public class FunctionsVisitor extends Visitor {
     public void visit(Attr e) {
         System.out.println(e.toString());
         e.getExp().accept(this);
-
+        
         if (variables.size() == 0) {
             e.getVar().accept(this);
             String variableName = (String) envLocal.pop();
             System.out.println("Valor removido da pilha: " + variableName);
-            int value = (int) envLocal.pop();
-            System.out.println("Valor removido da pilha: " + value);
-
-            variablesValues.put(variableName, value);
+            Integer valueInt=null;
+            Float valueFloat=null;
+            if (envLocal.peek() instanceof Integer) {
+                valueInt = (int) envLocal.pop();
+                System.out.println("Valor removido da pilha: " + valueInt);
+                variablesValues.put(variableName, valueInt);
+            } else if (envLocal.peek() instanceof Float) {
+               valueFloat = (float) envLocal.pop(); 
+               System.out.println("Valor removido da pilha: " + valueFloat);
+               variablesValues.put(variableName, valueFloat);
+            }
 
         } else {
             boolean flag = false;
@@ -284,11 +315,28 @@ public class FunctionsVisitor extends Visitor {
                 e.getVar().accept(this);
                 String variableName = (String) envLocal.pop();
                 System.out.println("Valor removido da pilha: " + variableName);
-                int value = (int) envLocal.pop();
-                System.out.println("Valor removido da pilha: " + value);
-                variablesValues.put(variableName, value);
+                Integer valueInt=null;
+                Float valueFloat=null;
+                if (envLocal.peek() instanceof Integer) {
+                    valueInt = (int) envLocal.pop();
+                    System.out.println("Valor removido da pilha: " + valueInt);
+                    variablesValues.put(variableName, valueInt);
+                } else if (envLocal.peek() instanceof Float) {
+                   valueFloat = (float) envLocal.pop(); 
+                   System.out.println("Valor removido da pilha: " + valueFloat);
+                   variablesValues.put(variableName, valueFloat);
+                }
+
+
+              
             }
         }
+
+    }
+
+    public <T> void visit(LiteralValue<T> e) {
+        System.out.println("Valor adicionado a pilha: " + e.getValue());
+        envLocal.push(e.getValue());
 
     }
 
