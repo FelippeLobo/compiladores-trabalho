@@ -48,12 +48,12 @@
 
 %goal Prog;
 
-Prog = Stmt.l SEMI        {: return new Prog(l);:}
-     | Stmt.l SEMI Prog.r {: return new Prog(l, r);:}
-     | Func.l             {: return new Prog(l);:}
-     | Func.l Prog.r      {: return new Prog(l, r);:}
-     | Data.l             {: return new Prog(l);:}
-     | Data.l Prog.r      {: return new Prog(l, r);:}               
+Prog = Stmt.l SEMI            {: return new Prog(l);:}
+     | Stmt.l SEMI Prog.r     {: return new Prog(l, r);:}
+     | Func.l                 {: return new Prog(l);:}
+     | Func.l Prog.r          {: return new Prog(l, r);:}
+     | Data.l                 {: return new Prog(l);:}
+     | Data.l Prog.r          {: return new Prog(l, r);:}               
      ;
 
 Data = ID AC Decl FC
@@ -105,7 +105,7 @@ Lvalue = ID.l
 Exp = Rexp
 ;
 
-Rexp = Exp.l GREATER Exp.r        {:return new Greater(l, r);:}
+Rexp = Exp.l GREATER Exp.r            {:return new Greater(l, r);:}
      | Exp.l LESSER Exp.r             {:return new Lesser(l, r);:}       
      | Exp.l GREATEREQUAL Exp.r       {:return new GreaterEqual(l, r);:}
      | Exp.l LESSEREQUAL Exp.r        {:return new LesserEqual(l, r);:}
