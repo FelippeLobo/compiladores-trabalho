@@ -1,7 +1,6 @@
 a = 3;
 b = 2;
-c = a*b;
-print c;
+c;
 
 if(a > b){
     c = a;
@@ -10,3 +9,5 @@ if(a > b){
     c = b;
     print c;
 };
+
+print a;

@@ -631,9 +631,25 @@ public class InterpretVisitor extends Visitor {
         this.isBlock = false;
     }
 
-    public void visit(Print e) {
-        e.getExp().accept(this);
-        System.out.println(globalCtx.get(operands.pop()));
+    public void visit(Print print) {
+        print.getExp().accept(this);
+
+        Object exp = operands.pop();
+        
+        if(this.isBlock){
+            if(env.peek().get(exp) != null){
+                System.out.println(env.peek().get(exp));
+            }else{
+                System.out.println(exp);
+            }
+            
+        }else{
+            if(globalCtx.get(exp) != null){
+                System.out.println(globalCtx.get(exp));
+            }else{
+                System.out.println(exp);
+            }
+        }
     }
 
     @Override
