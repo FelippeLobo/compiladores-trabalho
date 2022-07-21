@@ -14,7 +14,7 @@ public abstract class Visitor {
 
      public abstract void visit(Div div);
 
-     public abstract void visit(Res res);
+     public abstract void visit(Mod mod);
 
      public abstract void visit(Greater greater);
 
@@ -27,6 +27,8 @@ public abstract class Visitor {
      public abstract void visit(Equal equal);
 
      public abstract void visit(Dif dif);
+
+     public abstract void visit(And and);
 
      public abstract void visit(Prog prog);
 
@@ -51,4 +53,6 @@ public abstract class Visitor {
      public abstract void visit(GenRet genret);
 
      public abstract void visit(Ret ret);
+
+     public abstract void visit(Func e);
 }

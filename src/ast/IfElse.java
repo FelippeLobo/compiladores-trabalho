@@ -41,9 +41,9 @@ public class IfElse extends Node {
       
      public String toString(){
           if(stmtList2 != null){
-               return ("if(" + e.toString() + ")\n{" + stmtList1.toString() + "\n} else\n{" + stmtList2.toString() + "\n}");
+               return ("if(" + e.toString() + ") " + stmtList1.toString() + " else " + stmtList2.toString());
           }else{
-               return ("if(" + e.toString() + ")\n{" + stmtList1.toString() + "\n}");
+               return ("if(" + e.toString() + ")" + stmtList1.toString());
           }    
      }
 

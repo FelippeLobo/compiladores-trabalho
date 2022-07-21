@@ -39,8 +39,6 @@ import java.math.BigDecimal;
 %}
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = {LineTerminator} | [ \t\f]
-
-  
   
   /* Agora vamos definir algumas macros */
   FimDeLinha  = \r|\n|\r\n
@@ -48,7 +46,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
   type = [:uppercase:] ( [:letter:] | [:digit:] | "_" )*
   float      = [:digit:]*[.] [:digit:]*
   inteiro = [:digit:] [:digit:]*
-  char = "'" [:lowercase:] "'" | "'" [:uppercase:] "'" 
+  char = "'" [:lowercase:] "'" | "'" [:uppercase:] "'" | "'" "\n" "'" | "'" "\t" "'" | "'" "\\" "'"
   boolean = "true" | "false"
   identificador = [:lowercase:] ([:lowercase:] | [:uppercase:] | [:digit:] | "_")*
   Literal = "'" (.)  "'" | "'" "\\n" "'" | "'" "\\r" "'" | "'" "\\t" "'" | "'" "\\b" "'" | "'" "\\\\" "'"
@@ -76,7 +74,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "}"             { return newToken(Terminals.FC);   }
     "*"             { return newToken(Terminals.MULT); }
     "/"             { return newToken(Terminals.DIV);  }
-    "%"             { return newToken(Terminals.RES);  }
+    "%"             { return newToken(Terminals.MOD);  }
     "+"             { return newToken(Terminals.PLUS); }
     "-"             { return newToken(Terminals.SUB); }
     ">"             { return newToken(Terminals.GREATER); }
@@ -85,6 +83,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "<="            { return newToken(Terminals.LESSEREQUAL);}
     "=="            { return newToken(Terminals.EQUALTO);}
     "!="            { return newToken(Terminals.DIF);}
+    "&&"            { return newToken(Terminals.AND);}
     "!"             { return newToken(Terminals.NOT);}
     "."             { return newToken(Terminals.DOT);}
     "::"            { return newToken(Terminals.DBCOLON);}

@@ -21,6 +21,7 @@ public class InterpretVisitor extends Visitor {
         isBlock = false;
     }
 
+    @Override
     public void visit(Prog prog) {
 
         prog.getCommand1().accept(this);
@@ -29,6 +30,7 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
     public void visit(Add e) {
         System.out.println("Entrei ADD");
         e.getLeft().accept(this);
@@ -74,6 +76,7 @@ public class InterpretVisitor extends Visitor {
 
     }
 
+    @Override
     public void visit(Sub e) {
         System.out.println("Entrei Sub");
         e.getLeft().accept(this);
@@ -118,6 +121,7 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
     public void visit(Mult e) {
         System.out.println("Entrei Mult");
         e.getLeft().accept(this);
@@ -162,6 +166,7 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
     public void visit(Div e) {
         System.out.println("Entrei Div");
         e.getLeft().accept(this);
@@ -206,8 +211,9 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
-    public void visit(Res e) {
-        System.out.println("Entrei Res");
+    @Override
+    public void visit(Mod e) {
+        System.out.println("Entrei Mod");
         e.getLeft().accept(this);
         Integer leftInt = null, rightInt = null;
         Float leftFloat = null, rightFloat = null;
@@ -250,6 +256,7 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
     public void visit(Greater e) {
         System.out.println("Entrei Greater");
         e.getLeft().accept(this);
@@ -294,6 +301,7 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
     public void visit(Lesser e) {
         System.out.println("Entrei Lesser");
         e.getLeft().accept(this);
@@ -338,6 +346,7 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
     public void visit(GreaterEqual e) {
         System.out.println("Entrei GreaterEqual");
         e.getLeft().accept(this);
@@ -382,6 +391,7 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
     public void visit(LesserEqual e) {
         System.out.println("Entrei LesserEqual");
         e.getLeft().accept(this);
@@ -426,6 +436,7 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
     public void visit(Equal e) {
         System.out.println("Entrei Equal");
         e.getLeft().accept(this);
@@ -496,6 +507,7 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
     public void visit(Dif e) {
         System.out.println("Entrei Dif");
         e.getLeft().accept(this);
@@ -566,6 +578,35 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
+    public void visit(And e) {
+        System.out.println("Entrei And");
+
+        e.getLeft().accept(this);
+        Boolean left = null, right = null;
+
+        if  (operands.peek() != null) {
+            left = (boolean) operands.pop();
+
+        } else if (globalCtx.get((String) (operands.peek())) != null) {
+            left = (boolean) globalCtx.get((String) (operands.pop()));
+        }
+    
+        e.getRight().accept(this);
+        if  (operands.peek() != null) {
+            right = (boolean) operands.pop();
+
+        } else if (globalCtx.get((String) (operands.peek())) != null) {
+            right = (boolean) globalCtx.get((String) (operands.pop()));
+        }
+
+        if (left != null && right != null) {
+            operands.push(left && right);
+        }
+
+    }
+
+    @Override
     public void visit(Attr e) {
         System.out.println(e.toString());
 
@@ -591,12 +632,14 @@ public class InterpretVisitor extends Visitor {
 
     }
 
+    @Override
     public <T> void visit(LiteralValue<T> e) {
         System.out.println("Valor adicionado a pilha: " + e.getValue());
         operands.push(e.getValue());
 
     }
 
+    @Override
     public void visit(StmtList stmtList){
         System.out.println("Entrou no StmtList");
 
@@ -609,6 +652,7 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
     public void visit(IfElse ifelse){
         System.out.println("Entrou no ifelse");
         this.isBlock = true;
@@ -631,6 +675,7 @@ public class InterpretVisitor extends Visitor {
         this.isBlock = false;
     }
 
+    @Override
     public void visit(Iterate iterate){
         System.out.println("Entrou no iterate");
         this.isBlock = true;
@@ -645,6 +690,7 @@ public class InterpretVisitor extends Visitor {
         this.isBlock = false;
     }
 
+    @Override
     public void visit(Ret ret){
         System.out.println("Entrou no ret");
 
@@ -654,30 +700,20 @@ public class InterpretVisitor extends Visitor {
             ret.getRet().accept(this);
         }
 
-        String variableName = (String) operands.pop();
-        System.out.println("Valor removido da pilha operands: " + variableName);
-
-        Object value = null;
-        value = operands.pop();
-        if (this.isBlock) {
-
-            System.out.println("Valor removido da pilha operands e adicionada ao  env " + value);
-            env.peek().put(variableName, value);
-
-        } else {
-
-            System.out.println("Valor removido da pilha operands e adicionada ao globalCtx: " + value);
-            globalCtx.put(variableName, value);
-
-        }
     }
 
+    @Override
     public void visit(GenRet genret){
         System.out.println("Entrou no gen ret");
 
-        genret.getRet().accept(this);
+        if(this.isBlock){
+            genret.getRet().accept(this);
+        }else{
+            System.out.println("Erro: return chamado fora de um bloco");
+        }
     }
 
+    @Override
     public void visit(Print print) {
         print.getExp().accept(this);
 
@@ -741,6 +777,26 @@ public class InterpretVisitor extends Visitor {
 
         }
 
+    }
+
+    @Override
+    public void visit(Func e) {
+        System.out.println(e);
+        this.isBlock = true;
+
+        HashMap<String, Object> localEnv = new HashMap<>();
+
+        globalCtx.put(e.getIdentifier().getName(), e);
+        env.push(localEnv);
+        System.out.println("Func " + e.getIdentifier().getName() + " adicionado ao escopo Global");
+
+        if(e.getParam() != null){
+            e.getParam().accept(this);
+        }
+        
+        e.getBody().accept(this);
+        env.pop();
+        this.isBlock = false;
     }
 
     @Override
