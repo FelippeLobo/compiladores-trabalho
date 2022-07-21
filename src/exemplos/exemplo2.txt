@@ -1,3 +1,4 @@
-
-a = 4;
-a;
+data Ponto {
+   x :: Float;
+   y :: Float;
+};

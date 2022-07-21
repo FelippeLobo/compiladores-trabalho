@@ -13,13 +13,15 @@
            RB, LB, AP, FP, AC, FC, SEMI, DOT,
            READ, PRINT, RETURN,
            GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, EQUALTO, DIF,
-           COMMA, COLON, DBCOLON;
-           
+           COMMA, COLON, DBCOLON, DATA;
+
+%left DATA;   
 %left COMMA;
 %left ELSE;
 %left FP;
 %left MULT, DIV, RES;
 %left PLUS, SUB;
+
 
 %typeof ID = "String";
 %typeof INT = "Integer";
@@ -46,21 +48,22 @@
 %typeof Data = "Node";
 %typeof Decl = "Node";
 
+
+
 %goal Prog;
 
 Prog = Stmt.l SEMI        {: return new Prog(l);:}
      | Stmt.l SEMI Prog.r {: return new Prog(l, r);:}
      | Func.l             {: return new Prog(l);:}
      | Func.l Prog.r      {: return new Prog(l, r);:}
-     | Data.l             {: return new Prog(l);:}
+     | Data.l            {: return new Prog(l);:}
      | Data.l Prog.r      {: return new Prog(l, r);:}               
      ;
 
-Data = ID AC Decl FC
-     ;
+Data = DATA TYPE.l AC Decl.t FC SEMI {:return new Data(new Type(l), t);:};
 
-Decl = ID DBCOLON TYPE SEMI
-     | ID DBCOLON TYPE SEMI Decl
+Decl = ID.l DBCOLON TYPE.t SEMI         {:return new Decl(new Var(l), new Type(t));:}
+     | ID.l DBCOLON TYPE.t SEMI Decl.r  {:return new Decl(new Var(l), new Type(t), r);:}
      ;
 
 Stmt = ID.l EQ Exp.r                   {: return new Attr((String)l, r);:}
@@ -75,11 +78,13 @@ Stmt = ID.l EQ Exp.r                   {: return new Attr((String)l, r);:}
      | ID AP Exps FP LESSER Lvalue+ GREATER                      
      ;
 
-Func = ID.a AP ParamList.b FP COLON Return AC StmtList.c FC
+Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC {:return new Func(a, c, b, d):}
      ;
+
 StmtList = Stmt SEMI StmtList     
          | Stmt SEMI         
          ;
+
 
 
 Ret = Exp COMMA Ret

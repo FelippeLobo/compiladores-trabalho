@@ -27,7 +27,4 @@ public class Var extends Exp {
       
       public void accept(Visitor v){v.visit(this);}
       
-      public int interpret(HashMap<String,Integer> m){
-          return m.get(l);
-      }
 }

@@ -12,36 +12,30 @@ import src.beaver.*;
 public class MiniLangParser extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pbLsbiLLKG$kwzG4NQAXOhj7tTe0NQ2gKR59IALd0311711HS45134fIXR#6kCYNyaA8c" +
-		"9#WSI8VZ7G8oXBbKKgL8NN41K5CGYk04YoFZT#mxlpLrgNwE$w7tvpioPEJDdpjnppvm7E4" +
-		"ro1kUZ3lMen0XKeHerSZeeGQC89k0st8FxC1yBKOB168eUIOdy5RAP7l3wjx5AUccKRxLNE" +
-		"ON7v638ppnKu58Cmt3KOWaSz4Gld2SdGz5SWein0Bc8eG1568XoD2AJ$ZEHZb4TZkb0BYTm" +
-		"7IuBhW4Pk03NOZmk3yWxZKNUm8NeYulaE6Q5l0Rxet45niaVokjTZEQg56RPZsim4PFmAEQ" +
-		"4l0RpcERc4PDJo6FGqlOi7y6DM8n#IPqqTpNBtKuUp6HlBvEtAcaZfd7FJiNZk04FuNeqO2" +
-		"b$CmAMD#5A#H6tOpRtnPIGxdw#coRv7ijmSsYddclzbLqShtCTr3N8TrWUolMTWVxT8Jk$V" +
-		"kv$NjCYvK$pAnWTy02IpuF8Llh#YizHV9xYynLVgFXYnGzIVAdYXoY#JF4Z5Jz6yLShVgRY" +
-		"xr3ylOfVeFY75JysiTvRaD8Z#ppqyTeij#SzMOJ5qyjXvNAhI1g$lR0abx8OlzniVh$z#Vt" +
-		"sPaNgmoyuAGdRXBt6hP8skNmZCP#FOhwNe5qfpuqXF3dAU5QSNNybnmQZIMSbocGjyceArz" +
-		"MF$YtwjrZfSZeSqv7SZMDWA9Oyxe#C27ddiUHmV04ZoIFNMQRSlAJxibl2CHKfp9BFSJdSg" +
-		"yKHiqJdiIe5hz6M3cShzkb6TpdBtKqUdKajpULxZt6NZE2lY6DgU0xMyJG9MjPpZCsVnTCn" +
-		"gAlWkwdoza9rftkjk$LrheAw6durXH6v3lOx#xB#pnWrxw2G$pbg9V5ujIXwxBd4sudrsfB" +
-		"IWrmYXdoNurSKCz8YLerLg#DrRu9R#oWyO#fWZLUVmFeCdk$WFm0uaytDOfcnMKgyGgmX5X" +
-		"FhMFIE437YE36Ke3#h5h1xaOuZpIITI9fDEfCqdtGEQIdj#v8E8wqWhOlFOOyrTBnBkmBQJ" +
-		"68pmyIwYVtffFELVXQRpSGseeruaki$GVbSyat6xe3V9qzue9LeOTnkXHRYAVARudfh0vjo" +
-		"qcRcQnfzBMB$MVQN42k9hoXRGTdpn1PY8z5iRFTGjvRCBgBTo9uWlYOpbRhrv9yXtMnYEKr" +
-		"#YndtCddEQRt0pdRIWuGRvo3ImzGj9EOHRMRjhneVxMfjPOQs6fzFArrzT8uJ##UayRlLq6" +
-		"s6jXYwmz1TXkusTA#X#mqzPEXHGuz5pVjleCqfVz#n$7rhdU9VPBFUZ4jBpJzs6jkD0R#lg" +
-		"HYcq5z688uievjjw0Ab6s1aovM$ruskmEXUKlutADiIPRDLySzr4FygH3pojjV#wPCT8xXZ" +
-		"vKlY2#9pOZVn6V49yJ71tIeV4H$AJjaZdqgRjCe7iaFUb$Takxph#Nd7#6k9ps9wxLxBtIr" +
-		"xvIVP9uTzSn$onVMclENJ$fxWVfDVsVv272MEo0zi3tYQdqDh$CRpri2RcSMxXaqun5a#JY" +
-		"jPUKPvwCdQvH0kJJFK8cm5XpSFYx2zCSDvPbPJLir#BMajTLNUxSFY$SKXBDvU79vmxlsrX" +
-		"tSpAIK$c3GQ5azzny3Y#UyeMAm6Dc55mgsFvPp3hUiZFTWyrIsC#GU#s4Zp");
-
-	static final Action RETURN4 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 4];
-		}
-	};
+		"U9pbbrbm5KKKXl#PYKGY84OGI48MYAX80YINX40qYhW1AWg8AAxWpkA24GK5gYnyq3UhVAK" +
+		"ijNoGSgcYIXyi2iCcgxY06wA00cwuW1kWxJTpEwJlt7j9Rk4JpDH$$zFdz3dTVRgdkwyKp3" +
+		"N$ga13LQrpTPu6wdmDKgCnQZ97qlGJTADkqnsQhkjKgRCrGEUeIirjUhDRUQhN9PgfyMesX" +
+		"z8YZ51VbQdY697loXpP#jsf6ir7VtNC$rR7wru5EaMTTAg6Eptxq$nZzjeefwkhpj2PwgbU" +
+		"wgDYzLSZRnDZFgmXMUjaquyoVwj1YRG#NQnH6gaBDIphMBD4DE$g8bsgopH3rwT5ZPSlDmV" +
+		"DJbtXHBr1O$H0#wredDcdYRg9NjxSRZxpetpUte6eSKy$ycpKW#JtRaOqIxDrd$d6hCWvpo" +
+		"URFfx9pb4ctI$l8RDB3siE6Ar7DPSlRpxP7H$p7Al7zBZcwGazgIlJR0krG39$IBegRQMUQ" +
+		"EL7ZjC$DNUJO#KfxTI$vRZxx#wDNHmv#ToZRewkkoCNEd8FHpxBaNixSf4ZbpXogIENEt8$" +
+		"HnxioBMEV84ZN#l8annvgYDFS#Jx7RbEroY7ntoLV6tnD5x9OrSAEAd2KoAVRweONTyC#fv" +
+		"ag1UPwKFBRRDGxkZBoCamUjMViwOyGuGHVBK5j9bxvAHV7NtpqCVzNQygriXWpgsXp5kRVm" +
+		"czAR5Hkh2tT6E7wSuEKyWUquEenOmu77DHrZhPz1vUuUgBzwahcgeC#lYOqYCMuLF43FkHb" +
+		"EeTBzUIyIBotXPr0EFitu5MIgaNy7ePMicSpweEHCtiMSmzfI#zykblFTz76JU1NFDyikap" +
+		"PzBLXZDNGKuhoAvFJeUXgUVBYtisCDEbKSr41bifjziIa6XthPtivNZkukNswl#VxJkoYHx" +
+		"snYps4qfcnp8vFAqxkotruvKMBKoUVWsW07Isf#6SQ2UN5eFm5l6254oK$3mEibeOczS4zu" +
+		"37mfmftcIu4fu63u9dmmbu7jn8Z6fuD3m67fTirvzeUMh8kG2VwVpCjFqdlZy3Nk3Omp5C0" +
+		"C#3fM09mzwFVZxoCzPlNMfC$eT8Ru9Nm0Qm4hm8Dbdx3Z05x2GVauZr5FBhZF5fy1poONJF" +
+		"mil0Pj02jbdV8zXUWlTIrqlgl2NXHKJX3Kq#Fjwhy3lMLeYyoigza3V2Rr78XyEyXdUJjV1" +
+		"si0ei1pji$HM0FdghmRTW6zXgRH#10s0N1URCssFrRXv6MjvjRIyxULrcURbbsqT$lUKjbk" +
+		"su$UsMTrdUPtc$vOEM3xMsqL4m1$5ofzIozqQhpDoJ$zRr7dJfM7mjjN5QOd6tE779PL0Ow" +
+		"qTlEwPPbfiTMwdLBNRQiJa9AcsvlCtcl#Ru3dJwaEV8th77uRrz3DiQs#OYPNWCAyly3hu0" +
+		"duFFmAVW4y2gCXy3LfJv06m1xvjDPhlPQZuqcyr6iy6iD#lCUsPj56kDZRawZ7gqXH#YNxu" +
+		"iywNvdXlvZodjVzVM3tvRpCeKwu6Zqc$cLtv$0J#3$OPLR$P4bf$InlHrIlj$fHYRk8zvt3" +
+		"1y481MESb3ENyQE8SQE8cgiLT7d6$P0xw3W5k#1$oepX1srmIw1EKwk0vRBLmBry0rqPqbO" +
+		"ByDRyjv862$zzZnWopmE0i22uzJ8N3WSKRumCk8yFGOH1lXpMbu13#wCpN#1uayDVq=");
 
 	static final Action RETURN5 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -70,6 +64,12 @@ public class MiniLangParser extends Parser {
 	static final Action RETURN8 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
 			return _symbols[offset + 8];
+		}
+	};
+
+	static final Action RETURN4 = new Action() {
+		public Symbol reduce(Symbol[] _symbols, int offset) {
+			return _symbols[offset + 4];
 		}
 	};
 
@@ -127,9 +127,35 @@ public class MiniLangParser extends Parser {
 					 return new Prog(l, r);
 				}
 			},
-			RETURN4,	// [7] Data = ID AC Decl FC; returns 'FC' although none is marked
-			RETURN4,	// [8] Decl = ID DBCOLON TYPE SEMI; returns 'SEMI' although none is marked
-			RETURN5,	// [9] Decl = ID DBCOLON TYPE SEMI Decl; returns 'Decl' although none is marked
+			new Action() {	// [7] Data = DATA TYPE.l AC Decl.t FC SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final String l = (String) _symbol_l.value;
+					final Symbol _symbol_t = _symbols[offset + 4];
+					final Node t = (Node) _symbol_t.value;
+					return new Data(new Type(l), t);
+				}
+			},
+			new Action() {	// [8] Decl = ID.l DBCOLON TYPE.t SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					final Symbol _symbol_t = _symbols[offset + 3];
+					final String t = (String) _symbol_t.value;
+					return new Decl(new Var(l), new Type(t));
+				}
+			},
+			new Action() {	// [9] Decl = ID.l DBCOLON TYPE.t SEMI Decl.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					final Symbol _symbol_t = _symbols[offset + 3];
+					final String t = (String) _symbol_t.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Node r = (Node) _symbol_r.value;
+					return new Decl(new Var(l), new Type(t), r);
+				}
+			},
 			new Action() {	// [10] Stmt = ID.l EQ Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];

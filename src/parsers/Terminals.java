@@ -7,8 +7,8 @@ package src.parsers;
 public class Terminals {
 	static public final short EOF = 0;
 	static public final short ID = 1;
-	static public final short AP = 2;
-	static public final short TYPE = 3;
+	static public final short TYPE = 2;
+	static public final short AP = 3;
 	static public final short BOOL = 4;
 	static public final short NULL = 5;
 	static public final short INT = 6;
@@ -35,12 +35,13 @@ public class Terminals {
 	static public final short LB = 27;
 	static public final short FC = 28;
 	static public final short DOT = 29;
-	static public final short AC = 30;
-	static public final short SEMI = 31;
-	static public final short DBCOLON = 32;
-	static public final short EQ = 33;
-	static public final short COMMA = 34;
-	static public final short RB = 35;
-	static public final short COLON = 36;
-	static public final short ELSE = 37;
+	static public final short SEMI = 30;
+	static public final short AC = 31;
+	static public final short DATA = 32;
+	static public final short DBCOLON = 33;
+	static public final short EQ = 34;
+	static public final short COMMA = 35;
+	static public final short RB = 36;
+	static public final short COLON = 37;
+	static public final short ELSE = 38;
 }

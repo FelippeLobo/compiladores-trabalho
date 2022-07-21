@@ -13,7 +13,7 @@ import src.ast.Prog;
 import src.beaver.*;
 import src.parsers.MiniLangLex;
 import src.parsers.MiniLangParser;
-import src.visitors.FunctionsVisitor;
+import src.visitors.InterpretVisitor;
 
 public class Teste {
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class Teste {
             MiniLangLex input = new MiniLangLex(fileReader);
             Prog result = (Prog) new MiniLangParser().parse(input);
             System.out.println("Parsado !");
-            FunctionsVisitor v = new FunctionsVisitor();
+            InterpretVisitor v = new InterpretVisitor();
             result.accept(v);
             // System.out.println(result.toString());
 
