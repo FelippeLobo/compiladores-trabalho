@@ -1264,7 +1264,7 @@ public class MiniLangLex extends Scanner {
             // fall through
           case 76: break;
           case 35:
-            { return newToken(Terminals.CHAR, yytext());
+            { return newToken(Terminals.CHAR, yytext().charAt(1) );
             }
             // fall through
           case 77: break;

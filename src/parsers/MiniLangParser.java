@@ -339,7 +339,7 @@ public class MiniLangParser extends Parser {
 			new Action() {	// [55] Sexp = CHAR.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_n = _symbols[offset + 1];
-					final char n = (char) _symbol_n.value;
+					final Character n = (Character) _symbol_n.value;
 					return new LiteralValue<Character>(n);
 				}
 			},

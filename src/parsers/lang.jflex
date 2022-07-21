@@ -96,7 +96,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     {identificador} { return newToken(Terminals.ID, yytext());   }
     {inteiro}       { return newToken(Terminals.INT, Integer.parseInt(yytext()) );  }
     {float}         { return newToken(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
-    {char}          { return newToken(Terminals.CHAR, yytext());  }
+    {char}          { return newToken(Terminals.CHAR, yytext().charAt(1) ); }
     "/*"            { yybegin(COMMENT);               }
     {LineComment}   {                       }
 
