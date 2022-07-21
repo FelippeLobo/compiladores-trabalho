@@ -64,8 +64,8 @@ Decl = ID DBCOLON TYPE SEMI
      ;
 
 Stmt = ID.l EQ Exp.r                   {: return new Attr((String)l, r);:}
-     | IF AP Exp FP Stmt
-     | IF AP Exp FP Stmt ELSE Stmt             
+     | IF AP Exp FP AC StmtList FC
+     | IF AP Exp FP AC StmtList FC ELSE AC StmtList FC           
      | ITERATE AP Exp FP Stmt                        
      | Exp
      | READ Lvalue               

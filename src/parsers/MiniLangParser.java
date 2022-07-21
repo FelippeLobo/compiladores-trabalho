@@ -12,30 +12,31 @@ import src.beaver.*;
 public class MiniLangParser extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pbLsbiLLKG$kwzG4NQAXOhj7tTe0NQ2gKR59IALd0311711HS45134fIXR#6kCYNyaA8c" +
-		"9#WSI8VZ7G8oXBbKKgL8NN41K5CGYk04YoFZT#mxlpLrgNwE$w7tvpioPEJDdpjnppvm7E4" +
-		"ro1kUZ3lMen0XKeHerSZeeGQC89k0st8FxC1yBKOB168eUIOdy5RAP7l3wjx5AUccKRxLNE" +
-		"ON7v638ppnKu58Cmt3KOWaSz4Gld2SdGz5SWein0Bc8eG1568XoD2AJ$ZEHZb4TZkb0BYTm" +
-		"7IuBhW4Pk03NOZmk3yWxZKNUm8NeYulaE6Q5l0Rxet45niaVokjTZEQg56RPZsim4PFmAEQ" +
-		"4l0RpcERc4PDJo6FGqlOi7y6DM8n#IPqqTpNBtKuUp6HlBvEtAcaZfd7FJiNZk04FuNeqO2" +
-		"b$CmAMD#5A#H6tOpRtnPIGxdw#coRv7ijmSsYddclzbLqShtCTr3N8TrWUolMTWVxT8Jk$V" +
-		"kv$NjCYvK$pAnWTy02IpuF8Llh#YizHV9xYynLVgFXYnGzIVAdYXoY#JF4Z5Jz6yLShVgRY" +
-		"xr3ylOfVeFY75JysiTvRaD8Z#ppqyTeij#SzMOJ5qyjXvNAhI1g$lR0abx8OlzniVh$z#Vt" +
-		"sPaNgmoyuAGdRXBt6hP8skNmZCP#FOhwNe5qfpuqXF3dAU5QSNNybnmQZIMSbocGjyceArz" +
-		"MF$YtwjrZfSZeSqv7SZMDWA9Oyxe#C27ddiUHmV04ZoIFNMQRSlAJxibl2CHKfp9BFSJdSg" +
-		"yKHiqJdiIe5hz6M3cShzkb6TpdBtKqUdKajpULxZt6NZE2lY6DgU0xMyJG9MjPpZCsVnTCn" +
-		"gAlWkwdoza9rftkjk$LrheAw6durXH6v3lOx#xB#pnWrxw2G$pbg9V5ujIXwxBd4sudrsfB" +
-		"IWrmYXdoNurSKCz8YLerLg#DrRu9R#oWyO#fWZLUVmFeCdk$WFm0uaytDOfcnMKgyGgmX5X" +
-		"FhMFIE437YE36Ke3#h5h1xaOuZpIITI9fDEfCqdtGEQIdj#v8E8wqWhOlFOOyrTBnBkmBQJ" +
-		"68pmyIwYVtffFELVXQRpSGseeruaki$GVbSyat6xe3V9qzue9LeOTnkXHRYAVARudfh0vjo" +
-		"qcRcQnfzBMB$MVQN42k9hoXRGTdpn1PY8z5iRFTGjvRCBgBTo9uWlYOpbRhrv9yXtMnYEKr" +
-		"#YndtCddEQRt0pdRIWuGRvo3ImzGj9EOHRMRjhneVxMfjPOQs6fzFArrzT8uJ##UayRlLq6" +
-		"s6jXYwmz1TXkusTA#X#mqzPEXHGuz5pVjleCqfVz#n$7rhdU9VPBFUZ4jBpJzs6jkD0R#lg" +
-		"HYcq5z688uievjjw0Ab6s1aovM$ruskmEXUKlutADiIPRDLySzr4FygH3pojjV#wPCT8xXZ" +
-		"vKlY2#9pOZVn6V49yJ71tIeV4H$AJjaZdqgRjCe7iaFUb$Takxph#Nd7#6k9ps9wxLxBtIr" +
-		"xvIVP9uTzSn$onVMclENJ$fxWVfDVsVv272MEo0zi3tYQdqDh$CRpri2RcSMxXaqun5a#JY" +
-		"jPUKPvwCdQvH0kJJFK8cm5XpSFYx2zCSDvPbPJLir#BMajTLNUxSFY$SKXBDvU79vmxlsrX" +
-		"tSpAIK$c3GQ5azzny3Y#UyeMAm6Dc55mgsFvPp3hUiZFTWyrIsC#GU#s4Zp");
+		"U9pTLsbiL5KK$jvxrDeD2ZX2RQVJpIwqr7RQAQM01QmKKB6eAE12eRAue8YeLG6HFoR#C24" +
+		"ccfZunyGVw3yJ$YWn0cfLh0ieWbj1HL7SgY9kUFpcpIMzSzzx7MfD24xotU$SSyuzzzvpjp" +
+		"U0irp#HYQQC1brg4SK3MYKlqmDHk1yLA0Ars85RiLjMAFg8mSqyeUdrTL6N46R$8XsEQx5Q" +
+		"PD3QDVgw#Kh5NiSGiX3FiA8e1Ybg9R3dXxQv0JZ$OaxCSsmc2FrHZiMPC4vgC54rE82nD0S" +
+		"w1MalqH#nrHpxinKDcPY5cxHOj#5Ap4$zKXnhjRc1azaizw676Oq5tThaKTXDCQSGazhjPv" +
+		"kyaI#8x1Twcpt1rf#2BHyPsJBaLzXuooSRQwsl3JaLJfTUcD6c8iqTqQcVWxIVVKjo73rYp" +
+		"NzU4s#5DFHYXcu7mizUss1vvIO7fqUpOsomzFgJAi$E4H$FRUchPKhTX5pEtWcRnxscFMJU" +
+		"9ucpvPlS1dMeK3J5MfoaIQNQ7AP9fThSgKcJz3aIPeyHPClrkH5cdoz9g$IvDir#HvDlb1#" +
+		"aSzn3JPW7kv5D$VhvRW27RXAZk0w#HdBi0HBqONbM8cvyXDMerk#bpvaIH$BiSHzBB#KBx1" +
+		"HFiC3s4G05ky7XwzL$4obyvHuDI6UdqnayKuTntEJnzmcwfQcyRRonWqpKeIhCD0gp7CUqU" +
+		"ebj2PYP$D67iaxEDUzXSVoVGbv8eOPCqAKU2pcIFsY1LdAUGjLyXwQm9idFz0hI5$3yPJwv" +
+		"AAPExKqANPYNLEFD7aygR8SPWOZr1HhaOius#PXznGBR3USR0zcCRDLm5CGF#tco5g6l4gd" +
+		"Is$Eo58pClKv0VgmZrwNerotHlRRnBl8kzVCl7azl9hKE#x$LjTpODeQgQbXRbDbyhySG$9" +
+		"uGboHMA3zJ95jpgEGPPJVV2MSUHFVxm9gGYpZjZBA1IviTyurz0bnznVoRWlpRelGlzYDOJ" +
+		"4VHRGMyTxTl0dkRm4H4#7$dCHl2P51B2NAYAs0Cvdy7D6hskmXZX2VkkyKh1RoCc8bvKL43" +
+		"c3daXUJnvDNaDcdjPPSITv8hYC$J6vckqpoTF8Oykn47tQ7ueLn7WhOffF5keHiFS$wAWeF" +
+		"QVOrrFSI7B$zEFb5AlCeTvCVLJxx5EzISvv1cNvEFj5AS1vuXboLi3jH5dpFd3YcqfTgwnZ" +
+		"n6F4KTUtKFKAVxPHhoH#GwuaAWhb07xc1Y17pwFi4TVricytwD78XkSDzls6pNwkQp3Lnud" +
+		"aZRCxJcKDvD#MTj3El3jzxPpx1iNFlmE7QEhE8cKId6dURobFbG7wiBOgVLBnrm8Rr$Zd7T" +
+		"iLTYfzLRLzGULHrUvlYa$eTYdiKgprcxrLyG76VNx#3WMqE6$MZoNLhcpulsbShl$vJY##C" +
+		"Lcst675xj3wxYEF6E4vellkDjeUCFXpLPeEcgr2SeVe$gCL#MlCRfSbLcfpZFnziXizFNdR" +
+		"BtppwZuWFYGF4Ve8xMlOHxn5xYNU9TuYtfLS#blTbZxmbRyfkUKDUbzUanutngehrIg8NLJ" +
+		"lgbZoTyWdH9zyczVjrqhXsoYw$KV#xdnnqexRoAod#jM4J3d5IJd0ztvvc5sbylHmYdSWYq" +
+		"jpNR29z1k3mMzOYRDUlZdThBNMrhCV8CTeQo0taA3bARYBNk6$d2FSkBwTSGVQ7nNV2KR3u" +
+		"OZWQBBuVDc7vefe#rUmZ$b9ESc6xR$QKVm2vFW2w");
 
 	static final Action RETURN4 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -52,6 +53,12 @@ public class MiniLangParser extends Parser {
 	static final Action RETURN7 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
 			return _symbols[offset + 7];
+		}
+	};
+
+	static final Action RETURN11 = new Action() {
+		public Symbol reduce(Symbol[] _symbols, int offset) {
+			return _symbols[offset + 11];
 		}
 	};
 
@@ -139,8 +146,8 @@ public class MiniLangParser extends Parser {
 					 return new Attr((String)l, r);
 				}
 			},
-			RETURN5,	// [11] Stmt = IF AP Exp FP Stmt; returns 'Stmt' although none is marked
-			RETURN7,	// [12] Stmt = IF AP Exp FP Stmt ELSE Stmt; returns 'Stmt' although none is marked
+			RETURN7,	// [11] Stmt = IF AP Exp FP AC StmtList FC; returns 'FC' although none is marked
+			RETURN11,	// [12] Stmt = IF AP Exp FP AC StmtList FC ELSE AC StmtList FC; returns 'FC' although none is marked
 			RETURN5,	// [13] Stmt = ITERATE AP Exp FP Stmt; returns 'Stmt' although none is marked
 			Action.RETURN,	// [14] Stmt = Exp
 			RETURN2,	// [15] Stmt = READ Lvalue; returns 'Lvalue' although none is marked
