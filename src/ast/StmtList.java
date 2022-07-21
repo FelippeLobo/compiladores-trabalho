@@ -8,43 +8,38 @@ package src.ast;
  
 import java.util.HashMap;
 
+import org.w3c.dom.Node;
+
 import src.visitors.Visitor; 
 
-public class IfElse extends Node {
+public class StmtList extends Node {
       
-     private Exp e;
-     private StmtList sl1;
-     private StmtList sl2;
+     private Node stmt;
+     private Node stmtList;
 
-     public IfElse(Exp e, StmtList sl1){
-          this.e  = e;
-          this.sl1 = sl1;
-          this.sl2 = null;
+     public StmtList(Node stmt){
+          this.stmt = stmt;
+          this.stmtList = null;
      }
       
-     public IfElse(Exp e, StmtList sl1, StmtList sl2){
-          this.e  = e;
-          this.sl1 = sl1;
-          this.sl2 = sl2;
+     public StmtList(Node stmt, Node stmtList){
+          this.stmt = stmt;
+          this.stmtList = stmtList;
      }
 
-     public Exp getExp(){
-          return this.e;
+     public Node getStmt(){
+          return this.stmt;
      }
 
-     public StmtList getStmtList1(){
-          return this.sl1;
+     public StmtList getStmtList(){
+          return this.stmtList;
      }
 
-     public StmtList getStmtList2(){
-          return this.sl2;
-     }
-      
      public String toString(){
-          if(sl2 != null){
-               return ("if(" + e.toString() + "){" + sl1.toString() + "} else{" + sl2.toString() + "}");
+          if(stmtList != null){
+               return (stmt.toString() + ";\n" + stmtList.toString());
           }else{
-               return ("if(" + e.toString() + "){" + sl1.toString() + "}");
+               return (stmt.toString() + ";\n");
           }    
      }
 

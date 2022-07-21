@@ -12,19 +12,19 @@ import src.visitors.Visitor;
 public class IfElse extends Node {
       
      private Exp e;
-     private StmtList sl1;
-     private StmtList sl2;
+     private StmtList stmtList1;
+     private StmtList stmtList2;
 
-     public IfElse(Exp e, StmtList sl1){
+     public IfElse(Exp e, StmtList stmtList1){
           this.e  = e;
-          this.sl1 = sl1;
-          this.sl2 = null;
+          this.stmtList1 = stmtList1;
+          this.stmtList2 = null;
      }
       
-     public IfElse(Exp e, StmtList sl1, StmtList sl2){
+     public IfElse(Exp e, StmtList stmtList1, StmtList stmtList2){
           this.e  = e;
-          this.sl1 = sl1;
-          this.sl2 = sl2;
+          this.stmtList1 = stmtList1;
+          this.stmtList2 = stmtList2;
      }
 
      public Exp getExp(){
@@ -32,18 +32,18 @@ public class IfElse extends Node {
      }
 
      public StmtList getStmtList1(){
-          return this.sl1;
+          return this.stmtList1;
      }
 
      public StmtList getStmtList2(){
-          return this.sl2;
+          return this.stmtList2;
      }
       
      public String toString(){
-          if(sl2 != null){
-               return ("if(" + e.toString() + "){" + sl1.toString() + "} else{" + sl2.toString() + "}");
+          if(stmtList2 != null){
+               return ("if(" + e.toString() + ")\n{" + stmtList1.toString() + "\n} else\n{" + stmtList2.toString() + "\n}");
           }else{
-               return ("if(" + e.toString() + "){" + sl1.toString() + "}");
+               return ("if(" + e.toString() + ")\n{" + stmtList1.toString() + "\n}");
           }    
      }
 
