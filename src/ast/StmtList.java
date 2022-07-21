@@ -8,8 +8,6 @@ package src.ast;
  
 import java.util.HashMap;
 
-import org.w3c.dom.Node;
-
 import src.visitors.Visitor; 
 
 public class StmtList extends Node {
@@ -31,7 +29,7 @@ public class StmtList extends Node {
           return this.stmt;
      }
 
-     public StmtList getStmtList(){
+     public Node getStmtList(){
           return this.stmtList;
      }
 

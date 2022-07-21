@@ -597,6 +597,40 @@ public class InterpretVisitor extends Visitor {
 
     }
 
+    public void visit(StmtList stmtList){
+        System.out.println("Entrou no StmtList");
+
+        if (this.isBlock) {
+            stmtList.getStmt().accept(this);
+
+            if(stmtList.getStmtList() != null){
+                stmtList.getStmtList().accept(this);
+            }
+        }
+    }
+
+    public void visit(IfElse ifelse){
+        System.out.println("Entrou no ifelse");
+        this.isBlock = true;
+
+        HashMap<String, Object> localEnv = new HashMap<>();
+        env.push(localEnv);
+
+        ifelse.getExp().accept(this);
+        boolean exp = (boolean)operands.pop();
+
+        if(exp){
+            ifelse.getStmtList1().accept(this);
+        }else{
+            if(ifelse.getStmtList2() != null){
+                ifelse.getStmtList2().accept(this);
+            }
+        }
+
+        env.pop();
+        this.isBlock = false;
+    }
+
     public void visit(Print e) {
         e.getExp().accept(this);
         System.out.println(globalCtx.get(operands.pop()));

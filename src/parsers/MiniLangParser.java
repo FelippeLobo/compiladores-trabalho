@@ -50,18 +50,6 @@ public class MiniLangParser extends Parser {
 		}
 	};
 
-	static final Action RETURN7 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 7];
-		}
-	};
-
-	static final Action RETURN11 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 11];
-		}
-	};
-
 	static final Action RETURN2 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
 			return _symbols[offset + 2];
@@ -71,6 +59,12 @@ public class MiniLangParser extends Parser {
 	static final Action RETURN3 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
 			return _symbols[offset + 3];
+		}
+	};
+
+	static final Action RETURN7 = new Action() {
+		public Symbol reduce(Symbol[] _symbols, int offset) {
+			return _symbols[offset + 7];
 		}
 	};
 
@@ -146,8 +140,26 @@ public class MiniLangParser extends Parser {
 					 return new Attr((String)l, r);
 				}
 			},
-			RETURN7,	// [11] Stmt = IF AP Exp FP AC StmtList FC; returns 'FC' although none is marked
-			RETURN11,	// [12] Stmt = IF AP Exp FP AC StmtList FC ELSE AC StmtList FC; returns 'FC' although none is marked
+			new Action() {	// [11] Stmt = IF AP Exp.l FP AC StmtList.r FC
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 3];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Node r = (Node) _symbol_r.value;
+					 return new IfElse(l, r);
+				}
+			},
+			new Action() {	// [12] Stmt = IF AP Exp.l FP AC StmtList.r FC ELSE AC StmtList.s FC
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 3];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Node r = (Node) _symbol_r.value;
+					final Symbol _symbol_s = _symbols[offset + 10];
+					final Node s = (Node) _symbol_s.value;
+					 return new IfElse(l, r, s);
+				}
+			},
 			RETURN5,	// [13] Stmt = ITERATE AP Exp FP Stmt; returns 'Stmt' although none is marked
 			Action.RETURN,	// [14] Stmt = Exp
 			RETURN2,	// [15] Stmt = READ Lvalue; returns 'Lvalue' although none is marked
@@ -172,8 +184,22 @@ public class MiniLangParser extends Parser {
 			},
 			RETURN7,	// [21] Stmt = ID AP Exps FP LESSER lst$Lvalue GREATER; returns 'GREATER' although none is marked
 			RETURN8,	// [22] Func = ID.a AP ParamList.b FP COLON Return AC StmtList.c FC; returns 'c' although more are marked
-			RETURN3,	// [23] StmtList = Stmt SEMI StmtList; returns 'StmtList' although none is marked
-			RETURN2,	// [24] StmtList = Stmt SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [23] StmtList = Stmt.l SEMI StmtList.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Node r = (Node) _symbol_r.value;
+					 return new StmtList(l, r);
+				}
+			},
+			new Action() {	// [24] StmtList = Stmt.l SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					 return new StmtList(l);
+				}
+			},
 			RETURN3,	// [25] Ret = Exp COMMA Ret; returns 'Ret' although none is marked
 			Action.RETURN,	// [26] Ret = Exp
 			RETURN3,	// [27] Return = TYPE COMMA Return; returns 'Return' although none is marked

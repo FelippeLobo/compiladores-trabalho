@@ -12,16 +12,16 @@ import src.visitors.Visitor;
 public class IfElse extends Node {
       
      private Exp e;
-     private StmtList stmtList1;
-     private StmtList stmtList2;
+     private Node stmtList1;
+     private Node stmtList2;
 
-     public IfElse(Exp e, StmtList stmtList1){
+     public IfElse(Exp e, Node stmtList1){
           this.e  = e;
           this.stmtList1 = stmtList1;
           this.stmtList2 = null;
      }
       
-     public IfElse(Exp e, StmtList stmtList1, StmtList stmtList2){
+     public IfElse(Exp e, Node stmtList1, Node stmtList2){
           this.e  = e;
           this.stmtList1 = stmtList1;
           this.stmtList2 = stmtList2;
@@ -31,11 +31,11 @@ public class IfElse extends Node {
           return this.e;
      }
 
-     public StmtList getStmtList1(){
+     public Node getStmtList1(){
           return this.stmtList1;
      }
 
-     public StmtList getStmtList2(){
+     public Node getStmtList2(){
           return this.stmtList2;
      }
       

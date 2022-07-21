@@ -39,4 +39,8 @@ public abstract class Visitor {
      public abstract void visit(Num num);
      
      public abstract <T> void visit(LiteralValue<T> literalValue);
+
+     public abstract void visit(StmtList stmtList);
+
+     public abstract void visit(IfElse ifelse);
 }
