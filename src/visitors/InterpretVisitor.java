@@ -631,6 +631,53 @@ public class InterpretVisitor extends Visitor {
         this.isBlock = false;
     }
 
+    public void visit(Iterate iterate){
+        System.out.println("Entrou no iterate");
+        this.isBlock = true;
+
+        HashMap<String, Object> localEnv = new HashMap<>();
+        env.push(localEnv);
+
+        iterate.getExp().accept(this);
+        iterate.getStmt().accept(this);
+
+        env.pop();
+        this.isBlock = false;
+    }
+
+    public void visit(Ret ret){
+        System.out.println("Entrou no ret");
+
+        ret.getExp().accept(this);
+
+        if(ret.getRet() != null){
+            ret.getRet().accept(this);
+        }
+
+        String variableName = (String) operands.pop();
+        System.out.println("Valor removido da pilha operands: " + variableName);
+
+        Object value = null;
+        value = operands.pop();
+        if (this.isBlock) {
+
+            System.out.println("Valor removido da pilha operands e adicionada ao  env " + value);
+            env.peek().put(variableName, value);
+
+        } else {
+
+            System.out.println("Valor removido da pilha operands e adicionada ao globalCtx: " + value);
+            globalCtx.put(variableName, value);
+
+        }
+    }
+
+    public void visit(GenRet genret){
+        System.out.println("Entrou no gen ret");
+
+        genret.getRet().accept(this);
+    }
+
     public void visit(Print print) {
         print.getExp().accept(this);
 
@@ -638,14 +685,24 @@ public class InterpretVisitor extends Visitor {
         
         if(this.isBlock){
             if(env.peek().get(exp) != null){
-                System.out.println(env.peek().get(exp));
+                Object var = env.peek().get(exp);
+                if(env.peek().get(var) != null){
+                    System.out.println(env.peek().get(var));
+                }else{
+                    System.out.println(env.peek().get(exp));
+                }
             }else{
                 System.out.println(exp);
             }
             
         }else{
             if(globalCtx.get(exp) != null){
-                System.out.println(globalCtx.get(exp));
+                Object var = globalCtx.get(exp);
+                if(globalCtx.get(var) != null){
+                    System.out.println(globalCtx.get(var));
+                }else{
+                    System.out.println(globalCtx.get(exp));
+                }
             }else{
                 System.out.println(exp);
             }

@@ -1,13 +1,12 @@
 a = 3;
 b = 2;
-c;
+c = a;
+print c;
 
 if(a > b){
     c = a;
-    print c;
 } else{
     c = b;
-    print c;
 };
 
-print a;
+print c;

@@ -1,5 +1,7 @@
 package src.visitors;
 
+import java.util.random.RandomGenerator.ArbitrarilyJumpableGenerator;
+
 import src.ast.*;
 
 public abstract class Visitor {
@@ -43,4 +45,10 @@ public abstract class Visitor {
      public abstract void visit(StmtList stmtList);
 
      public abstract void visit(IfElse ifelse);
+
+     public abstract void visit(Iterate iterate);
+
+     public abstract void visit(GenRet genret);
+
+     public abstract void visit(Ret ret);
 }

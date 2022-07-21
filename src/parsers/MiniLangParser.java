@@ -160,7 +160,15 @@ public class MiniLangParser extends Parser {
 					 return new IfElse(l, r, s);
 				}
 			},
-			RETURN5,	// [13] Stmt = ITERATE AP Exp FP Stmt; returns 'Stmt' although none is marked
+			new Action() {	// [13] Stmt = ITERATE AP Exp.l FP Stmt.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 3];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Node r = (Node) _symbol_r.value;
+					 return new Iterate(l, r);
+				}
+			},
 			Action.RETURN,	// [14] Stmt = Exp
 			RETURN2,	// [15] Stmt = READ Lvalue; returns 'Lvalue' although none is marked
 			new Action() {	// [16] Stmt = PRINT Exp.e
@@ -170,7 +178,13 @@ public class MiniLangParser extends Parser {
 					 return new Print(e);
 				}
 			},
-			RETURN2,	// [17] Stmt = RETURN Ret; returns 'Ret' although none is marked
+			new Action() {	// [17] Stmt = RETURN Ret.l
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Node l = (Node) _symbol_l.value;
+					 return new GenRet(l);
+				}
+			},
 			RETURN3,	// [18] Stmt = Lvalue EQ Exp; returns 'Exp' although none is marked
 			new Action() {	// [19] lst$Lvalue = Lvalue
 				public Symbol reduce(Symbol[] _symbols, int offset) {
