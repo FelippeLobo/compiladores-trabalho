@@ -14,6 +14,12 @@ public class IfElse extends Node {
      private Exp e;
      private StmtList sl1;
      private StmtList sl2;
+
+     public IfElse(Exp e, StmtList sl1){
+          this.e  = e;
+          this.sl1 = sl1;
+          this.sl2 = null;
+     }
       
      public IfElse(Exp e, StmtList sl1, StmtList sl2){
           this.e  = e;
