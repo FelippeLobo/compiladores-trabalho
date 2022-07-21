@@ -169,19 +169,28 @@ public class InterpretVisitor extends Visitor {
     public void visit(Type e) {
 
         Object type;
-        
-        type = globalCtx.get(e.getName());
 
+      
+
+        if (isBlock) {
+            env.peek().put(e.getName(), e);
+        } else {
+
+            type = globalCtx.get(e.getName());
+            
             if (type != null) {
+
                 System.out.println("Tipo adicionado a pilha operands: " + e.getName());
                 operands.push(e.getName());
 
             } else {
                 System.out.println("Tipo adicionado a pilha operands e ao global: " + e.getName());
-                globalCtx.put(e.getName(), null);
+                globalCtx.put(e.getName(), e);
                 operands.push(e.getName());
             }
-        
+
+        }
+
     }
 
     @Override
@@ -197,10 +206,10 @@ public class InterpretVisitor extends Visitor {
     }
 
     @Override
-    public void visit(Decl decl) {
+    public void visit(Decl e) {
         if (this.isBlock) {
-            decl.getType().accept(this);
-            decl.getIdentifier().accept(this);
+            e.getType().accept(this);
+            e.getIdentifier().accept(this);
 
             String variableName = (String) operands.pop();
             System.out.println("Var removido da pilha operands: " + variableName);
@@ -210,30 +219,84 @@ public class InterpretVisitor extends Visitor {
             System.out.println("Tipo removido da pilha operands: " + value);
             env.peek().put(variableName, value);
 
-            if(decl.getDecl() != null){
-                decl.getDecl().accept(this);
+            if (e.getDecl() != null) {
+                e.getDecl().accept(this);
             }
         }
     }
 
     @Override
-    public void visit(Data data) {
-        System.out.println(data);
+    public void visit(Data e) {
+        System.out.println(e);
         this.isBlock = true;
 
         HashMap<String, Object> localEnv = new HashMap<>();
 
-        globalCtx.put(data.getIdentifier().getName(), data);
+        globalCtx.put(e.getIdentifier().getName(), e);
         env.push(localEnv);
-        System.out.println("Data " + data.getIdentifier().getName() +" adicionado ao escopo Global");
+        System.out.println("Data " + e.getIdentifier().getName() + " adicionado ao escopo Global");
 
-        data.getDecl().accept(this);
+        e.getDecl().accept(this);
 
         env.pop();
         this.isBlock = false;
 
     }
 
+    @Override
+    public void visit(Func e) {
+        System.out.println(e);
+        this.isBlock = true;
 
+        HashMap<String, Object> localEnv = new HashMap<>();
+
+        globalCtx.put(e.getIdentifier().getName(), e);
+        env.push(localEnv);
+        System.out.println("Func " + e.getIdentifier().getName() + " adicionado ao escopo Global");
+
+        e.getParam().accept(this);
+
+        env.pop();
+        this.isBlock = false;
+
+    }
+
+    @Override
+    public void visit(Param e) {
+
+        System.out.println("parametro adicionado a pilha operands e ao envLocal: " + e.getIdentifier().getName());
+        env.peek().put(e.getIdentifier().getName(), e);
+    }
+
+    @Override
+    public void visit(ParamList e) {
+
+        e.getParam().accept(this);
+        if (e.getParamList() != null) {
+            e.getParamList().accept(this);
+        }
+
+    }
+
+    @Override
+    public void visit(Return e) {
+        e.getType().accept(this);
+        if (e.getReturn() != null) {
+            e.getReturn().accept(this);
+        }
+
+    }
+
+    public void visit(StmtList e){
+        System.out.println("Entrou no StmtList");
+
+        if (this.isBlock) {
+            e.getStmt().accept(this);
+
+            if(e.getStmtList() != null){
+                e.getStmtList().accept(this);
+            }
+        }
+    }
 
 }

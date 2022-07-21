@@ -61,12 +61,6 @@ public class MiniLangParser extends Parser {
 		}
 	};
 
-	static final Action RETURN8 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 8];
-		}
-	};
-
 	static final Action RETURN4 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
 			return _symbols[offset + 4];
@@ -190,16 +184,78 @@ public class MiniLangParser extends Parser {
 				}
 			},
 			RETURN7,	// [21] Stmt = ID AP Exps FP LESSER lst$Lvalue GREATER; returns 'GREATER' although none is marked
-			RETURN8,	// [22] Func = ID.a AP ParamList.b FP COLON Return AC StmtList.c FC; returns 'c' although more are marked
-			RETURN3,	// [23] StmtList = Stmt SEMI StmtList; returns 'StmtList' although none is marked
-			RETURN2,	// [24] StmtList = Stmt SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [22] Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final String a = (String) _symbol_a.value;
+					final Symbol _symbol_b = _symbols[offset + 3];
+					final Node b = (Node) _symbol_b.value;
+					final Symbol _symbol_c = _symbols[offset + 6];
+					final Node c = (Node) _symbol_c.value;
+					final Symbol _symbol_d = _symbols[offset + 8];
+					final Node d = (Node) _symbol_d.value;
+					return new Func(new Var(a), b, c, d);
+				}
+			},
+			new Action() {	// [23] StmtList = Stmt.l SEMI StmtList.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Node r = (Node) _symbol_r.value;
+					 return new StmtList(l, r);
+				}
+			},
+			new Action() {	// [24] StmtList = Stmt.l SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					 return new StmtList(l);
+				}
+			},
 			RETURN3,	// [25] Ret = Exp COMMA Ret; returns 'Ret' although none is marked
 			Action.RETURN,	// [26] Ret = Exp
-			RETURN3,	// [27] Return = TYPE COMMA Return; returns 'Return' although none is marked
-			Action.RETURN,	// [28] Return = TYPE
-			RETURN3,	// [29] ParamList = Param COMMA ParamList; returns 'ParamList' although none is marked
-			Action.RETURN,	// [30] ParamList = Param
-			RETURN3,	// [31] Param = ID DBCOLON TYPE; returns 'TYPE' although none is marked
+			new Action() {	// [27] Return = TYPE.a COMMA Return.b
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final String a = (String) _symbol_a.value;
+					final Symbol _symbol_b = _symbols[offset + 3];
+					final Node b = (Node) _symbol_b.value;
+					return new Return(new Type(a), b);
+				}
+			},
+			new Action() {	// [28] Return = TYPE.a
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final String a = (String) _symbol_a.value;
+					return new Return(new Type(a));
+				}
+			},
+			new Action() {	// [29] ParamList = Param.a COMMA ParamList.b
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final Node a = (Node) _symbol_a.value;
+					final Symbol _symbol_b = _symbols[offset + 3];
+					final Node b = (Node) _symbol_b.value;
+					return new ParamList(a, b);
+				}
+			},
+			new Action() {	// [30] ParamList = Param.a
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final Node a = (Node) _symbol_a.value;
+					return new ParamList(a);
+				}
+			},
+			new Action() {	// [31] Param = ID.a DBCOLON TYPE.b
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final String a = (String) _symbol_a.value;
+					final Symbol _symbol_b = _symbols[offset + 3];
+					final String b = (String) _symbol_b.value;
+					return new Param(new Var(a), new Type(b));
+				}
+			},
 			Action.RETURN,	// [32] Lvalue = ID.l
 			RETURN4,	// [33] Lvalue = Lvalue LB Exp RB; returns 'RB' although none is marked
 			RETURN3,	// [34] Lvalue = Lvalue DOT ID; returns 'ID' although none is marked

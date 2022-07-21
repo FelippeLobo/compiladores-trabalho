@@ -27,4 +27,14 @@ public abstract class Visitor {
      public abstract void visit(Decl decl);
 
     public abstract void visit(Data data);
+
+     public abstract void visit(Func func);
+
+     public abstract void visit(Param param);
+
+     public abstract void visit(ParamList paramList);
+
+     public abstract void visit(Return returnl);
+
+     public abstract void visit(StmtList stmtList);
 }

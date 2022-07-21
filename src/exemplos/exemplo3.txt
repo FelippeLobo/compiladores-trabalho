@@ -1,7 +1,6 @@
 fib(n :: Int) : Int {
     a = 3;
     b = 2;
-    c = a + b + n;
+    c = a + b + 1;
     print c;
-    return c;
 }

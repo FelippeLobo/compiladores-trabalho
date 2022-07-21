@@ -78,28 +78,26 @@ Stmt = ID.l EQ Exp.r                   {: return new Attr((String)l, r);:}
      | ID AP Exps FP LESSER Lvalue+ GREATER                      
      ;
 
-Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC {:return new Func(a, c, b, d):}
+Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC {:return new Func(new Var(a), b, c, d);:}
      ;
 
-StmtList = Stmt SEMI StmtList     
-         | Stmt SEMI         
+StmtList = Stmt.l SEMI StmtList.r     {: return new StmtList(l, r);:}
+         | Stmt.l SEMI                {: return new StmtList(l);:}
          ;
-
-
 
 Ret = Exp COMMA Ret
      | Exp
      ;
 
-Return = TYPE COMMA Return
-          | TYPE
+Return = TYPE.a COMMA Return.b         {:return new Return(new Type(a), b);:}
+          | TYPE.a                      {:return new Return(new Type(a));:}
      ;
 
-ParamList = Param COMMA ParamList
-          | Param
+ParamList = Param.a COMMA ParamList.b  {:return new ParamList(a, b);:}
+          | Param.a                    {:return new ParamList(a);:}
           ;
 
-Param = ID DBCOLON TYPE 
+Param = ID.a DBCOLON TYPE.b                 {:return new Param(new Var(a), new Type(b));:}
      ;
 
 Lvalue = ID.l 
