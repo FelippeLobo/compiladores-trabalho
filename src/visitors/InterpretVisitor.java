@@ -444,17 +444,23 @@ public class InterpretVisitor extends Visitor {
 
         ifelse.getExp().accept(this);
         Object exp = operands.pop();
-
-        if(env.peek().get(exp) != null){
-            exp = env.peek().get(exp);
-        }else if(globalCtx.get(exp) != null){
+        System.out.println("Pop: " + exp.getClass());
+        if(globalCtx.get(exp) != null){
             exp = globalCtx.get(exp);
+        }else if(env.peek().get(exp) != null){
+            exp = env.peek().get(exp);
         }
+        
 
+        System.out.println(exp);
+        System.out.println(ifelse.getStmtList1().toString());
         if((boolean)exp){
+           
+            
             ifelse.getStmtList1().accept(this);
         }else{
             if(ifelse.getStmtList2() != null){
+                System.out.println(ifelse.getStmtList2().toString());
                 ifelse.getStmtList2().accept(this);
             }
         }

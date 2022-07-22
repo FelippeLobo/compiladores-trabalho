@@ -12,33 +12,33 @@ import src.beaver.*;
 public class MiniLangParser extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pjLrbm5KKKFJqJaX0ZIy0yCIGaa1S88dbX2yGWYo1nZRY0Mq0MHOcAeWYu4TV41Q8YMbH" +
-		"P#k67bdmeLLgM2WIGJGG54L4n82BY2k92tB0zCw$nTS$a3UH95JzvKsVkFVVUljtJwUxR0U" +
-		"nzA4C$bA0dJaKld8RUw88yjCM9Q8yEE0aXT48Mij4DOLal$q5hJ$GeAUNVFck5c#L2JC1Lc" +
-		"8eRSRFBpvU7v5#erQnNubpv1mOZ3RNoJr#MWV77WW5QbZISWmSnY7bg0reCbL$vUYZcCuGO" +
-		"oUSs8e8pKO3kw85256azb6Cqst#1UmDxk0$f0Txudhwu7TTf$Tfo6PBG2YauFQ5ymmDyumD" +
-		"yamDyP#7w06y5fWLupyFiXBxZ#7kkyAmNBu#tNix01JXRuudc6O6BST4no5EEIt27nZth3P" +
-		"V2SjTR12V4x7AfBsuiajquhxqIgQwznZCUC#uoZC7zc8XhkO$kzlakzrckyLcc#2npVETN2" +
-		"syUDsVqwcQtZ#1MhRtNUyiH$3FeRwFv8sXdi0o3TJHOfi5EDjWf1kjii1o3vHgigy7o3TR7" +
-		"OFqDLcgmOGORPx191hl9OBCqTWFhqZnKo2zPbufHXUcOIUrEkOSx#Iwv6m$W7haBrNW83pF" +
-		"k4LR0H$4Ovk9nrE49F2aFoaO8xclRhIN9t9sfh7zftE7fFElQyCHhnnClWsTUHvvwcO0lsW" +
-		"AQi0etIo7dknDdEOjpw$1qDxQhPhLOlS1tc5P$bfp0iSIoX1cJpzFOOfRuBR9vQdjxoEQJI" +
-		"UJnAI0AjLLNfFNGdtS99t9GO0y5x26#DxwdcwTVPzNsOSNlHqzY#OBcBJ6V2FosO6zXWlDo" +
-		"$3t#TMto#EibPApGnFDqFqPvIhYROjoxthgezMRQotnnkKt6HJYAg3ruF16UKGCOqOFxABC" +
-		"9NsAM8yr92s$Ecedyp$PUxy1c#blOOHPYnH5ydFyyijqpDEnMgH1tSWcjZYUJEpA7ZwFdyt" +
-		"wHwthp#NRqNDRK#TLkqUKT2YvtQlW08eye8KOGGubibk7nb7NHU6iANriefx4izwISISbuQ" +
-		"mubsrWrbACfwoZ7KJv3MKNvl5lXORr8wRHxHULxGybwnirozAC5VnFORYtbSoh71toDLBuY" +
-		"OXHjsoWNATiayfsKKmcEszfBkSRnIVueNkCOCbIkCFMdgOobTEQaa9X8$Icj$ydaRn4l4Hy" +
-		"JkucvnC6eNonGSMNCjv$WF5kDvBleMwpwuPpRALJe5s#IjwVSgjeTYahxVU9rfRUbFrtf8M" +
-		"AfYkLSsmN42k9LWdb5befRJBnDB26MqTv0MQ$QyUzcRoVM4Sk9bSe#XFexn2g2uxNN49jKl" +
-		"jN4UeBhmDv8R53VkrcrNQZu7YKFnEPCDCHqEwHaZf9X9NifsLV9KYM7ALckP8MIOvIiL7Bo" +
-		"uJwQ0xQhqlJfJVXdcrpCq7pLcdsX6OTAJK#YFpLu7699L5gjOZQhW#PNVtExHlcsQUEOfso" +
-		"TbGnxlk5bJL#WvM$qnALe#hCUtmjQkzwcpnB1tsOl2l2fFO7vyFta3lVz2$4PyIdn2S7TBR" +
-		"dpv5RY8#93OZF1aq1oryYDyZsvNMwHc#G6kLw#AzV9jNADN2rNkTaQt3TNkLpXQYkZlQWUb" +
-		"olvkMRxblX6xf3V6MFRAt#LlnbjV$vFEq3yHEntsJxt$QFx$a55HCVolP7nQqtVQMJ#tPYM" +
-		"uJnR1EzO3YoVxCTQMieLLyggMapkt8aYv17oA5BSErg4bJU69Fxl9GZ7dihRMsiYcVNO9WH" +
-		"hWqq8rWgR4BonsJmR1P54s3pR1MkL7G31IcOh2DOqMuDWXRC8qIIANDX4Ay8YKdY35OI5mV" +
-		"y2bMP28W==");
+		"U9pjM6bm54KK$cOc5p5o1CoAa10W6mWYsK1880Ov18bdn0Ey0d8eIbGKHS2BU0OFY8feKMN" +
+		"f3tzeoG#bIijIWG1oYQ0W8Ye6H4GyGJo85xRVz3Pkzqns82jL$CbEVVFUzzxhrxsztVqw0P" +
+		"nzA4SnIj4Bfw8tJaCVT45NjC69Q8VsE0aXT4GdPACxmg9U$8DMdkYHGeY$VTPAcUL2ZCTLc" +
+		"88RSRFavuj3uY$CqQnNubpn1mOX7NF4dxui0#AF1ILQbdISWmSna7dc1BGO8hxozL34Pp0n" +
+		"WizjH0Hd8Xyzq1C5ADHwgC0ejly2zmRsS1yo0hpnFVrmEwxJ#dN4CYGX6QauFQ5ymm9yum9" +
+		"yam9yP#7w06ybfWPupyEiXBx7yVTSuLalNXvllPo12t2snXFDCnmNuw9ZaAS2b#0EZNlM6o" +
+		"w5BTTR12V4x6AfBsuCKcISrrw5D6clzOp7ZBiCet4$9k1QxgExVRxBVPPhV9R9Fijit$dLm" +
+		"fl7pHczkjdj8xXLQ#$rtd84$tJwMsl#2DeQBDDW7GoMPR2J3NQAmJeRBCTWkGRhPh0yW$Kr" +
+		"M7#3bHbigC766coYmMuos4oDtS2wD0#LualMfI9KOnfcKBjJxE5ElalinWEuH#n23Hx2mun" +
+		"xX1NmKJo6kNWSTNW2Jug3eX4MzxKZQqaATsSQwrywTtW6pxhMFF7QyiJBv9dNWQTU5k2Bje" +
+		"4ch9RCKi3vxiXPxiIvTNc6ZEscMMrMB$0TfjMV9ITmBB4iOSRayJIscIL#YsoUsjuUilba4" +
+		"Ltvv1C5sgehr7hepxk46pami8TyzX3V6z$JtTElkshxik8NqvDOlg1vIynd1NwtO6z1WlDo" +
+		"$3t#TMto#EibPApGnFFqE4PvIhcROjoxthgezMRQotrnkKt6HJYAg3ruF16UKIMCwCbzbDM" +
+		"4Bp7BaUQaXJTdpKJ#PtklTq0p$ItiC0knubXytByyikKP6fPLAiITN4ghwydYZipXu#fvl5" +
+		"$aIcyUtwwUovewlqOMNTwX8BbRmqk8haGfCPmOGcIp38#Zh8l6svFvsa8vbMMv5#KCIiRRi" +
+		"odPngwb74LPHpcMyXdAQihdPOM7$IAbs#uLbUyD9UiPDzFLZnRyZ6UxjPJFgHmVy3L2#Gg9" +
+		"aRHjeroaR1F9Tr9E8JXkUo$b6jSd#A5uZMF8LBd2r9#cCeRIdPC2OWBrfxJ#9v6$HRn4V4p" +
+		"i9kOI1wD#Qu6AAsU#$GJdsMuatqNVOjKFvzn9fKA$zIPvEygjgjsXg7JU9rvNUXlwCvGU8f" +
+		"QgMCwraq#i85ubcDVgfE8M4syJIuXbj3TGrgjs$DsSxSGwOZcnKja7Kt#7M4LmlCuQOfFAj" +
+		"vfOJt0TE1k93UhxRbPj5og#Hya3iJcp6cAw4r8oHycmahsLxATacP93bQnGibB9qKfMAJdf" +
+		"S1$D0TjLQ$gq9lopJ6vDrtmrcdsX6OSgJK#YForu7DQIgBIJOpQxlUPNlxbJgtpRj77CKxR" +
+		"EIeOzt#5bJL#WvM$qnALg#hCUtmjQkpwcpxQ2lvkpAC2dzWJcm$SHE#Jx5#8pubFY4uAxMt" +
+		"3dYQt4HyI7n6Q29u7WhX4RnNjYkzWYDeaDOhruLwmJQyKQiLgiajaQv9khNAoGsifeBwh7v" +
+		"Kf#hjc#9RuHEyHtnjZsYb$5RqRRd$$JVY8E4FibsoVVFyht3oeYEfRlZOnVQ$fE8$FlnhGC" +
+		"uzbYyOxbmlR9OjRICgwuCbRL8dBtJXGXZv17v7ziakKTBSBA6qCI$$Qo2DUUnjjRAoA5zTW" +
+		"XBDO6Xx1OAnp2uetDuTbe4Kc4mxFTOgro0c2naZaA5ckQey5YXRC9gqaKIZX4Cc4JgRp1Me" +
+		"IDGVy2bMf28W==");
 
 	static final Action RETURN2 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -175,16 +175,7 @@ public class MiniLangParser extends Parser {
 					 return new Iterate(l, r);
 				}
 			},
-			new Action() {	// [14] Stmt = IF AP Exp.l FP StmtList.r
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_l = _symbols[offset + 3];
-					final Exp l = (Exp) _symbol_l.value;
-					final Symbol _symbol_r = _symbols[offset + 5];
-					final Node r = (Node) _symbol_r.value;
-					 return new IfElse(l, r);
-				}
-			},
-			new Action() {	// [15] Stmt = IF AP Exp.l FP StmtList.r ELSE StmtList.s
+			new Action() {	// [14] Stmt = IF AP Exp.l FP StmtList.r ELSE StmtList.s
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;
@@ -193,6 +184,15 @@ public class MiniLangParser extends Parser {
 					final Symbol _symbol_s = _symbols[offset + 7];
 					final Node s = (Node) _symbol_s.value;
 					 return new IfElse(l, r, s);
+				}
+			},
+			new Action() {	// [15] Stmt = IF AP Exp.l FP StmtList.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 3];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Node r = (Node) _symbol_r.value;
+					 return new IfElse(l, r);
 				}
 			},
 			RETURN2,	// [16] Stmt = Exp SEMI; returns 'SEMI' although none is marked

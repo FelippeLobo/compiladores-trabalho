@@ -1,6 +1,4 @@
-data Ponto {
-   x :: Float;
-   y :: Float;
-};
-
-x = new Ponto;
+main(){
+  read x;
+  print x;
+}
