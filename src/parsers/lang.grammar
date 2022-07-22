@@ -13,7 +13,7 @@
            RB, LB, AP, FP, AC, FC, SEMI, DOT,
            READ, PRINT, RETURN,
            GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, EQUALTO, DIF,
-           COMMA, COLON, DBCOLON, DATA;
+           COMMA, COLON, DBCOLON, DATA, NEW;
 
 %left DATA;   
 %left COMMA;
@@ -36,7 +36,7 @@
 %typeof Aexp = "Exp";
 %typeof Rexp = "Exp";
 %typeof Exps = "Exp";
-%typeof Lvalue = "String";
+%typeof Lvalue = "Lvalue";
 %typeof Stmt = "Node";
 %typeof Prog = "Node";
 %typeof ParamList = "Node";
@@ -62,8 +62,8 @@ Prog = Stmt.l SEMI        {: return new Prog(l);:}
 
 Data = DATA TYPE.l AC Decl.t FC SEMI {:return new Data(new Type(l), t);:};
 
-Decl = ID.l DBCOLON TYPE.t SEMI         {:return new Decl(new Var(l), new Type(t));:}
-     | ID.l DBCOLON TYPE.t SEMI Decl.r  {:return new Decl(new Var(l), new Type(t), r);:}
+Decl = ID.l DBCOLON TYPE.t SEMI         {:return new Decl(new Lvalue(l), new Type(t));:}
+     | ID.l DBCOLON TYPE.t SEMI Decl.r  {:return new Decl(new Lvalue(l), new Type(t), r);:}
      ;
 
 Stmt = ID.l EQ Exp.r                   {: return new Attr((String)l, r);:}
@@ -71,14 +71,14 @@ Stmt = ID.l EQ Exp.r                   {: return new Attr((String)l, r);:}
      | IF AP Exp FP Stmt ELSE Stmt             
      | ITERATE AP Exp FP Stmt                        
      | Exp
-     | READ Lvalue               
-     | PRINT Exp.e                      {: return new Print(e);:} 
+     | READ Lvalue.l                     {:return new Read(l);:}
+     | PRINT Exp.e                       {: return new Print(e);:} 
      | RETURN Ret 
-     | Lvalue EQ Exp           
+     | Lvalue.l EQ Exp.r                    {: return new Attr(l, r);:}
      | ID AP Exps FP LESSER Lvalue+ GREATER                      
      ;
 
-Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC {:return new Func(new Var(a), b, c, d);:}
+Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC {:return new Func(new Lvalue(a), b, c, d);:}
      ;
 
 StmtList = Stmt.l SEMI StmtList.r     {: return new StmtList(l, r);:}
@@ -97,12 +97,12 @@ ParamList = Param.a COMMA ParamList.b  {:return new ParamList(a, b);:}
           | Param.a                    {:return new ParamList(a);:}
           ;
 
-Param = ID.a DBCOLON TYPE.b                 {:return new Param(new Var(a), new Type(b));:}
+Param = ID.a DBCOLON TYPE.b                 {:return new Param(new Lvalue(a), new Type(b));:}
      ;
 
-Lvalue = ID.l 
-     | Lvalue LB Exp RB  
-     | Lvalue DOT ID   
+Lvalue = ID.l                                {:return new Lvalue(l);:}
+     | Lvalue.l LB Exp.r RB                  {:return new Lvalue(l,r);:}
+     | Lvalue.l DOT ID.r                     {:return new Lvalue(l,r);:}
      ;
 
 Exp = Rexp
@@ -137,10 +137,16 @@ Sexp = Exp NOT
      | Pexp                                                     
 ;
 
-Pexp = AP Exp FP                        
-     | TYPE LB Exp RB
-     | ID.l             {:return new Var(l);:}
+Pexp = Lvalue.l                  {:return l;:}
+     | AP Exp FP                        
+     | NEW TYPE.l LB Exp.r RB     {:return new Inst(new Type(l), r);:}
+     | NEW TYPE.l                 {:return new Inst(new Type(l));:}
+     | ID.l AP Exps FP LB Exp RB  
+     
 ;
 
-Exps = Exp+
+
+Exps = Exp 
+     | Exp Exps   
 ;
+

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
+import java.util.Scanner;
 
 import src.ast.*;
 
@@ -31,45 +32,53 @@ public class InterpretVisitor extends Visitor {
 
     public void visit(Add e) {
         System.out.println("Entrei ADD");
-        e.getLeft().accept(this);
+
+        Object left = null, right = null;
+
         Integer leftInt = null, rightInt = null;
         Float leftFloat = null, rightFloat = null;
 
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
+        e.getLeft().accept(this);
 
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
+        System.out.println("Valor left : " + (operands.peek()));
+        if (operands.peek() instanceof Integer || operands.peek() instanceof Float) {
+            left = operands.pop();
 
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
+        } else if (globalCtx.get((operands.peek())) instanceof Integer
+                || globalCtx.get((operands.peek())) instanceof Float) {
+            left = globalCtx.get((String) (operands.pop()));
 
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
+        } else if (env.peek().get((operands.peek())) instanceof Integer
+                || env.peek().get((operands.peek())) instanceof Float) {
+            left = env.peek().get((String) (operands.pop()));
         }
 
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
+        System.out.println("Valor right : " + (operands.peek()));
+        if (operands.peek() instanceof Integer || operands.peek() instanceof Float) {
+            right = operands.pop();
 
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
+        } else if (globalCtx.get((operands.peek())) instanceof Integer
+                || globalCtx.get((operands.peek())) instanceof Float) {
+            right = globalCtx.get((String) (operands.pop()));
 
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
+        } else if (env.peek().get((operands.peek())) instanceof Integer
+                || env.peek().get((operands.peek())) instanceof Float) {
+            right = env.peek().get((String) (operands.pop()));
         }
 
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt + rightInt);
-        } else if (leftInt != null && rightFloat != null) {
-            operands.push(leftInt + rightFloat);
-        } else if (leftFloat != null && rightInt != null) {
-            operands.push(leftFloat + rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat + rightFloat);
+        if (left instanceof Integer && right instanceof Integer) {
+            System.out.println("Valor add : " + ((Integer) left + (Integer) right));
+            operands.push((Integer) left + (Integer) right);
+        } else if (left instanceof Integer && rightFloat instanceof Float) {
+            System.out.println("Valor add : " + ((Integer) left + (Float) right));
+            operands.push((Integer) left + (Float) right);
+        } else if (left instanceof Float && right instanceof Integer) {
+            System.out.println("Valor add : " + ((Float) left + (Integer) right));
+            operands.push((Float) left + (Integer) right);
+        } else if (left instanceof Float && right instanceof Float) {
+            System.out.println("Valor add : " + ((Float) left + (Float) right));
+            operands.push((Float) left + (Float) right);
         }
 
     }
@@ -106,6 +115,7 @@ public class InterpretVisitor extends Visitor {
 
         Object value = null;
         value = operands.pop();
+
         if (this.isBlock) {
 
             System.out.println("Valor removido da pilha operands e adicionada ao  env " + value);
@@ -126,58 +136,52 @@ public class InterpretVisitor extends Visitor {
 
     }
 
-    public void visit(Print e) {
-        e.getExp().accept(this);
-        System.out.println(globalCtx.get(operands.pop()));
-    }
+    public void visit(Print print) {
+        print.getExp().accept(this);
 
-    @Override
-    public void visit(Var e) {
+        Object exp = operands.pop();
 
-        Object var;
-
-        if (isBlock) {
-            var = env.peek().get(e.getName());
-
-            if (var != null) {
-                System.out.println("Valor adicionado a pilha operands: " + e.getName());
-                operands.push(e.getName());
-
+        if (this.isBlock) {
+            if (env.peek().get(exp) != null) {
+                Object var = env.peek().get(exp);
+                if (env.peek().get(var) != null) {
+                    System.out.println(env.peek().get(var));
+                } else {
+                    System.out.println(env.peek().get(exp));
+                }
             } else {
-                System.out.println("Valor adicionado a pilha operands e ao envLocal: " + e.getName());
-                env.peek().put(e.getName(), null);
-                operands.push(e.getName());
+                System.out.println(exp);
             }
+
         } else {
-            var = globalCtx.get(e.getName());
-
-            if (var != null) {
-                System.out.println("Var adicionado a pilha operands: " + e.getName());
-                operands.push(e.getName());
-
+            if (globalCtx.get(exp) != null) {
+                Object var = globalCtx.get(exp);
+                if (globalCtx.get(var) != null) {
+                    System.out.println(globalCtx.get(var));
+                } else {
+                    System.out.println(globalCtx.get(exp));
+                }
             } else {
-                System.out.println("Var adicionado a pilha operands e ao global: " + e.getName());
-                globalCtx.put(e.getName(), null);
-                operands.push(e.getName());
+                System.out.println(exp);
             }
-
         }
-
     }
+
+
 
     @Override
     public void visit(Type e) {
 
         Object type;
 
-      
-
         if (isBlock) {
+            System.out.println("Tipo adicionado a pilha operands: " + e.getName());
             env.peek().put(e.getName(), e);
+            operands.push(e.getName());
         } else {
 
             type = globalCtx.get(e.getName());
-            
+
             if (type != null) {
 
                 System.out.println("Tipo adicionado a pilha operands: " + e.getName());
@@ -250,12 +254,13 @@ public class InterpretVisitor extends Visitor {
 
         HashMap<String, Object> localEnv = new HashMap<>();
 
-        globalCtx.put(e.getIdentifier().getName(), e);
+        globalCtx.put(e.getIdentifier().getIdentifier(), e);
         env.push(localEnv);
-        System.out.println("Func " + e.getIdentifier().getName() + " adicionado ao escopo Global");
+        System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado ao escopo Global");
 
         e.getParam().accept(this);
 
+        e.getBody().accept(this);
         env.pop();
         this.isBlock = false;
 
@@ -264,8 +269,8 @@ public class InterpretVisitor extends Visitor {
     @Override
     public void visit(Param e) {
 
-        System.out.println("parametro adicionado a pilha operands e ao envLocal: " + e.getIdentifier().getName());
-        env.peek().put(e.getIdentifier().getName(), e);
+        System.out.println("parametro adicionado a pilha operands e ao envLocal: " + e.getIdentifier().getIdentifier());
+        env.peek().put(e.getIdentifier().getIdentifier(), e);
     }
 
     @Override
@@ -287,16 +292,144 @@ public class InterpretVisitor extends Visitor {
 
     }
 
-    public void visit(StmtList e){
+    public void visit(StmtList e) {
         System.out.println("Entrou no StmtList");
 
         if (this.isBlock) {
             e.getStmt().accept(this);
 
-            if(e.getStmtList() != null){
+            if (e.getStmtList() != null) {
                 e.getStmtList().accept(this);
             }
         }
+    }
+
+    @Override
+    public void visit(Lvalue e) {
+        Object lvalue;
+
+        if (e.getLvalue() != null) {
+            e.getLvalue().accept(this);
+        }
+
+        if (e.getIdentifier() != null) {
+
+            if (isBlock) {
+                lvalue = env.peek().get(e.getIdentifier());
+
+                if (lvalue != null) {
+                    System.out.println("Lvalue adicionado a pilha operands: " + e.getIdentifier());
+                    operands.push(e.getIdentifier());
+
+                } else {
+                    System.out.println("Lvalue adicionado a pilha operands e ao envLocal: " + e.getIdentifier());
+                    env.peek().put(e.getIdentifier(), e);
+                    operands.push(e.getIdentifier());
+                }
+            } else {
+                lvalue = globalCtx.get(e.getIdentifier());
+
+                if (lvalue != null) {
+                    System.out.println("Lvalue adicionado a pilha operands: " + e.getIdentifier());
+                    operands.push(e.getIdentifier());
+
+                } else {
+                    System.out.println("Lvalue adicionado a pilha operands e ao global: " + e.getIdentifier());
+                    globalCtx.put(e.getIdentifier(), e);
+                    operands.push(e.getIdentifier());
+                }
+
+            }
+        }
+
+        if (e.getCtx() != null) {
+            e.getCtx().accept(this);
+
+            Object tam = null;
+
+            if (operands.peek() instanceof Integer || operands.peek() instanceof Float) {
+                tam = operands.pop();
+
+            } else if (globalCtx.get((operands.peek())) instanceof Integer
+                    ) {
+                tam = globalCtx.get((operands.pop()));
+
+            } else if (env.peek().get((operands.peek())) instanceof Integer
+                    ) {
+                tam = env.peek().get((String) (operands.pop()));
+            }
+
+            Object lvalueName = operands.pop();
+            System.out.println("LvalueName " + lvalueName);
+            System.out.println("TAM " + tam);
+            if (lvalueName instanceof String) {
+                if (isBlock) {                 
+                   
+                    Object[] list = new Object[(Integer)tam];
+                    env.peek().get(lvalueName);
+                    env.peek().put((String)lvalueName, env.peek().get(lvalueName));
+
+                } else {
+                    Object[] list = new Object[(Integer)tam];
+                    globalCtx.put((String) lvalueName, list);
+                }
+            }
+
+        }
+
+    }
+
+    @Override
+    public void visit(Read e) {
+        e.getLvalue().accept(this);
+
+        Object exp = operands.pop();
+
+        if (this.isBlock) {
+            if (env.peek().get(exp) != null) {
+                Object var = env.peek().get(exp);
+                if (env.peek().get(var) != null) {
+                    
+                    Scanner myObj = new Scanner(System.in);  
+                    System.out.println("Digite valor de ");
+                    String read = myObj.nextLine();  
+
+                    env.peek().put((String)var, read);
+                } else {
+
+                    Scanner myObj = new Scanner(System.in);  
+                    System.out.println("Digite valor de ");
+                    String read = myObj.nextLine();  
+
+                    env.peek().put((String)exp, read);
+                }
+            }
+        } else {
+            if (globalCtx.get(exp) != null) {
+                Object var = globalCtx.get(exp);
+                if (globalCtx.get(var) != null) {
+                    Scanner myObj = new Scanner(System.in);  
+                    System.out.println("Digite valor de ");
+                    String read = myObj.nextLine();  
+                    globalCtx.put((String)var, read);
+                } else {
+                    Scanner myObj = new Scanner(System.in);  
+                    System.out.println("Digite valor de ");
+                    String read = myObj.nextLine();  
+                    globalCtx.put((String)exp, read);
+                }
+            }
+        }
+
+   
+
+    }
+
+    @Override
+    public void visit(Inst e) {
+        System.out.println(e.toString());
+        e.getType().accept(this);
+       
     }
 
 }

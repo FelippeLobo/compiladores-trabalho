@@ -7,12 +7,12 @@ import src.visitors.Visitor;
 
 public class Func extends Node{
     
-    private Var id;
+    private Lvalue id;
     private Node param;
     private Node returnL;
     private Node body;
 
-    public Func(Var id, Node param, Node returnL, Node body){
+    public Func(Lvalue id, Node param, Node returnL, Node body){
    
         this.id = id;
         this.param = param;
@@ -22,7 +22,7 @@ public class Func extends Node{
     }
 
 
-    public Var getIdentifier(){
+    public Lvalue getIdentifier(){
         return this.id;
     }
     public Node getParam(){

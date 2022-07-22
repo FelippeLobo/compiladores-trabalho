@@ -64,6 +64,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "return"        { return newToken(Terminals.RETURN);}
     "if"            { return newToken(Terminals.IF);}
     "else"          { return newToken(Terminals.ELSE);}
+    "new"           { return newToken(Terminals.NEW);}
     "null"          { return newToken(Terminals.NULL, null);}
     "iterate"       { return newToken(Terminals.ITERATE);}
     "data"          { return newToken(Terminals.DATA);}

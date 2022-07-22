@@ -7,25 +7,25 @@ import src.visitors.Visitor;
 
 public class Decl extends Node{
     
-    private Var id;
+    private Lvalue id;
     private Node type;
     private Node decl;
 
-    public Decl(Var id, Node type){
+    public Decl(Lvalue id, Node type){
    
         this.id = id;
         this.type = type;
         this.decl = null;
     }
 
-    public Decl(Var id, Node type, Node decl){
+    public Decl(Lvalue id, Node type, Node decl){
    
         this.id = id;
         this.type = type;
         this.decl = decl;
     }
 
-    public Var getIdentifier(){
+    public Lvalue getIdentifier(){
         return this.id;
     }
     public Node getType(){

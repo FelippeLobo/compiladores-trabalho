@@ -7,16 +7,16 @@ import src.visitors.Visitor;
 
 public class Param extends Node{
     
-    private Var id;
+    private Lvalue id;
     private Type type;
 
-    public Param(Var id, Type type){
+    public Param(Lvalue id, Type type){
    
         this.id = id;
         this.type = type;
     }
 
-    public Var getIdentifier(){
+    public Lvalue getIdentifier(){
         return this.id;
     }
 
