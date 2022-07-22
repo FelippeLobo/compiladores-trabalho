@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 c = false;
 if(c) print 5; else print 6;
 
 a = 3+2;
 print a;
+=======
+data Ponto {
+   x :: Float;
+   y :: Float;
+};
+>>>>>>> felippe

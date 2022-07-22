@@ -12,44 +12,33 @@ import src.beaver.*;
 public class MiniLangParser extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pbLsbiLKKK$kwzfGkM0aLAnRQlfLKej4ziQMkXBgqAY58N4AeYeY9Qm8A0ACegI6d59L4" +
-		"8VzH8ed59z9yc9YA2rWKLDrHSwYwbBg22u8BZT#SDt7bptxiy6qqmjFdcd3dVcJDdPkui3t" +
-		"2Uma0Ken$wuZWSZro4K812d80XA1LVYx#GXbCm0cKenp1Ke1Brqd###DF7d8NBSJLcOXRc#" +
-		"BX3ZFWzFeVf2ECa3CN9gCBDc83n6XStInmRmFNH8WuFy8i$1mAdeOVaUw31o7nqG4HlnFim" +
-		"9S0lIyjmMe3VZ03kXW3krgwC#eXcZ5KG1n9PXSJZ#UhPsWfvyKRY7F67LZzSbFvne$mMTmS" +
-		"uE0OskY75j8iDI8fbHpgIOzepa2hjapHxZgQVZvweHIyinwLeCJ8tT#L4d6vuz1Q$OedFxr" +
-		"haQPOQyRpFez5dMUQBVRJNzHKpkLhKOInNB7eMh$pNSxXHYw$hJUxtYxau4sTZWTHlGhx63" +
-		"z3q8aq$KTC7QVfWJI$Hz6fDFrNJHsdwPPf#XQPVe#cpDVqMJJy3OyMNk4HyZjkn26Dm7lV1" +
-		"1LY1Sx4G5#8YZCDaN8MBCHNNSRwlnppn3HQATj6ExhBCn6AiHARuIdo1fLY5sn3vQ#P$6hf" +
-		"p5wVpziZW7kk5tlJkmpkhBqz#mEB#TkHUJkRkJELfvFeNnc26y$JAvkdLd#UNoNcClvt73U" +
-		"HS5tEEXt1kI#NeFIueo$YS7Z4dm2y#0tuNbkGjN#P50UsypFC3Uquqmw1HTfNxVpBcAY2XL" +
-		"KWydbdNLyYBbykx0m5VVDUYc3kWMkx$CfzzH1nxVXnxGGoxhfSprmf#ArKyLuCoZ#nAqwDQ" +
-		"VkD#FzsIUrYFsB6Fzhe#GoPNmJcrk6BcBFwNEUXwbln#AxclIdcJHlHulaUoRdF48POvt0U" +
-		"5rBFasxEGfuN35$WmoMNn6xVvBh3aBw8iCkvuGx8SG1#BPOYjGcJoXVpZhYlWxcvT6hbhYu" +
-		"cxYGnUWLCeUHTQzrDMKMu4d2NKxwNU5l6ttWOxfDp5uXxghDWZgO#9y7OzYnsK4oZtK4wch" +
-		"qKvZP9zs4sKxCEUJpc8SZ5b1ULA#lUal8koXNAjYlU0ae$GhyxL4mNRFCcYGUbyDTXFKvcf" +
-		"yId49exHvTefbx4FvcDl8BaWukCqApdNQsSznFeiOZfn1p67nlievob#ech3zupTHcJJra2" +
-		"u$kwSlKTo3UkSMsUHykKSsnrK7gEzcVNPbElL6ZsdVDOIAIhttIosA7q$xSjTdSkxZxhhku" +
-		"BWl3lkJRHTjPzAh2Curyugnd#SiaLnZSHwefLOJJoix7UgCJsev1DAFgFaPcrUriHU1wj3Z" +
-		"MEKPyCwnJKgkLh9RMfCoQf$vUyShAShcQbajf9vIXR5oY48R3FOg0yryjzwKEVyTZAtlSgl" +
-		"yX$qCKcDEq#BkzFJxKVfKsEqgLFSiuPzj6f$GF4P1Zz3q#krFZgZ$UpTcjzu8qQJvjVFuCR" +
-		"57YDQuViJcsIvtx3#Gdn4R2S#93uWtYUs4TmTuXs29utOIhn9l26sY8$5k#8jyRfuJRmgNX" +
-		"4lYpRnaepreegvETANgksKvQV49qG7VszqHcMmG#mHUrLs6yKB6lFp8UqdWljCx9Ar7sNvW" +
-		"oo$ZuhrNLJjMqt$JFPGovUHnRUE2zidotYdLKjquql3bg#DCEjXtdDXsiAyxSAqXxaPF2Jn" +
-		"bur5kFPKlgBIY6JUT0vXyUHtvEdllg3AAQieI#KjaKGul6SitZHE02pU38w2nHl9qM3nVh8" +
-		"9AoPAw5F2VahaAy25pJU1XPg$0GUiDX0=");
-
-	static final Action RETURN4 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 4];
-		}
-	};
-
-	static final Action RETURN5 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 5];
-		}
-	};
+		"U9pjLrbm5KKKFJqJaX0ZIy0yCIGaa1S88dbX2yGWYo1nZRY0Mq0MHOcAeWYu4TV41Q8YMbH" +
+		"P#k67bdmeLLgM2WIGJGG54L4n82BY2k92tB0zCw$nTS$a3UH95JzvKsVkFVVUljtJwUxR0U" +
+		"nzA4C$bA0dJaKld8RUw88yjCM9Q8yEE0aXT48Mij4DOLal$q5hJ$GeAUNVFck5c#L2JC1Lc" +
+		"8eRSRFBpvU7v5#erQnNubpv1mOZ3RNoJr#MWV77WW5QbZISWmSnY7bg0reCbL$vUYZcCuGO" +
+		"oUSs8e8pKO3kw85256azb6Cqst#1UmDxk0$f0Txudhwu7TTf$Tfo6PBG2YauFQ5ymmDyumD" +
+		"yamDyP#7w06y5fWLupyFiXBxZ#7kkyAmNBu#tNix01JXRuudc6O6BST4no5EEIt27nZth3P" +
+		"V2SjTR12V4x7AfBsuiajquhxqIgQwznZCUC#uoZC7zc8XhkO$kzlakzrckyLcc#2npVETN2" +
+		"syUDsVqwcQtZ#1MhRtNUyiH$3FeRwFv8sXdi0o3TJHOfi5EDjWf1kjii1o3vHgigy7o3TR7" +
+		"OFqDLcgmOGORPx191hl9OBCqTWFhqZnKo2zPbufHXUcOIUrEkOSx#Iwv6m$W7haBrNW83pF" +
+		"k4LR0H$4Ovk9nrE49F2aFoaO8xclRhIN9t9sfh7zftE7fFElQyCHhnnClWsTUHvvwcO0lsW" +
+		"AQi0etIo7dknDdEOjpw$1qDxQhPhLOlS1tc5P$bfp0iSIoX1cJpzFOOfRuBR9vQdjxoEQJI" +
+		"UJnAI0AjLLNfFNGdtS99t9GO0y5x26#DxwdcwTVPzNsOSNlHqzY#OBcBJ6V2FosO6zXWlDo" +
+		"$3t#TMto#EibPApGnFDqFqPvIhYROjoxthgezMRQotnnkKt6HJYAg3ruF16UKGCOqOFxABC" +
+		"9NsAM8yr92s$Ecedyp$PUxy1c#blOOHPYnH5ydFyyijqpDEnMgH1tSWcjZYUJEpA7ZwFdyt" +
+		"wHwthp#NRqNDRK#TLkqUKT2YvtQlW08eye8KOGGubibk7nb7NHU6iANriefx4izwISISbuQ" +
+		"mubsrWrbACfwoZ7KJv3MKNvl5lXORr8wRHxHULxGybwnirozAC5VnFORYtbSoh71toDLBuY" +
+		"OXHjsoWNATiayfsKKmcEszfBkSRnIVueNkCOCbIkCFMdgOobTEQaa9X8$Icj$ydaRn4l4Hy" +
+		"JkucvnC6eNonGSMNCjv$WF5kDvBleMwpwuPpRALJe5s#IjwVSgjeTYahxVU9rfRUbFrtf8M" +
+		"AfYkLSsmN42k9LWdb5befRJBnDB26MqTv0MQ$QyUzcRoVM4Sk9bSe#XFexn2g2uxNN49jKl" +
+		"jN4UeBhmDv8R53VkrcrNQZu7YKFnEPCDCHqEwHaZf9X9NifsLV9KYM7ALckP8MIOvIiL7Bo" +
+		"uJwQ0xQhqlJfJVXdcrpCq7pLcdsX6OTAJK#YFpLu7699L5gjOZQhW#PNVtExHlcsQUEOfso" +
+		"TbGnxlk5bJL#WvM$qnALe#hCUtmjQkzwcpnB1tsOl2l2fFO7vyFta3lVz2$4PyIdn2S7TBR" +
+		"dpv5RY8#93OZF1aq1oryYDyZsvNMwHc#G6kLw#AzV9jNADN2rNkTaQt3TNkLpXQYkZlQWUb" +
+		"olvkMRxblX6xf3V6MFRAt#LlnbjV$vFEq3yHEntsJxt$QFx$a55HCVolP7nQqtVQMJ#tPYM" +
+		"uJnR1EzO3YoVxCTQMieLLyggMapkt8aYv17oA5BSErg4bJU69Fxl9GZ7dihRMsiYcVNO9WH" +
+		"hWqq8rWgR4BonsJmR1P54s3pR1MkL7G31IcOh2DOqMuDWXRC8qIIANDX4Ay8YKdY35OI5mV" +
+		"y2bMP28W==");
 
 	static final Action RETURN2 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -57,15 +46,15 @@ public class MiniLangParser extends Parser {
 		}
 	};
 
-	static final Action RETURN3 = new Action() {
-		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 3];
-		}
-	};
-
 	static final Action RETURN8 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
 			return _symbols[offset + 8];
+		}
+	};
+
+	static final Action RETURN3 = new Action() {
+		public Symbol reduce(Symbol[] _symbols, int offset) {
+			return _symbols[offset + 3];
 		}
 	};
 
@@ -123,9 +112,35 @@ public class MiniLangParser extends Parser {
 					 return new Prog(l, r);
 				}
 			},
-			RETURN4,	// [7] Data = ID AC Decl FC; returns 'FC' although none is marked
-			RETURN4,	// [8] Decl = ID DBCOLON TYPE SEMI; returns 'SEMI' although none is marked
-			RETURN5,	// [9] Decl = ID DBCOLON TYPE SEMI Decl; returns 'Decl' although none is marked
+			new Action() {	// [7] Data = DATA TYPE.l AC Decl.t FC SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final String l = (String) _symbol_l.value;
+					final Symbol _symbol_t = _symbols[offset + 4];
+					final Node t = (Node) _symbol_t.value;
+					return new Data(new Type(l), t);
+				}
+			},
+			new Action() {	// [8] Decl = ID.l DBCOLON TYPE.t SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					final Symbol _symbol_t = _symbols[offset + 3];
+					final String t = (String) _symbol_t.value;
+					return new Decl(new Lvalue(l), new Type(t));
+				}
+			},
+			new Action() {	// [9] Decl = ID.l DBCOLON TYPE.t SEMI Decl.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					final Symbol _symbol_t = _symbols[offset + 3];
+					final String t = (String) _symbol_t.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Node r = (Node) _symbol_r.value;
+					return new Decl(new Lvalue(l), new Type(t), r);
+				}
+			},
 			new Action() {	// [10] StmtList = Stmt.l StmtList.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
@@ -151,7 +166,7 @@ public class MiniLangParser extends Parser {
 					 return new Attr((String)l, r);
 				}
 			},
-			new Action() {	// [13] Stmt = ITERATE AP Exp.l FP Stmt.r SEMI
+			new Action() {	// [13] Stmt = ITERATE AP Exp.l FP Stmt.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;
@@ -181,7 +196,13 @@ public class MiniLangParser extends Parser {
 				}
 			},
 			RETURN2,	// [16] Stmt = Exp SEMI; returns 'SEMI' although none is marked
-			RETURN3,	// [17] Stmt = READ Lvalue SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [17] Stmt = READ Lvalue.l SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Lvalue l = (Lvalue) _symbol_l.value;
+					return new Read(l);
+				}
+			},
 			new Action() {	// [18] Stmt = PRINT Exp.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
@@ -196,7 +217,15 @@ public class MiniLangParser extends Parser {
 					 return new GenRet(l);
 				}
 			},
-			RETURN4,	// [20] Stmt = Lvalue EQ Exp SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [20] Stmt = Lvalue.l EQ Exp.r SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Lvalue l = (Lvalue) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					 return new Attr(l, r);
+				}
+			},
 			new Action() {	// [21] lst$Lvalue = Lvalue
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
@@ -218,28 +247,86 @@ public class MiniLangParser extends Parser {
 					final Node c = (Node) _symbol_c.value;
 					final Symbol _symbol_d = _symbols[offset + 8];
 					final Node d = (Node) _symbol_d.value;
-					return new Func(new Var(a), b, c, d);
+					return new Func(new Lvalue(a), b, c, d);
 				}
 			},
-			new Action() {	// [25] Func = ID.a AP FP AC StmtList.d FC
+			new Action() {	// [25] Func = ID.a AP FP AC StmtList.b FC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final String a = (String) _symbol_a.value;
-					final Symbol _symbol_d = _symbols[offset + 5];
-					final Node d = (Node) _symbol_d.value;
-					return new Func(new Var(a), d);
+					final Symbol _symbol_b = _symbols[offset + 5];
+					final Node b = (Node) _symbol_b.value;
+					return new Func(new Lvalue(a), b);
 				}
 			},
 			RETURN3,	// [26] Ret = Exp COMMA Ret; returns 'Ret' although none is marked
 			Action.RETURN,	// [27] Ret = Exp
-			RETURN3,	// [28] Return = TYPE COMMA Return; returns 'Return' although none is marked
-			Action.RETURN,	// [29] Return = TYPE
-			RETURN3,	// [30] ParamList = Param COMMA ParamList; returns 'ParamList' although none is marked
-			Action.RETURN,	// [31] ParamList = Param
-			RETURN3,	// [32] Param = ID DBCOLON TYPE; returns 'TYPE' although none is marked
-			Action.RETURN,	// [33] Lvalue = ID.l
-			RETURN4,	// [34] Lvalue = Lvalue LB Exp RB; returns 'RB' although none is marked
-			RETURN3,	// [35] Lvalue = Lvalue DOT ID; returns 'ID' although none is marked
+			new Action() {	// [28] Return = TYPE.a COMMA Return.b
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final String a = (String) _symbol_a.value;
+					final Symbol _symbol_b = _symbols[offset + 3];
+					final Node b = (Node) _symbol_b.value;
+					return new Return(new Type(a), b);
+				}
+			},
+			new Action() {	// [29] Return = TYPE.a
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final String a = (String) _symbol_a.value;
+					return new Return(new Type(a));
+				}
+			},
+			new Action() {	// [30] ParamList = Param.a COMMA ParamList.b
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final Node a = (Node) _symbol_a.value;
+					final Symbol _symbol_b = _symbols[offset + 3];
+					final Node b = (Node) _symbol_b.value;
+					return new ParamList(a, b);
+				}
+			},
+			new Action() {	// [31] ParamList = Param.a
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final Node a = (Node) _symbol_a.value;
+					return new ParamList(a);
+				}
+			},
+			new Action() {	// [32] Param = ID.a DBCOLON TYPE.b
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_a = _symbols[offset + 1];
+					final String a = (String) _symbol_a.value;
+					final Symbol _symbol_b = _symbols[offset + 3];
+					final String b = (String) _symbol_b.value;
+					return new Param(new Lvalue(a), new Type(b));
+				}
+			},
+			new Action() {	// [33] Lvalue = ID.l
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					return new Lvalue(l);
+				}
+			},
+			new Action() {	// [34] Lvalue = Lvalue.l LB Exp.r RB
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Lvalue l = (Lvalue) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Lvalue(l,r);
+				}
+			},
+			new Action() {	// [35] Lvalue = Lvalue.l DOT ID.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Lvalue l = (Lvalue) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final String r = (String) _symbol_r.value;
+					return new Lvalue(l,r);
+				}
+			},
 			Action.RETURN,	// [36] Exp = Rexp
 			new Action() {	// [37] Rexp = Exp.l GREATER Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -360,7 +447,13 @@ public class MiniLangParser extends Parser {
 					return new LiteralValue<Boolean>(n);
 				}
 			},
-			Action.RETURN,	// [54] Sexp = NULL
+			new Action() {	// [54] Sexp = NULL.n
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_n = _symbols[offset + 1];
+					final String n = (String) _symbol_n.value;
+					return new LiteralValue<String>(n);
+				}
+			},
 			new Action() {	// [55] Sexp = INT.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_n = _symbols[offset + 1];
@@ -383,26 +476,33 @@ public class MiniLangParser extends Parser {
 				}
 			},
 			Action.RETURN,	// [58] Sexp = Pexp
-			RETURN3,	// [59] Pexp = AP Exp FP; returns 'FP' although none is marked
-			RETURN4,	// [60] Pexp = TYPE LB Exp RB; returns 'RB' although none is marked
-			new Action() {	// [61] Pexp = ID.l
+			new Action() {	// [59] Pexp = Lvalue.l
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
+					final Lvalue l = (Lvalue) _symbol_l.value;
+					return l;
+				}
+			},
+			RETURN3,	// [60] Pexp = AP Exp FP; returns 'FP' although none is marked
+			new Action() {	// [61] Pexp = NEW TYPE.l LB Exp.r RB
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
 					final String l = (String) _symbol_l.value;
-					return new Var(l);
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Inst(new Type(l), r);
 				}
 			},
-			new Action() {	// [62] lst$Exp = Exp
+			new Action() {	// [62] Pexp = NEW TYPE.l
 				public Symbol reduce(Symbol[] _symbols, int offset) {
-					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final String l = (String) _symbol_l.value;
+					return new Inst(new Type(l));
 				}
 			},
-			new Action() {	// [63] lst$Exp = lst$Exp Exp
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2].value); return _symbols[offset + 1];
-				}
-			},
-			Action.RETURN	// [64] Exps = lst$Exp
+			Action.RETURN,	// [63] Pexp = ID.l AP Exps FP LB Exp RB
+			Action.RETURN,	// [64] Exps = Exp
+			RETURN2	// [65] Exps = Exp Exps; returns 'Exps' although none is marked
 		};
 	}
 

@@ -46,7 +46,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
   type = [:uppercase:] ( [:letter:] | [:digit:] | "_" )*
   float      = [:digit:]*[.] [:digit:]*
   inteiro = [:digit:] [:digit:]*
-  char = "'" [:lowercase:] "'" | "'" [:uppercase:] "'" | "'" "\n" "'" | "'" "\t" "'" | "'" "\\" "'"
+  char = "'" [:lowercase:] "'" | "'" [:uppercase:] "'" 
   boolean = "true" | "false"
   identificador = [:lowercase:] ([:lowercase:] | [:uppercase:] | [:digit:] | "_")*
   Literal = "'" (.)  "'" | "'" "\\n" "'" | "'" "\\r" "'" | "'" "\\t" "'" | "'" "\\b" "'" | "'" "\\\\" "'"
@@ -62,8 +62,10 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     "return"        { return newToken(Terminals.RETURN);}
     "if"            { return newToken(Terminals.IF);}
     "else"          { return newToken(Terminals.ELSE);}
+    "new"           { return newToken(Terminals.NEW);}
     "null"          { return newToken(Terminals.NULL, null);}
     "iterate"       { return newToken(Terminals.ITERATE);}
+    "data"          { return newToken(Terminals.DATA);}
     "="             { return newToken(Terminals.EQ);   }
     ";"             { return newToken(Terminals.SEMI); }
     "("             { return newToken(Terminals.AP);   }
@@ -95,7 +97,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     {identificador} { return newToken(Terminals.ID, yytext());   }
     {inteiro}       { return newToken(Terminals.INT, Integer.parseInt(yytext()) );  }
     {float}         { return newToken(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
-    {char}          { return newToken(Terminals.CHAR, yytext().charAt(1) ); }
+    {char}          { return newToken(Terminals.CHAR, yytext().charAt(1)); }
     "/*"            { yybegin(COMMENT);               }
     {LineComment}   {                       }
 

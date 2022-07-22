@@ -4,10 +4,10 @@ data Ponto {
 }
 
 f(d :: Int ) : Int, Char{
-    return 0, '\n';
+    return 0, 'a';
 }
 
 main(x :: Ponto){
    print x.x;
-   z = f(0)[0] + 2;
+   z = 3 + 2;
 }

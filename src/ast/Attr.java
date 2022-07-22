@@ -11,20 +11,20 @@ import src.visitors.Visitor;
 
 public class Attr extends Node {
       
-      private Var id;
+      private Node id;
       private Exp e; 
       
       public Attr(String id, Exp e){
-           this.id = new Var(id);
+           this.id = new Lvalue(id);
            this.e  = e;
       }
 
-      public Attr(Var id, Exp e){
+      public Attr(Node id, Exp e){
           this.id = id;
           this.e  = e;
      }
       
-      public Var getVar(){ return id;} 
+      public Node getVar(){ return id;} 
       public Exp getExp(){   return e; }
       
       public String toString(){
