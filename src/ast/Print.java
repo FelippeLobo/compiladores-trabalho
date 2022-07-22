@@ -20,7 +20,7 @@ public class Print extends Node {
       
       //@Override
       public String toString(){
-         return   "" + e.toString(); 
+         return  ("" + e.toString() + ";"); 
       }
 
     @Override

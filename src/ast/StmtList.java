@@ -33,11 +33,12 @@ public class StmtList extends Node {
           return this.stmtList;
      }
 
+     @Override
      public String toString(){
           if(stmtList != null){
-               return (stmt.toString() + ";\n" + stmtList.toString());
+               return (stmt.toString() + "\n" + stmtList.toString());
           }else{
-               return (stmt.toString() + ";\n");
+               return (stmt.toString() + "\n");
           }    
      }
 

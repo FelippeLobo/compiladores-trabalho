@@ -12,32 +12,32 @@ import src.beaver.*;
 public class MiniLangParser extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pbLsTmLKKK$lPU8Kf2eaH2n4Vo884aa1ZI2SIIe828iO0GHICs50XOOe9Og1aTHSNAECv" +
-		"OVpYMqL#E$XA1A1P45CLkH2oOsAAYOC7rk$islkKstaH$mF1cllkTFUVisRDdT#$U1zZF8W" +
-		"y568I1E0f7OmYoCHGv68vHA99Voh$H3sCm3gKeGpagK8bJbV#LyY#FvKISXuin5qrOuB7zQ" +
-		"v5$1Dim1yUW6ADHWYequonCDMp1MVuQRCEHHiIn8Nx1qIMEGwgo7u86L#QJGYB6PxmBiqBy" +
-		"CemCBmt9uwSGsuyXjkzxC#lzsk9Q1RadaLL8F9wddMciK3pU19mi$pJQ#ueoE33Axu4dmER" +
-		"Eiz0NXxhrSWtw#EcHWYHVVNySflJd6lg88TSZ3RKu73VW7AnmPUu#bJDmlClZ20p08e$V1S" +
-		"YAQ#HlyaMFnqKUpNMUs0TxsrmnjwqMDQZZYhdrUrVril#SmnL6F4EMtSx#nUKOZocuMibN8" +
-		"Mhu3ZFaN4CUOSZvXZpIa0iDkTgGZpNaYOOyqv3FD#JPXZpVa5iC#GHCaJjnjjoE9N8RJi92" +
-		"deF9iWkdO35EGojEnncu46UY4TCn3PV8N#JFxD4XEv2idkcOHwzq#OFy2jV8Bx0KrmAuNdw" +
-		"EvLY6s6yPJs0$9FE4zkUfJkDPSqvDEc#eWRm30C6JRlEESSvr4azgaVBFyR6CvNiia##nmN" +
-		"oJkMrnYxTVt9R7gXUmsgDOvI9LXxWjBCjWcnan4k8NR05tY53s34$ckI7zufb7GqTEDCEmM" +
-		"VRMTc1QtAk0X5OXyNZkjhb2yNX3U8iWPCVtBehx10Zr9YZrwCS5wAi3z54VlIcNyRkZWlbM" +
-		"yGqRbddiLBezCZXknCVFr4JtwU4V#s1lcnLosoguVo89hDZ$cOCfPwZzMybp9NYdnkGWt$r" +
-		"PjfX$1f$PF0SHLYo7vy3Hf52Ai1B3#RqnWbQBkgXwEdU1CzzizHp6FZQVZhwSEe5i$Z#Bgh" +
-		"v3fVhnV05jIsDtRW6nYbXCfF92d4NcpIWU85UHrmBs4l8cOakiZzWEM1QHpCOTv7HY0kN9v" +
-		"7ho3l9qyavo8$q5UJQPyQq5PCQtMidvP8uhAiWtqZ#DV3lvPlBgs5ZMWveVer#T8oSAzdc6" +
-		"ZmOjhoEUez1as9E8TiwFtnOsQsBpEqGm7siDZOjYFlOjcblrt1#Xt4mq4RSHBLJUGrwe$KX" +
-		"YXfQNCzO68fEw1c8kTNUp$IwDzxBDkjhpoJUHLn2hQTj6snFKFSfs6#KNoFSJJgxTR6yaxs" +
-		"Px5HTo5zaPXsjWiyQsS$zyI6QjxOS9rj5UoLXFac$LESqZ7YVk95Xh#ocjlqlFxw5uVOIsY" +
-		"USrjnksf$rhBZfZZ8cQxzFwEPfr7cAhNeE#UdpTt#vffsWUe3bJSvRcNB$nmy0#8rtjqQxS" +
-		"D$V8h6qNxJErNsM2yHlrdBDSSJlZikNKliRLhqxxxT4#gOPjajQjDtGjckkrhSk8tstuJJF" +
-		"aPiDda6lygVxpGHjyVdAzUkxsw3yYkFla1yJxn7l4LeAxNMuXtYOs4syIc#H6#R5yHxubtv" +
-		"2lozVag$8LkK6#hEAyfEErnqRIhM$LyrFY4w93VhVNs9t4rtA7pcsjNEUNUU8$#OqXVwQYr" +
-		"l8xn$a2iWYRw95ZNCeRgbgX3#yuct0uIRCWB0Cs$vy8mb8#9VmUBE7jLanzCNMLv4hQoydb" +
-		"v39o6RcAN4GkuZZEEpwFSZuv689lTrj3y7wn3GZUDXOXV558dqAEuzppOnGitl02DVy0SRi" +
-		"k7G==");
+		"U9pbLsbiLKKK$kwzfGkM0aLAnRQlfLKej4ziQMkXBgqAY58N4AeYeY9Qm8A0ACegI6d59L4" +
+		"8VzH8ed59z9yc9YA2rWKLDrHSwYwbBg22u8BZT#SDt7bptxiy6qqmjFdcd3dVcJDdPkui3t" +
+		"2Uma0Ken$wuZWSZro4K812d80XA1LVYx#GXbCm0cKenp1Ke1Brqd###DF7d8NBSJLcOXRc#" +
+		"BX3ZFWzFeVf2ECa3CN9gCBDc83n6XStInmRmFNH8WuFy8i$1mAdeOVaUw31o7nqG4HlnFim" +
+		"9S0lIyjmMe3VZ03kXW3krgwC#eXcZ5KG1n9PXSJZ#UhPsWfvyKRY7F67LZzSbFvne$mMTmS" +
+		"uE0OskY75j8iDI8fbHpgIOzepa2hjapHxZgQVZvweHIyinwLeCJ8tT#L4d6vuz1Q$OedFxr" +
+		"haQPOQyRpFez5dMUQBVRJNzHKpkLhKOInNB7eMh$pNSxXHYw$hJUxtYxau4sTZWTHlGhx63" +
+		"z3q8aq$KTC7QVfWJI$Hz6fDFrNJHsdwPPf#XQPVe#cpDVqMJJy3OyMNk4HyZjkn26Dm7lV1" +
+		"1LY1Sx4G5#8YZCDaN8MBCHNNSRwlnppn3HQATj6ExhBCn6AiHARuIdo1fLY5sn3vQ#P$6hf" +
+		"p5wVpziZW7kk5tlJkmpkhBqz#mEB#TkHUJkRkJELfvFeNnc26y$JAvkdLd#UNoNcClvt73U" +
+		"HS5tEEXt1kI#NeFIueo$YS7Z4dm2y#0tuNbkGjN#P50UsypFC3Uquqmw1HTfNxVpBcAY2XL" +
+		"KWydbdNLyYBbykx0m5VVDUYc3kWMkx$CfzzH1nxVXnxGGoxhfSprmf#ArKyLuCoZ#nAqwDQ" +
+		"VkD#FzsIUrYFsB6Fzhe#GoPNmJcrk6BcBFwNEUXwbln#AxclIdcJHlHulaUoRdF48POvt0U" +
+		"5rBFasxEGfuN35$WmoMNn6xVvBh3aBw8iCkvuGx8SG1#BPOYjGcJoXVpZhYlWxcvT6hbhYu" +
+		"cxYGnUWLCeUHTQzrDMKMu4d2NKxwNU5l6ttWOxfDp5uXxghDWZgO#9y7OzYnsK4oZtK4wch" +
+		"qKvZP9zs4sKxCEUJpc8SZ5b1ULA#lUal8koXNAjYlU0ae$GhyxL4mNRFCcYGUbyDTXFKvcf" +
+		"yId49exHvTefbx4FvcDl8BaWukCqApdNQsSznFeiOZfn1p67nlievob#ech3zupTHcJJra2" +
+		"u$kwSlKTo3UkSMsUHykKSsnrK7gEzcVNPbElL6ZsdVDOIAIhttIosA7q$xSjTdSkxZxhhku" +
+		"BWl3lkJRHTjPzAh2Curyugnd#SiaLnZSHwefLOJJoix7UgCJsev1DAFgFaPcrUriHU1wj3Z" +
+		"MEKPyCwnJKgkLh9RMfCoQf$vUyShAShcQbajf9vIXR5oY48R3FOg0yryjzwKEVyTZAtlSgl" +
+		"yX$qCKcDEq#BkzFJxKVfKsEqgLFSiuPzj6f$GF4P1Zz3q#krFZgZ$UpTcjzu8qQJvjVFuCR" +
+		"57YDQuViJcsIvtx3#Gdn4R2S#93uWtYUs4TmTuXs29utOIhn9l26sY8$5k#8jyRfuJRmgNX" +
+		"4lYpRnaepreegvETANgksKvQV49qG7VszqHcMmG#mHUrLs6yKB6lFp8UqdWljCx9Ar7sNvW" +
+		"oo$ZuhrNLJjMqt$JFPGovUHnRUE2zidotYdLKjquql3bg#DCEjXtdDXsiAyxSAqXxaPF2Jn" +
+		"bur5kFPKlgBIY6JUT0vXyUHtvEdllg3AAQieI#KjaKGul6SitZHE02pU38w2nHl9qM3nVh8" +
+		"9AoPAw5F2VahaAy25pJU1XPg$0GUiDX0=");
 
 	static final Action RETURN4 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -63,9 +63,9 @@ public class MiniLangParser extends Parser {
 		}
 	};
 
-	static final Action RETURN7 = new Action() {
+	static final Action RETURN8 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
-			return _symbols[offset + 7];
+			return _symbols[offset + 8];
 		}
 	};
 
@@ -75,18 +75,18 @@ public class MiniLangParser extends Parser {
 		super(PARSING_TABLES);
 		actions = new Action[] {
 			Action.RETURN,	// [0] $goal = Prog
-			new Action() {	// [1] Prog = Stmt.l SEMI
+			new Action() {	// [1] Prog = Stmt.l
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Node l = (Node) _symbol_l.value;
 					 return new Prog(l);
 				}
 			},
-			new Action() {	// [2] Prog = Stmt.l SEMI Prog.r
+			new Action() {	// [2] Prog = Stmt.l Prog.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Node l = (Node) _symbol_l.value;
-					final Symbol _symbol_r = _symbols[offset + 3];
+					final Symbol _symbol_r = _symbols[offset + 2];
 					final Node r = (Node) _symbol_r.value;
 					 return new Prog(l, r);
 				}
@@ -126,7 +126,23 @@ public class MiniLangParser extends Parser {
 			RETURN4,	// [7] Data = ID AC Decl FC; returns 'FC' although none is marked
 			RETURN4,	// [8] Decl = ID DBCOLON TYPE SEMI; returns 'SEMI' although none is marked
 			RETURN5,	// [9] Decl = ID DBCOLON TYPE SEMI Decl; returns 'Decl' although none is marked
-			new Action() {	// [10] Stmt = ID.l EQ Exp.r
+			new Action() {	// [10] StmtList = Stmt.l StmtList.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 2];
+					final Node r = (Node) _symbol_r.value;
+					 return new StmtList(l, r);
+				}
+			},
+			new Action() {	// [11] StmtList = Stmt.l
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Node l = (Node) _symbol_l.value;
+					 return new StmtList(l);
+				}
+			},
+			new Action() {	// [12] Stmt = ID.l EQ Exp.r SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final String l = (String) _symbol_l.value;
@@ -135,7 +151,16 @@ public class MiniLangParser extends Parser {
 					 return new Attr((String)l, r);
 				}
 			},
-			new Action() {	// [11] Stmt = IF AP Exp.l FP StmtList.r
+			new Action() {	// [13] Stmt = ITERATE AP Exp.l FP Stmt.r SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 3];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Node r = (Node) _symbol_r.value;
+					 return new Iterate(l, r);
+				}
+			},
+			new Action() {	// [14] Stmt = IF AP Exp.l FP StmtList.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;
@@ -144,7 +169,7 @@ public class MiniLangParser extends Parser {
 					 return new IfElse(l, r);
 				}
 			},
-			new Action() {	// [12] Stmt = IF AP Exp.l FP StmtList.r ELSE StmtList.s
+			new Action() {	// [15] Stmt = IF AP Exp.l FP StmtList.r ELSE StmtList.s
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;
@@ -155,44 +180,35 @@ public class MiniLangParser extends Parser {
 					 return new IfElse(l, r, s);
 				}
 			},
-			new Action() {	// [13] Stmt = ITERATE AP Exp.l FP Stmt.r
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_l = _symbols[offset + 3];
-					final Exp l = (Exp) _symbol_l.value;
-					final Symbol _symbol_r = _symbols[offset + 5];
-					final Node r = (Node) _symbol_r.value;
-					 return new Iterate(l, r);
-				}
-			},
-			Action.RETURN,	// [14] Stmt = Exp
-			RETURN2,	// [15] Stmt = READ Lvalue; returns 'Lvalue' although none is marked
-			new Action() {	// [16] Stmt = PRINT Exp.e
+			RETURN2,	// [16] Stmt = Exp SEMI; returns 'SEMI' although none is marked
+			RETURN3,	// [17] Stmt = READ Lvalue SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [18] Stmt = PRINT Exp.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final Exp e = (Exp) _symbol_e.value;
 					 return new Print(e);
 				}
 			},
-			new Action() {	// [17] Stmt = RETURN Ret.l
+			new Action() {	// [19] Stmt = RETURN Ret.l SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 2];
 					final Node l = (Node) _symbol_l.value;
 					 return new GenRet(l);
 				}
 			},
-			RETURN3,	// [18] Stmt = Lvalue EQ Exp; returns 'Exp' although none is marked
-			new Action() {	// [19] lst$Lvalue = Lvalue
+			RETURN4,	// [20] Stmt = Lvalue EQ Exp SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [21] lst$Lvalue = Lvalue
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					ArrayList lst = new ArrayList(); lst.add(_symbols[offset + 1].value); return new Symbol(lst);
 				}
 			},
-			new Action() {	// [20] lst$Lvalue = lst$Lvalue Lvalue
+			new Action() {	// [22] lst$Lvalue = lst$Lvalue Lvalue
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					((ArrayList) _symbols[offset + 1].value).add(_symbols[offset + 2].value); return _symbols[offset + 1];
 				}
 			},
-			RETURN7,	// [21] Stmt = ID AP Exps FP LESSER lst$Lvalue GREATER; returns 'GREATER' although none is marked
-			new Action() {	// [22] Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC
+			RETURN8,	// [23] Stmt = ID AP Exps FP LESSER lst$Lvalue GREATER SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [24] Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final String a = (String) _symbol_a.value;
@@ -205,29 +221,13 @@ public class MiniLangParser extends Parser {
 					return new Func(new Var(a), b, c, d);
 				}
 			},
-			new Action() {	// [23] Func = ID.a AP FP AC StmtList.d FC
+			new Action() {	// [25] Func = ID.a AP FP AC StmtList.d FC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_a = _symbols[offset + 1];
 					final String a = (String) _symbol_a.value;
 					final Symbol _symbol_d = _symbols[offset + 5];
 					final Node d = (Node) _symbol_d.value;
 					return new Func(new Var(a), d);
-				}
-			},
-			new Action() {	// [24] StmtList = Stmt.l SEMI StmtList.r
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_l = _symbols[offset + 1];
-					final Node l = (Node) _symbol_l.value;
-					final Symbol _symbol_r = _symbols[offset + 3];
-					final Node r = (Node) _symbol_r.value;
-					 return new StmtList(l, r);
-				}
-			},
-			new Action() {	// [25] StmtList = Stmt.l SEMI
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_l = _symbols[offset + 1];
-					final Node l = (Node) _symbol_l.value;
-					 return new StmtList(l);
 				}
 			},
 			RETURN3,	// [26] Ret = Exp COMMA Ret; returns 'Ret' although none is marked

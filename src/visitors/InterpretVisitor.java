@@ -30,602 +30,341 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    public Object returnValue(Object exp){
+
+        if(this.isBlock){
+            Object var = env.peek().get(exp);
+            Object global = globalCtx.get(exp);
+
+            if(var != null){
+                if(env.peek().get(var) != null){
+                    return env.peek().get(var);
+                }else{
+                    return env.peek().get(exp);
+                }
+
+            }else{
+                if(globalCtx.get(exp) != null){
+                if(globalCtx.get(global) != null){
+                    return globalCtx.get(global);
+                }else{
+                    return globalCtx.get(exp);
+                }
+                } 
+            }
+            
+        }else{
+            if(globalCtx.get(exp) != null){
+                Object var = globalCtx.get(exp);
+                if(globalCtx.get(var) != null){
+                    return globalCtx.get(var);
+                }else{
+                    return globalCtx.get(exp);
+                }
+            }else{
+                return exp;
+            }
+        }
+
+        return exp;
+    }
+
     @Override
     public void visit(Add e) {
-        System.out.println("Entrei ADD");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            if(right instanceof Integer){
+                operands.push((Integer)left + (Integer)right);
+            }else{
+                operands.push((Integer)left + (Float)right);
+            }
+        }else{
+            if(right instanceof Integer){
+                operands.push((Float)left + (Integer)right);
+            }else{
+                operands.push((Float)left + (Float)right);
+            }
         }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt + rightInt);
-        } else if (leftInt != null && rightFloat != null) {
-            operands.push(leftInt + rightFloat);
-        } else if (leftFloat != null && rightInt != null) {
-            operands.push(leftFloat + rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat + rightFloat);
-        }
-
     }
 
     @Override
     public void visit(Sub e) {
-        System.out.println("Entrei Sub");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt - rightInt);
-        } else if (leftInt != null && rightFloat != null) {
-            operands.push(leftInt - rightFloat);
-        } else if (leftFloat != null && rightInt != null) {
-            operands.push(leftFloat - rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat - rightFloat);
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            if(right instanceof Integer){
+                operands.push((Integer)left < (Integer)right);
+            }else{
+                operands.push((Integer)left < (Float)right);
+            }
+        }else{
+            if(right instanceof Integer){
+                operands.push((Float)left < (Integer)right);
+            }else{
+                operands.push((Float)left < (Float)right);
+            }
         }
     }
 
     @Override
     public void visit(Mult e) {
-        System.out.println("Entrei Mult");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt * rightInt);
-        } else if (leftInt != null && rightFloat != null) {
-            operands.push(leftInt * rightFloat);
-        } else if (leftFloat != null && rightInt != null) {
-            operands.push(leftFloat * rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat * rightFloat);
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            if(right instanceof Integer){
+                operands.push((Integer)left * (Integer)right);
+            }else{
+                operands.push((Integer)left * (Float)right);
+            }
+        }else{
+            if(right instanceof Integer){
+                operands.push((Float)left * (Integer)right);
+            }else{
+                operands.push((Float)left * (Float)right);
+            }
         }
     }
 
     @Override
     public void visit(Div e) {
-        System.out.println("Entrei Div");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt / rightInt);
-        } else if (leftInt != null && rightFloat != null) {
-            operands.push(leftInt / rightFloat);
-        } else if (leftFloat != null && rightInt != null) {
-            operands.push(leftFloat / rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat / rightFloat);
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            if(right instanceof Integer){
+                operands.push((Integer)left / (Integer)right);
+            }else{
+                operands.push((Integer)left / (Float)right);
+            }
+        }else{
+            if(right instanceof Integer){
+                operands.push((Float)left / (Integer)right);
+            }else{
+                operands.push((Float)left / (Float)right);
+            }
         }
     }
 
     @Override
     public void visit(Mod e) {
-        System.out.println("Entrei Mod");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt % rightInt);
-        } else if (leftInt != null && rightFloat != null) {
-            operands.push(leftInt % rightFloat);
-        } else if (leftFloat != null && rightInt != null) {
-            operands.push(leftFloat % rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat % rightFloat);
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            if(right instanceof Integer){
+                operands.push((Integer)left % (Integer)right);
+            }else{
+                operands.push((Integer)left % (Float)right);
+            }
+        }else{
+            if(right instanceof Integer){
+                operands.push((Float)left % (Integer)right);
+            }else{
+                operands.push((Float)left % (Float)right);
+            }
         }
     }
 
     @Override
     public void visit(Greater e) {
-        System.out.println("Entrei Greater");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt > rightInt);
-        } else if (leftInt != null && rightFloat != null) {
-            operands.push(leftInt > rightFloat);
-        } else if (leftFloat != null && rightInt != null) {
-            operands.push(leftFloat > rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat > rightFloat);
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            if(right instanceof Integer){
+                operands.push((Integer)left > (Integer)right);
+            }else{
+                operands.push((Integer)left > (Float)right);
+            }
+        }else{
+            if(right instanceof Integer){
+                operands.push((Float)left > (Integer)right);
+            }else{
+                operands.push((Float)left > (Float)right);
+            }
         }
     }
 
     @Override
     public void visit(Lesser e) {
-        System.out.println("Entrei Lesser");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt < rightInt);
-        } else if (leftInt != null && rightFloat != null) {
-            operands.push(leftInt < rightFloat);
-        } else if (leftFloat != null && rightInt != null) {
-            operands.push(leftFloat < rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat < rightFloat);
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            if(right instanceof Integer){
+                operands.push((Integer)left < (Integer)right);
+            }else{
+                operands.push((Integer)left < (Float)right);
+            }
+        }else{
+            if(right instanceof Integer){
+                operands.push((Float)left < (Integer)right);
+            }else{
+                operands.push((Float)left < (Float)right);
+            }
         }
     }
 
     @Override
     public void visit(GreaterEqual e) {
-        System.out.println("Entrei GreaterEqual");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt >= rightInt);
-        } else if (leftInt != null && rightFloat != null) {
-            operands.push(leftInt >= rightFloat);
-        } else if (leftFloat != null && rightInt != null) {
-            operands.push(leftFloat >= rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat >= rightFloat);
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            if(right instanceof Integer){
+                operands.push((Integer)left >= (Integer)right);
+            }else{
+                operands.push((Integer)left >= (Float)right);
+            }
+        }else{
+            if(right instanceof Integer){
+                operands.push((Float)left >= (Integer)right);
+            }else{
+                operands.push((Float)left >= (Float)right);
+            }
         }
     }
 
     @Override
     public void visit(LesserEqual e) {
-        System.out.println("Entrei LesserEqual");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt <= rightInt);
-        } else if (leftInt != null && rightFloat != null) {
-            operands.push(leftInt <= rightFloat);
-        } else if (leftFloat != null && rightInt != null) {
-            operands.push(leftFloat <= rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat <= rightFloat);
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            if(right instanceof Integer){
+                operands.push((Integer)left <= (Integer)right);
+            }else{
+                operands.push((Integer)left <= (Float)right);
+            }
+        }else{
+            if(right instanceof Integer){
+                operands.push((Float)left <= (Integer)right);
+            }else{
+                operands.push((Float)left <= (Float)right);
+            }
         }
     }
 
     @Override
     public void visit(Equal e) {
-        System.out.println("Entrei Equal");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-        Boolean leftBool = null, rightBool = null;
-        Character leftChar = null, rightChar = null;
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (operands.peek() instanceof Boolean) {
-            leftBool = (boolean) operands.pop();
-
-        } else if (operands.peek() instanceof Character) {
-            leftChar = (char) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Boolean) {
-            leftBool = (boolean) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Character) {
-            leftChar = (char) globalCtx.get((String) (operands.pop()));
-        }
-    
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (operands.peek() instanceof Boolean) {
-            rightBool = (boolean) operands.pop();
-
-        } else if (operands.peek() instanceof Character) {
-            rightChar = (char) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Boolean) {
-            rightBool = (boolean) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Character) {
-            rightChar = (char) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt == rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat == rightFloat);
-        } else if (leftBool != null && rightBool != null) {
-            operands.push(leftBool == rightBool);
-        } else if (leftChar != null && rightChar != null) {
-            operands.push(leftChar== rightChar);
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            operands.push((Integer)left == (Integer)right);
+        }else if(left instanceof Float){
+            operands.push((Float)left == (Float)right);
+        }else if(left instanceof Boolean){
+            operands.push((Boolean)left == (Boolean)right);
+        }else{
+            operands.push((Character)left == (Character)right);
         }
     }
 
     @Override
     public void visit(Dif e) {
-        System.out.println("Entrei Dif");
         e.getLeft().accept(this);
-        Integer leftInt = null, rightInt = null;
-        Float leftFloat = null, rightFloat = null;
-        Boolean leftBool = null, rightBool = null;
-        Character leftChar = null, rightChar = null;
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
-        if (operands.peek() instanceof Integer) {
-            leftInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            leftFloat = (float) operands.pop();
-
-        } else if (operands.peek() instanceof Boolean) {
-            leftBool = (boolean) operands.pop();
-
-        } else if (operands.peek() instanceof Character) {
-            leftChar = (char) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            leftInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            leftFloat = (float) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Boolean) {
-            leftBool = (boolean) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Character) {
-            leftChar = (char) globalCtx.get((String) (operands.pop()));
-        }
-    
         e.getRight().accept(this);
-        if (operands.peek() instanceof Integer) {
-            rightInt = (int) operands.pop();
-
-        } else if (operands.peek() instanceof Float) {
-            rightFloat = (float) operands.pop();
-
-        } else if (operands.peek() instanceof Boolean) {
-            rightBool = (boolean) operands.pop();
-
-        } else if (operands.peek() instanceof Character) {
-            rightChar = (char) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Integer) {
-            rightInt = (int) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Float) {
-            rightFloat = (float) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Boolean) {
-            rightBool = (boolean) globalCtx.get((String) (operands.pop()));
-
-        } else if (globalCtx.get((String) (operands.peek())) instanceof Character) {
-            rightChar = (char) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (leftInt != null && rightInt != null) {
-            operands.push(leftInt != rightInt);
-        } else if (leftFloat != null && rightFloat != null) {
-            operands.push(leftFloat != rightFloat);
-        } else if (leftBool != null && rightBool != null) {
-            operands.push(leftBool != rightBool);
-        } else if (leftChar != null && rightChar != null) {
-            operands.push(leftChar != rightChar);
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        if(left instanceof Integer){
+            operands.push((Integer)left != (Integer)right);
+        }else if(left instanceof Float){
+            operands.push((Float)left != (Float)right);
+        }else if(left instanceof Boolean){
+            operands.push((Boolean)left != (Boolean)right);
+        }else{
+            operands.push((Character)left != (Character)right);
         }
     }
 
     @Override
     public void visit(And e) {
-        System.out.println("Entrei And");
-
         e.getLeft().accept(this);
-        Boolean left = null, right = null;
+        Object exp = operands.pop();
+        Object left = returnValue(exp);
 
-        if  (operands.peek() != null) {
-            left = (boolean) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) != null) {
-            left = (boolean) globalCtx.get((String) (operands.pop()));
-        }
-    
         e.getRight().accept(this);
-        if  (operands.peek() != null) {
-            right = (boolean) operands.pop();
-
-        } else if (globalCtx.get((String) (operands.peek())) != null) {
-            right = (boolean) globalCtx.get((String) (operands.pop()));
-        }
-
-        if (left != null && right != null) {
-            operands.push(left && right);
-        }
-
+        Object exp2 = operands.pop();
+        Object right = returnValue(exp2);
+        
+        operands.push((Boolean)left == (Boolean)right);
     }
 
     @Override
     public void visit(Attr e) {
-        System.out.println(e.toString());
 
         e.getExp().accept(this);
         e.getVar().accept(this);
 
         String variableName = (String) operands.pop();
-        System.out.println("Valor removido da pilha operands: " + variableName);
 
         Object value = null;
         value = operands.pop();
         if (this.isBlock) {
 
-            System.out.println("Valor removido da pilha operands e adicionada ao  env " + value);
             env.peek().put(variableName, value);
 
         } else {
 
-            System.out.println("Valor removido da pilha operands e adicionada ao globalCtx: " + value);
             globalCtx.put(variableName, value);
 
         }
@@ -634,36 +373,44 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public <T> void visit(LiteralValue<T> e) {
-        System.out.println("Valor adicionado a pilha: " + e.getValue());
         operands.push(e.getValue());
 
     }
 
     @Override
     public void visit(StmtList stmtList){
-        System.out.println("Entrou no StmtList");
+        stmtList.getStmt().accept(this);
 
-        if (this.isBlock) {
-            stmtList.getStmt().accept(this);
-
-            if(stmtList.getStmtList() != null){
-                stmtList.getStmtList().accept(this);
-            }
+        if(stmtList.getStmtList() != null){
+            stmtList.getStmtList().accept(this);
         }
     }
 
     @Override
     public void visit(IfElse ifelse){
-        System.out.println("Entrou no ifelse");
-        this.isBlock = true;
+        boolean interior = false;
 
-        HashMap<String, Object> localEnv = new HashMap<>();
-        env.push(localEnv);
+        if(this.isBlock){
+            interior = true;
+            HashMap<String, Object> localEnv = new HashMap<>();
+            env.peek().put("if",localEnv);
+        }else{
+            this.isBlock = true;
+            HashMap<String, Object> localEnv = new HashMap<>();
+            env.push(localEnv);
+            this.isBlock = true;
+        }
 
         ifelse.getExp().accept(this);
-        boolean exp = (boolean)operands.pop();
+        Object exp = operands.pop();
 
-        if(exp){
+        if(env.peek().get(exp) != null){
+            exp = env.peek().get(exp);
+        }else if(globalCtx.get(exp) != null){
+            exp = globalCtx.get(exp);
+        }
+
+        if((boolean)exp){
             ifelse.getStmtList1().accept(this);
         }else{
             if(ifelse.getStmtList2() != null){
@@ -671,13 +418,17 @@ public class InterpretVisitor extends Visitor {
             }
         }
 
-        env.pop();
-        this.isBlock = false;
+        if(interior){
+            env.peek().remove("if");
+        }else{
+            this.isBlock = false;
+            env.pop();
+        }
     }
 
     @Override
     public void visit(Iterate iterate){
-        System.out.println("Entrou no iterate");
+        //System.out.println("Entrou no iterate");
         this.isBlock = true;
 
         HashMap<String, Object> localEnv = new HashMap<>();
@@ -692,7 +443,7 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Ret ret){
-        System.out.println("Entrou no ret");
+        //System.out.println("Entrou no ret");
 
         ret.getExp().accept(this);
 
@@ -704,12 +455,12 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(GenRet genret){
-        System.out.println("Entrou no gen ret");
+        //System.out.println("Entrou no gen ret");
 
         if(this.isBlock){
             genret.getRet().accept(this);
         }else{
-            System.out.println("Erro: return chamado fora de um bloco");
+            //System.out.println("Erro: return chamado fora de um bloco");
         }
     }
 
@@ -754,11 +505,11 @@ public class InterpretVisitor extends Visitor {
             var = env.peek().get(e.getName());
 
             if (var != null) {
-                System.out.println("Valor adicionado a pilha operands: " + e.getName());
+                //System.out.println("Valor adicionado a pilha operands: " + e.getName());
                 operands.push(e.getName());
 
             } else {
-                System.out.println("Valor adicionado a pilha operands e ao envLocal: " + e.getName());
+                //System.out.println("Valor adicionado a pilha operands e ao envLocal: " + e.getName());
                 env.peek().put(e.getName(), null);
                 operands.push(e.getName());
             }
@@ -766,11 +517,11 @@ public class InterpretVisitor extends Visitor {
             var = globalCtx.get(e.getName());
 
             if (var != null) {
-                System.out.println("Var adicionado a pilha operands: " + e.getName());
+                //System.out.println("Var adicionado a pilha operands: " + e.getName());
                 operands.push(e.getName());
 
             } else {
-                System.out.println("Var adicionado a pilha operands e ao global: " + e.getName());
+                //System.out.println("Var adicionado a pilha operands e ao global: " + e.getName());
                 globalCtx.put(e.getName(), null);
                 operands.push(e.getName());
             }
@@ -788,7 +539,7 @@ public class InterpretVisitor extends Visitor {
 
         globalCtx.put(e.getIdentifier().getName(), e);
         env.push(localEnv);
-        System.out.println("Func " + e.getIdentifier().getName() + " adicionado ao escopo Global");
+        //System.out.println("Func " + e.getIdentifier().getName() + " adicionado ao escopo Global");
 
         if(e.getParam() != null){
             e.getParam().accept(this);
@@ -801,7 +552,7 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Num e) {
-        System.out.println("Valor adicionado a pilha: " + e.getValue());
+        //System.out.println("Valor adicionado a pilha: " + e.getValue());
         operands.push(e.getValue());
 
     }

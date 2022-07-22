@@ -48,8 +48,8 @@
 
 %goal Prog;
 
-Prog = Stmt.l SEMI            {: return new Prog(l);:}
-     | Stmt.l SEMI Prog.r     {: return new Prog(l, r);:}
+Prog = Stmt.l                 {: return new Prog(l);:}
+     | Stmt.l Prog.r          {: return new Prog(l, r);:}
      | Func.l                 {: return new Prog(l);:}
      | Func.l Prog.r          {: return new Prog(l, r);:}
      | Data.l                 {: return new Prog(l);:}
@@ -63,25 +63,25 @@ Decl = ID DBCOLON TYPE SEMI
      | ID DBCOLON TYPE SEMI Decl
      ;
 
-Stmt = ID.l EQ Exp.r                                             {: return new Attr((String)l, r);:}
-     | IF AP Exp.l FP StmtList.r                                 {: return new IfElse(l, r);:}
-     | IF AP Exp.l FP StmtList.r ELSE StmtList.s                 {: return new IfElse(l, r, s);:}           
-     | ITERATE AP Exp.l FP Stmt.r                                {: return new Iterate(l, r);:}                     
-     | Exp
-     | READ Lvalue               
-     | PRINT Exp.e                                               {: return new Print(e);:} 
-     | RETURN Ret.l                                              {: return new GenRet(l);:}
-     | Lvalue EQ Exp           
-     | ID AP Exps FP LESSER Lvalue+ GREATER                      
+StmtList = Stmt.l StmtList.r                                          {: return new StmtList(l, r);:}
+     | Stmt.l                                                         {: return new StmtList(l);:} 
      ;
 
-Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC {:return new Func(new Var(a), b, c, d);:}
-     | ID.a AP FP AC StmtList.d FC                            {:return new Func(new Var(a), d);:}
+Stmt = ID.l EQ Exp.r SEMI                                             {: return new Attr((String)l, r);:}        
+     | ITERATE AP Exp.l FP Stmt.r SEMI                                {: return new Iterate(l, r);:}
+     | IF AP Exp.l FP StmtList.r                                      {: return new IfElse(l, r);:}
+     | IF AP Exp.l FP StmtList.r ELSE StmtList.s                      {: return new IfElse(l, r, s);:}                       
+     | Exp SEMI
+     | READ Lvalue SEMI            
+     | PRINT Exp.e SEMI                                              {: return new Print(e);:} 
+     | RETURN Ret.l SEMI                                             {: return new GenRet(l);:}
+     | Lvalue EQ Exp SEMI          
+     | ID AP Exps FP LESSER Lvalue+ GREATER SEMI                      
      ;
 
-StmtList = Stmt.l SEMI StmtList.r     {: return new StmtList(l, r);:}
-         | Stmt.l SEMI                {: return new StmtList(l);:}
-         ;
+Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC    {:return new Func(new Var(a), b, c, d);:}
+     | ID.a AP FP AC StmtList.d FC                               {:return new Func(new Var(a), d);:}
+     ;
 
 Ret = Exp COMMA Ret
      | Exp

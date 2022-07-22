@@ -28,8 +28,8 @@ public class Terminals {
 	static public final short MOD = 20;
 	static public final short NOT = 21;
 	static public final short SEMI = 22;
-	static public final short IF = 23;
-	static public final short ITERATE = 24;
+	static public final short ITERATE = 23;
+	static public final short IF = 24;
 	static public final short READ = 25;
 	static public final short PRINT = 26;
 	static public final short RETURN = 27;
