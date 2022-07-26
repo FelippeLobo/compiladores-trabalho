@@ -12,33 +12,46 @@ import src.beaver.*;
 public class MiniLangParser extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pjM6bm54KK$cOc5p5o1CoAa10W6mWYsK1880Ov18bdn0Ey0d8eIbGKHS2BU0OFY8feKMN" +
-		"f3tzeoG#bIijIWG1oYQ0W8Ye6H4GyGJo85xRVz3Pkzqns82jL$CbEVVFUzzxhrxsztVqw0P" +
-		"nzA4SnIj4Bfw8tJaCVT45NjC69Q8VsE0aXT4GdPACxmg9U$8DMdkYHGeY$VTPAcUL2ZCTLc" +
-		"88RSRFavuj3uY$CqQnNubpn1mOX7NF4dxui0#AF1ILQbdISWmSna7dc1BGO8hxozL34Pp0n" +
-		"WizjH0Hd8Xyzq1C5ADHwgC0ejly2zmRsS1yo0hpnFVrmEwxJ#dN4CYGX6QauFQ5ymm9yum9" +
-		"yam9yP#7w06ybfWPupyEiXBx7yVTSuLalNXvllPo12t2snXFDCnmNuw9ZaAS2b#0EZNlM6o" +
-		"w5BTTR12V4x6AfBsuCKcISrrw5D6clzOp7ZBiCet4$9k1QxgExVRxBVPPhV9R9Fijit$dLm" +
-		"fl7pHczkjdj8xXLQ#$rtd84$tJwMsl#2DeQBDDW7GoMPR2J3NQAmJeRBCTWkGRhPh0yW$Kr" +
-		"M7#3bHbigC766coYmMuos4oDtS2wD0#LualMfI9KOnfcKBjJxE5ElalinWEuH#n23Hx2mun" +
-		"xX1NmKJo6kNWSTNW2Jug3eX4MzxKZQqaATsSQwrywTtW6pxhMFF7QyiJBv9dNWQTU5k2Bje" +
-		"4ch9RCKi3vxiXPxiIvTNc6ZEscMMrMB$0TfjMV9ITmBB4iOSRayJIscIL#YsoUsjuUilba4" +
-		"Ltvv1C5sgehr7hepxk46pami8TyzX3V6z$JtTElkshxik8NqvDOlg1vIynd1NwtO6z1WlDo" +
-		"$3t#TMto#EibPApGnFFqE4PvIhcROjoxthgezMRQotrnkKt6HJYAg3ruF16UKIMCwCbzbDM" +
-		"4Bp7BaUQaXJTdpKJ#PtklTq0p$ItiC0knubXytByyikKP6fPLAiITN4ghwydYZipXu#fvl5" +
-		"$aIcyUtwwUovewlqOMNTwX8BbRmqk8haGfCPmOGcIp38#Zh8l6svFvsa8vbMMv5#KCIiRRi" +
-		"odPngwb74LPHpcMyXdAQihdPOM7$IAbs#uLbUyD9UiPDzFLZnRyZ6UxjPJFgHmVy3L2#Gg9" +
-		"aRHjeroaR1F9Tr9E8JXkUo$b6jSd#A5uZMF8LBd2r9#cCeRIdPC2OWBrfxJ#9v6$HRn4V4p" +
-		"i9kOI1wD#Qu6AAsU#$GJdsMuatqNVOjKFvzn9fKA$zIPvEygjgjsXg7JU9rvNUXlwCvGU8f" +
-		"QgMCwraq#i85ubcDVgfE8M4syJIuXbj3TGrgjs$DsSxSGwOZcnKja7Kt#7M4LmlCuQOfFAj" +
-		"vfOJt0TE1k93UhxRbPj5og#Hya3iJcp6cAw4r8oHycmahsLxATacP93bQnGibB9qKfMAJdf" +
-		"S1$D0TjLQ$gq9lopJ6vDrtmrcdsX6OSgJK#YForu7DQIgBIJOpQxlUPNlxbJgtpRj77CKxR" +
-		"EIeOzt#5bJL#WvM$qnALg#hCUtmjQkpwcpxQ2lvkpAC2dzWJcm$SHE#Jx5#8pubFY4uAxMt" +
-		"3dYQt4HyI7n6Q29u7WhX4RnNjYkzWYDeaDOhruLwmJQyKQiLgiajaQv9khNAoGsifeBwh7v" +
-		"Kf#hjc#9RuHEyHtnjZsYb$5RqRRd$$JVY8E4FibsoVVFyht3oeYEfRlZOnVQ$fE8$FlnhGC" +
-		"uzbYyOxbmlR9OjRICgwuCbRL8dBtJXGXZv17v7ziakKTBSBA6qCI$$Qo2DUUnjjRAoA5zTW" +
-		"XBDO6Xx1OAnp2uetDuTbe4Kc4mxFTOgro0c2naZaA5ckQey5YXRC9gqaKIZX4Cc4JgRp1Me" +
-		"IDGVy2bMf28W==");
+		"U9pjMGkOLLCR$iuviyy9bHGpn5owQgPeCZLJKo5o#Tt2Z$xSxo4YTzA5N9Bh$uS$T54f92L" +
+		"5fJjAfNGHHLJ6fD9LA8JbFMj$EUlRUw$pxF6u$3t$d7c#zNxl#ttxssljVTOwQpr3b9XDlU" +
+		"WAkfEwq0tKZMwac#XcogKwL8$sfMgq7zMY0oYB3gA3ALizgtwXlNpPuzLFVbKfUfd6qMoQI" +
+		"U$J4bhcrbG$qmpQv5DtKM$Qf7uCgF83xHrmn#vGx$9MeGt9AZxr7jeETRglXb#vZHwaFggC" +
+		"#XerLgkT6DypXXAkqYlqAhqcAgsZDsWChKrRgO$joTEXld7vSoQgyi2#JA9LD0jzMK6Vq0A" +
+		"wdAwYg#aQkeNU2L5pCbMrnffO8ysiaM9hfBKrShGrSfmrSf8rqi4QESiQwMIDN6YDN6QDTB" +
+		"P6hhT6RFeKkYDW$iwX#TIpmhKUflkiiSUiaVzO8qzQ8mEiaMUjaS7Mo51hv7bhv0LhP9Gry" +
+		"hOrCjSQ6KyBhR55z84rzX5zvfcjCRMMekHGWcwbVLAwUhh2x$dlqi#cS#aYEemQqH5KGcse" +
+		"7HrF9zFfrdpF#6aDPUZnU$LL50$IrHTKHUiRVRygQ$0CxpToosYz#fpAwNCQJQ$JL$Gbrkb" +
+		"UzA9dLlMY4Jvbc4yPubC6#fIdVSfJFgM$JtdSfppYK$hvb0O#nRjQzAA243bDG#Gq3v7JAa" +
+		"JEaI5oZWsHSsA8d5D3v9mP8gTZY9ppG#HS4YB7hrptkwxw$rNaMZ6LtlGfq$wWolDyodj$s" +
+		"YY#yAnh6sWpThzRQ2lTxObiew$f6$gMlgC7F94TQWTDeEHdD2BBZOXaO#b3CZyV8rvTPDSG" +
+		"hAPW#mkMATY1WjKMx131SWJB4wokOFK5QoXOlc2D1JjSi4B1YWHh8LXBmKe5QolOKO8T8rX" +
+		"xmKuGx1#2dIBOQOAT8TW$1Jj7i7y9TfvW5mXsiM2N2dQbODSArbMmsmNh8TYzWZqasAE2$L" +
+		"km9mJxhs3F23P8iES46oxOIC5U4kmjmTuLRAbWdnfiCSvbxgSlUolXHR33Y#bTJXpxbYeu#" +
+		"UwDlLvLx8ogOtzK0$kZcjWXxOyzKYQky6T70bM2KXspwY3CfOCnWzoQIRMkHGskqY10pO6Q" +
+		"xQjIFx1s9gwl6zXhhv8DpTr7fceqnFoEe4PA2LSf4$CxIrGgXbOD#v1qbRBJF7dlkFmvX#A" +
+		"EGJLByBoYw4j3zAa0AqqJx8OFnywgC4JDNDIqzwaoybT5R7eUpZ3#Tnx5QQTUXMjbfhdcxt" +
+		"y2UsOaacR#vAU9PU7FErkpS88jmcb7wcqg$9xt5Dqx$fB0yHTYTGlMSrdtpuzCJswkNkFpO" +
+		"2smJkTWfMmLQfslL2gLIcLFLBnhHRC0vN#jSiNlLHzhMGIhModMDHd9mwz9CfhbYvGYbg$m" +
+		"yKKaQqqjbV71sJDTTYMhP9KinR8ec#TD7TV3YROEJhixUxldymwmnh3aYRiObeorWxM7dGO" +
+		"hm65vDV1xDp$M3qVeZu3zWMN0WS0jm1707u5ZO77OH5XDs4nO3cmUBiu7BWKs1wxaUkMCcn" +
+		"bte9dAld8nemhw46T$FyRQq6gnNu#n2RGyzbim7WdjCFPFO3mTMYdxdHWlXROxteNnPcXdi" +
+		"Ty3JKVW$T0kOUqnDBWkOm2qhgmDPHm5hJlxuncdGklB$cp6zw4zcVIPBmSVXh4NxDPONmCD" +
+		"xoTZ0#9ZpPZNyEcClEt8u#U85PG8po5Z5xIvh5r6v6G0Ey6kXbyDiR9aJ7z7YBh3xdLp7Nm" +
+		"t8blOpuN$4$kDyCxtOhyP$4psI#7pEt6EXL$8$Ydmsx9$DloJsByGVaVsqVVevUpV0B#Rwy" +
+		"UkH$C4x4LOyhcZ7$Gmp7XsbFnk3OPDWtq0smhhXlvEv$YTZ2rG#o7WDY1gHdl2VygDHTP16" +
+		"mGj6Hy2$XPmYXkB3c1yXIWndFiu2Nma#xFWyxicl5TdFZZwaa2V7FGdEe5ZLs4yny1EXU7x" +
+		"Gsk1FEOOtaliRjXrk0Pp9dODNtCq#6BO4XZcc$C9h9plkmA6EUgWxuJdvApdVd8VO$mkOaq" +
+		"PMwUUMNHiodTskHYFClAxZTTWp6BCOMp0s8InY97dLhmTuucC7LBtYf$3U86XyJE8Tp6q6n" +
+		"dlCBJUZ0yOsgECnlSXFf1nkA6DOXndQ9COPnZQ7CQ5XhQCSQMXbJ5kCBHjZ3jtQyn$CNbAJ" +
+		"pYCLOFY0Vcr0hJQaZlJZ5WTGv$lkQwHuJSr$6B3RsluxGt$PCC$q$0x6Vx5Xj$PyBkc$DWP" +
+		"Hl$MeBd7DdOtXoPphddTkOQ$dEzn2#SlCEvx5#VqPFpjE#JoQ7yZjuzHirpcEHkDl7uo5ii" +
+		"syYPu#juZ$TYSYMbY2xd6Jl9zr2hTVWF3og3m2wsm6YgiGWgha9e3mqgci1gfoR09i5TXe$" +
+		"LL#ArI7siFlpvA$zzBORrIIxIt2BPGU#$1vcdlNTXixRqDcwMz6R2fsdiJDabxRy36QsySR" +
+		"Apsi7ggbxNtabh9lP#kNbTOsTKBcerK8zJpQhWQfeQgvzGGhNq66wIzmUvO#Sg1Z9$gTenk" +
+		"NzFjHDrEqUrCtRwZsxcwNQ3RnRfTfjiLHbNyoghrQfNwIZpZTUfRzPsu#$RVFFoMgAzXMpN" +
+		"RejlDkjt46UuuDegANnh#Qb7vUpEFhgGsE5yTeItgm#OufvNYl5QA4ripyEIvhn2y4BmG9p" +
+		"WNex2OOHdO5qHWIRqA5U6KLuGwBH5h2Rq4M08i1XO3Mm7pWVcuBXz#0Vp6mCQexLhYB#0Hx" +
+		"6jZC8Sj4S0ZsFd6O0vR8WIFOAySXMN08e7ML9i3Yy8Is4D4O55g#oiCubUO");
 
 	static final Action RETURN2 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -334,157 +347,493 @@ public class MiniLangParser extends Parser {
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new Greater(l, r);
+					return new Greater(l, r, 0);
 				}
 			},
-			new Action() {	// [38] Rexp = Exp.l LESSER Exp.r
+			new Action() {	// [38] Rexp = AP Exp.l FP GREATER Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Greater(l, r, 1);
+				}
+			},
+			new Action() {	// [39] Rexp = Exp.l GREATER AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Greater(l, r, 2);
+				}
+			},
+			new Action() {	// [40] Rexp = AP Exp.l FP GREATER AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Greater(l, r, 3);
+				}
+			},
+			new Action() {	// [41] Rexp = Exp.l LESSER Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new Lesser(l, r);
+					return new Lesser(l, r, 0);
 				}
 			},
-			new Action() {	// [39] Rexp = Exp.l GREATEREQUAL Exp.r
+			new Action() {	// [42] Rexp = AP Exp.l FP LESSER Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Lesser(l, r, 1);
+				}
+			},
+			new Action() {	// [43] Rexp = Exp.l LESSER AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Lesser(l, r, 2);
+				}
+			},
+			new Action() {	// [44] Rexp = AP Exp.l FP LESSER AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Lesser(l, r, 3);
+				}
+			},
+			new Action() {	// [45] Rexp = Exp.l GREATEREQUAL Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new GreaterEqual(l, r);
+					return new GreaterEqual(l, r, 0);
 				}
 			},
-			new Action() {	// [40] Rexp = Exp.l LESSEREQUAL Exp.r
+			new Action() {	// [46] Rexp = AP Exp.l FP GREATEREQUAL Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new GreaterEqual(l, r, 1);
+				}
+			},
+			new Action() {	// [47] Rexp = Exp.l GREATEREQUAL AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new GreaterEqual(l, r, 2);
+				}
+			},
+			new Action() {	// [48] Rexp = AP Exp.l FP GREATEREQUAL AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new GreaterEqual(l, r, 3);
+				}
+			},
+			new Action() {	// [49] Rexp = Exp.l LESSEREQUAL Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new LesserEqual(l, r);
+					return new LesserEqual(l, r, 0);
 				}
 			},
-			new Action() {	// [41] Rexp = Exp.l EQUALTO Exp.r
+			new Action() {	// [50] Rexp = AP Exp.l FP LESSEREQUAL Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new LesserEqual(l, r, 1);
+				}
+			},
+			new Action() {	// [51] Rexp = Exp.l LESSEREQUAL AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new LesserEqual(l, r, 2);
+				}
+			},
+			new Action() {	// [52] Rexp = AP Exp.l FP LESSEREQUAL AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new LesserEqual(l, r, 3);
+				}
+			},
+			new Action() {	// [53] Rexp = Exp.l EQUALTO Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new Equal(l, r);
+					return new Equal(l, r, 0);
 				}
 			},
-			new Action() {	// [42] Rexp = Exp.l DIF Exp.r
+			new Action() {	// [54] Rexp = AP Exp.l FP EQUALTO Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Equal(l, r, 1);
+				}
+			},
+			new Action() {	// [55] Rexp = Exp.l EQUALTO AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Equal(l, r, 2);
+				}
+			},
+			new Action() {	// [56] Rexp = AP Exp.l FP EQUALTO AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Equal(l, r, 3);
+				}
+			},
+			new Action() {	// [57] Rexp = Exp.l DIF Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new Dif(l, r);
+					return new Dif(l, r, 0);
 				}
 			},
-			new Action() {	// [43] Rexp = Exp.l AND Exp.r
+			new Action() {	// [58] Rexp = AP Exp.l FP DIF Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Dif(l, r, 1);
+				}
+			},
+			new Action() {	// [59] Rexp = Exp.l DIF AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Dif(l, r, 2);
+				}
+			},
+			new Action() {	// [60] Rexp = AP Exp.l FP DIF AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Dif(l, r, 3);
+				}
+			},
+			new Action() {	// [61] Rexp = Exp.l AND Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new And(l, r);
+					return new And(l, r, 0);
 				}
 			},
-			Action.RETURN,	// [44] Rexp = Aexp
-			new Action() {	// [45] Aexp = Exp.l PLUS Exp.r
+			new Action() {	// [62] Rexp = AP Exp.l FP AND Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new And(l, r, 1);
+				}
+			},
+			new Action() {	// [63] Rexp = Exp.l AND AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new And(l, r, 2);
+				}
+			},
+			new Action() {	// [64] Rexp = AP Exp.l FP AND AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new And(l, r, 3);
+				}
+			},
+			Action.RETURN,	// [65] Rexp = Aexp
+			new Action() {	// [66] Aexp = Exp.l PLUS Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new Add(l, r);
+					return new Add(l, r, 0);
 				}
 			},
-			new Action() {	// [46] Aexp = Exp.l SUB Exp.r
+			new Action() {	// [67] Aexp = AP Exp.l FP PLUS Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Add(l, r, 1);
+				}
+			},
+			new Action() {	// [68] Aexp = Exp.l PLUS AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Add(l, r, 2);
+				}
+			},
+			new Action() {	// [69] Aexp = AP Exp.l FP PLUS AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Add(l, r, 3);
+				}
+			},
+			new Action() {	// [70] Aexp = Exp.l SUB Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new Sub(l, r);
+					return new Sub(l, r, 0);
 				}
 			},
-			Action.RETURN,	// [47] Aexp = Mexp
-			new Action() {	// [48] Mexp = Exp.l MULT Exp.r
+			new Action() {	// [71] Aexp = AP Exp.l FP SUB Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Sub(l, r, 1);
+				}
+			},
+			new Action() {	// [72] Aexp = Exp.l SUB AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Sub(l, r, 2);
+				}
+			},
+			new Action() {	// [73] Aexp = AP Exp.l FP SUB AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Sub(l, r, 3);
+				}
+			},
+			Action.RETURN,	// [74] Aexp = Mexp
+			new Action() {	// [75] Mexp = Exp.l MULT Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new Mult(l, r);
+					return new Mult(l, r, 0);
 				}
 			},
-			new Action() {	// [49] Mexp = Exp.l DIV Exp.r
+			new Action() {	// [76] Mexp = AP Exp.l FP MULT Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Mult(l, r, 1);
+				}
+			},
+			new Action() {	// [77] Mexp = Exp.l MULT AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Mult(l, r, 2);
+				}
+			},
+			new Action() {	// [78] Mexp = AP Exp.l FP MULT AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Mult(l, r, 3);
+				}
+			},
+			new Action() {	// [79] Mexp = Exp.l DIV Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new Div(l, r);
+					return new Div(l, r, 0);
 				}
 			},
-			new Action() {	// [50] Mexp = Exp.l MOD Exp.r
+			new Action() {	// [80] Mexp = AP Exp.l FP DIV Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Div(l, r, 1);
+				}
+			},
+			new Action() {	// [81] Mexp = Exp.l DIV AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Div(l, r, 2);
+				}
+			},
+			new Action() {	// [82] Mexp = AP Exp.l FP DIV AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Div(l, r, 3);
+				}
+			},
+			new Action() {	// [83] Mexp = Exp.l MOD Exp.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Exp l = (Exp) _symbol_l.value;
 					final Symbol _symbol_r = _symbols[offset + 3];
 					final Exp r = (Exp) _symbol_r.value;
-					return new Mod(l, r);
+					return new Mod(l, r, 0);
 				}
 			},
-			Action.RETURN,	// [51] Mexp = Sexp
-			RETURN2,	// [52] Sexp = Exp NOT; returns 'NOT' although none is marked
-			new Action() {	// [53] Sexp = BOOL.n
+			new Action() {	// [84] Mexp = AP Exp.l FP MOD Exp.r
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 5];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Mod(l, r, 1);
+				}
+			},
+			new Action() {	// [85] Mexp = Exp.l MOD AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 4];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Mod(l, r, 2);
+				}
+			},
+			new Action() {	// [86] Mexp = AP Exp.l FP MOD AP Exp.r FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 6];
+					final Exp r = (Exp) _symbol_r.value;
+					return new Mod(l, r, 3);
+				}
+			},
+			Action.RETURN,	// [87] Mexp = Sexp
+			new Action() {	// [88] Sexp = NOT Exp.l
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 2];
+					final Exp l = (Exp) _symbol_l.value;
+					return new Not(l, 0);
+				}
+			},
+			new Action() {	// [89] Sexp = NOT AP Exp.l FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 3];
+					final Exp l = (Exp) _symbol_l.value;
+					return new Not(l, 1);
+				}
+			},
+			new Action() {	// [90] Sexp = BOOL.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_n = _symbols[offset + 1];
 					final boolean n = (boolean) _symbol_n.value;
 					return new LiteralValue<Boolean>(n);
 				}
 			},
-			new Action() {	// [54] Sexp = NULL.n
+			new Action() {	// [91] Sexp = NULL.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_n = _symbols[offset + 1];
 					final String n = (String) _symbol_n.value;
 					return new LiteralValue<String>(n);
 				}
 			},
-			new Action() {	// [55] Sexp = INT.n
+			new Action() {	// [92] Sexp = INT.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_n = _symbols[offset + 1];
 					final Integer n = (Integer) _symbol_n.value;
 					return new LiteralValue<Integer>(n);
 				}
 			},
-			new Action() {	// [56] Sexp = FLOAT.n
+			new Action() {	// [93] Sexp = FLOAT.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_n = _symbols[offset + 1];
 					final float n = (float) _symbol_n.value;
 					return new LiteralValue<Float>(n);
 				}
 			},
-			new Action() {	// [57] Sexp = CHAR.n
+			new Action() {	// [94] Sexp = CHAR.n
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_n = _symbols[offset + 1];
 					final Character n = (Character) _symbol_n.value;
 					return new LiteralValue<Character>(n);
 				}
 			},
-			Action.RETURN,	// [58] Sexp = Pexp
-			new Action() {	// [59] Pexp = Lvalue.l
+			Action.RETURN,	// [95] Sexp = Pexp
+			new Action() {	// [96] Pexp = Lvalue.l
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final Lvalue l = (Lvalue) _symbol_l.value;
 					return l;
 				}
 			},
-			RETURN3,	// [60] Pexp = AP Exp FP; returns 'FP' although none is marked
-			new Action() {	// [61] Pexp = NEW TYPE.l LB Exp.r RB
+			new Action() {	// [97] Pexp = NEW TYPE.l LB Exp.r RB
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 2];
 					final String l = (String) _symbol_l.value;
@@ -493,16 +842,16 @@ public class MiniLangParser extends Parser {
 					return new Inst(new Type(l), r);
 				}
 			},
-			new Action() {	// [62] Pexp = NEW TYPE.l
+			new Action() {	// [98] Pexp = NEW TYPE.l
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 2];
 					final String l = (String) _symbol_l.value;
 					return new Inst(new Type(l));
 				}
 			},
-			Action.RETURN,	// [63] Pexp = ID.l AP Exps FP LB Exp RB
-			Action.RETURN,	// [64] Exps = Exp
-			RETURN2	// [65] Exps = Exp Exps; returns 'Exps' although none is marked
+			Action.RETURN,	// [99] Pexp = ID.l AP Exps FP LB Exp RB
+			Action.RETURN,	// [100] Exps = Exp
+			RETURN2	// [101] Exps = Exp Exps; returns 'Exps' although none is marked
 		};
 	}
 

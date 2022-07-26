@@ -71,6 +71,19 @@ public class InterpretVisitor extends Visitor {
     }
 
     @Override
+    public void visit(Not e){
+        e.getExp().accept(this);
+        Object exp = operands.pop();
+        exp = returnValue(exp);
+
+        if(exp instanceof Boolean){
+            operands.push(!(boolean)exp);
+        }else{
+            System.out.println("Erro: a operação Not só aceita um valor booleano");
+        }
+    }
+
+    @Override
     public void visit(Add e) {
         e.getLeft().accept(this);
         Object exp = operands.pop();

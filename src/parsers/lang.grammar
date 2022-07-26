@@ -19,7 +19,7 @@
 %left COMMA;
 %left ELSE;
 %left FP;
-%left MULT, DIV, RES;
+%left MULT, DIV, MOD;
 %left PLUS, SUB;
 
 %typeof ID = "String";
@@ -80,8 +80,6 @@ Stmt = ID.l EQ Exp.r SEMI                                             {: return 
      | ID AP Exps FP LESSER Lvalue+ GREATER SEMI                      
      ;
 
-     
-
 Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC         {:return new Func(new Lvalue(a), b, c, d);:}
      | ID.a AP FP AC StmtList.b FC                                    {:return new Func(new Lvalue(a), b);:}
      ;
@@ -109,28 +107,65 @@ Lvalue = ID.l                                {:return new Lvalue(l);:}
 Exp = Rexp
 ;
 
-Rexp = Exp.l GREATER Exp.r            {:return new Greater(l, r);:}
-     | Exp.l LESSER Exp.r             {:return new Lesser(l, r);:}       
-     | Exp.l GREATEREQUAL Exp.r       {:return new GreaterEqual(l, r);:}
-     | Exp.l LESSEREQUAL Exp.r        {:return new LesserEqual(l, r);:}
-     | Exp.l EQUALTO Exp.r            {:return new Equal(l, r);:}
-     | Exp.l DIF Exp.r                {:return new Dif(l, r);:}
-     | Exp.l AND Exp.r                {:return new And(l, r);:}
+Rexp = Exp.l GREATER Exp.r                   {:return new Greater(l, r, 0);:}
+     | AP Exp.l FP GREATER Exp.r             {:return new Greater(l, r, 1);:}
+     | Exp.l GREATER AP Exp.r FP             {:return new Greater(l, r, 2);:}
+     | AP Exp.l FP GREATER AP Exp.r FP       {:return new Greater(l, r, 3);:}
+     | Exp.l LESSER Exp.r                    {:return new Lesser(l, r, 0);:}
+     | AP Exp.l FP LESSER Exp.r              {:return new Lesser(l, r, 1);:} 
+     | Exp.l LESSER AP Exp.r FP              {:return new Lesser(l, r, 2);:}
+     | AP Exp.l FP LESSER AP Exp.r FP        {:return new Lesser(l, r, 3);:}         
+     | Exp.l GREATEREQUAL Exp.r              {:return new GreaterEqual(l, r, 0);:}
+     | AP Exp.l FP GREATEREQUAL Exp.r        {:return new GreaterEqual(l, r, 1);:}
+     | Exp.l GREATEREQUAL AP Exp.r FP        {:return new GreaterEqual(l, r, 2);:}
+     | AP Exp.l FP GREATEREQUAL AP Exp.r FP  {:return new GreaterEqual(l, r, 3);:}
+     | Exp.l LESSEREQUAL Exp.r               {:return new LesserEqual(l, r, 0);:}
+     | AP Exp.l FP LESSEREQUAL Exp.r         {:return new LesserEqual(l, r, 1);:}
+     | Exp.l LESSEREQUAL AP Exp.r FP         {:return new LesserEqual(l, r, 2);:}
+     | AP Exp.l FP LESSEREQUAL AP Exp.r FP   {:return new LesserEqual(l, r, 3);:}
+     | Exp.l EQUALTO Exp.r                   {:return new Equal(l, r, 0);:}
+     | AP Exp.l FP EQUALTO Exp.r             {:return new Equal(l, r, 1);:}
+     | Exp.l EQUALTO AP Exp.r FP             {:return new Equal(l, r, 2);:}
+     | AP Exp.l FP EQUALTO AP Exp.r FP       {:return new Equal(l, r, 3);:}
+     | Exp.l DIF Exp.r                       {:return new Dif(l, r, 0);:}
+     | AP Exp.l FP DIF Exp.r                 {:return new Dif(l, r, 1);:}
+     | Exp.l DIF AP Exp.r FP                 {:return new Dif(l, r, 2);:}
+     | AP Exp.l FP DIF AP Exp.r FP           {:return new Dif(l, r, 3);:}
+     | Exp.l AND Exp.r                       {:return new And(l, r, 0);:}
+     | AP Exp.l FP AND Exp.r                 {:return new And(l, r, 1);:}
+     | Exp.l AND AP Exp.r FP                 {:return new And(l, r, 2);:}
+     | AP Exp.l FP AND AP Exp.r FP           {:return new And(l, r, 3);:}
      | Aexp
 ;
 
-Aexp = Exp.l PLUS  Exp.r      {:return new Add(l, r);:}          
-     | Exp.l SUB  Exp.r       {:return new Sub(l, r);:}  
+Aexp = Exp.l PLUS  Exp.r                {:return new Add(l, r, 0);:}
+     | AP Exp.l FP PLUS  Exp.r          {:return new Add(l, r, 1);:}  
+     | Exp.l PLUS AP Exp.r FP           {:return new Add(l, r, 2);:}
+     | AP Exp.l FP PLUS AP Exp.r FP     {:return new Add(l, r, 3);:}           
+     | Exp.l SUB Exp.r                  {:return new Sub(l, r, 0);:}
+     | AP Exp.l FP SUB Exp.r            {:return new Sub(l, r, 1);:}
+     | Exp.l SUB AP Exp.r FP            {:return new Sub(l, r, 2);:}
+     | AP Exp.l FP SUB AP Exp.r FP      {:return new Sub(l, r, 3);:}  
      | Mexp  
 ;
       
-Mexp = Exp.l MULT Exp.r       {:return new Mult(l, r);:}      
-     | Exp.l DIV Exp.r        {:return new Div(l, r);:}
-     | Exp.l MOD Exp.r        {:return new Mod(l, r);:}
+Mexp = Exp.l MULT Exp.r                 {:return new Mult(l, r, 0);:}  
+     | AP Exp.l FP MULT Exp.r           {:return new Mult(l, r, 1);:}  
+     | Exp.l MULT AP Exp.r FP           {:return new Mult(l, r, 2);:}
+     | AP Exp.l FP MULT AP Exp.r FP     {:return new Mult(l, r, 3);:}   
+     | Exp.l DIV Exp.r                  {:return new Div(l, r, 0);:}
+     | AP Exp.l FP DIV Exp.r            {:return new Div(l, r, 1);:}
+     | Exp.l DIV AP Exp.r FP            {:return new Div(l, r, 2);:}
+     | AP Exp.l FP DIV AP Exp.r FP      {:return new Div(l, r, 3);:}
+     | Exp.l MOD Exp.r                  {:return new Mod(l, r, 0);:}
+     | AP Exp.l FP MOD Exp.r            {:return new Mod(l, r, 1);:}
+     | Exp.l MOD AP Exp.r FP            {:return new Mod(l, r, 2);:}
+     | AP Exp.l FP MOD AP Exp.r FP      {:return new Mod(l, r, 3);:}
      | Sexp                          
 ;
 
-Sexp = Exp NOT
+Sexp = NOT Exp.l         {:return new Not(l, 0);:}
+     | NOT AP Exp.l FP   {:return new Not(l, 1);:}
      | BOOL.n            {:return new LiteralValue<Boolean>(n);:}                      
      | NULL.n            {:return new LiteralValue<String>(n);:}                  
      | INT.n             {:return new LiteralValue<Integer>(n);:}                   
@@ -139,8 +174,7 @@ Sexp = Exp NOT
      | Pexp                                                     
 ;
 
-Pexp = Lvalue.l                    {:return l;:}
-     | AP Exp FP                        
+Pexp = Lvalue.l                    {:return l;:}                    
      | NEW TYPE.l LB Exp.r RB      {:return new Inst(new Type(l), r);:}
      | NEW TYPE.l                  {:return new Inst(new Type(l));:}
      | ID.l AP Exps FP LB Exp RB  
