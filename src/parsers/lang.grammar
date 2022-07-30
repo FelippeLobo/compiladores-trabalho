@@ -11,7 +11,7 @@
            MULT, PLUS, SUB, DIV, MOD, 
            EQ, IF, ELSE, ITERATE,
            RB, LB, AP, FP, AC, FC, SEMI, DOT,
-           READ, PRINT, RETURN, JUMPLINE,
+           READ, PRINT, RETURN, CHARESCAPE,
            GREATER, LESSER, GREATEREQUAL, LESSEREQUAL, EQUALTO, DIF, AND,
            COMMA, COLON, DBCOLON, DATA, NEW;
 
@@ -30,6 +30,7 @@
 %typeof BOOL = "boolean";
 %typeof CHAR = "Character";
 %typeof NULL = "String";
+%typeof CHARESCAPE = "String";
 %typeof Exp = "Exp";
 %typeof Pexp = "Exp";
 %typeof Sexp = "Exp";
@@ -76,7 +77,6 @@ Stmt = ID.l EQ Exp.r SEMI                                             {: return 
      | Exp SEMI
      | READ Lvalue.l SEMI                                             {:return new Read(l);:}       
      | PRINT Exp.e SEMI                                               {: return new Print(e);:}
-     | PRINT JUMPLINE SEMI                                            {: return new Print();:} 
      | RETURN Ret.l SEMI                                              {: return new GenRet(l);:}
      | Lvalue.l EQ Exp.r SEMI                                         {: return new Attr(l, r);:}
      | ID AP Exps FP LESSER Lvalue+ GREATER SEMI                      
@@ -169,7 +169,8 @@ Mexp = Exp.l MULT Exp.r                 {:return new Mult(l, r, 0);:}
 Sexp = NOT Exp.l         {:return new Not(l, 0);:}
      | NOT AP Exp.l FP   {:return new Not(l, 1);:}
      | BOOL.n            {:return new LiteralValue<Boolean>(n);:}                      
-     | NULL.n            {:return new LiteralValue<String>(n);:}                  
+     | NULL.n            {:return new LiteralValue<String>(n);:}
+     | CHARESCAPE.n      {:return new LiteralValue<String>(n);:}                  
      | INT.n             {:return new LiteralValue<Integer>(n);:}                   
      | FLOAT.n           {:return new LiteralValue<Float>(n);:}           
      | CHAR.n            {:return new LiteralValue<Character>(n);:}     

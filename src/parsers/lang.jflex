@@ -51,7 +51,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
   identificador = [:lowercase:] ([:lowercase:] | [:uppercase:] | [:digit:] | "_")*
   Literal = "'" (.)  "'" | "'" "\\n" "'" | "'" "\\r" "'" | "'" "\\t" "'" | "'" "\\b" "'" | "'" "\\\\" "'"
   LineComment = "//" (.)* {FimDeLinha}
-  JumpLine = "'" "\\" "n" "'"
+  CharEscape = "'" "\\" "t" "'" | "'" "\\" "n" "'" | "'" "\\" "\\" "'"
 
 %state COMMENT
 
@@ -100,7 +100,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     {float}         { return newToken(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
     {char}          { return newToken(Terminals.CHAR, yytext().charAt(1)); }
     "/*"            { yybegin(COMMENT);               }
-    {JumpLine}      { return newToken(Terminals.JUMPLINE, yytext());}
+    {CharEscape}    { return newToken(Terminals.CHARESCAPE, yytext());}
     {LineComment}   {                       }
 
 }

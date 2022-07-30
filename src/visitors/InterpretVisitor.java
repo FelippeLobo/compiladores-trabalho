@@ -546,38 +546,46 @@ public class InterpretVisitor extends Visitor {
     @Override
     public void visit(Print print) {
 
-        if(print.getExp() == null){
-            System.out.println("\n");
-            return;
-        }
-
         print.getExp().accept(this);
 
         Object exp = operands.pop();
+
+        Object toPrint;
         
         if(this.isBlock){
             if(env.peek().get(exp) != null){
                 Object var = env.peek().get(exp);
                 if(env.peek().get(var) != null){
-                    System.out.println(env.peek().get(var));
+                    toPrint = env.peek().get(var);
                 }else{
-                    System.out.println(env.peek().get(exp));
+                    toPrint = env.peek().get(exp);
                 }
             }else{
-                System.out.println(exp);
+                toPrint = exp;
             }
             
         }else{
             if(globalCtx.get(exp) != null){
                 Object var = globalCtx.get(exp);
                 if(globalCtx.get(var) != null){
-                    System.out.println(globalCtx.get(var));
+                    toPrint = globalCtx.get(var);
                 }else{
-                    System.out.println(globalCtx.get(exp));
+                    toPrint = globalCtx.get(exp);
                 }
             }else{
-                System.out.println(exp);
+                toPrint = exp;
             }
+        }
+
+        if(toPrint instanceof String){
+            String s = ((String)toPrint).replaceAll("\'","");
+            if(s.contains("\\n")){
+                System.out.println("\n");
+            }else{
+                System.out.println(s);
+            }
+        }else{
+            System.out.println(toPrint);
         }
     }
 

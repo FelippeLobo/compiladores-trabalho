@@ -15,21 +15,12 @@ public class Print extends Node {
       public Print( Exp e){
         this.e  = e;
       }
-
-      public Print(){
-        this.e = null;
-      }
       
       public Exp getExp(){ return e;}
       
       //@Override
       public String toString(){
-        if(this.e != null){
-            return  ("print " + e.toString() + ";"); 
-        }else{
-            return ("print '\\" + "n';");
-        }
-        
+        return  ("print " + e.toString() + ";"); 
       }
 
     @Override
