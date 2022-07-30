@@ -46,11 +46,12 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
   type = [:uppercase:] ( [:letter:] | [:digit:] | "_" )*
   float      = [:digit:]*[.] [:digit:]*
   inteiro = [:digit:] [:digit:]*
-  char = "'" [:lowercase:] "'" | "'" [:uppercase:] "'" 
+  char = "'" [:lowercase:] "'" | "'" [:uppercase:] "'" | "'" ">" "'" | "'" "<" "'" | "'" "=" "'" | "'" "!" "'" | "'" "?" "'" | "'" "+" "'" | "'" "*" "'" | "'" "-" "'" | "'" "%" "'" | "'" "/" "'" | "'" "&" "'" | "'" ")" "'" | "'" "(" "'" | "'" "]" "'" | "'" "[" "'" | "'" "{" "'" | "'" "}" "'" | "'" "$" "'" | "'" "#" "'" | "'" "@" "'" | "'" ":" "'"
   boolean = "true" | "false"
   identificador = [:lowercase:] ([:lowercase:] | [:uppercase:] | [:digit:] | "_")*
   Literal = "'" (.)  "'" | "'" "\\n" "'" | "'" "\\r" "'" | "'" "\\t" "'" | "'" "\\b" "'" | "'" "\\\\" "'"
   LineComment = "//" (.)* {FimDeLinha}
+  JumpLine = "'" "\\" "n" "'"
 
 %state COMMENT
 
@@ -99,6 +100,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
     {float}         { return newToken(Terminals.FLOAT, Float.parseFloat(yytext()) );  }
     {char}          { return newToken(Terminals.CHAR, yytext().charAt(1)); }
     "/*"            { yybegin(COMMENT);               }
+    {JumpLine}      { return newToken(Terminals.JUMPLINE, yytext());}
     {LineComment}   {                       }
 
 }

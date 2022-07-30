@@ -29,15 +29,15 @@ public class Terminals {
 	static public final short SUB = 21;
 	static public final short FP = 22;
 	static public final short SEMI = 23;
-	static public final short IF = 24;
-	static public final short ITERATE = 25;
-	static public final short READ = 26;
-	static public final short PRINT = 27;
+	static public final short ITERATE = 24;
+	static public final short IF = 25;
+	static public final short PRINT = 26;
+	static public final short READ = 27;
 	static public final short RETURN = 28;
 	static public final short LB = 29;
-	static public final short TYPE = 30;
-	static public final short AC = 31;
-	static public final short FC = 32;
+	static public final short AC = 30;
+	static public final short FC = 31;
+	static public final short TYPE = 32;
 	static public final short DOT = 33;
 	static public final short DATA = 34;
 	static public final short RB = 35;
@@ -46,4 +46,5 @@ public class Terminals {
 	static public final short COMMA = 38;
 	static public final short COLON = 39;
 	static public final short ELSE = 40;
+	static public final short JUMPLINE = 41;
 }

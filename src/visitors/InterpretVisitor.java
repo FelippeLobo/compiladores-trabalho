@@ -487,17 +487,36 @@ public class InterpretVisitor extends Visitor {
     }
 
     @Override
-    public void visit(Iterate iterate){
+    public void visit(Iterate e){
         //System.out.println("Entrou no iterate");
         this.isBlock = true;
+
+        e.getExp().accept(this);
+        Object exp = operands.pop();
+        exp = returnValue(exp);
+
+        System.out.println("Valor do exp: " + exp);
+
+        if(!(exp instanceof Integer)){
+            System.out.println("O parâmetro de um iterate deve ser um Int");
+            return;
+        }
+        System.out.println("Passou do if");
 
         HashMap<String, Object> localEnv = new HashMap<>();
         env.push(localEnv);
 
-        iterate.getExp().accept(this);
-        iterate.getStmt().accept(this);
+        int x = (Integer)exp;
+        System.out.println("O valor de X é igual a: " + x);
+        int i = 0;
+        while(i < x){
+            e.getStmt().accept(this);
+
+            i++;
+        }
 
         env.pop();
+
         this.isBlock = false;
     }
 
@@ -526,6 +545,12 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Print print) {
+
+        if(print.getExp() == null){
+            System.out.println("\n");
+            return;
+        }
+
         print.getExp().accept(this);
 
         Object exp = operands.pop();

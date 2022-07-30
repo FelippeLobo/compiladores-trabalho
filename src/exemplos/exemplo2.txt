@@ -1,5 +1,4 @@
-c = false;
-if(c) print 5; else print 6;
-
-a = 3+2;
-print a;
+f(x :: Int) : Int{
+   y = 2*x  + 1;
+   return y;
+}
