@@ -19,6 +19,13 @@ public class Func extends Node{
         this.body = body;
     }
 
+    public Func(Lvalue id, Node param, Node body){
+        this.id = id;
+        this.param = param;
+        this.returnL = null;
+        this.body = body;
+    }
+
     public Func(Lvalue id, Node body){
         this.id = id;
         this.param = null;
@@ -41,10 +48,14 @@ public class Func extends Node{
 
     @Override
     public String toString(){
-       if(this.param != null){
-            return  (id.toString() + " ( " + this.param.toString() + " ) : " + this.returnL.toString() + " { " + "\n" + this.body.toString() + "\n" + " } ");
+       if(this.returnL == null){
+            if(this.param == null){
+                return  (id.toString() + " ( ){ " + "\n" + this.body.toString() + "\n" + " } ");
+            }else{
+                return  (id.toString() + " ( " + this.param.toString() + " ){ " + "\n" + this.body.toString() + "\n" + " } ");
+            }
        }else{
-            return  (id.toString() + " ( ){ " + "\n" + this.body.toString() + "\n" + " } ");
+            return  (id.toString() + " ( " + this.param.toString() + " ) : " + this.returnL.toString() + " { " + "\n" + this.body.toString() + "\n" + " } ");
        }
        
     }

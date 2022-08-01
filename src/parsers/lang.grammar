@@ -16,7 +16,6 @@
            COMMA, COLON, DBCOLON, DATA, NEW;
 
 %left DATA;
-%left JUMPLINE;   
 %left COMMA;
 %left ELSE;
 %left FP;
@@ -83,6 +82,7 @@ Stmt = ID.l EQ Exp.r SEMI                                             {: return 
      ;
 
 Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC         {:return new Func(new Lvalue(a), b, c, d);:}
+     | ID.a AP ParamList.b FP AC StmtList.c FC                  {:return new Func(new Lvalue(a), b, c);:} 
      | ID.a AP FP AC StmtList.b FC                                    {:return new Func(new Lvalue(a), b);:}
      ;
 

@@ -1,4 +1,4 @@
-main(){
+main(test :: Int){
    i = 3;
    iterate(i){
     print '\n';
