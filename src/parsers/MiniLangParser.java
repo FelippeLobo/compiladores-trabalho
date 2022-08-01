@@ -324,7 +324,7 @@ public class MiniLangParser extends Parser {
 					final String a = (String) _symbol_a.value;
 					final Symbol _symbol_b = _symbols[offset + 3];
 					final String b = (String) _symbol_b.value;
-					return new Param(new Lvalue(a), new Type(b));
+					return new Param(a, new Type(b));
 				}
 			},
 			new Action() {	// [34] Lvalue = ID.l

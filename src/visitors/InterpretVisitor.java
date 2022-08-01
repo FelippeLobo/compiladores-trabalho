@@ -21,6 +21,7 @@ public class InterpretVisitor extends Visitor {
     private HashMap<String, Object> datas;
     private HashMap<String, Object> funcs;
     private boolean isBlock;
+    private boolean analyseFunc;
     private String lastData;
 
     public InterpretVisitor() {
@@ -30,6 +31,7 @@ public class InterpretVisitor extends Visitor {
         funcs = new HashMap<>();
         operands = new Stack<>();
         isBlock = false;
+        analyseFunc = false;
         lastData = "";
     }
 
@@ -753,21 +755,27 @@ public class InterpretVisitor extends Visitor {
     @Override
     public void visit(Func e) {
         System.out.println(e);
-        this.isBlock = true;
-
-        HashMap<String, Object> localEnv = new HashMap<>();
-
-        funcs.put(e.getIdentifier().getIdentifier(), e);
-        env.push(localEnv);
-        System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado ao escopo Global");
-
-        if (e.getParam() != null) {
-            e.getParam().accept(this);
+        funcs.put(e.getIdentifier().toString(), e);
+       
+        if(e.getIdentifier().getIdentifier().equals("main") || this.analyseFunc ){
+            System.out.println(e);
+            this.isBlock = true;
+    
+            HashMap<String, Object> localEnv = new HashMap<>();
+    
+            
+            env.push(localEnv);
+            System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado ao escopo Global");
+    
+            if (e.getParam() != null) {
+                e.getParam().accept(this);
+            }
+    
+            e.getBody().accept(this);
+            System.out.println(Arrays.asList(env.peek()));
+            env.pop();
+            this.isBlock = false;
         }
-
-        e.getBody().accept(this);
-        env.pop();
-        this.isBlock = false;
     }
 
     @Override
@@ -775,9 +783,19 @@ public class InterpretVisitor extends Visitor {
     }
 
     public void visit(Param e) {
+        
+        if (this.isBlock) {
+            e.getType().accept(this);
 
-        System.out.println("parametro adicionado a pilha operands e ao envLocal: " + e.getIdentifier().getIdentifier());
-        env.peek().put(e.getIdentifier().getIdentifier(), e);
+            String variableName = e.getIdentifier();
+            Object type = operands.pop();
+
+           
+            env.peek().put(variableName, type);
+            
+        }
+        System.out.println(Arrays.asList(env.peek()).toString());      
+        System.out.println(Arrays.asList(operands).toString()); 
     }
 
     @Override
