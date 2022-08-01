@@ -13,14 +13,14 @@ public class Print extends Node {
       private Exp e; 
       
       public Print( Exp e){
-           this.e  = e;
+        this.e  = e;
       }
       
       public Exp getExp(){ return e;}
       
       //@Override
       public String toString(){
-         return  ("" + e.toString() + ";"); 
+        return  ("print " + e.toString() + ";"); 
       }
 
     @Override

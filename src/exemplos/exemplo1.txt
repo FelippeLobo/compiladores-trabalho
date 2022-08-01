@@ -1,3 +1,6 @@
-main(){
-  return 10;
+main(test :: Int){
+   i = 3;
+   iterate(i){
+    print '\n';
+   }
 }

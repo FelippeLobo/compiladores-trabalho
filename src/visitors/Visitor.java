@@ -69,4 +69,6 @@ public abstract class Visitor {
      public abstract void visit(Read read);
 
      public abstract void visit(Inst inst);
+
+     public abstract void visit(Not not);
 }

@@ -28,7 +28,7 @@ public class Iterate extends Node {
      }
       
      public String toString(){
-          return ("iterate(" + e.toString() + ")" + stmt.toString());    
+          return ("iterate(" + e.toString() + "){" + stmt.toString() + "}");    
      }
 
      @Override
