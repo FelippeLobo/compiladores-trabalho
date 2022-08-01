@@ -127,7 +127,7 @@ public class MiniLangParser extends Parser {
 					final String l = (String) _symbol_l.value;
 					final Symbol _symbol_t = _symbols[offset + 3];
 					final String t = (String) _symbol_t.value;
-					return new Decl(new Lvalue(l), new Type(t));
+					return new Decl(l, new Type(t));
 				}
 			},
 			new Action() {	// [9] Decl = ID.l DBCOLON TYPE.t SEMI Decl.r
@@ -138,7 +138,7 @@ public class MiniLangParser extends Parser {
 					final String t = (String) _symbol_t.value;
 					final Symbol _symbol_r = _symbols[offset + 5];
 					final Node r = (Node) _symbol_r.value;
-					return new Decl(new Lvalue(l), new Type(t), r);
+					return new Decl(l, new Type(t), r);
 				}
 			},
 			new Action() {	// [10] StmtList = Stmt.l StmtList.r

@@ -60,8 +60,8 @@ Prog = Stmt.l                 {: return new Prog(l);:}
 
 Data = DATA TYPE.l AC Decl.t FC SEMI {:return new Data(new Type(l), t);:};
 
-Decl = ID.l DBCOLON TYPE.t SEMI         {:return new Decl(new Lvalue(l), new Type(t));:}
-     | ID.l DBCOLON TYPE.t SEMI Decl.r  {:return new Decl(new Lvalue(l), new Type(t), r);:}
+Decl = ID.l DBCOLON TYPE.t SEMI         {:return new Decl(l, new Type(t));:}
+     | ID.l DBCOLON TYPE.t SEMI Decl.r  {:return new Decl(l, new Type(t), r);:}
      ;
 
 StmtList = Stmt.l StmtList.r                                          {: return new StmtList(l, r);:}

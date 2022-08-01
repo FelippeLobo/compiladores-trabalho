@@ -31,7 +31,10 @@ public class Inst extends Exp {
       }
       //@Override
       public String toString(){
-         return   ("new " + t.toString() + " [" + s.toString() + "]"); 
+            if(s != null){
+                  return   ("new " + t.toString() + " [" + s.toString() + "]"); 
+            }
+         return   ("new " + t.toString() ); 
       }
       
       public void accept(Visitor v){ v.visit(this); }

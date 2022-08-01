@@ -1,4 +1,13 @@
-main(){
-  read x;
-  print x;
+data Ponto {
+   x :: Float;
+   y :: Float;
+};
+
+f(d :: Int ) : Int, Char{
+    return 0, 'a';
+}
+
+main(x :: Ponto){
+   print x.x;
+   z = 3 + 2;
 }

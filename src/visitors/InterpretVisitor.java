@@ -1,10 +1,15 @@
 package src.visitors;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
+
+import javax.sound.sampled.SourceDataLine;
+
 import java.util.Scanner;
+import java.util.Set;
 
 import src.ast.*;
 
@@ -13,13 +18,19 @@ public class InterpretVisitor extends Visitor {
     private Stack<Object> operands;
     private Stack<HashMap<String, Object>> env;
     private HashMap<String, Object> globalCtx;
+    private HashMap<String, Object> datas;
+    private HashMap<String, Object> funcs;
     private boolean isBlock;
+    private String lastData;
 
     public InterpretVisitor() {
         env = new Stack<>();
         globalCtx = new HashMap<>();
+        datas = new HashMap<>();
+        funcs = new HashMap<>();
         operands = new Stack<>();
         isBlock = false;
+        lastData = "";
     }
 
     @Override
@@ -31,38 +42,38 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
-    public Object returnValue(Object exp){
+    public Object returnValue(Object exp) {
 
-        if(this.isBlock){
+        if (this.isBlock) {
             Object var = env.peek().get(exp);
             Object global = globalCtx.get(exp);
 
-            if(var != null){
-                if(env.peek().get(var) != null){
+            if (var != null) {
+                if (env.peek().get(var) != null) {
                     return env.peek().get(var);
-                }else{
+                } else {
                     return env.peek().get(exp);
                 }
 
-            }else{
-                if(globalCtx.get(exp) != null){
-                if(globalCtx.get(global) != null){
-                    return globalCtx.get(global);
-                }else{
-                    return globalCtx.get(exp);
+            } else {
+                if (globalCtx.get(exp) != null) {
+                    if (globalCtx.get(global) != null) {
+                        return globalCtx.get(global);
+                    } else {
+                        return globalCtx.get(exp);
+                    }
                 }
-                } 
             }
-            
-        }else{
-            if(globalCtx.get(exp) != null){
+
+        } else {
+            if (globalCtx.get(exp) != null) {
                 Object var = globalCtx.get(exp);
-                if(globalCtx.get(var) != null){
+                if (globalCtx.get(var) != null) {
                     return globalCtx.get(var);
-                }else{
+                } else {
                     return globalCtx.get(exp);
                 }
-            }else{
+            } else {
                 return exp;
             }
         }
@@ -79,18 +90,18 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            if(right instanceof Integer){
-                operands.push((Integer)left + (Integer)right);
-            }else{
-                operands.push((Integer)left + (Float)right);
+
+        if (left instanceof Integer) {
+            if (right instanceof Integer) {
+                operands.push((Integer) left + (Integer) right);
+            } else {
+                operands.push((Integer) left + (Float) right);
             }
-        }else{
-            if(right instanceof Integer){
-                operands.push((Float)left + (Integer)right);
-            }else{
-                operands.push((Float)left + (Float)right);
+        } else {
+            if (right instanceof Integer) {
+                operands.push((Float) left + (Integer) right);
+            } else {
+                operands.push((Float) left + (Float) right);
             }
         }
     }
@@ -104,18 +115,18 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            if(right instanceof Integer){
-                operands.push((Integer)left - (Integer)right);
-            }else{
-                operands.push((Integer)left - (Float)right);
+
+        if (left instanceof Integer) {
+            if (right instanceof Integer) {
+                operands.push((Integer) left - (Integer) right);
+            } else {
+                operands.push((Integer) left - (Float) right);
             }
-        }else{
-            if(right instanceof Integer){
-                operands.push((Float)left - (Integer)right);
-            }else{
-                operands.push((Float)left - (Float)right);
+        } else {
+            if (right instanceof Integer) {
+                operands.push((Float) left - (Integer) right);
+            } else {
+                operands.push((Float) left - (Float) right);
             }
         }
     }
@@ -129,18 +140,18 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            if(right instanceof Integer){
-                operands.push((Integer)left * (Integer)right);
-            }else{
-                operands.push((Integer)left * (Float)right);
+
+        if (left instanceof Integer) {
+            if (right instanceof Integer) {
+                operands.push((Integer) left * (Integer) right);
+            } else {
+                operands.push((Integer) left * (Float) right);
             }
-        }else{
-            if(right instanceof Integer){
-                operands.push((Float)left * (Integer)right);
-            }else{
-                operands.push((Float)left * (Float)right);
+        } else {
+            if (right instanceof Integer) {
+                operands.push((Float) left * (Integer) right);
+            } else {
+                operands.push((Float) left * (Float) right);
             }
         }
     }
@@ -154,18 +165,18 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            if(right instanceof Integer){
-                operands.push((Integer)left / (Integer)right);
-            }else{
-                operands.push((Integer)left / (Float)right);
+
+        if (left instanceof Integer) {
+            if (right instanceof Integer) {
+                operands.push((Integer) left / (Integer) right);
+            } else {
+                operands.push((Integer) left / (Float) right);
             }
-        }else{
-            if(right instanceof Integer){
-                operands.push((Float)left / (Integer)right);
-            }else{
-                operands.push((Float)left / (Float)right);
+        } else {
+            if (right instanceof Integer) {
+                operands.push((Float) left / (Integer) right);
+            } else {
+                operands.push((Float) left / (Float) right);
             }
         }
     }
@@ -179,18 +190,18 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            if(right instanceof Integer){
-                operands.push((Integer)left % (Integer)right);
-            }else{
-                operands.push((Integer)left % (Float)right);
+
+        if (left instanceof Integer) {
+            if (right instanceof Integer) {
+                operands.push((Integer) left % (Integer) right);
+            } else {
+                operands.push((Integer) left % (Float) right);
             }
-        }else{
-            if(right instanceof Integer){
-                operands.push((Float)left % (Integer)right);
-            }else{
-                operands.push((Float)left % (Float)right);
+        } else {
+            if (right instanceof Integer) {
+                operands.push((Float) left % (Integer) right);
+            } else {
+                operands.push((Float) left % (Float) right);
             }
         }
     }
@@ -204,18 +215,18 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            if(right instanceof Integer){
-                operands.push((Integer)left > (Integer)right);
-            }else{
-                operands.push((Integer)left > (Float)right);
+
+        if (left instanceof Integer) {
+            if (right instanceof Integer) {
+                operands.push((Integer) left > (Integer) right);
+            } else {
+                operands.push((Integer) left > (Float) right);
             }
-        }else{
-            if(right instanceof Integer){
-                operands.push((Float)left > (Integer)right);
-            }else{
-                operands.push((Float)left > (Float)right);
+        } else {
+            if (right instanceof Integer) {
+                operands.push((Float) left > (Integer) right);
+            } else {
+                operands.push((Float) left > (Float) right);
             }
         }
     }
@@ -229,18 +240,18 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            if(right instanceof Integer){
-                operands.push((Integer)left < (Integer)right);
-            }else{
-                operands.push((Integer)left < (Float)right);
+
+        if (left instanceof Integer) {
+            if (right instanceof Integer) {
+                operands.push((Integer) left < (Integer) right);
+            } else {
+                operands.push((Integer) left < (Float) right);
             }
-        }else{
-            if(right instanceof Integer){
-                operands.push((Float)left < (Integer)right);
-            }else{
-                operands.push((Float)left < (Float)right);
+        } else {
+            if (right instanceof Integer) {
+                operands.push((Float) left < (Integer) right);
+            } else {
+                operands.push((Float) left < (Float) right);
             }
         }
     }
@@ -254,18 +265,18 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            if(right instanceof Integer){
-                operands.push((Integer)left >= (Integer)right);
-            }else{
-                operands.push((Integer)left >= (Float)right);
+
+        if (left instanceof Integer) {
+            if (right instanceof Integer) {
+                operands.push((Integer) left >= (Integer) right);
+            } else {
+                operands.push((Integer) left >= (Float) right);
             }
-        }else{
-            if(right instanceof Integer){
-                operands.push((Float)left >= (Integer)right);
-            }else{
-                operands.push((Float)left >= (Float)right);
+        } else {
+            if (right instanceof Integer) {
+                operands.push((Float) left >= (Integer) right);
+            } else {
+                operands.push((Float) left >= (Float) right);
             }
         }
     }
@@ -279,18 +290,18 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            if(right instanceof Integer){
-                operands.push((Integer)left <= (Integer)right);
-            }else{
-                operands.push((Integer)left <= (Float)right);
+
+        if (left instanceof Integer) {
+            if (right instanceof Integer) {
+                operands.push((Integer) left <= (Integer) right);
+            } else {
+                operands.push((Integer) left <= (Float) right);
             }
-        }else{
-            if(right instanceof Integer){
-                operands.push((Float)left <= (Integer)right);
-            }else{
-                operands.push((Float)left <= (Float)right);
+        } else {
+            if (right instanceof Integer) {
+                operands.push((Float) left <= (Integer) right);
+            } else {
+                operands.push((Float) left <= (Float) right);
             }
         }
     }
@@ -304,15 +315,15 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            operands.push((Integer)left == (Integer)right);
-        }else if(left instanceof Float){
-            operands.push((Float)left == (Float)right);
-        }else if(left instanceof Boolean){
-            operands.push((Boolean)left == (Boolean)right);
-        }else{
-            operands.push((Character)left == (Character)right);
+
+        if (left instanceof Integer) {
+            operands.push((Integer) left == (Integer) right);
+        } else if (left instanceof Float) {
+            operands.push((Float) left == (Float) right);
+        } else if (left instanceof Boolean) {
+            operands.push((Boolean) left == (Boolean) right);
+        } else {
+            operands.push((Character) left == (Character) right);
         }
     }
 
@@ -325,15 +336,15 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        if(left instanceof Integer){
-            operands.push((Integer)left != (Integer)right);
-        }else if(left instanceof Float){
-            operands.push((Float)left != (Float)right);
-        }else if(left instanceof Boolean){
-            operands.push((Boolean)left != (Boolean)right);
-        }else{
-            operands.push((Character)left != (Character)right);
+
+        if (left instanceof Integer) {
+            operands.push((Integer) left != (Integer) right);
+        } else if (left instanceof Float) {
+            operands.push((Float) left != (Float) right);
+        } else if (left instanceof Boolean) {
+            operands.push((Boolean) left != (Boolean) right);
+        } else {
+            operands.push((Character) left != (Character) right);
         }
     }
 
@@ -346,8 +357,8 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
-        
-        operands.push((Boolean)left == (Boolean)right);
+
+        operands.push((Boolean) left == (Boolean) right);
     }
 
     @Override
@@ -357,23 +368,113 @@ public class InterpretVisitor extends Visitor {
         e.getExp().accept(this);
         e.getVar().accept(this);
 
+        System.out.println(Arrays.asList(operands));
+
         String variableName = (String) operands.pop();
-        //System.out.println("Valor removido da pilha operands: " + variableName);
+        // System.out.println("Valor removido da pilha operands: " + variableName);
 
         Object value = null;
         value = operands.pop();
 
         if (this.isBlock) {
 
-            //System.out.println("Valor removido da pilha operands e adicionada ao  env " + value);
+            // System.out.println("Valor removido da pilha operands e adicionada ao env " +
+            // value);
+            if (env.peek().get(value) != null) {
+
+                if (env.peek().get(value) instanceof Tupla) {
+
+                    String atribute = variableName; // ATRIBUTO QUE EU QUERO MEXER !!!
+                    String lvalue = (String) value; // Lvalue com o atribute
+                    value = operands.pop();
+
+                    Object tupla = env.peek().get(lvalue);
+                    if (tupla instanceof Tupla) {
+                        ((Tupla) tupla).putObjectData(atribute, value);
+                    }
+
+                }
+
+            } else {
+
+                if (operands.size() > 0 && env.peek().get(operands.peek()) != null) {
+
+                    if (env.peek().get(operands.peek()) instanceof Tupla[]) {
+
+                        String atribute = variableName;
+                        int index = (int) value;
+                        String lvalue = (String) operands.pop();
+                        value = operands.pop();
+
+                        Tupla[] tuplas = (Tupla[]) globalCtx.get(lvalue);
+                        tuplas[0].putObjectData(atribute, value);
+                        for (int i = 0; i < tuplas.length; i++) {
+                            System.out.println(tuplas[i].toString());
+                        }
+                        
+                        env.peek().put(lvalue, tuplas);
+                    } else {
+
+                        env.peek().put(variableName, value);
+
+                    }
+                } else {
+
+                    env.peek().put(variableName, value);
+                }
+            }
             env.peek().put(variableName, value);
 
         } else {
 
-            //System.out.println("Valor removido da pilha operands e adicionada ao globalCtx: " + value);
-            globalCtx.put(variableName, value);
+            // System.out.println("Valor removido da pilha operands e adicionada ao
+            // globalCtx: " + value);
+            if (globalCtx.get(value) != null) {
+
+                if (globalCtx.get(value) instanceof Tupla) {
+
+                    String atribute = variableName; // ATRIBUTO QUE EU QUERO MEXER !!!
+                    String lvalue = (String) value; // Lvalue com o atribute
+                    value = operands.pop();
+
+                    Object tupla = globalCtx.get(lvalue);
+                    if (tupla instanceof Tupla) {
+                        ((Tupla) tupla).putObjectData(atribute, value);
+                    }
+
+                }
+
+            } else {
+
+                if (operands.size() > 0 && globalCtx.get(operands.peek()) != null) {
+
+                    if (globalCtx.get(operands.peek()) instanceof Tupla[]) {
+
+                        String atribute = variableName;
+                        int index = (int) value;
+                        String lvalue = (String) operands.pop();
+                        value = operands.pop();
+
+                        Tupla[] tuplas = (Tupla[]) globalCtx.get(lvalue);
+                        tuplas[0].putObjectData(atribute, value);
+                        for (int i = 0; i < tuplas.length; i++) {
+                            System.out.println(tuplas[i].toString());
+                        }
+                        globalCtx.put(lvalue, tuplas);
+                    } else {
+
+                        globalCtx.put(variableName, value);
+
+                    }
+                } else {
+
+                    globalCtx.put(variableName, value);
+                }
+            }
 
         }
+
+        System.out.println("GlobalCTX: " + globalCtx);
 
     }
 
@@ -389,8 +490,7 @@ public class InterpretVisitor extends Visitor {
         Object type;
 
         if (isBlock) {
-            System.out.println("Tipo adicionado a pilha operands: " + e.getName());
-            env.peek().put(e.getName(), e);
+
             operands.push(e.getName());
         } else {
 
@@ -398,12 +498,10 @@ public class InterpretVisitor extends Visitor {
 
             if (type != null) {
 
-                System.out.println("Tipo adicionado a pilha operands: " + e.getName());
                 operands.push(e.getName());
 
             } else {
-                System.out.println("Tipo adicionado a pilha operands e ao global: " + e.getName());
-                globalCtx.put(e.getName(), e);
+
                 operands.push(e.getName());
             }
 
@@ -419,23 +517,23 @@ public class InterpretVisitor extends Visitor {
     }
 
     @Override
-    public void visit(StmtList stmtList){
+    public void visit(StmtList stmtList) {
         stmtList.getStmt().accept(this);
 
-        if(stmtList.getStmtList() != null){
+        if (stmtList.getStmtList() != null) {
             stmtList.getStmtList().accept(this);
         }
     }
 
     @Override
-    public void visit(IfElse ifelse){
+    public void visit(IfElse ifelse) {
         boolean interior = false;
 
-        if(this.isBlock){
+        if (this.isBlock) {
             interior = true;
             HashMap<String, Object> localEnv = new HashMap<>();
-            env.peek().put("if",localEnv);
-        }else{
+            env.peek().put("if", localEnv);
+        } else {
             this.isBlock = true;
             HashMap<String, Object> localEnv = new HashMap<>();
             env.push(localEnv);
@@ -445,37 +543,35 @@ public class InterpretVisitor extends Visitor {
         ifelse.getExp().accept(this);
         Object exp = operands.pop();
         System.out.println("Pop: " + exp.getClass());
-        if(globalCtx.get(exp) != null){
+        if (globalCtx.get(exp) != null) {
             exp = globalCtx.get(exp);
-        }else if(env.peek().get(exp) != null){
+        } else if (env.peek().get(exp) != null) {
             exp = env.peek().get(exp);
         }
-        
 
         System.out.println(exp);
         System.out.println(ifelse.getStmtList1().toString());
-        if((boolean)exp){
-           
-            
+        if ((boolean) exp) {
+
             ifelse.getStmtList1().accept(this);
-        }else{
-            if(ifelse.getStmtList2() != null){
+        } else {
+            if (ifelse.getStmtList2() != null) {
                 System.out.println(ifelse.getStmtList2().toString());
                 ifelse.getStmtList2().accept(this);
             }
         }
 
-        if(interior){
+        if (interior) {
             env.peek().remove("if");
-        }else{
+        } else {
             this.isBlock = false;
             env.pop();
         }
     }
 
     @Override
-    public void visit(Iterate iterate){
-        //System.out.println("Entrou no iterate");
+    public void visit(Iterate iterate) {
+        // System.out.println("Entrou no iterate");
         this.isBlock = true;
 
         HashMap<String, Object> localEnv = new HashMap<>();
@@ -489,25 +585,25 @@ public class InterpretVisitor extends Visitor {
     }
 
     @Override
-    public void visit(Ret ret){
-        //System.out.println("Entrou no ret");
+    public void visit(Ret ret) {
+        // System.out.println("Entrou no ret");
 
         ret.getExp().accept(this);
 
-        if(ret.getRet() != null){
+        if (ret.getRet() != null) {
             ret.getRet().accept(this);
         }
 
     }
 
     @Override
-    public void visit(GenRet genret){
-        //System.out.println("Entrou no gen ret");
+    public void visit(GenRet genret) {
+        // System.out.println("Entrou no gen ret");
 
-        if(this.isBlock){
+        if (this.isBlock) {
             genret.getRet().accept(this);
-        }else{
-            //System.out.println("Erro: return chamado fora de um bloco");
+        } else {
+            // System.out.println("Erro: return chamado fora de um bloco");
         }
     }
 
@@ -516,28 +612,28 @@ public class InterpretVisitor extends Visitor {
         print.getExp().accept(this);
 
         Object exp = operands.pop();
-        
-        if(this.isBlock){
-            if(env.peek().get(exp) != null){
+
+        if (this.isBlock) {
+            if (env.peek().get(exp) != null) {
                 Object var = env.peek().get(exp);
-                if(env.peek().get(var) != null){
+                if (env.peek().get(var) != null) {
                     System.out.println(env.peek().get(var));
-                }else{
+                } else {
                     System.out.println(env.peek().get(exp));
                 }
-            }else{
+            } else {
                 System.out.println(exp);
             }
-            
-        }else{
-            if(globalCtx.get(exp) != null){
+
+        } else {
+            if (globalCtx.get(exp) != null) {
                 Object var = globalCtx.get(exp);
-                if(globalCtx.get(var) != null){
+                if (globalCtx.get(var) != null) {
                     System.out.println(globalCtx.get(var));
-                }else{
+                } else {
                     System.out.println(globalCtx.get(exp));
                 }
-            }else{
+            } else {
                 System.out.println(exp);
             }
         }
@@ -547,15 +643,14 @@ public class InterpretVisitor extends Visitor {
     public void visit(Decl e) {
         if (this.isBlock) {
             e.getType().accept(this);
-            e.getIdentifier().accept(this);
 
-            String variableName = (String) operands.pop();
-            System.out.println("Var removido da pilha operands: " + variableName);
+            String variableName = e.getIdentifier();
+            Object type = operands.pop();
 
-            Object value = null;
-            value = operands.pop();
-            System.out.println("Tipo removido da pilha operands: " + value);
-            env.peek().put(variableName, value);
+            if (datas.get(this.lastData) != null) {
+                ((HashMap<String, Object>) datas.get(this.lastData)).put(variableName, type);
+                env.peek().put(variableName, type);
+            }
 
             if (e.getDecl() != null) {
                 e.getDecl().accept(this);
@@ -567,16 +662,16 @@ public class InterpretVisitor extends Visitor {
     public void visit(Data e) {
         System.out.println(e);
         this.isBlock = true;
-
+        this.lastData = e.getIdentifier().getName();
         HashMap<String, Object> localEnv = new HashMap<>();
 
-        globalCtx.put(e.getIdentifier().getName(), e);
+        datas.put(e.getIdentifier().getName(), localEnv);
         env.push(localEnv);
-        System.out.println("Data " + e.getIdentifier().getName() + " adicionado ao escopo Global");
 
         e.getDecl().accept(this);
 
         env.pop();
+        System.out.println(datas);
         this.isBlock = false;
 
     }
@@ -588,21 +683,22 @@ public class InterpretVisitor extends Visitor {
 
         HashMap<String, Object> localEnv = new HashMap<>();
 
-        globalCtx.put(e.getIdentifier().getIdentifier(), e);
+        funcs.put(e.getIdentifier().getIdentifier(), e);
         env.push(localEnv);
         System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado ao escopo Global");
 
-        if(e.getParam() != null){
+        if (e.getParam() != null) {
             e.getParam().accept(this);
         }
-        
+
         e.getBody().accept(this);
         env.pop();
         this.isBlock = false;
     }
 
     @Override
-    public void visit(Exp e) {}
+    public void visit(Exp e) {
+    }
 
     public void visit(Param e) {
 
@@ -631,13 +727,10 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Lvalue e) {
+        System.out.println("lvalue: " + e);
         Object lvalue;
 
-        if (e.getLvalue() != null) {
-            e.getLvalue().accept(this);
-        }
-
-        if (e.getIdentifier() != null) {
+        if (e.getIdentifier() != null && e.getLvalue() == null && e.getCtx() == null) {
 
             if (isBlock) {
                 lvalue = env.peek().get(e.getIdentifier());
@@ -663,45 +756,24 @@ public class InterpretVisitor extends Visitor {
                     globalCtx.put(e.getIdentifier(), e);
                     operands.push(e.getIdentifier());
                 }
-
             }
         }
 
+        if (e.getLvalue() != null) {
+
+            e.getLvalue().accept(this);
+
+            if (e.getIdentifier() != null) {
+                operands.push(e.getIdentifier());
+            }
+
+        }
+
         if (e.getCtx() != null) {
+
             e.getCtx().accept(this);
 
-            Object tam = null;
-
-            if (operands.peek() instanceof Integer || operands.peek() instanceof Float) {
-                tam = operands.pop();
-
-            } else if (globalCtx.get((operands.peek())) instanceof Integer
-                    ) {
-                tam = globalCtx.get((operands.pop()));
-
-            } else if (env.peek().get((operands.peek())) instanceof Integer
-                    ) {
-                tam = env.peek().get((String) (operands.pop()));
-            }
-
-            Object lvalueName = operands.pop();
-            System.out.println("LvalueName " + lvalueName);
-            System.out.println("TAM " + tam);
-            if (lvalueName instanceof String) {
-                if (isBlock) {                 
-                   
-                    Object[] list = new Object[(Integer)tam];
-                    env.peek().get(lvalueName);
-                    env.peek().put((String)lvalueName, env.peek().get(lvalueName));
-
-                } else {
-                    Object[] list = new Object[(Integer)tam];
-                    globalCtx.put((String) lvalueName, list);
-                }
-            }
-
         }
-
     }
 
     @Override
@@ -714,34 +786,34 @@ public class InterpretVisitor extends Visitor {
             if (env.peek().get(exp) != null) {
                 Object var = env.peek().get(exp);
                 if (env.peek().get(var) != null) {
-                    
-                    Scanner myObj = new Scanner(System.in);  
-                    System.out.println("Digite valor de ");
-                    String read = myObj.nextLine();  
 
-                    env.peek().put((String)var, read);
+                    Scanner myObj = new Scanner(System.in);
+                    System.out.println("Digite valor de ");
+                    String read = myObj.nextLine();
+
+                    env.peek().put((String) var, read);
                 } else {
 
-                    Scanner myObj = new Scanner(System.in);  
+                    Scanner myObj = new Scanner(System.in);
                     System.out.println("Digite valor de ");
-                    String read = myObj.nextLine();  
+                    String read = myObj.nextLine();
 
-                    env.peek().put((String)exp, read);
+                    env.peek().put((String) exp, read);
                 }
             }
         } else {
             if (globalCtx.get(exp) != null) {
                 Object var = globalCtx.get(exp);
                 if (globalCtx.get(var) != null) {
-                    Scanner myObj = new Scanner(System.in);  
+                    Scanner myObj = new Scanner(System.in);
                     System.out.println("Digite valor de ");
-                    String read = myObj.nextLine();  
-                    globalCtx.put((String)var, read);
+                    String read = myObj.nextLine();
+                    globalCtx.put((String) var, read);
                 } else {
-                    Scanner myObj = new Scanner(System.in);  
+                    Scanner myObj = new Scanner(System.in);
                     System.out.println("Digite valor de ");
-                    String read = myObj.nextLine();  
-                    globalCtx.put((String)exp, read);
+                    String read = myObj.nextLine();
+                    globalCtx.put((String) exp, read);
                 }
             }
         }
@@ -749,9 +821,73 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Inst e) {
-        System.out.println(e.toString());
         e.getType().accept(this);
-       
+        Object type = operands.pop();
+
+        if (datas.get((String) type) != null) {
+
+            HashMap<String, Object> data = (HashMap<String, Object>) datas.get((String) type);
+            HashMap<String, Object> objectData = new HashMap<>();
+            Set<String> atributes = data.keySet();
+
+            for (String atribute : atributes) {
+                objectData.put(atribute, null);
+            }
+
+            if (e.getSize() != null) {
+                e.getSize().accept(this);
+                Object size = operands.pop();
+                Tupla[] tuplas = new Tupla[(int) size];
+
+                for (int i = 0; i < tuplas.length; i++) {
+                    HashMap<String, Object> objectDataAr = new HashMap<>();
+                    for (String atribute : atributes) {
+                        objectDataAr.put(atribute, null);
+                    }
+                    tuplas[i] = new Tupla(type.toString(), objectDataAr);
+                    operands.push(tuplas);
+                }
+                System.out.println("Tamanho da Tupla: " + tuplas.length);
+                for (int i = 0; i < tuplas.length; i++) {
+                    System.out.println(tuplas[i]);
+                }
+            } else {
+
+                Tupla tupla = new Tupla(type.toString(), objectData);
+                operands.push(tupla);
+                System.out.println(tupla);
+
+            }
+
+        }
+    }
+
+    private class Tupla {
+
+        private String type;
+        private HashMap<String, Object> objectData;
+
+        public Tupla(String type, HashMap<String, Object> objectData) {
+            this.type = type;
+            this.objectData = objectData;
+        }
+
+        public String getType() {
+            return this.type;
+        }
+
+        public HashMap<String, Object> getObjectData() {
+            return this.objectData;
+        }
+
+        public void putObjectData(String key, Object value) {
+            this.objectData.put(key, value);
+        }
+
+        @Override
+        public String toString() {
+            return ("(Data: " + type + " | Values: " + objectData + ")");
+        }
     }
 
 }
