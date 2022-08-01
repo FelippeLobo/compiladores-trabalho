@@ -368,9 +368,7 @@ public class InterpretVisitor extends Visitor {
         e.getExp().accept(this);
         e.getVar().accept(this);
 
-        System.out.println(Arrays.asList(operands));
-
-        String variableName = (String) operands.pop();
+        Object variableName = operands.pop();
         // System.out.println("Valor removido da pilha operands: " + variableName);
 
         Object value = null;
@@ -384,73 +382,106 @@ public class InterpretVisitor extends Visitor {
 
                 if (env.peek().get(value) instanceof Tupla) {
 
-                    String atribute = variableName; // ATRIBUTO QUE EU QUERO MEXER !!!
+                    String atribute = (String) variableName; // ATRIBUTO QUE EU QUERO MEXER !!!
                     String lvalue = (String) value; // Lvalue com o atribute
                     value = operands.pop();
 
                     Object tupla = env.peek().get(lvalue);
                     if (tupla instanceof Tupla) {
-                        ((Tupla) tupla).putObjectData(atribute, value);
+                        if (((Tupla) tupla).getObjectData() instanceof HashMap<?, ?>) {
+                            System.out.println("Sou Hash");
+                            ((Tupla) tupla).putObjectData(atribute, value);
+                        } else {
+                            System.out.println("Value: " + value);
+                            ((Tupla) tupla).setObjectData(value);
+                        }
                     }
+
+                } else if (env.peek().get(value) instanceof Tupla[]) {
+                    int index = (int) variableName;
+                    String lvalue = (String) value;
+                    value = operands.pop();
+
+                    Tupla[] tuplas = (Tupla[]) env.peek().get(lvalue);
+                    tuplas[index].setObjectData(value);
+                    for (int i = 0; i < tuplas.length; i++) {
+                        System.out.println(tuplas[i].toString());
+                    }
+                    env.peek().put(lvalue, tuplas);
+                } else {
+
+                    env.peek().put((String) variableName, value);
 
                 }
 
             } else {
 
                 if (operands.size() > 0 && env.peek().get(operands.peek()) != null) {
-
                     if (env.peek().get(operands.peek()) instanceof Tupla[]) {
 
-                        String atribute = variableName;
+                        String atribute = (String) variableName;
                         int index = (int) value;
                         String lvalue = (String) operands.pop();
                         value = operands.pop();
-
                         Tupla[] tuplas = (Tupla[]) globalCtx.get(lvalue);
-                        tuplas[0].putObjectData(atribute, value);
+
                         for (int i = 0; i < tuplas.length; i++) {
                             System.out.println(tuplas[i].toString());
                         }
-                        
                         env.peek().put(lvalue, tuplas);
                     } else {
-
-                        env.peek().put(variableName, value);
-
+                        env.peek().put((String) variableName, value);
                     }
                 } else {
 
-                    env.peek().put(variableName, value);
+                    env.peek().put((String) variableName, value);
                 }
+
             }
-            env.peek().put(variableName, value);
 
         } else {
 
-            // System.out.println("Valor removido da pilha operands e adicionada ao
-            // globalCtx: " + value);
+            
             if (globalCtx.get(value) != null) {
-
                 if (globalCtx.get(value) instanceof Tupla) {
-
-                    String atribute = variableName; // ATRIBUTO QUE EU QUERO MEXER !!!
+                    String atribute = (String) variableName; // ATRIBUTO QUE EU QUERO MEXER !!!
                     String lvalue = (String) value; // Lvalue com o atribute
                     value = operands.pop();
 
                     Object tupla = globalCtx.get(lvalue);
                     if (tupla instanceof Tupla) {
-                        ((Tupla) tupla).putObjectData(atribute, value);
+                        if (((Tupla) tupla).getObjectData() instanceof HashMap<?, ?>) {
+                            System.out.println("Sou Hash");
+                            ((Tupla) tupla).putObjectData(atribute, value);
+                        } else {
+                            ((Tupla) tupla).setObjectData(value);
+                        }
                     }
+
+                } else if (globalCtx.get(value) instanceof Tupla[]) {
+
+                    int index = (int) variableName;
+                    String lvalue = (String) value;
+                    value = operands.pop();
+
+                    Tupla[] tuplas = (Tupla[]) globalCtx.get(lvalue);
+                    tuplas[index].setObjectData(value);
+                    for (int i = 0; i < tuplas.length; i++) {
+                        System.out.println(tuplas[i].toString());
+                    }
+                    globalCtx.put(lvalue, tuplas);
+                } else {
+
+                    globalCtx.put((String) variableName, value);
 
                 }
 
             } else {
-
                 if (operands.size() > 0 && globalCtx.get(operands.peek()) != null) {
 
                     if (globalCtx.get(operands.peek()) instanceof Tupla[]) {
 
-                        String atribute = variableName;
+                        String atribute = (String) variableName;
                         int index = (int) value;
                         String lvalue = (String) operands.pop();
                         value = operands.pop();
@@ -463,23 +494,20 @@ public class InterpretVisitor extends Visitor {
                         globalCtx.put(lvalue, tuplas);
                     } else {
 
-                        globalCtx.put(variableName, value);
+                        globalCtx.put((String) variableName, value);
 
                     }
                 } else {
 
-                    globalCtx.put(variableName, value);
+                    globalCtx.put((String) variableName, value);
                 }
             }
-
+            
         }
-
-        System.out.println("GlobalCTX: " + globalCtx);
-
     }
 
     public <T> void visit(LiteralValue<T> e) {
-        System.out.println("Valor adicionado a pilha: " + e.getValue());
+
         operands.push(e.getValue());
 
     }
@@ -511,7 +539,7 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Num e) {
-        System.out.println("Valor adicionado a pilha: " + e.getValue());
+
         operands.push(e.getValue());
 
     }
@@ -727,7 +755,7 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Lvalue e) {
-        System.out.println("lvalue: " + e);
+
         Object lvalue;
 
         if (e.getIdentifier() != null && e.getLvalue() == null && e.getCtx() == null) {
@@ -736,11 +764,11 @@ public class InterpretVisitor extends Visitor {
                 lvalue = env.peek().get(e.getIdentifier());
 
                 if (lvalue != null) {
-                    System.out.println("Lvalue adicionado a pilha operands: " + e.getIdentifier());
+                    
                     operands.push(e.getIdentifier());
 
                 } else {
-                    System.out.println("Lvalue adicionado a pilha operands e ao envLocal: " + e.getIdentifier());
+                   
                     env.peek().put(e.getIdentifier(), e);
                     operands.push(e.getIdentifier());
                 }
@@ -748,11 +776,11 @@ public class InterpretVisitor extends Visitor {
                 lvalue = globalCtx.get(e.getIdentifier());
 
                 if (lvalue != null) {
-                    System.out.println("Lvalue adicionado a pilha operands: " + e.getIdentifier());
+                   
                     operands.push(e.getIdentifier());
 
                 } else {
-                    System.out.println("Lvalue adicionado a pilha operands e ao global: " + e.getIdentifier());
+                    
                     globalCtx.put(e.getIdentifier(), e);
                     operands.push(e.getIdentifier());
                 }
@@ -819,9 +847,9 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
-    @Override
     public void visit(Inst e) {
         e.getType().accept(this);
+
         Object type = operands.pop();
 
         if (datas.get((String) type) != null) {
@@ -845,9 +873,10 @@ public class InterpretVisitor extends Visitor {
                         objectDataAr.put(atribute, null);
                     }
                     tuplas[i] = new Tupla(type.toString(), objectDataAr);
-                    operands.push(tuplas);
+
                 }
-                System.out.println("Tamanho da Tupla: " + tuplas.length);
+                operands.push(tuplas);
+
                 for (int i = 0; i < tuplas.length; i++) {
                     System.out.println(tuplas[i]);
                 }
@@ -859,15 +888,84 @@ public class InterpretVisitor extends Visitor {
 
             }
 
+        } else if (((String) type).equals("Int")) {
+            if (e.getSize() != null) {
+                e.getSize().accept(this);
+                Object size = operands.pop();
+                Tupla[] tuplas = new Tupla[(int) size];
+
+                for (int i = 0; i < tuplas.length; i++) {
+                    Integer objectDataAr = null;
+                    tuplas[i] = new Tupla(type.toString(), objectDataAr);
+
+                }
+                operands.push(tuplas);
+                System.out.println("Tamanho da Tupla: " + tuplas.length);
+                for (int i = 0; i < tuplas.length; i++) {
+                    System.out.println(tuplas[i]);
+                }
+            } else {
+                Integer objectData = null;
+                Tupla tupla = new Tupla(type.toString(), objectData);
+                operands.push(tupla);
+                System.out.println(tupla);
+
+            }
+        } else if (((String) type).equals("Float")) {
+            if (e.getSize() != null) {
+                e.getSize().accept(this);
+                Object size = operands.pop();
+                Tupla[] tuplas = new Tupla[(int) size];
+
+                for (int i = 0; i < tuplas.length; i++) {
+                    Float objectDataAr = null;
+                    tuplas[i] = new Tupla(type.toString(), objectDataAr);
+
+                }
+                operands.push(tuplas);
+                System.out.println("Tamanho da Tupla: " + tuplas.length);
+                for (int i = 0; i < tuplas.length; i++) {
+                    System.out.println(tuplas[i]);
+                }
+            } else {
+                Integer objectData = null;
+                Tupla tupla = new Tupla(type.toString(), objectData);
+                operands.push(tupla);
+                System.out.println(tupla);
+
+            }
+        } else if (((String) type).equals("Char")) {
+            if (e.getSize() != null) {
+                e.getSize().accept(this);
+                Object size = operands.pop();
+                Tupla[] tuplas = new Tupla[(int) size];
+
+                for (int i = 0; i < tuplas.length; i++) {
+                    Character objectDataAr = null;
+                    tuplas[i] = new Tupla(type.toString(), objectDataAr);
+
+                }
+                operands.push(tuplas);
+                System.out.println("Tamanho da Tupla: " + tuplas.length);
+                for (int i = 0; i < tuplas.length; i++) {
+                    System.out.println(tuplas[i]);
+                }
+            } else {
+                Integer objectData = null;
+                Tupla tupla = new Tupla(type.toString(), objectData);
+                operands.push(tupla);
+                System.out.println(tupla);
+
+            }
         }
     }
 
     private class Tupla {
 
         private String type;
-        private HashMap<String, Object> objectData;
+        private Object objectData;
 
-        public Tupla(String type, HashMap<String, Object> objectData) {
+        public Tupla(String type, Object objectData) {
             this.type = type;
             this.objectData = objectData;
         }
@@ -876,12 +974,16 @@ public class InterpretVisitor extends Visitor {
             return this.type;
         }
 
-        public HashMap<String, Object> getObjectData() {
+        public Object getObjectData() {
             return this.objectData;
         }
 
         public void putObjectData(String key, Object value) {
-            this.objectData.put(key, value);
+            ((HashMap<String, Object>) this.objectData).put(key, value);
+        }
+
+        public void setObjectData(Object value) {
+            this.objectData = value;
         }
 
         @Override
