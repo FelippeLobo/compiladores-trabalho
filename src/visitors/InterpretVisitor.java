@@ -31,6 +31,50 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    public boolean match(Object exp, string type){
+        switch(type){
+            case "Int":
+            if(exp instanceof Int){
+                return true;
+            }else{
+                System.out.println("Erro: o valor esperado era de Int, mas foi encontrado um: " + exp.getClass().getSimpleName());
+            }
+            break;
+
+            case "Float":
+            if(exp instanceof Float){
+                return true;
+            }else{
+                System.out.println("Erro: o valor esperado era de Float, mas foi encontrado um: " + exp.getClass().getSimpleName());
+            }
+            break;
+
+            case "Boolean":
+            if(exp instanceof Boolean){
+                return true;
+            }else{
+                System.out.println("Erro: o valor esperado era de Boolean, mas foi encontrado um: " + exp.getClass().getSimpleName());
+            }
+            break;
+
+            case "Char":
+            if(exp instanceof Char){
+                return true;
+            }else{
+                System.out.println("Erro: o valor esperado era de Char, mas foi encontrado um: " + exp.getClass().getSimpleName());
+            }
+            break;
+
+            case "String":
+            if(exp instanceof String){
+                return true;
+            }else{
+                System.out.println("Erro: o valor esperado era de String, mas foi encontrado um: " + exp.getClass().getSimpleName());
+            }
+            break;
+        }
+    }
+
     public Object returnValue(Object exp){
 
         if(this.isBlock){
