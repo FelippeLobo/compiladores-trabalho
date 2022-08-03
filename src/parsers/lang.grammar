@@ -59,7 +59,7 @@ Prog = Stmt.l                 {: return new Prog(l);:}
      | Data.l Prog.r          {: return new Prog(l, r);:}               
      ;
 
-Data = DATA TYPE.l AC Decl.t FC SEMI {:return new Data(new Type(l), t);:};
+Data = DATA TYPE.l AC Decl.t FC {:return new Data(new Type(l), t);:};
 
 Decl = ID.l DBCOLON TYPE.t SEMI         {:return new Decl(l, new Type(t));:}
      | ID.l DBCOLON TYPE.t SEMI Decl.r  {:return new Decl(l, new Type(t), r);:}
@@ -70,7 +70,7 @@ StmtList = Stmt.l StmtList.r                                          {: return 
      ;
 
 Stmt = ID.l EQ Exp.r SEMI                                             {: return new Attr((String)l, r);:}        
-     | ITERATE AP Exp.l FP AC Stmt.r FC                               {: return new Iterate(l, r);:}
+     | ITERATE AP Exp.l FP AC StmtList.r FC                           {: return new Iterate(l, new StmtList(r));:}
      | IF AP Exp.l FP StmtList.r ELSE StmtList.s                      {: return new IfElse(l, r, s);:}    
      | IF AP Exp.l FP StmtList.r                                      {: return new IfElse(l, r);:}          
      | IF AP Exp.l FP AC StmtList.r FC ELSE AC StmtList.s FC          {: return new IfElse(l, r, s);:}

@@ -12,23 +12,23 @@ import src.visitors.Visitor;
 public class Iterate extends Node {
       
      private Exp e;
-     private Node stmt;
+     private StmtList stmtList;
 
-     public Iterate(Exp e, Node stmt){
+     public Iterate(Exp e, StmtList stmtList){
           this.e  = e;
-          this.stmt = stmt;
+          this.stmtList = stmtList;
      }
 
      public Exp getExp(){
           return this.e;
      }
 
-     public Node getStmt(){
-          return this.stmt;
+     public Node getStmtList(){
+          return this.stmtList;
      }
       
      public String toString(){
-          return ("iterate(" + e.toString() + "){" + stmt.toString() + "}");    
+          return ("iterate(" + e.toString() + "){" + stmtList.toString() + "}");    
      }
 
      @Override
