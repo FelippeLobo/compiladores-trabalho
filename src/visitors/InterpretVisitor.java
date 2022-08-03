@@ -31,10 +31,10 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
-    public boolean match(Object exp, string type){
+    public Boolean match(Object exp, String type){
         switch(type){
-            case "Int":
-            if(exp instanceof Int){
+            case "Integer":
+            if(exp instanceof Integer){
                 return true;
             }else{
                 System.out.println("Erro: o valor esperado era de Int, mas foi encontrado um: " + exp.getClass().getSimpleName());
@@ -57,8 +57,8 @@ public class InterpretVisitor extends Visitor {
             }
             break;
 
-            case "Char":
-            if(exp instanceof Char){
+            case "Character":
+            if(exp instanceof Character){
                 return true;
             }else{
                 System.out.println("Erro: o valor esperado era de Char, mas foi encontrado um: " + exp.getClass().getSimpleName());
@@ -72,7 +72,12 @@ public class InterpretVisitor extends Visitor {
                 System.out.println("Erro: o valor esperado era de String, mas foi encontrado um: " + exp.getClass().getSimpleName());
             }
             break;
+            default:
+            System.out.println("Erro: o valor esperado não é um valor possível: " + type);
+            break;
         }
+        
+        return false;
     }
 
     public Object returnValue(Object exp){
@@ -541,8 +546,7 @@ public class InterpretVisitor extends Visitor {
 
         System.out.println("Valor do exp: " + exp);
 
-        if(!(exp instanceof Integer)){
-            System.out.println("O parâmetro de um iterate deve ser um Int");
+        if(!(match(exp, "Integer"))){
             return;
         }
         System.out.println("Passou do if");
@@ -554,7 +558,7 @@ public class InterpretVisitor extends Visitor {
         System.out.println("O valor de X é igual a: " + x);
         int i = 0;
         while(i < x){
-            e.getStmt().accept(this);
+            e.getStmtList().accept(this);
 
             i++;
         }
@@ -594,32 +598,7 @@ public class InterpretVisitor extends Visitor {
 
         Object exp = operands.pop();
 
-        Object toPrint;
-        
-        if(this.isBlock){
-            if(env.peek().get(exp) != null){
-                Object var = env.peek().get(exp);
-                if(env.peek().get(var) != null){
-                    toPrint = env.peek().get(var);
-                }else{
-                    toPrint = env.peek().get(exp);
-                }
-            }else{
-                toPrint = exp;
-            }
-            
-        }else{
-            if(globalCtx.get(exp) != null){
-                Object var = globalCtx.get(exp);
-                if(globalCtx.get(var) != null){
-                    toPrint = globalCtx.get(var);
-                }else{
-                    toPrint = globalCtx.get(exp);
-                }
-            }else{
-                toPrint = exp;
-            }
-        }
+        Object toPrint = returnValue(exp);
 
         if(toPrint instanceof String){
             String s = ((String)toPrint).replaceAll("\'","");
