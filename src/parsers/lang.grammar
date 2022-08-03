@@ -16,6 +16,7 @@
            COMMA, COLON, DBCOLON, DATA, NEW;
 
 %left DATA;
+%left ITERATE;
 %left COMMA;
 %left ELSE;
 %left FP;
