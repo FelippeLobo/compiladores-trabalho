@@ -1,23 +1,17 @@
-even(n :: Int) : Bool {
-    if(n == 0)
-        return true;
-    else
-        return odd(n-1)[0];
+data Ponto{
+   x :: Float;
+   y :: Float;
 }
 
-odd(n :: Int) : Bool {
-    if(n == 0)
-        return false;
-    else
-        return even(n-1)[0];
-}
-
-main() {
-    r = even(4)[0];
-    if(r) {
-        print 'P'; print 'A'; print 'R';
-    }
-    else {
-        print 'I'; print 'M'; print 'P'; print 'A'; print 'R';
-    }
+main(){
+   p = new Ponto ;
+   p.x = 10.0;
+   p.y = 10.0;
+   print '(';
+   print p.x;
+   print ',';
+   print ' ';
+   print p.y;
+   print ')';
+   print '\n';
 }
