@@ -19,20 +19,27 @@ public class InterpretVisitor extends Visitor {
     private Stack<HashMap<String, Object>> env;
     private HashMap<String, Object> globalCtx;
     private HashMap<String, Object> datas;
-    private HashMap<String, Object> funcs;
+    private HashMap<String, Object> funcDefinitions;
+    private List<Object> returnList;
+    private boolean asReturn;
+    private boolean asParameters;
     private boolean isBlock;
     private boolean analyseFunc;
+    private boolean isReturn;
     private String lastData;
 
     public InterpretVisitor() {
         env = new Stack<>();
         globalCtx = new HashMap<>();
         datas = new HashMap<>();
-        funcs = new HashMap<>();
+        funcDefinitions = new HashMap<>();
         operands = new Stack<>();
         isBlock = false;
         analyseFunc = false;
+        returnList = new ArrayList<>();
         lastData = "";
+        asReturn = false;
+        asParameters = false;
     }
 
     @Override
@@ -84,24 +91,25 @@ public class InterpretVisitor extends Visitor {
     }
 
     @Override
-    public void visit(Not e){
+    public void visit(Not e) {
         e.getExp().accept(this);
         Object exp = operands.pop();
         exp = returnValue(exp);
 
-        if(exp instanceof Boolean){
-            operands.push(!(boolean)exp);
-        }else{
+        if (exp instanceof Boolean) {
+            operands.push(!(boolean) exp);
+        } else {
             System.out.println("Erro: a operação Not só aceita um valor booleano");
         }
     }
 
     @Override
     public void visit(Add e) {
+        System.out.println(e.toString());
         e.getLeft().accept(this);
         Object exp = operands.pop();
         Object left = returnValue(exp);
-
+        System.out.println("left: " + left);
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
@@ -456,7 +464,6 @@ public class InterpretVisitor extends Visitor {
 
         } else {
 
-            
             if (globalCtx.get(value) != null) {
                 if (globalCtx.get(value) instanceof Tupla) {
                     String atribute = (String) variableName; // ATRIBUTO QUE EU QUERO MEXER !!!
@@ -517,8 +524,9 @@ public class InterpretVisitor extends Visitor {
                     globalCtx.put((String) variableName, value);
                 }
             }
-            
+
         }
+
     }
 
     public <T> void visit(LiteralValue<T> e) {
@@ -561,8 +569,10 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(StmtList stmtList) {
-        stmtList.getStmt().accept(this);
 
+        System.out.println(stmtList.toString());
+        stmtList.getStmt().accept(this);
+        
         if (stmtList.getStmtList() != null) {
             stmtList.getStmtList().accept(this);
         }
@@ -613,8 +623,8 @@ public class InterpretVisitor extends Visitor {
     }
 
     @Override
-    public void visit(Iterate e){
-        //System.out.println("Entrou no iterate");
+    public void visit(Iterate e) {
+        // System.out.println("Entrou no iterate");
         this.isBlock = true;
 
         e.getExp().accept(this);
@@ -623,7 +633,7 @@ public class InterpretVisitor extends Visitor {
 
         System.out.println("Valor do exp: " + exp);
 
-        if(!(exp instanceof Integer)){
+        if (!(exp instanceof Integer)) {
             System.out.println("O parâmetro de um iterate deve ser um Int");
             return;
         }
@@ -632,10 +642,10 @@ public class InterpretVisitor extends Visitor {
         HashMap<String, Object> localEnv = new HashMap<>();
         env.push(localEnv);
 
-        int x = (Integer)exp;
+        int x = (Integer) exp;
         System.out.println("O valor de X é igual a: " + x);
         int i = 0;
-        while(i < x){
+        while (i < x) {
             e.getStmt().accept(this);
 
             i++;
@@ -648,10 +658,10 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Ret ret) {
-        // System.out.println("Entrou no ret");
-
+        //System.out.println("Entrou no ret");
+   
         ret.getExp().accept(this);
-
+        this.returnList.add(operands.pop());
         if (ret.getRet() != null) {
             ret.getRet().accept(this);
         }
@@ -660,10 +670,12 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(GenRet genret) {
-        // System.out.println("Entrou no gen ret");
+        //System.out.println("Entrou no gen ret");
 
         if (this.isBlock) {
+            this.isReturn = true;
             genret.getRet().accept(this);
+            this.isReturn = false;
         } else {
             // System.out.println("Erro: return chamado fora de um bloco");
         }
@@ -677,40 +689,40 @@ public class InterpretVisitor extends Visitor {
         Object exp = operands.pop();
 
         Object toPrint;
-        
-        if(this.isBlock){
-            if(env.peek().get(exp) != null){
+
+        if (this.isBlock) {
+            if (env.peek().get(exp) != null) {
                 Object var = env.peek().get(exp);
-                if(env.peek().get(var) != null){
+                if (env.peek().get(var) != null) {
                     toPrint = env.peek().get(var);
-                }else{
+                } else {
                     toPrint = env.peek().get(exp);
                 }
-            }else{
+            } else {
                 toPrint = exp;
             }
 
         } else {
             if (globalCtx.get(exp) != null) {
                 Object var = globalCtx.get(exp);
-                if(globalCtx.get(var) != null){
+                if (globalCtx.get(var) != null) {
                     toPrint = globalCtx.get(var);
-                }else{
+                } else {
                     toPrint = globalCtx.get(exp);
                 }
-            }else{
+            } else {
                 toPrint = exp;
             }
         }
 
-        if(toPrint instanceof String){
-            String s = ((String)toPrint).replaceAll("\'","");
-            if(s.contains("\\n")){
+        if (toPrint instanceof String) {
+            String s = ((String) toPrint).replaceAll("\'", "");
+            if (s.contains("\\n")) {
                 System.out.println("\n");
-            }else{
+            } else {
                 System.out.println(s);
             }
-        }else{
+        } else {
             System.out.println(toPrint);
         }
     }
@@ -754,27 +766,102 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Func e) {
-        System.out.println(e);
-        funcs.put(e.getIdentifier().toString(), e);
-       
-        if(e.getIdentifier().getIdentifier().equals("main") || this.analyseFunc ){
-            System.out.println(e);
+
+        if (e.getIdentifier().getIdentifier().equals("main") || this.analyseFunc) {
+            int returnIndex = -1;
             this.isBlock = true;
-    
-            HashMap<String, Object> localEnv = new HashMap<>();
-    
             
+            HashMap<String, Object> localEnv = new HashMap<>();
             env.push(localEnv);
-            System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado ao escopo Global");
-    
-            if (e.getParam() != null) {
+
+            //System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado ao escopo Global");
+       
+            if (e.getParam() != null && this.asParameters) {
+
+                env.peek().put("parameters", new ArrayList<Tupla>());
                 e.getParam().accept(this);
+                
+                if (this.analyseFunc) {
+                    Object ret = null;
+                    boolean flag = false;
+                    if (this.asReturn) {
+                        
+                        ret = operands.pop();
+                        
+                        if(!(ret instanceof String)){
+                            System.out.println(Arrays.asList("PeekNAOSTRING: " + ret));
+                            returnIndex = (int) ret;
+                        }
+                        flag = true;
+                        this.asReturn = false;
+                    }
+
+                    HashMap<String, Object> parametersValueID = new HashMap<>();
+
+                    List<Object> parametersValues = new ArrayList<>();
+
+                    while (!(operands.peek() instanceof List<?>)) {
+                        Object value = operands.pop();
+                        parametersValues.add(value);
+                    }
+                    List<Tupla> parametersID = ((List<Tupla>) (env.peek().get("parameters")));
+                    int i = parametersID.size() - 1;
+                    for (Tupla parameterID : parametersID) {
+                        if (i >= 0) {
+                            Object value = parametersValues.get(i);
+                            if(!(returnValue(value) != value)){
+                                parametersValueID.put((String) parameterID.getObjectData(), returnValue(value));
+                                env.peek().put((String) parameterID.getObjectData(), returnValue(value));
+                            }else{
+                                parametersValueID.put((String) parameterID.getObjectData(), value);
+                                env.peek().put((String) parameterID.getObjectData(), value);
+                            }
+                           
+                            i--;
+                        }
+                    }   
+                        System.out.println("asReturn" + this.asReturn + "|flag: "+ flag);
+                    if (this.asReturn && !flag) {
+                        
+                       
+                        System.out.println(Arrays.asList("RETO ANAL: " + ret));
+                        if(returnValue(ret) != ret){
+                            System.out.println(Arrays.asList("PeekSTRING: " + ret));
+                            System.out.println(Arrays.asList("ValPeek: " + returnValue(ret)));
+                            returnIndex = (int) returnValue(ret);
+                        }
+                        this.asReturn = false;
+                        
+                    }
+
+                    List<Object> funcCallObjects = (List) operands.pop();
+                    funcCallObjects.add(parametersValueID);
+                    if (this.asReturn) {
+                        funcCallObjects.add(returnIndex);
+                    }
+
+                    operands.push(funcCallObjects);
+                }
+                this.asParameters = false;
             }
-    
+            System.out.println("TESTE3");
             e.getBody().accept(this);
-            System.out.println(Arrays.asList(env.peek()));
+            System.out.println("TESTE2");
+            if(this.asReturn){
+                System.out.println("returnIndex: "+returnIndex);
+                if(returnValue(this.returnList.get((int)returnIndex)) == this.returnList.get((int)returnIndex)){
+                    operands.push(this.returnList.get((int)returnIndex));
+                }else{
+                    operands.push(returnValue(this.returnList.get((int)returnIndex)));
+                }
+                System.out.println(Arrays.asList(operands));
+                this.asReturn = false;
+            }
+            
             env.pop();
             this.isBlock = false;
+        } else {
+            funcDefinitions.put(e.getIdentifier().toString(), e);
         }
     }
 
@@ -783,19 +870,16 @@ public class InterpretVisitor extends Visitor {
     }
 
     public void visit(Param e) {
-        
+
         if (this.isBlock) {
             e.getType().accept(this);
 
             String variableName = e.getIdentifier();
             Object type = operands.pop();
 
-           
-            env.peek().put(variableName, type);
-            
+            ((List) env.peek().get("parameters")).add(new Tupla((String) type, variableName));
+
         }
-        System.out.println(Arrays.asList(env.peek()).toString());      
-        System.out.println(Arrays.asList(operands).toString()); 
     }
 
     @Override
@@ -828,11 +912,11 @@ public class InterpretVisitor extends Visitor {
                 lvalue = env.peek().get(e.getIdentifier());
 
                 if (lvalue != null) {
-                    
+
                     operands.push(e.getIdentifier());
 
                 } else {
-                   
+
                     env.peek().put(e.getIdentifier(), e);
                     operands.push(e.getIdentifier());
                 }
@@ -840,11 +924,11 @@ public class InterpretVisitor extends Visitor {
                 lvalue = globalCtx.get(e.getIdentifier());
 
                 if (lvalue != null) {
-                   
+
                     operands.push(e.getIdentifier());
 
                 } else {
-                    
+
                     globalCtx.put(e.getIdentifier(), e);
                     operands.push(e.getIdentifier());
                 }
@@ -1024,6 +1108,45 @@ public class InterpretVisitor extends Visitor {
         }
     }
 
+    @Override
+    public void visit(Exps e) {
+
+        e.getExp().accept(this);
+       
+        if(!(returnValue(operands.peek()) == operands.peek())){
+            Object value = operands.pop();
+            operands.push(returnValue(value));
+        }
+        if (e.getExps() != null) {
+            e.getExps().accept(this);
+        }
+
+    }
+
+    @Override
+    public void visit(FuncCall e) {
+        System.out.println( e.toString());       
+       
+        String function = e.getIdentifier();
+        List<Object> funcCallInputs = new ArrayList<>();
+        operands.push(funcCallInputs);
+           
+        System.out.println("Entrei: "+Arrays.asList(operands));
+        Object func = funcDefinitions.get(function);
+        if (e.getParamaters() != null) {
+            this.asParameters = true;
+            e.getParamaters().accept(this);
+        }
+
+        if (e.getReturnId() != null) {
+            this.asReturn = true;
+            e.getReturnId().accept(this);
+        }
+        System.out.println("SAI: "+Arrays.asList(operands));
+        this.analyseFunc = true;
+        ((Func) func).accept(this);
+    }
+
     private class Tupla {
 
         private String type;
@@ -1042,9 +1165,34 @@ public class InterpretVisitor extends Visitor {
             return this.objectData;
         }
 
+        // DATA
         public void putObjectData(String key, Object value) {
-            ((HashMap<String, Object>) this.objectData).put(key, value);
+            if (objectData instanceof HashMap) {
+                ((HashMap<String, Object>) this.objectData).put(key, value);
+            }
+
         }
+        // FIM DATA
+
+        // FUNC
+        public void addParameters(HashMap<String, Object> parameters) {
+            if (objectData instanceof ArrayList) {
+                ((ArrayList) objectData).add(0, parameters);
+            }
+        }
+
+        public void addReturnId(int returnId) {
+            if (objectData instanceof ArrayList) {
+                ((ArrayList) objectData).add(1, returnId);
+            }
+        }
+
+        public void addLocalEnv(HashMap<String, Object> localEnv) {
+            if (objectData instanceof ArrayList) {
+                ((ArrayList) objectData).add(2, localEnv);
+            }
+        }
+        // FIM FUNC
 
         public void setObjectData(Object value) {
             this.objectData = value;

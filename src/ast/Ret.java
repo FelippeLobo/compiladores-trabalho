@@ -21,7 +21,7 @@ public class Ret extends Node {
           this.ret = null;
      }
 
-     public Ret(Exp e, Ret ret){
+     public Ret(Exp e, Node ret){
           this.e = e;
           this.ret = ret;
      }

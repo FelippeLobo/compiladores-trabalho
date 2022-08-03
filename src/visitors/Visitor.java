@@ -71,4 +71,8 @@ public abstract class Visitor {
      public abstract void visit(Inst inst);
 
      public abstract void visit(Not not);
+
+    public abstract void visit(Exps exps);
+
+    public abstract void visit(FuncCall funcCall);
 }
