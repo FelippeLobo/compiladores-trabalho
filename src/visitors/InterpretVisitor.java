@@ -25,6 +25,7 @@ public class InterpretVisitor extends Visitor {
     private boolean asParameters;
     private boolean isBlock;
     private boolean analyseFunc;
+    private Node actualFunc;
     private boolean isReturn;
     private String lastData;
 
@@ -105,11 +106,11 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Add e) {
-        System.out.println(e.toString());
+        // System.out.println(e.toString());
         e.getLeft().accept(this);
         Object exp = operands.pop();
         Object left = returnValue(exp);
-        System.out.println("left: " + left);
+        // System.out.println("left: " + left);
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
@@ -127,6 +128,7 @@ public class InterpretVisitor extends Visitor {
                 operands.push((Float) left + (Float) right);
             }
         }
+        // System.out.println(left + " + " + right + " = "+ operands.peek());
     }
 
     @Override
@@ -386,7 +388,7 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Attr e) {
-        System.out.println(e.toString());
+        // System.out.println(e.toString());
 
         e.getExp().accept(this);
         e.getVar().accept(this);
@@ -570,9 +572,9 @@ public class InterpretVisitor extends Visitor {
     @Override
     public void visit(StmtList stmtList) {
 
-        System.out.println(stmtList.toString());
+        // System.out.println(stmtList.toString());
         stmtList.getStmt().accept(this);
-        
+
         if (stmtList.getStmtList() != null) {
             stmtList.getStmtList().accept(this);
         }
@@ -595,15 +597,15 @@ public class InterpretVisitor extends Visitor {
 
         ifelse.getExp().accept(this);
         Object exp = operands.pop();
-        System.out.println("Pop: " + exp.getClass());
+        // System.out.println("Pop: " + exp.getClass());
         if (globalCtx.get(exp) != null) {
             exp = globalCtx.get(exp);
         } else if (env.peek().get(exp) != null) {
             exp = env.peek().get(exp);
         }
 
-        System.out.println(exp);
-        System.out.println(ifelse.getStmtList1().toString());
+        // System.out.println(exp);
+        // System.out.println(ifelse.getStmtList1().toString());
         if ((boolean) exp) {
 
             ifelse.getStmtList1().accept(this);
@@ -658,8 +660,8 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Ret ret) {
-        //System.out.println("Entrou no ret");
-   
+        // System.out.println("Entrou no ret");
+
         ret.getExp().accept(this);
         this.returnList.add(operands.pop());
         if (ret.getRet() != null) {
@@ -670,7 +672,7 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(GenRet genret) {
-        //System.out.println("Entrou no gen ret");
+        // System.out.println("Entrou no gen ret");
 
         if (this.isBlock) {
             this.isReturn = true;
@@ -748,7 +750,7 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Data e) {
-        System.out.println(e);
+        // System.out.println(e);
         this.isBlock = true;
         this.lastData = e.getIdentifier().getName();
         HashMap<String, Object> localEnv = new HashMap<>();
@@ -770,30 +772,36 @@ public class InterpretVisitor extends Visitor {
         if (e.getIdentifier().getIdentifier().equals("main") || this.analyseFunc) {
             int returnIndex = -1;
             this.isBlock = true;
-            
+            actualFunc = e;
+            if (e.getReturn() != null) {
+                this.asReturn = true;
+            } else {
+                this.asReturn = false;
+            }
             HashMap<String, Object> localEnv = new HashMap<>();
             env.push(localEnv);
 
-            //System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado ao escopo Global");
-       
+            // System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado
+            // ao escopo Global");
+
             if (e.getParam() != null && this.asParameters) {
 
                 env.peek().put("parameters", new ArrayList<Tupla>());
                 e.getParam().accept(this);
-                
+
                 if (this.analyseFunc) {
                     Object ret = null;
                     boolean flag = false;
                     if (this.asReturn) {
-                        
+
                         ret = operands.pop();
-                        
-                        if(!(ret instanceof String)){
+                        System.out.println("Ret: " + ret);
+                        if (!(ret instanceof String)) {
                             System.out.println(Arrays.asList("PeekNAOSTRING: " + ret));
                             returnIndex = (int) ret;
+                            flag = true;
                         }
-                        flag = true;
-                        this.asReturn = false;
+
                     }
 
                     HashMap<String, Object> parametersValueID = new HashMap<>();
@@ -809,29 +817,29 @@ public class InterpretVisitor extends Visitor {
                     for (Tupla parameterID : parametersID) {
                         if (i >= 0) {
                             Object value = parametersValues.get(i);
-                            if(!(returnValue(value) != value)){
+                            if (!(returnValue(value) != value)) {
                                 parametersValueID.put((String) parameterID.getObjectData(), returnValue(value));
                                 env.peek().put((String) parameterID.getObjectData(), returnValue(value));
-                            }else{
+                            } else {
                                 parametersValueID.put((String) parameterID.getObjectData(), value);
                                 env.peek().put((String) parameterID.getObjectData(), value);
                             }
-                           
+
                             i--;
                         }
-                    }   
-                        System.out.println("asReturn" + this.asReturn + "|flag: "+ flag);
+                    }
+                    // System.out.println("asReturn" + this.asReturn + "|flag: "+ flag);
                     if (this.asReturn && !flag) {
-                        
-                       
+
                         System.out.println(Arrays.asList("RETO ANAL: " + ret));
-                        if(returnValue(ret) != ret){
-                            System.out.println(Arrays.asList("PeekSTRING: " + ret));
-                            System.out.println(Arrays.asList("ValPeek: " + returnValue(ret)));
+                        System.out.println("param:" + env.peek());
+                        if (returnValue(ret) != ret) {
+                            // System.out.println(Arrays.asList("PeekSTRING: " + ret));
+                            // System.out.println(Arrays.asList("ValPeek: " + returnValue(ret)));
                             returnIndex = (int) returnValue(ret);
+
                         }
-                        this.asReturn = false;
-                        
+
                     }
 
                     List<Object> funcCallObjects = (List) operands.pop();
@@ -844,20 +852,32 @@ public class InterpretVisitor extends Visitor {
                 }
                 this.asParameters = false;
             }
-            System.out.println("TESTE3");
+
             e.getBody().accept(this);
-            System.out.println("TESTE2");
-            if(this.asReturn){
-                System.out.println("returnIndex: "+returnIndex);
-                if(returnValue(this.returnList.get((int)returnIndex)) == this.returnList.get((int)returnIndex)){
-                    operands.push(this.returnList.get((int)returnIndex));
-                }else{
-                    operands.push(returnValue(this.returnList.get((int)returnIndex)));
-                }
-                System.out.println(Arrays.asList(operands));
+
+            if (e.getReturn() != null) {
+                this.asReturn = true;
+            } else {
                 this.asReturn = false;
             }
-            
+
+            if (this.asReturn) {
+                System.out.println("Entrei as Return");
+                System.out.println("lista de return: " + this.returnList);
+                System.out.println("returnIndex: " + returnIndex);
+                System.out.println("Funcao Atual: " + e.getIdentifier().getIdentifier());
+                // System.out.println("returnIndex: "+returnIndex);
+                if (returnValue(this.returnList.get((int) returnIndex)) == this.returnList.get((int) returnIndex)) {
+                    operands.push(this.returnList.get((int) returnIndex));
+                } else {
+                    operands.push(returnValue(this.returnList.get((int) returnIndex)));
+                }
+                // System.out.println(Arrays.asList(operands));
+                this.returnList = new ArrayList<>();
+                this.asReturn = false;
+
+            }
+
             env.pop();
             this.isBlock = false;
         } else {
@@ -1112,8 +1132,8 @@ public class InterpretVisitor extends Visitor {
     public void visit(Exps e) {
 
         e.getExp().accept(this);
-       
-        if(!(returnValue(operands.peek()) == operands.peek())){
+
+        if (!(returnValue(operands.peek()) == operands.peek())) {
             Object value = operands.pop();
             operands.push(returnValue(value));
         }
@@ -1125,13 +1145,12 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(FuncCall e) {
-        System.out.println( e.toString());       
-       
+        System.out.println(e.toString());
+
         String function = e.getIdentifier();
         List<Object> funcCallInputs = new ArrayList<>();
         operands.push(funcCallInputs);
-           
-        System.out.println("Entrei: "+Arrays.asList(operands));
+
         Object func = funcDefinitions.get(function);
         if (e.getParamaters() != null) {
             this.asParameters = true;
@@ -1139,12 +1158,18 @@ public class InterpretVisitor extends Visitor {
         }
 
         if (e.getReturnId() != null) {
-            this.asReturn = true;
+
             e.getReturnId().accept(this);
+            if (returnValue(operands.peek()) != operands.peek()) {
+                Object index = returnValue(operands.pop());
+                operands.push(index);
+            }
+
         }
-        System.out.println("SAI: "+Arrays.asList(operands));
+        System.out.println("FuncaoPre " + e.getIdentifier() + ": " + Arrays.asList(operands));
         this.analyseFunc = true;
         ((Func) func).accept(this);
+        System.out.println("FuncaoPos " + e.getIdentifier() + ": " + Arrays.asList(operands));
     }
 
     private class Tupla {

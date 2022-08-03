@@ -13,7 +13,7 @@ odd(n :: Int) : Bool {
 }
 
 main() {
-    r = even(3)[0];
+    r = even(4)[0];
     if(r) {
         print 'P'; print 'A'; print 'R';
     }
