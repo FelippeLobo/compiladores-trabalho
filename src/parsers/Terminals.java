@@ -19,8 +19,8 @@ public class Terminals {
 	static public final short MULT = 11;
 	static public final short DIV = 12;
 	static public final short MOD = 13;
-	static public final short LESSER = 14;
-	static public final short GREATER = 15;
+	static public final short GREATER = 14;
+	static public final short LESSER = 15;
 	static public final short GREATEREQUAL = 16;
 	static public final short LESSEREQUAL = 17;
 	static public final short EQUALTO = 18;
@@ -31,10 +31,10 @@ public class Terminals {
 	static public final short FP = 23;
 	static public final short IF = 24;
 	static public final short ITERATE = 25;
-	static public final short LB = 26;
-	static public final short READ = 27;
-	static public final short PRINT = 28;
-	static public final short RETURN = 29;
+	static public final short READ = 26;
+	static public final short PRINT = 27;
+	static public final short RETURN = 28;
+	static public final short LB = 29;
 	static public final short SEMI = 30;
 	static public final short AC = 31;
 	static public final short FC = 32;

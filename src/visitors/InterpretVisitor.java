@@ -1030,7 +1030,7 @@ public class InterpretVisitor extends Visitor {
 
     public void visit(Inst e) {
         e.getType().accept(this);
-
+        System.out.println(e);
         Object type = operands.pop();
 
         if (datas.get((String) type) != null) {
@@ -1073,6 +1073,10 @@ public class InterpretVisitor extends Visitor {
             if (e.getSize() != null) {
                 e.getSize().accept(this);
                 Object size = operands.pop();
+                if(returnValue(size) != size){
+                    size = returnValue(size);
+                }
+                System.out.println("Size: "+size);
                 Tupla[] tuplas = new Tupla[(int) size];
 
                 for (int i = 0; i < tuplas.length; i++) {

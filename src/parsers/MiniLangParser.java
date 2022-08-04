@@ -12,50 +12,50 @@ import src.beaver.*;
 public class MiniLangParser extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pjMGbu5TKLFlCcRmbXAr2IHXeI8613PDyI5cj1YzgAGakrGakfXHR5hQqeTY4LeTAMbar" +
-		"GCSgcRAAW8WeIH44GK114WGAAgA1i8Wh8SltdlXDoptjpqudwAMtptdVkV$x$d7jctfqxT#" +
-		"uaHB59wZIbqg$eThgMRgIRw6RwBVsEVa#FqI9rqZUobbRGGdgDtg1jL9zogA7QIOzJaUFeo" +
-		"7upGgDe95Ln7FMfRoK$hKWfEgOhVI8gVUffE8Qf$H7LNu3sl4yTF#rMAi8NTTGfhlCFUaUT" +
-		"KCVryQgm5hoQz$LwldwcclUzGskxAbpj8Fr1zxohj9eJeIKOGKyRNS5g2zHsTLJtNCGzdwI" +
-		"dw6bwLcj7owds18zj3Qf6tw3Qz4rAfs$HEVHjtNCnzzodtgALj9JMqGPQHgjffxNN44gZQ#" +
-		"ZNz1iQHBTGLMjU4siatnffQOsqiqOwMYFVjKOkj4OkiKPwM2C$iaQkiaP#PetyqXePQ8tSO" +
-		"8qCyvaHQsYeDVyjscXStUUeX1Hct9#j#JPzCssdEp5NgfTLKxlexzRyCTR8U6jaeZLohpLo" +
-		"lpNoe3KopHfvo1gPPOtCjKOUjKPMMIElb7EVrZIkvAPoycePULlBoQjZvEssvhr7Un9caKj" +
-		"xwJI5A4nH#e0EOArvauxJXsfiXMVLrwN$c7vAFwVpw5ngHUsf4rr05z6bT7d0kyYbZ#aZIj" +
-		"6$Fo6YTk0v6F6Bq0awIJ4luf3FFUnpNpiXnwN3Y3pYaptRHtlOHvlkeqtnqOfzjFjyj4a#s" +
-		"WGVRQoFzayVBJV8I43B2vZNF61Ucu1v1G7pkWJCwnemhtl0l1y6pEiPCEyd0VFw1CpxHS0y" +
-		"Fstm5#XRgNqHRGWDBrkxd8YJGlETi1DrKkaP9#PKmSx$R3hRn3tEyYJbfIHbVPBoQfBoRfB" +
-		"oVf9oA4av8aTFVK94Vv4QUPyHFjfVVRJvq7OOccH4$oRpyoRYTKLsXc2PWjKJB4kmRC4Q2D" +
-		"P8iCQ2VKUmfe8r4wo5OAq5QojO1y4A1UiisFc2VK#mRe9zNx2B1Vk1O9S9TeLWlGJhBTYLW" +
-		"bqjM5$1#WdMNx01WbqdsFM2tIROdmJxcs3$4coSO7SBTezWamLxGB2fWiqGRAPWSmIR9zYB" +
-		"Whqis1R1tXRibBWd7EnENRr3Ys0d5gDKgWB5iKGoiCkhWNrUFUpqql06N0txmEguKnhfIAw" +
-		"8PA9$4qJyA$bfcSXjhoiLYagDjTOegNe8Ml3QtjUhGrod8SxT#tXQ4zOgNYthJ3Nls#1pLl" +
-		"DsqrxFz3FL7AmEyICu5QoMZc#sw9c7iyp3oc1U8x#UdNXig#CQryI#lXPszdMmjwyhpYq7r" +
-		"K8uun3U2RA1kTPUULZJyl7kq0nxpHRePSjBhuoS1H6$6P6D6HtiwhR4#s43rB3ds#jaOGub" +
-		"pXLxdQz$fFxN8a7lqoyxBnihIE8igeyhtmPxcdQ8Ti1QKnzpAXixbuhEglyMFV7tUojg$FS" +
-		"dHjBn7FIFvE194Oy4VKPuuveUEBjIgzGgjKhjoz3askLGHxpDPcDboyBEFmUiy2m#Ms#FSp" +
-		"OfsKfXz8IcrEVN4ZEeG1aVAYWlkv9Lily3HaxQiFXV3pl1klDV4eV2gi6yK2jO4IoLoFqG#" +
-		"HdnVFSqx1AYb1YmDx0Mi3#m7l1wO6CWwgJW6Eu8O25mBB0REjS6NWRC1buPhvVId$4wnbjm" +
-		"h7psXp6EWbR0$dZ6OcWNiJ#JSG6qNkmlOLm9hH$xwnctGXlC$cx60z26idyiZk4Gj97iLqL" +
-		"p8R0kD3w7C7u7zG3cGPl2MXl6Bj3ciT#TiIUqnUptOHm0RTKm7dJm6y5VmvWLbsgiOqpTsS" +
-		"3XYEyoOtw6pzN87OtSWyodmxf2cqGKYhBM1tmgS4ISX#g3p#NZBIJlxz14Jy9VXbXJxhE1u" +
-		"oz1wyh#9lYNixy3Vb$szy0VnFvX#4FOFmb$UDoFHE2FORyc$6BsC#7FORyH$4NiDuE$8kwx" +
-		"xw7P2Ai3m$N3kudtTtUYpSOup88fs0pOSHZcBmto$fJ7SRw#r1UrBuQEuqPwuHYlmiVrfp7" +
-		"0G$4S1tCyWhpGJf1#iACmliQXVOnDqDp1vpeGvyZ7YTo4M2uVwnJuxU3uBOJh6RaJUNKujW" +
-		"W#heER0SEy8cykDECOpiTj3lFkJPo3svh7OGuQZAaxY$DmFTmhO2KmN4DtESoxNc7WkSROd" +
-		"0U#3OPh5ZaVrf3FDGk6#pZY$PQrm18#JZhZHCRfZFFBQZhXCZzq3kCMnlsSx$1nc4UEC9w8" +
-		"OpJ4cCfOav6F7yrYp2qxLfJNZ6XhGojalC3G#5wCzZ2qtenz3UqQnciDxMR6smoDrwZeI4C" +
-		"RpJZ1q2OpJZEqsOp6#4LvdaTB36qbuxfIZVacanlwDiR$k4uOVVRwQ8SaZynBuANtv7AZpr" +
-		"6VEgVB$9WnFs9L3R#suMSQVexX6tCtrjpmsnb#PyFlPfnhZJAVri1M9vwdF6TQ6aVdY55ZW" +
-		"E6lvMDSQcWto1gndgpVobWauw4C8$SgeyvccHVPRkJrC$HH2NdZ92#zNoEJ4$9c9FpMMYRd" +
-		"umnCr8p#4OjUBOvE6YLzr1RTVWJ3YgOsmDR1LiDMm9w3FGl3wgUUW3qAmwgc7jQzi7QhJTh" +
-		"3ggpMQ#zbs5hjOMLJgxI7PxrwGNjOyTGoxIs5BT7UCx2dj8TdcdfSUrWTrJpjpONDrjvCs4" +
-		"FQcwusyza$hHvJqu1JDPkY7bGFg69rlvgixbFtgdkq#WPielOcyQ#zMur7EyuOXGcmrxKtI" +
-		"xUFw7Q1RXVgTh5kItJxl6vVrEqQtRwYsur6HJm3rRjgYzeZHliTTKHz73yBGprynZi4mwvE" +
-		"xTTidsu$qEtxd17$JNjrUu2rWqQjtOnl6vh#lxJQfhQM7LaT4wSmc3hZqTj6MoW9s#6TjIF" +
-		"UN3i2Mu6tWjuIl2NUO#CMXgMn7uAvXgLWB#l0F3r6RR5pROkyjdWBBa2y0B4Em0x0zi3sm4" +
-		"9W8UA5g9i7deSQUT2Qmiy7vaEFM$Ghu0wUnouip1RruGxsxouip1ODm1ti#4Em59XZjHRQm" +
-		"h0GB0KMnNkr0tEfosT26EMT");
+		"U9pjMGbu5TKP$MVcBM4LB2M8X6mW4Xi56amW0HN5fKNhGj7YqYfrgSMg5GrYRKDTYfQ2b5q" +
+		"44QE0o1OA6aJ0ZO38ee2oBx8Q5LcLJM$FtFU7T##RkN68dsA$9dpddl#S$vyxT#viTnv4II" +
+		"NY6wf1jz93z4UwX#wbFzDzr8lkf#b2Y6E#cVVfNLfB6sWp5T9M#ZtTGN#WE#a1ouvdnDSqc" +
+		"xPGAgLJ9jMqR774jwUPuYZzfShxs4HzQJllOpSoR$lqu#E9mxI7UYjx6417QGUzJcMA5x0l" +
+		"waVlq05bkzXe7iR8JholclG8FUhfgv$c1Jt6GJGmuHWFqmmgfQ##fQzPlDSwT0hLfv$GJoc" +
+		"PJgFJASKpBa#5#BTnsrBgZz6i1thJ7B45etaL641pwHNQPjoga6h5pppLDjQrC6P#PioqDc" +
+		"REDMRoZPdpZPdEnimlZ9bV6JDTZPdV63Ct6JCzZ9dRZPcxZPaYdwjf7lKnrY#WrShPVPFcM" +
+		"qHlqDzEgF$5z7WbzLCyzKlfIMEz#UeTQioCC6P66JDZZ9ddZ9bYOsQyCVEICJFPc9bMoRrO" +
+		"LpbRYunrIuoPbPNqNK$fUqqbTQSgTPkCTP$JSleWuVfoI91DOOgYbmPnNpnbxELa#R#cxlH" +
+		"REfEogGtbKW5TG1VJB#dAWFUHGnzII1vdebzA4Lz$7IL9t#V#iYoVU#vZyJ7zmtFtlaNxVU" +
+		"$G8fhayNRH9#YXY2RuLB$WuutpyPxryPxnyKRwUCDylC4#tbC#NdCVp##eimBMdHEmBYTWN" +
+		"Rk0THq3rbqOiExIW7MN1woxEc3TjG7hRWXOTtF0EZ$lhk#mRRKNr2kaVofFdd8yxJ#ZByHc" +
+		"Ag7NQ1zzYHNkoHfPuZDncSTPvN4#yZWxFSwd7cUlnpcepulOG4V4HdpN7AE$9ypOrtJ8Sgo" +
+		"G5QL$wHahR4Mi9Ak6LGjpMKWDbMqAgP6c6ckgYQQQQYfDKncQQgQfCpJLKbDdQUfiJRNIrC" +
+		"yrrLPJUPfghwaEcZfFKvqqTP6cBj7KPPhgegahD7MLfgxHL3TDNQUfwpLrewP#fwbRD7MRf" +
+		"dfgwa#QUb1JVzNKOvfwGbE3D3L4KyCrzRIcHcjghAQUrzIBcfgegPSrDLLJ2pNrdgPMQ6gZ" +
+		"fhvHxeseLLDyILNy4r#XiR3#TEJQB8BLLXBLmFU#BTD#cKPOtJN6#gu9LX9duJis6rVzERZ" +
+		"McoaPGguTlf5hOrNO0Xd$dWhWfrTv7wdOhc8VpP7nwyVF8soPelIJYVix5NTr2yKBsbSAl5" +
+		"HbkzXeNFV4#sg1TNEAJryfLUWh6Qv#ZBdIQ$yjVMNnNkjYBLyFg$bJiPvlW1LzGy#ul1N9n" +
+		"eo5yvE2fwzxBCdWJ8bCFFNg8cFQIZ$pJQkmt#hC3vVnkvfIyLODTdPRuuio0szaSxt$C#h4" +
+		"wYiRpycVmHzpvlky5uFs7RGk7TUHxRc#Ch3#oi6gI$Sx67lvN$4JZ$DCt#DiZVl1tyzYF#Y" +
+		"RfId#9VlSlSc1UqZ368DNLtlLNhLNxSLNgEgJ9rK#xVF0vsA5cuP$xNya8tEVYIVFSP#loV" +
+		"YkISUyw9aKhBZJCL#M9vEFsNEtoFTagbMr#lzM5bOzQQAAVxYloAfT5Fl1vJoWDl$uaWNK0" +
+		"Je2RO3UG0qY#shKjutLstUYEKOKoYPoUe7RWv4ANGJk3xu2F09y7RWOV0ju6hWdjii0Fm3k" +
+		"2YwAzHTwada8ynZiwpAE9p2NmEl6yHpc1V1wSBoSUIsyUpZUnhmRtiCS7ufns8R7#mtpF8G" +
+		"RmXlESHepviCgvZW7pIWmviQQpjwbvFu$F8NT#PdBtWtCjy5Rp36FATm7tcgE7sKU06#x6x" +
+		"F6t5dxC6TpAZpsny5R27uPUQ7c$82$PQYTXVDLSPwR0ZW$uVdmch4t0NFY$gus1PY8tBl85" +
+		"N0ESnvU2TqrfYrS5#6D25O0vJocNSZtv1XZjX$a6DU7$NWiZaGG3#Qu7kAn73T6F9dZPeXd" +
+		"StmsuZAEyn2lvBWJuYqSTq6yEnQ7t6jt0p03E81njW8Q0KtYSs6T1gGXw8uvl0JRraLy5xW" +
+		"v7#iJpAFHNoRuHkpZTkIFndpxUkXxiUqfYBl168oOhr7d3kGU0hk$CVO0pmDFvLnBPioDrP" +
+		"37$XXq1uu78ZxCOyHyH4P27u4enJXm3A7wyDpxSnNuV1vZ1yIu1YCN8ju4xin#N#0ezCNSD" +
+		"yvJf1nmjoq3bW2uFspSWyvLyRaXzzXM0#i0x3kodRVV3EmWIheV60JqucEvW7acynlCIvJv" +
+		"peZ7zYxEy$4xMSoNL#o7UISpdzV8GUPZCOuwp3MPwpCtYkyhcifyXk9bC#SeNZvp9yNZync" +
+		"zKl6kPRv9yMvbxgbuzp7tKRo#pFqKRo3pCCKRpLoiU9EOInIlb7b#XSUwJDMAlvHvbL$UiC" +
+		"rw7s#hhYEbIguyeNPlGks2XFmX9HRnE2cYn7MKk84Idwx4olMLr5A9MobnhX9tLCQK7O$n5" +
+		"YNo7BC#PYiSOxj#t7FsAFsju7rqrhTBwgBKz4d8NSF#8ypzzRopIgdjNX7ZnRrVhoD#VaM6" +
+		"wdvaJ8Bcvr1aV88$BQ4$xPt3#xyvqLEsNsJmbyJOgbXNA7zYZMpt0tWoYVS1F9d48k0T06z" +
+		"JyJhmAl0VO2em2HWljte1M2cZ3u3bCbeAl2SZlBt4GXbXRI3Ubj6Rm7mPpGNco6Wsy8gCPW" +
+		"8pP3GTc28Zl5$5IpB2sr6yAADYyI6FlbHC4y#3nqdrd1WhdXLZn6ZnZ1WbdXOZfOkdgHWke" +
+		"n5yj4DbEqmCbZpa#5ny9Dk9ifqisnBPpfBjQxAT9zktP5icsyMoNIRR5Kh$Eu4TOetOfStt" +
+		"Td5077J7mQFRfsNt7e##0FO0dqdrgMpBPVk9Klyvysx5syR7jLNnrijsdLWRcm6f3gbxfhl" +
+		"n9dD$0tHXUxWjlcJpyJsR3su3tGP#Q#WOeemmK8jZ6t2Eem3r1T9BeXoiONDGauDlutR8jK" +
+		"Ck3vm7pWNdol#7Se084COgs092W8CrjuLLjmE46T4VG5jOvpj0c17rqHQ#11mWp8W6q1Q#7" +
+		"MmW15X6j9880pOG1K90173m9Uv#fplKyRyrFXGJ");
 
 	static final Action RETURN2 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -177,7 +177,16 @@ public class MiniLangParser extends Parser {
 					 return new Attr((String)l, r);
 				}
 			},
-			new Action() {	// [13] Stmt = ITERATE AP Exp.l FP AC StmtList.r FC
+			new Action() {	// [13] Stmt = Lvalue.l EQ Exp.r SEMI
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final Lvalue l = (Lvalue) _symbol_l.value;
+					final Symbol _symbol_r = _symbols[offset + 3];
+					final Exp r = (Exp) _symbol_r.value;
+					 return new Attr(l, r);
+				}
+			},
+			new Action() {	// [14] Stmt = ITERATE AP Exp.l FP AC StmtList.r FC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;
@@ -186,7 +195,7 @@ public class MiniLangParser extends Parser {
 					 return new Iterate(l, new StmtList(r));
 				}
 			},
-			new Action() {	// [14] Stmt = IF AP Exp.l FP StmtList.r ELSE StmtList.s
+			new Action() {	// [15] Stmt = IF AP Exp.l FP StmtList.r ELSE StmtList.s
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;
@@ -197,7 +206,7 @@ public class MiniLangParser extends Parser {
 					 return new IfElse(l, r, s);
 				}
 			},
-			new Action() {	// [15] Stmt = IF AP Exp.l FP StmtList.r
+			new Action() {	// [16] Stmt = IF AP Exp.l FP StmtList.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;
@@ -206,7 +215,7 @@ public class MiniLangParser extends Parser {
 					 return new IfElse(l, r);
 				}
 			},
-			new Action() {	// [16] Stmt = IF AP Exp.l FP AC StmtList.r FC ELSE AC StmtList.s FC
+			new Action() {	// [17] Stmt = IF AP Exp.l FP AC StmtList.r FC ELSE AC StmtList.s FC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;
@@ -217,7 +226,7 @@ public class MiniLangParser extends Parser {
 					 return new IfElse(l, r, s);
 				}
 			},
-			new Action() {	// [17] Stmt = IF AP Exp.l FP AC StmtList.r FC
+			new Action() {	// [18] Stmt = IF AP Exp.l FP AC StmtList.r FC
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;
@@ -226,35 +235,26 @@ public class MiniLangParser extends Parser {
 					 return new IfElse(l, r);
 				}
 			},
-			RETURN2,	// [18] Stmt = Exp SEMI; returns 'SEMI' although none is marked
-			new Action() {	// [19] Stmt = READ Lvalue.l SEMI
+			RETURN2,	// [19] Stmt = Exp SEMI; returns 'SEMI' although none is marked
+			new Action() {	// [20] Stmt = READ Lvalue.l SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 2];
 					final Lvalue l = (Lvalue) _symbol_l.value;
 					return new Read(l);
 				}
 			},
-			new Action() {	// [20] Stmt = PRINT Exp.e SEMI
+			new Action() {	// [21] Stmt = PRINT Exp.e SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 2];
 					final Exp e = (Exp) _symbol_e.value;
 					 return new Print(e);
 				}
 			},
-			new Action() {	// [21] Stmt = RETURN Ret.l SEMI
+			new Action() {	// [22] Stmt = RETURN Ret.l SEMI
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 2];
 					final Node l = (Node) _symbol_l.value;
 					 return new GenRet(l);
-				}
-			},
-			new Action() {	// [22] Stmt = Lvalue.l EQ Exp.r SEMI
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_l = _symbols[offset + 1];
-					final Lvalue l = (Lvalue) _symbol_l.value;
-					final Symbol _symbol_r = _symbols[offset + 3];
-					final Exp r = (Exp) _symbol_r.value;
-					 return new Attr(l, r);
 				}
 			},
 			new Action() {	// [23] lst$Lvalue = Lvalue
@@ -919,16 +919,7 @@ public class MiniLangParser extends Parser {
 					return new Inst(new Type(l));
 				}
 			},
-			new Action() {	// [105] Pexp = ID.l LB Exps.b RB
-				public Symbol reduce(Symbol[] _symbols, int offset) {
-					final Symbol _symbol_l = _symbols[offset + 1];
-					final String l = (String) _symbol_l.value;
-					final Symbol _symbol_b = _symbols[offset + 3];
-					final Exps b = (Exps) _symbol_b.value;
-					return new FuncCall(l, b);
-				}
-			},
-			new Action() {	// [106] Pexp = ID.l AP Exps.b FP LB Exp.c RB
+			new Action() {	// [105] Pexp = ID.l AP Exps.b FP LB Exp.c RB
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 1];
 					final String l = (String) _symbol_l.value;
@@ -939,14 +930,39 @@ public class MiniLangParser extends Parser {
 					return new FuncCall(l, b, c);
 				}
 			},
-			new Action() {	// [107] Exps = Exp.e
+			new Action() {	// [106] Pexp = ID.l AP Exps.b FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					final Symbol _symbol_b = _symbols[offset + 3];
+					final Exps b = (Exps) _symbol_b.value;
+					return new FuncCall(l, b);
+				}
+			},
+			new Action() {	// [107] Pexp = ID.l AP FP LB Exp.c RB
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					final Symbol _symbol_c = _symbols[offset + 5];
+					final Exp c = (Exp) _symbol_c.value;
+					return new FuncCall(l,c);
+				}
+			},
+			new Action() {	// [108] Pexp = ID.l AP FP
+				public Symbol reduce(Symbol[] _symbols, int offset) {
+					final Symbol _symbol_l = _symbols[offset + 1];
+					final String l = (String) _symbol_l.value;
+					return new FuncCall(l);
+				}
+			},
+			new Action() {	// [109] Exps = Exp.e
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final Exp e = (Exp) _symbol_e.value;
 					 return new Exps(e);
 				}
 			},
-			new Action() {	// [108] Exps = Exp.e COMMA Exps.f
+			new Action() {	// [110] Exps = Exp.e COMMA Exps.f
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_e = _symbols[offset + 1];
 					final Exp e = (Exp) _symbol_e.value;

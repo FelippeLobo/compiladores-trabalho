@@ -20,6 +20,13 @@ public class FuncCall extends Exp {
         this.returnId = null;
     }
 
+    public FuncCall(String id, Exp returnId){
+        this.id = id;
+        this.parameters = null;
+        this.returnId = returnId;
+    }
+
+
     public FuncCall(String id){
         this.id = id;
         this.parameters = null;
@@ -28,9 +35,18 @@ public class FuncCall extends Exp {
 
     public String toString(){
         if(returnId != null){
-            return (this.id.toString() + "(" + this.parameters.toString() + ")[" + returnId.toString() + "]");
+            if(parameters != null){
+                return (this.id.toString() + "(" + this.parameters.toString() + ")[" + returnId.toString() + "]");
+            }else{
+                return (this.id.toString() + "()[" + returnId.toString() + "]");
+            }
+           
         }else{
-            return (this.id.toString() + "[" + returnId.toString() + "]");
+            if(parameters != null){
+                return (this.id.toString() + "(" + this.parameters.toString() + ")");
+            }else{
+                return (this.id.toString() + "()");
+            }
         }
         
     }
