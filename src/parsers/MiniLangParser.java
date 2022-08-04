@@ -12,50 +12,50 @@ import src.beaver.*;
 public class MiniLangParser extends Parser {
 
 	static final ParsingTables PARSING_TABLES = new ParsingTables(
-		"U9pjMGbu5TKP$MVcBM4LB2M8X6mW4Xi56amW0HN5fKNhGj7YqYfrgSMg5GrYRKDTYfQ2b5q" +
-		"44QE0o1OA6aJ0ZO38ee2oBx8Q5LcLJM$FtFU7T##RkN68dsA$9dpddl#S$vyxT#viTnv4II" +
-		"NY6wf1jz93z4UwX#wbFzDzr8lkf#b2Y6E#cVVfNLfB6sWp5T9M#ZtTGN#WE#a1ouvdnDSqc" +
-		"xPGAgLJ9jMqR774jwUPuYZzfShxs4HzQJllOpSoR$lqu#E9mxI7UYjx6417QGUzJcMA5x0l" +
-		"waVlq05bkzXe7iR8JholclG8FUhfgv$c1Jt6GJGmuHWFqmmgfQ##fQzPlDSwT0hLfv$GJoc" +
-		"PJgFJASKpBa#5#BTnsrBgZz6i1thJ7B45etaL641pwHNQPjoga6h5pppLDjQrC6P#PioqDc" +
-		"REDMRoZPdpZPdEnimlZ9bV6JDTZPdV63Ct6JCzZ9dRZPcxZPaYdwjf7lKnrY#WrShPVPFcM" +
-		"qHlqDzEgF$5z7WbzLCyzKlfIMEz#UeTQioCC6P66JDZZ9ddZ9bYOsQyCVEICJFPc9bMoRrO" +
-		"LpbRYunrIuoPbPNqNK$fUqqbTQSgTPkCTP$JSleWuVfoI91DOOgYbmPnNpnbxELa#R#cxlH" +
-		"REfEogGtbKW5TG1VJB#dAWFUHGnzII1vdebzA4Lz$7IL9t#V#iYoVU#vZyJ7zmtFtlaNxVU" +
-		"$G8fhayNRH9#YXY2RuLB$WuutpyPxryPxnyKRwUCDylC4#tbC#NdCVp##eimBMdHEmBYTWN" +
-		"Rk0THq3rbqOiExIW7MN1woxEc3TjG7hRWXOTtF0EZ$lhk#mRRKNr2kaVofFdd8yxJ#ZByHc" +
-		"Ag7NQ1zzYHNkoHfPuZDncSTPvN4#yZWxFSwd7cUlnpcepulOG4V4HdpN7AE$9ypOrtJ8Sgo" +
-		"G5QL$wHahR4Mi9Ak6LGjpMKWDbMqAgP6c6ckgYQQQQYfDKncQQgQfCpJLKbDdQUfiJRNIrC" +
-		"yrrLPJUPfghwaEcZfFKvqqTP6cBj7KPPhgegahD7MLfgxHL3TDNQUfwpLrewP#fwbRD7MRf" +
-		"dfgwa#QUb1JVzNKOvfwGbE3D3L4KyCrzRIcHcjghAQUrzIBcfgegPSrDLLJ2pNrdgPMQ6gZ" +
-		"fhvHxeseLLDyILNy4r#XiR3#TEJQB8BLLXBLmFU#BTD#cKPOtJN6#gu9LX9duJis6rVzERZ" +
-		"McoaPGguTlf5hOrNO0Xd$dWhWfrTv7wdOhc8VpP7nwyVF8soPelIJYVix5NTr2yKBsbSAl5" +
-		"HbkzXeNFV4#sg1TNEAJryfLUWh6Qv#ZBdIQ$yjVMNnNkjYBLyFg$bJiPvlW1LzGy#ul1N9n" +
-		"eo5yvE2fwzxBCdWJ8bCFFNg8cFQIZ$pJQkmt#hC3vVnkvfIyLODTdPRuuio0szaSxt$C#h4" +
-		"wYiRpycVmHzpvlky5uFs7RGk7TUHxRc#Ch3#oi6gI$Sx67lvN$4JZ$DCt#DiZVl1tyzYF#Y" +
-		"RfId#9VlSlSc1UqZ368DNLtlLNhLNxSLNgEgJ9rK#xVF0vsA5cuP$xNya8tEVYIVFSP#loV" +
-		"YkISUyw9aKhBZJCL#M9vEFsNEtoFTagbMr#lzM5bOzQQAAVxYloAfT5Fl1vJoWDl$uaWNK0" +
-		"Je2RO3UG0qY#shKjutLstUYEKOKoYPoUe7RWv4ANGJk3xu2F09y7RWOV0ju6hWdjii0Fm3k" +
-		"2YwAzHTwada8ynZiwpAE9p2NmEl6yHpc1V1wSBoSUIsyUpZUnhmRtiCS7ufns8R7#mtpF8G" +
-		"RmXlESHepviCgvZW7pIWmviQQpjwbvFu$F8NT#PdBtWtCjy5Rp36FATm7tcgE7sKU06#x6x" +
-		"F6t5dxC6TpAZpsny5R27uPUQ7c$82$PQYTXVDLSPwR0ZW$uVdmch4t0NFY$gus1PY8tBl85" +
-		"N0ESnvU2TqrfYrS5#6D25O0vJocNSZtv1XZjX$a6DU7$NWiZaGG3#Qu7kAn73T6F9dZPeXd" +
-		"StmsuZAEyn2lvBWJuYqSTq6yEnQ7t6jt0p03E81njW8Q0KtYSs6T1gGXw8uvl0JRraLy5xW" +
-		"v7#iJpAFHNoRuHkpZTkIFndpxUkXxiUqfYBl168oOhr7d3kGU0hk$CVO0pmDFvLnBPioDrP" +
-		"37$XXq1uu78ZxCOyHyH4P27u4enJXm3A7wyDpxSnNuV1vZ1yIu1YCN8ju4xin#N#0ezCNSD" +
-		"yvJf1nmjoq3bW2uFspSWyvLyRaXzzXM0#i0x3kodRVV3EmWIheV60JqucEvW7acynlCIvJv" +
-		"peZ7zYxEy$4xMSoNL#o7UISpdzV8GUPZCOuwp3MPwpCtYkyhcifyXk9bC#SeNZvp9yNZync" +
-		"zKl6kPRv9yMvbxgbuzp7tKRo#pFqKRo3pCCKRpLoiU9EOInIlb7b#XSUwJDMAlvHvbL$UiC" +
-		"rw7s#hhYEbIguyeNPlGks2XFmX9HRnE2cYn7MKk84Idwx4olMLr5A9MobnhX9tLCQK7O$n5" +
-		"YNo7BC#PYiSOxj#t7FsAFsju7rqrhTBwgBKz4d8NSF#8ypzzRopIgdjNX7ZnRrVhoD#VaM6" +
-		"wdvaJ8Bcvr1aV88$BQ4$xPt3#xyvqLEsNsJmbyJOgbXNA7zYZMpt0tWoYVS1F9d48k0T06z" +
-		"JyJhmAl0VO2em2HWljte1M2cZ3u3bCbeAl2SZlBt4GXbXRI3Ubj6Rm7mPpGNco6Wsy8gCPW" +
-		"8pP3GTc28Zl5$5IpB2sr6yAADYyI6FlbHC4y#3nqdrd1WhdXLZn6ZnZ1WbdXOZfOkdgHWke" +
-		"n5yj4DbEqmCbZpa#5ny9Dk9ifqisnBPpfBjQxAT9zktP5icsyMoNIRR5Kh$Eu4TOetOfStt" +
-		"Td5077J7mQFRfsNt7e##0FO0dqdrgMpBPVk9Klyvysx5syR7jLNnrijsdLWRcm6f3gbxfhl" +
-		"n9dD$0tHXUxWjlcJpyJsR3su3tGP#Q#WOeemmK8jZ6t2Eem3r1T9BeXoiONDGauDlutR8jK" +
-		"Ck3vm7pWNdol#7Se084COgs092W8CrjuLLjmE46T4VG5jOvpj0c17rqHQ#11mWp8W6q1Q#7" +
-		"MmW15X6j9880pOG1K90173m9Uv#fplKyRyrFXGJ");
+		"U9pjMGcO5CKP$RjxUcONLWGrB1BsXe2h28iBB7kWA2h6An92l4YC63MAyOmSncIDjnB4009" +
+		"oY81oACT2G1QvL0Ja49H5RX0411JaKawflAdvbwcQwLgRpIUOBxjyhzx$tlztTNNrLJqG9P" +
+		"I8uvH8VwJ7w5vwW1waX#XXUeJ#GYL2Y6EUcKze8QsXzVGvTQKlw0wwc$v4zz2ZbXtDYEzfE" +
+		"csYDCgWBAfcsUA8PqzJn57wQwNtiP6UeAsyZzt8pFNenyCJXsaFTLFsq8kEqZQQIVCLpsTV" +
+		"z1nzI0UKxIAZUHmZE$c#gj6Jz5HSNyzfdjzZV9bUYZd6mpIPIkdW3$GrbVTw1fr9jUXi#Xa" +
+		"bqxdqSqg96rTSXVYNSTjIwedHh0EwqGon2QEP1lIYMVGERJ5krPMgHyyy9Hdh6Xep5nWpES" +
+		"PC2sEcm9Yvn9Yvt9ZvfJ5plJ7JmPYvoPZvdJ7JsPYvovYvtvWfzhYQPbCFO$qyMgMStVTfZ" +
+		"aNq7ltzfFfVHCzKK3y#hlvZUi5ORxvw#nap0uoPGSRCK6FcTMDcf34pofWPQyoCCsOcLd0l" +
+		"rb3EraV6kYN6J5a5VTTK#bvTGTrPIjr6OzqkMaQVnbnV3WcooQKGUZadwelUnbvEb$yRkfb" +
+		"#JuseCJMZbbH8RUWAkff#vVC#SkWp2iZZZFLBAUZfhwK4wNlSNvRbSSzj5flfsRYxzmFQxt" +
+		"c75jDRSTvsse4UYccqH$KR7jvm3#yr3s#mXpVGmtl5m#lZuVNsy1fuU5v7dUsphedFkboVT" +
+		"QryrhNsMNUPpxfsFkkkzLdNtcVTRttMtUgpxWy#wxoy#$wBRQiylrvNUb5vykp4q$vh#aPy" +
+		"JfFeNTf7ts65Uxf65ljCN1hdh8nplenplefpziOvt#gp8DRJ4R41Np77w1yny$Cz7R8SAs2" +
+		"5w9zwndAje9LW9LhLCNDw$ojGMLlHNQcEfkfggfwcKZMLhgbCJTNNr2yqTPwcpjVKXPfggg" +
+		"cBDDLSKtcQojTKaQOkrjIbccghgIirTPMchj7KTPgwGLE$rbH7JTsegLiqrKbJjsdgTatTg" +
+		"Qakclgpfhfhwc#QUbfJpslgPKtrrLH$JRsggI6Q6gQf4PfwKrDZDFMsfYPeQe6c5cjgkQOs" +
+		"QEguSg#4h6hYEwhadpY8niBgqv4hio3MMWcKYAzzMwQzCdMmjgkBrLqzh2FEnrTiOrprJN2" +
+		"jrrSoX5mhV24dOKtO41dldWhXPrHw7sdOhdmV3P3nwiVB8soPelIJXVix3NTrGyNpsrSAl3" +
+		"HbkyXemkx9zzKGg#OKZxvIAj5NCbpz65jAB$y7#ihclTR0Ihucrl9dOJL$3jRpjUF65L#HR" +
+		"CnOE3yfUFg6ZoKPd2MHXQTU3MHCM#bdFhKI#wtAdBgCrzMKXhUglxERW#$9JBoHpVNUpwYJ" +
+		"gwzeFAT$1d$AcH$pNlJRjz#w35n7TjprbOdrLovMNRfVPEpbVyMFFSv6diUPW$l1syzct##" +
+		"R9HN$aZtktcJVFQHZZFwhgxmghyghyg8hLFN9aoQVzddW5bZXfkDV$azaPE5dugboma$JP7" +
+		"p5P60Mz4mArjSPc1qhBbE0kGflKH2NoOdHLQfA$Nyh2skUT579FzndP2KLHtvkkHX8ufzUi" +
+		"e4pWDP0Cw0Ra4XajqTzyqYzVG#QOqI1naJE8#1yC5A1jk2UuEl00y0tWaU2RmTF17V1TfdW" +
+		"Hy4TmCMH$W8lCFTb7efzNSNnQEP9y3foF8Dv7hpE72zZNWFl0OwtCE#6zpZ7XoBisl1ulox" +
+		"FWriRNd#Eqvan7zP8ZdFH309ZRgmIzjfH#F$WoGtFpopsRcM#4zuYZdbCRWzugpX#YhaNlA" +
+		"tXc3Ncpjg7EPjHxh4$7Du2yDl82pNd1VmjHUrKdA$oyvmAuFouS#3LPsyqvYJygzfuO0no2" +
+		"v4hv1pct2s3xX3H5guBTmE2vS1E7jDsvBjmZ37RtJd6zM4$4uc3GSHzEAw9U1Z7TH6FuxW#" +
+		"ukaSNuXuFiTvYCiulXJn9ewlGRmx4WV2r#vwO39m0EDi2jG1waNdmZeNI4TmC#RmIcnR0$5" +
+		"zu0PyhCyp3q5$MU1EsCTTo1#D#FOjq0zYspCHTuJH1p5VeyxTo3q63l$2s1ay6po1S#SnOs" +
+		"wisZpsfw6BE7u9yM4U8#OZE13w24Gfne5Z2DI25xu$Lu0luJ4M8SOr6BmCyKRmvUm$0Ho5l" +
+		"eBxnhaCRW8M0xE0kS0d63$kGUU6wDnG#DXmhGG$1VO2wtZxbG3cDG7tU49lu64#bZRCKvZV" +
+		"OrwYp7TcDBQtSvwFtybclfRtiv5v6$CkvWFCV0v2DdCYSqtcvEY#GgdC3HJl0kQB52#VkOt" +
+		"YjME#Nl7ucHFgf7XtCD#hU0ynTrSyVhw5dbMyNipz56ymymZ56yjSedZJc6UNUwpdgLhnbp" +
+		"2NUUKDswpry3RhEZXHoUs8gTqJKpip9dzGYOz7umHNYPEK#6mbhgl46KhSI8cRA74B9IvIn" +
+		"jGu6kCjIhGkzfZrCLjkXErQKS$P4us32taVRVNj4gvMQdh4vDgplvBvIJtlh51gRogFyUBU" +
+		"hzSHFx#2FNK$s2z6ytCeE3J67nNJd$REuVtV5kifsyyn#7CZR9MlAvG$iLgs#m4yrGIUI68" +
+		"9y17m8O2tgPW9J0F#3Km0tW96oQtU0CfaXAULM2QZZu75Ci8JJooG4TO6OgwCtWVco0ZFG3" +
+		"53HjE1TsGq1PWien9Wl8pmVXLZPOItetXJHYF5PppwKZ5HZ00Fb#frCKoy9eQA8MAm62HU5" +
+		"GEbkmheBwC1VBJzPFkAw2EvxucvM2dRCR8T9zj9ifqgstTbErks7yXslcmNoNQfR9Sh$Ny9" +
+		"R1EhnNPjlhUA0#BRy3XuTFkqxDuJqJV07k1hgRwIxKxPxb3gTp7lLhmjV5nVADuwsQuLQo8" +
+		"p8DKXTSzqFzvauLy0mx3Zk3c#OmlmDLi0RWRT37uET0GXXWjKvzW6d1CeH7sXz18e5slOND" +
+		"Jauiku5NAjaCi3vu5RWblA$uLoW23WOXLi0G70mPhRmghR0Ln6w1He2#jy1t0P8GzjuKl00" +
+		"Ln6o8UsyErW0m70CgAfX0lOG0W80470mPTv#BlTeTR$0UvX4d4=");
 
 	static final Action RETURN2 = new Action() {
 		public Symbol reduce(Symbol[] _symbols, int offset) {
@@ -195,7 +195,7 @@ public class MiniLangParser extends Parser {
 					 return new Iterate(l, new StmtList(r));
 				}
 			},
-			new Action() {	// [15] Stmt = IF AP Exp.l FP StmtList.r ELSE StmtList.s
+			new Action() {	// [15] Stmt = IF AP Exp.l FP Stmt.r ELSE StmtList.s
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;
@@ -206,7 +206,7 @@ public class MiniLangParser extends Parser {
 					 return new IfElse(l, r, s);
 				}
 			},
-			new Action() {	// [16] Stmt = IF AP Exp.l FP StmtList.r
+			new Action() {	// [16] Stmt = IF AP Exp.l FP Stmt.r
 				public Symbol reduce(Symbol[] _symbols, int offset) {
 					final Symbol _symbol_l = _symbols[offset + 3];
 					final Exp l = (Exp) _symbol_l.value;

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
+import javax.management.openmbean.OpenDataException;
 import javax.sound.sampled.SourceDataLine;
 
 import java.util.Scanner;
@@ -53,68 +54,72 @@ public class InterpretVisitor extends Visitor {
             prog.getCommand2().accept(this);
         }
 
-        if(this.funcDefinitions.get("main") != null){
+        if (this.funcDefinitions.get("main") != null) {
             this.analyseFunc = true;
-            ((Func)this.funcDefinitions.get("main")).accept(this);
+            ((Func) this.funcDefinitions.get("main")).accept(this);
         }
-        
+
     }
 
-    public Boolean match(Object exp, String type){
-        switch(type){
+    public Boolean match(Object exp, String type) {
+        switch (type) {
             case "Integer":
-            if(exp instanceof Integer){
-                return true;
-            }else{
-                System.out.println("Erro: o valor esperado era de Int, mas foi encontrado um: " + exp.getClass().getSimpleName());
-            }
-            break;
+                if (exp instanceof Integer) {
+                    return true;
+                } else {
+                    System.out.println("Erro: o valor esperado era de Int, mas foi encontrado um: "
+                            + exp.getClass().getSimpleName());
+                }
+                break;
 
             case "Float":
-            if(exp instanceof Float){
-                return true;
-            }else{
-                System.out.println("Erro: o valor esperado era de Float, mas foi encontrado um: " + exp.getClass().getSimpleName());
-            }
-            break;
+                if (exp instanceof Float) {
+                    return true;
+                } else {
+                    System.out.println("Erro: o valor esperado era de Float, mas foi encontrado um: "
+                            + exp.getClass().getSimpleName());
+                }
+                break;
 
             case "Boolean":
-            if(exp instanceof Boolean){
-                return true;
-            }else{
-                System.out.println("Erro: o valor esperado era de Boolean, mas foi encontrado um: " + exp.getClass().getSimpleName());
-            }
-            break;
+                if (exp instanceof Boolean) {
+                    return true;
+                } else {
+                    System.out.println("Erro: o valor esperado era de Boolean, mas foi encontrado um: "
+                            + exp.getClass().getSimpleName());
+                }
+                break;
 
             case "Character":
-            if(exp instanceof Character){
-                return true;
-            }else{
-                System.out.println("Erro: o valor esperado era de Char, mas foi encontrado um: " + exp.getClass().getSimpleName());
-            }
-            break;
+                if (exp instanceof Character) {
+                    return true;
+                } else {
+                    System.out.println("Erro: o valor esperado era de Char, mas foi encontrado um: "
+                            + exp.getClass().getSimpleName());
+                }
+                break;
 
             case "String":
-            if(exp instanceof String){
-                return true;
-            }else{
-                System.out.println("Erro: o valor esperado era de String, mas foi encontrado um: " + exp.getClass().getSimpleName());
-            }
-            break;
+                if (exp instanceof String) {
+                    return true;
+                } else {
+                    System.out.println("Erro: o valor esperado era de String, mas foi encontrado um: "
+                            + exp.getClass().getSimpleName());
+                }
+                break;
             default:
-            System.out.println("Erro: o valor esperado não é um valor possível: " + type);
-            break;
+                System.out.println("Erro: o valor esperado não é um valor possível: " + type);
+                break;
         }
-        
+
         return false;
     }
 
-    public Object returnValue(Object exp){
-
-        if (this.isBlock) {
+    public Object returnValue(Object exp) {
+           
             Object var = env.peek().get(exp);
             Object global = globalCtx.get(exp);
-
+     
             if (var != null) {
                 if (env.peek().get(var) != null) {
                     return env.peek().get(var);
@@ -132,19 +137,8 @@ public class InterpretVisitor extends Visitor {
                 }
             }
 
-        } else {
-            if (globalCtx.get(exp) != null) {
-                Object var = globalCtx.get(exp);
-                if (globalCtx.get(var) != null) {
-                    return globalCtx.get(var);
-                } else {
-                    return globalCtx.get(exp);
-                }
-            } else {
-                return exp;
-            }
-        }
-
+     
+        
         return exp;
     }
 
@@ -192,12 +186,15 @@ public class InterpretVisitor extends Visitor {
     public void visit(Sub e) {
         e.getLeft().accept(this);
         Object exp = operands.pop();
+
         Object left = returnValue(exp);
 
         e.getRight().accept(this);
         Object exp2 = operands.pop();
-        Object right = returnValue(exp2);
 
+        Object right = returnValue(exp2);
+        System.out.println("Env: "+ Arrays.asList(env));
+        System.out.println("Left: "+ left + "| right: "+right);    
         if (left instanceof Integer) {
             if (right instanceof Integer) {
                 operands.push((Integer) left - (Integer) right);
@@ -445,13 +442,11 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Attr e) {
- 
 
         e.getExp().accept(this);
         e.getVar().accept(this);
 
         Object variableName = operands.pop();
- 
 
         Object value = null;
         value = operands.pop();
@@ -626,9 +621,14 @@ public class InterpretVisitor extends Visitor {
     @Override
     public void visit(StmtList stmtList) {
 
+        if (isReturn) {
+            return;
+        }
         // System.out.println(stmtList.toString());
         stmtList.getStmt().accept(this);
-
+        if (isReturn) {
+            return;
+        }
         if (stmtList.getStmtList() != null) {
             stmtList.getStmtList().accept(this);
         }
@@ -638,43 +638,18 @@ public class InterpretVisitor extends Visitor {
     public void visit(IfElse ifelse) {
         boolean interior = false;
 
-        if (this.isBlock) {
-            interior = true;
-            HashMap<String, Object> localEnv = new HashMap<>();
-            env.peek().put("if", localEnv);
-        } else {
-            this.isBlock = true;
-            HashMap<String, Object> localEnv = new HashMap<>();
-            env.push(localEnv);
-            this.isBlock = true;
-        }
-
         ifelse.getExp().accept(this);
         Object exp = operands.pop();
         // System.out.println("Pop: " + exp.getClass());
-        if (globalCtx.get(exp) != null) {
-            exp = globalCtx.get(exp);
-        } else if (env.peek().get(exp) != null) {
-            exp = env.peek().get(exp);
-        }
 
-        // System.out.println(exp);
-        // System.out.println(ifelse.getStmtList1().toString());
         if ((boolean) exp) {
-
+            System.out.println(ifelse.getStmtList1().toString());
             ifelse.getStmtList1().accept(this);
         } else {
             if (ifelse.getStmtList2() != null) {
                 System.out.println(ifelse.getStmtList2().toString());
                 ifelse.getStmtList2().accept(this);
             }
-        }
-
-        if (interior) {
-            env.peek().remove("if");
-        } else {
-            this.isBlock = false;
-            env.pop();
         }
     }
 
@@ -684,13 +659,13 @@ public class InterpretVisitor extends Visitor {
         Object exp = operands.pop();
         exp = returnValue(exp);
 
-        if(!(match(exp, "Integer"))){
+        if (!(match(exp, "Integer"))) {
             return;
         }
 
         int x = (Integer) exp;
         int i = 0;
-        while(i < x){
+        while (i < x) {
             e.getStmtList().accept(this);
 
             i++;
@@ -699,14 +674,21 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Ret ret) {
-        // System.out.println("Entrou no ret");
+        System.out.println(ret);
 
         ret.getExp().accept(this);
-        this.returnList.add(operands.pop());
+        Object returnV = operands.pop();
+        if (returnValue(returnV) == returnV) {
+            this.returnList.add(returnV);
+        } else {
+            this.returnList.add(returnValue(returnV));
+        }
+        System.out.println(this.returnList);
+        System.out.println(Arrays.asList(env));
+        System.out.println(Arrays.asList(operands));    
         if (ret.getRet() != null) {
             ret.getRet().accept(this);
         }
-
     }
 
     @Override
@@ -714,9 +696,9 @@ public class InterpretVisitor extends Visitor {
         // System.out.println("Entrou no gen ret");
 
         if (this.isBlock) {
-            this.isReturn = true;
+
             genret.getRet().accept(this);
-            this.isReturn = false;
+            this.isReturn = true;
         } else {
             // System.out.println("Erro: return chamado fora de um bloco");
         }
@@ -726,21 +708,18 @@ public class InterpretVisitor extends Visitor {
     public void visit(Print print) {
 
         print.getExp().accept(this);
-
         Object toPrint = null;
         Object exp = operands.pop();
-       
-        if(env.peek().get(operands.peek()) != null && env.peek().get(operands.peek()) instanceof Tupla &&  ){
-            System.out.println("Tupla:" + env.peek().get(operands.peek())); 
+        if (env.peek().get(operands.peek()) != null && env.peek().get(operands.peek()) instanceof Tupla) {
             Tupla tupla = (Tupla) env.peek().get(operands.peek());
-            if(((HashMap)tupla.getObjectData()).get(exp) != null){
-                 toPrint = ((HashMap)tupla.getObjectData()).get(exp);
+            if (((HashMap) tupla.getObjectData()).get(exp) != null) {
+                toPrint = ((HashMap) tupla.getObjectData()).get(exp);
                 operands.pop();
             }
-        }else{
-             toPrint = returnValue(exp);
+        } else {
+            toPrint = returnValue(exp);
         }
-        
+
         if (toPrint instanceof String) {
             String s = ((String) toPrint).replaceAll("\'", "");
             if (s.contains("\\n")) {
@@ -751,6 +730,7 @@ public class InterpretVisitor extends Visitor {
         } else {
             System.out.print(toPrint);
         }
+        System.out.println();
     }
 
     @Override
@@ -793,6 +773,7 @@ public class InterpretVisitor extends Visitor {
     public void visit(Func e) {
 
         if (this.analyseFunc) {
+           
             int returnIndex = -1;
             this.isBlock = true;
             actualFunc = e;
@@ -806,7 +787,7 @@ public class InterpretVisitor extends Visitor {
 
             // System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado
             // ao escopo Global");
-            
+
             if (e.getParam() != null && this.asParameters) {
 
                 env.peek().put("parameters", new ArrayList<Tupla>());
@@ -816,11 +797,11 @@ public class InterpretVisitor extends Visitor {
                     Object ret = null;
                     boolean flag = false;
                     if (this.asReturn) {
-                        
+
                         ret = operands.pop();
-                        System.out.println("Ret: " + ret);
+
                         if (!(ret instanceof String)) {
-                            
+
                             returnIndex = (int) ret;
                             flag = true;
                         }
@@ -830,7 +811,7 @@ public class InterpretVisitor extends Visitor {
                     HashMap<String, Object> parametersValueID = new HashMap<>();
 
                     List<Object> parametersValues = new ArrayList<>();
-                   
+
                     while (!(operands.peek() instanceof List<?>)) {
                         Object value = operands.pop();
                         parametersValues.add(value);
@@ -851,17 +832,15 @@ public class InterpretVisitor extends Visitor {
                             i--;
                         }
                     }
-                   
+
                     if (this.asReturn && !flag) {
 
-                    
                         if (returnValue(ret) != ret) {
                             returnIndex = (int) returnValue(ret);
 
                         }
 
                     }
-
                     List<Object> funcCallObjects = (List) operands.pop();
                     funcCallObjects.add(parametersValueID);
                     if (this.asReturn) {
@@ -869,12 +848,17 @@ public class InterpretVisitor extends Visitor {
                     }
 
                     operands.push(funcCallObjects);
+
                 }
                 this.asParameters = false;
             }
-           
+            if(!this.isBlock){
+                this.isBlock = true;
+            }
             e.getBody().accept(this);
-
+            if(!this.isBlock){
+                this.isBlock = true;
+            }
             if (e.getReturn() != null) {
                 this.asReturn = true;
             } else {
@@ -892,9 +876,10 @@ public class InterpretVisitor extends Visitor {
                 this.asReturn = false;
 
             }
-
+            System.out.println("Return: " + operands.peek());
             env.pop();
             this.isBlock = false;
+            this.isReturn = false;
         } else {
             funcDefinitions.put(e.getIdentifier().toString(), e);
         }
@@ -941,9 +926,6 @@ public class InterpretVisitor extends Visitor {
 
         Object lvalue;
 
-
-    
-
         if (e.getIdentifier() != null && e.getLvalue() == null && e.getCtx() == null) {
 
             if (isBlock) {
@@ -975,14 +957,12 @@ public class InterpretVisitor extends Visitor {
 
         if (e.getLvalue() != null) {
 
-           
             e.getLvalue().accept(this);
             if (e.getIdentifier() != null) {
-                
-     
-                    operands.push(e.getIdentifier());
+
+                operands.push(e.getIdentifier());
             }
-           
+
         }
 
         if (e.getCtx() != null) {
@@ -991,7 +971,6 @@ public class InterpretVisitor extends Visitor {
 
         }
     }
-
 
     @Override
     public void visit(Read e) {
@@ -1034,7 +1013,7 @@ public class InterpretVisitor extends Visitor {
 
     public void visit(Inst e) {
         e.getType().accept(this);
-       
+
         Object type = operands.pop();
 
         if (datas.get((String) type) != null) {
@@ -1062,12 +1041,10 @@ public class InterpretVisitor extends Visitor {
                 }
                 operands.push(tuplas);
 
-              
             } else {
 
                 Tupla tupla = new Tupla(type.toString(), objectData);
                 operands.push(tupla);
-               
 
             }
 
@@ -1075,10 +1052,10 @@ public class InterpretVisitor extends Visitor {
             if (e.getSize() != null) {
                 e.getSize().accept(this);
                 Object size = operands.pop();
-                if(returnValue(size) != size){
+                if (returnValue(size) != size) {
                     size = returnValue(size);
                 }
-             
+
                 Tupla[] tuplas = new Tupla[(int) size];
 
                 for (int i = 0; i < tuplas.length; i++) {
@@ -1087,13 +1064,11 @@ public class InterpretVisitor extends Visitor {
 
                 }
                 operands.push(tuplas);
-               
-                
+
             } else {
                 Integer objectData = null;
                 Tupla tupla = new Tupla(type.toString(), objectData);
                 operands.push(tupla);
-                
 
             }
         } else if (((String) type).equals("Float")) {
@@ -1108,15 +1083,14 @@ public class InterpretVisitor extends Visitor {
 
                 }
                 operands.push(tuplas);
-                
+
                 for (int i = 0; i < tuplas.length; i++) {
-                    
+
                 }
             } else {
                 Integer objectData = null;
                 Tupla tupla = new Tupla(type.toString(), objectData);
                 operands.push(tupla);
-                
 
             }
         } else if (((String) type).equals("Char")) {
@@ -1131,13 +1105,11 @@ public class InterpretVisitor extends Visitor {
 
                 }
                 operands.push(tuplas);
-                
-              
+
             } else {
                 Integer objectData = null;
                 Tupla tupla = new Tupla(type.toString(), objectData);
                 operands.push(tupla);
-           
 
             }
         }
@@ -1170,6 +1142,7 @@ public class InterpretVisitor extends Visitor {
         if (e.getParamaters() != null) {
             this.asParameters = true;
             e.getParamaters().accept(this);
+            System.out.println("param exp: " + operands.peek());
         }
 
         if (e.getReturnId() != null) {
@@ -1182,7 +1155,7 @@ public class InterpretVisitor extends Visitor {
 
         }
         this.analyseFunc = true;
-        
+
         ((Func) func).accept(this);
 
     }
