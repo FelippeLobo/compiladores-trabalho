@@ -187,6 +187,6 @@ Pexp = Lvalue.l                    {:return l;:}
 ;
 
 
-Exps = Exp.e          {: return new Exps(e);:}
-     | Exp.e Exps.f       {: return new Exps(e, f);:}
+Exps = Exp.e            {: return new Exps(e);:}
+     | Exp.e COMMA Exps.f       {: return new Exps(e, f);:}
 ;

@@ -41,10 +41,10 @@ public class Terminals {
 	static public final short TYPE = 33;
 	static public final short DOT = 34;
 	static public final short DATA = 35;
-	static public final short RB = 36;
-	static public final short DBCOLON = 37;
-	static public final short EQ = 38;
-	static public final short COMMA = 39;
+	static public final short COMMA = 36;
+	static public final short RB = 37;
+	static public final short DBCOLON = 38;
+	static public final short EQ = 39;
 	static public final short ELSE = 40;
 	static public final short COLON = 41;
 }

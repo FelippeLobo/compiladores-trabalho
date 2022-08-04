@@ -28,6 +28,7 @@ public class InterpretVisitor extends Visitor {
     private Node actualFunc;
     private boolean isReturn;
     private String lastData;
+    private boolean canFuncs;
 
     public InterpretVisitor() {
         env = new Stack<>();
@@ -41,15 +42,22 @@ public class InterpretVisitor extends Visitor {
         lastData = "";
         asReturn = false;
         asParameters = false;
+        canFuncs = false;
     }
 
     @Override
     public void visit(Prog prog) {
-
+        this.analyseFunc = false;
         prog.getCommand1().accept(this);
         if (prog.getCommand2() != null) {
             prog.getCommand2().accept(this);
         }
+
+        if(this.funcDefinitions.get("main") != null){
+            this.analyseFunc = true;
+            ((Func)this.funcDefinitions.get("main")).accept(this);
+        }
+        
     }
 
     public Boolean match(Object exp, String type){
@@ -778,7 +786,7 @@ public class InterpretVisitor extends Visitor {
     @Override
     public void visit(Func e) {
 
-        if (e.getIdentifier().getIdentifier().equals("main") || this.analyseFunc) {
+        if (this.analyseFunc) {
             int returnIndex = -1;
             this.isBlock = true;
             actualFunc = e;
@@ -792,7 +800,7 @@ public class InterpretVisitor extends Visitor {
 
             // System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado
             // ao escopo Global");
-
+            
             if (e.getParam() != null && this.asParameters) {
 
                 env.peek().put("parameters", new ArrayList<Tupla>());
@@ -802,11 +810,11 @@ public class InterpretVisitor extends Visitor {
                     Object ret = null;
                     boolean flag = false;
                     if (this.asReturn) {
-
+                        
                         ret = operands.pop();
                         System.out.println("Ret: " + ret);
                         if (!(ret instanceof String)) {
-                            System.out.println(Arrays.asList("PeekNAOSTRING: " + ret));
+                            
                             returnIndex = (int) ret;
                             flag = true;
                         }
@@ -816,7 +824,7 @@ public class InterpretVisitor extends Visitor {
                     HashMap<String, Object> parametersValueID = new HashMap<>();
 
                     List<Object> parametersValues = new ArrayList<>();
-
+                   
                     while (!(operands.peek() instanceof List<?>)) {
                         Object value = operands.pop();
                         parametersValues.add(value);
@@ -837,7 +845,7 @@ public class InterpretVisitor extends Visitor {
                             i--;
                         }
                     }
-                    // System.out.println("asReturn" + this.asReturn + "|flag: "+ flag);
+                    System.out.println("asReturn" + this.asReturn + "|flag: "+ flag);
                     if (this.asReturn && !flag) {
 
                         System.out.println(Arrays.asList("RETO ANAL: " + ret));
@@ -861,7 +869,7 @@ public class InterpretVisitor extends Visitor {
                 }
                 this.asParameters = false;
             }
-
+           
             e.getBody().accept(this);
 
             if (e.getReturn() != null) {
@@ -993,14 +1001,12 @@ public class InterpretVisitor extends Visitor {
                 if (env.peek().get(var) != null) {
 
                     Scanner myObj = new Scanner(System.in);
-                    System.out.println("Digite valor de ");
                     String read = myObj.nextLine();
 
                     env.peek().put((String) var, read);
                 } else {
 
                     Scanner myObj = new Scanner(System.in);
-                    System.out.println("Digite valor de ");
                     String read = myObj.nextLine();
 
                     env.peek().put((String) exp, read);
@@ -1011,12 +1017,10 @@ public class InterpretVisitor extends Visitor {
                 Object var = globalCtx.get(exp);
                 if (globalCtx.get(var) != null) {
                     Scanner myObj = new Scanner(System.in);
-                    System.out.println("Digite valor de ");
                     String read = myObj.nextLine();
                     globalCtx.put((String) var, read);
                 } else {
                     Scanner myObj = new Scanner(System.in);
-                    System.out.println("Digite valor de ");
                     String read = myObj.nextLine();
                     globalCtx.put((String) exp, read);
                 }
@@ -1177,6 +1181,7 @@ public class InterpretVisitor extends Visitor {
         }
         System.out.println("FuncaoPre " + e.getIdentifier() + ": " + Arrays.asList(operands));
         this.analyseFunc = true;
+        
         ((Func) func).accept(this);
         System.out.println("FuncaoPos " + e.getIdentifier() + ": " + Arrays.asList(operands));
     }
