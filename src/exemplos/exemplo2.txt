@@ -1,17 +1,23 @@
-main(){
-    k = 5;
-    x = new Int[][k];
-    i = 0;
-    iterate(k){
-       x[i] = new Int[k];
-       i = i + 1;
+even(n :: Int) : Bool {
+    if(n == 0)
+        return true;
+    else
+        return odd(n-1)[0];
+}
+
+odd(n :: Int) : Bool {
+    if(n == 0)
+        return false;
+    else
+        return even(n-1)[0];
+}
+
+main() {
+    r = even(18)[0];
+    if(r) {
+        print 'P'; print 'A'; print 'R';
     }
-    i = 0;
-    iterate(k){
-       x[i][i] = 2*i + 1;
-       i = i + 1;
+    else {
+        print 'I'; print 'M'; print 'P'; print 'A'; print 'R';
     }
-    
-    z = x[3][3];
-    
 }

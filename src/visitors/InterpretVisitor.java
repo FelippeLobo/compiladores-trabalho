@@ -633,11 +633,10 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(IfElse ifelse) {
-        boolean interior = false;
-
         ifelse.getExp().accept(this);
         Object exp = operands.pop();
-        // System.out.println("Pop: " + exp.getClass());
+
+        exp = returnValue(exp);
 
         if ((boolean) exp) {
             System.out.println(ifelse.getStmtList1().toString());
@@ -671,18 +670,18 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Ret ret) {
-        System.out.println(ret);
-
         ret.getExp().accept(this);
         Object returnV = operands.pop();
+
         if (returnValue(returnV) == returnV) {
             this.returnList.add(returnV);
         } else {
             this.returnList.add(returnValue(returnV));
         }
-        System.out.println(this.returnList);
-        System.out.println(Arrays.asList(env));
-        System.out.println(Arrays.asList(operands));    
+
+        //System.out.println(this.returnList);
+        //System.out.println(Arrays.asList(env));
+        //System.out.println(Arrays.asList(operands));    
         if (ret.getRet() != null) {
             ret.getRet().accept(this);
         }

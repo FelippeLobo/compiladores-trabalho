@@ -34,10 +34,10 @@ public class Terminals {
 	static public final short READ = 26;
 	static public final short PRINT = 27;
 	static public final short RETURN = 28;
-	static public final short LB = 29;
-	static public final short SEMI = 30;
-	static public final short AC = 31;
-	static public final short FC = 32;
+	static public final short FC = 29;
+	static public final short LB = 30;
+	static public final short SEMI = 31;
+	static public final short AC = 32;
 	static public final short TYPE = 33;
 	static public final short RB = 34;
 	static public final short DOT = 35;
