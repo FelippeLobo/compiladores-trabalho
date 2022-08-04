@@ -50,7 +50,7 @@ WhiteSpace     = {LineTerminator} | [ \t\f]
   boolean = "true" | "false"
   identificador = [:lowercase:] ([:lowercase:] | [:uppercase:] | [:digit:] | "_")*
   Literal = "'" (.)  "'" | "'" "\\n" "'" | "'" "\\r" "'" | "'" "\\t" "'" | "'" "\\b" "'" | "'" "\\\\" "'"
-  LineComment = "//" (.)* {FimDeLinha}
+  LineComment = "//" (.)* {FimDeLinha} | "--" (.)* {FimDeLinha}
   CharEscape = "'" "\\" "t" "'" | "'" "\\" "n" "'" | "'" "\\" "\\" "'"
 
 %state COMMENT
