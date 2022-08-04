@@ -29,12 +29,15 @@ printV( v :: Ponto[], n :: Int){
        i = 1;
        iterate(n-1){
            print ',';
-           printP(v[i]);
+           printP(v[i])[];
            i = i + 1;
        }
    }
    print '}';
 }
+
+   printp()
+   printp[]
 
 -- Oredena em relação a coordenada x
 sort(v :: Ponto[], n :: Int){

@@ -119,7 +119,6 @@ public class InterpretVisitor extends Visitor {
            
             Object var = env.peek().get(exp);
             Object global = globalCtx.get(exp);
-     
             if (var != null) {
                 if (env.peek().get(var) != null) {
                     return env.peek().get(var);
@@ -192,9 +191,7 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
 
-        Object right = returnValue(exp2);
-        System.out.println("Env: "+ Arrays.asList(env));
-        System.out.println("Left: "+ left + "| right: "+right);    
+        Object right = returnValue(exp2);  
         if (left instanceof Integer) {
             if (right instanceof Integer) {
                 operands.push((Integer) left - (Integer) right);
@@ -709,17 +706,29 @@ public class InterpretVisitor extends Visitor {
 
         print.getExp().accept(this);
         Object toPrint = null;
+
         Object exp = operands.pop();
-        if (env.peek().get(operands.peek()) != null && env.peek().get(operands.peek()) instanceof Tupla) {
-            Tupla tupla = (Tupla) env.peek().get(operands.peek());
-            if (((HashMap) tupla.getObjectData()).get(exp) != null) {
-                toPrint = ((HashMap) tupla.getObjectData()).get(exp);
-                operands.pop();
+       
+        if(!operands.isEmpty()){
+            if ((env.peek().get(operands.peek()) != null) && env.peek().get(operands.peek()) instanceof Tupla) {
+                System.out.println("Entrei");
+                Tupla tupla = (Tupla) env.peek().get(operands.peek());
+                if (((HashMap) tupla.getObjectData()).get(exp) != null) {
+                    toPrint = ((HashMap) tupla.getObjectData()).get(exp);
+                    operands.pop();
+                }
+            }else {
+   
+                toPrint = returnValue(exp);
+                
             }
-        } else {
+        
+        }else{
+
             toPrint = returnValue(exp);
         }
-
+      
+       
         if (toPrint instanceof String) {
             String s = ((String) toPrint).replaceAll("\'", "");
             if (s.contains("\\n")) {
@@ -730,7 +739,7 @@ public class InterpretVisitor extends Visitor {
         } else {
             System.out.print(toPrint);
         }
-        System.out.println();
+
     }
 
     @Override
@@ -852,13 +861,9 @@ public class InterpretVisitor extends Visitor {
                 }
                 this.asParameters = false;
             }
-            if(!this.isBlock){
-                this.isBlock = true;
-            }
+
             e.getBody().accept(this);
-            if(!this.isBlock){
-                this.isBlock = true;
-            }
+
             if (e.getReturn() != null) {
                 this.asReturn = true;
             } else {
@@ -876,7 +881,6 @@ public class InterpretVisitor extends Visitor {
                 this.asReturn = false;
 
             }
-            System.out.println("Return: " + operands.peek());
             env.pop();
             this.isBlock = false;
             this.isReturn = false;
