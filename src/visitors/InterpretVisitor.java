@@ -163,11 +163,11 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Add e) {
-        // System.out.println(e.toString());
+
         e.getLeft().accept(this);
         Object exp = operands.pop();
         Object left = returnValue(exp);
-        // System.out.println("left: " + left);
+
         e.getRight().accept(this);
         Object exp2 = operands.pop();
         Object right = returnValue(exp2);
@@ -185,7 +185,7 @@ public class InterpretVisitor extends Visitor {
                 operands.push((Float) left + (Float) right);
             }
         }
-        // System.out.println(left + " + " + right + " = "+ operands.peek());
+
     }
 
     @Override
@@ -445,21 +445,19 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Attr e) {
-        // System.out.println(e.toString());
+ 
 
         e.getExp().accept(this);
         e.getVar().accept(this);
 
         Object variableName = operands.pop();
-        // System.out.println("Valor removido da pilha operands: " + variableName);
+ 
 
         Object value = null;
         value = operands.pop();
 
         if (this.isBlock) {
 
-            // System.out.println("Valor removido da pilha operands e adicionada ao env " +
-            // value);
             if (env.peek().get(value) != null) {
 
                 if (env.peek().get(value) instanceof Tupla) {
@@ -471,10 +469,9 @@ public class InterpretVisitor extends Visitor {
                     Object tupla = env.peek().get(lvalue);
                     if (tupla instanceof Tupla) {
                         if (((Tupla) tupla).getObjectData() instanceof HashMap<?, ?>) {
-                            System.out.println("Sou Hash");
+
                             ((Tupla) tupla).putObjectData(atribute, value);
                         } else {
-                            System.out.println("Value: " + value);
                             ((Tupla) tupla).setObjectData(value);
                         }
                     }
@@ -730,10 +727,13 @@ public class InterpretVisitor extends Visitor {
 
         print.getExp().accept(this);
 
+        Object toPrint = null;
         Object exp = operands.pop();
+       
 
-        Object toPrint = returnValue(exp);
-
+             toPrint = returnValue(exp);
+        
+        
         if (toPrint instanceof String) {
             String s = ((String) toPrint).replaceAll("\'", "");
             if (s.contains("\\n")) {
@@ -845,11 +845,9 @@ public class InterpretVisitor extends Visitor {
                             i--;
                         }
                     }
-                    System.out.println("asReturn" + this.asReturn + "|flag: "+ flag);
                     if (this.asReturn && !flag) {
 
-                        System.out.println(Arrays.asList("RETO ANAL: " + ret));
-                        System.out.println("param:" + env.peek());
+    
                         if (returnValue(ret) != ret) {
                             // System.out.println(Arrays.asList("PeekSTRING: " + ret));
                             // System.out.println(Arrays.asList("ValPeek: " + returnValue(ret)));
@@ -879,10 +877,6 @@ public class InterpretVisitor extends Visitor {
             }
 
             if (this.asReturn) {
-                System.out.println("Entrei as Return");
-                System.out.println("lista de return: " + this.returnList);
-                System.out.println("returnIndex: " + returnIndex);
-                System.out.println("Funcao Atual: " + e.getIdentifier().getIdentifier());
                 // System.out.println("returnIndex: "+returnIndex);
                 if (returnValue(this.returnList.get((int) returnIndex)) == this.returnList.get((int) returnIndex)) {
                     operands.push(this.returnList.get((int) returnIndex));
@@ -943,6 +937,9 @@ public class InterpretVisitor extends Visitor {
 
         Object lvalue;
 
+
+    
+
         if (e.getIdentifier() != null && e.getLvalue() == null && e.getCtx() == null) {
 
             if (isBlock) {
@@ -974,12 +971,14 @@ public class InterpretVisitor extends Visitor {
 
         if (e.getLvalue() != null) {
 
+           
             e.getLvalue().accept(this);
-
             if (e.getIdentifier() != null) {
-                operands.push(e.getIdentifier());
+                
+     
+                    operands.push(e.getIdentifier());
             }
-
+           
         }
 
         if (e.getCtx() != null) {
@@ -988,6 +987,7 @@ public class InterpretVisitor extends Visitor {
 
         }
     }
+
 
     @Override
     public void visit(Read e) {
@@ -1030,7 +1030,7 @@ public class InterpretVisitor extends Visitor {
 
     public void visit(Inst e) {
         e.getType().accept(this);
-        System.out.println(e);
+       
         Object type = operands.pop();
 
         if (datas.get((String) type) != null) {
@@ -1058,14 +1058,12 @@ public class InterpretVisitor extends Visitor {
                 }
                 operands.push(tuplas);
 
-                for (int i = 0; i < tuplas.length; i++) {
-                    System.out.println(tuplas[i]);
-                }
+              
             } else {
 
                 Tupla tupla = new Tupla(type.toString(), objectData);
                 operands.push(tupla);
-                System.out.println(tupla);
+               
 
             }
 
@@ -1076,7 +1074,7 @@ public class InterpretVisitor extends Visitor {
                 if(returnValue(size) != size){
                     size = returnValue(size);
                 }
-                System.out.println("Size: "+size);
+             
                 Tupla[] tuplas = new Tupla[(int) size];
 
                 for (int i = 0; i < tuplas.length; i++) {
@@ -1085,15 +1083,13 @@ public class InterpretVisitor extends Visitor {
 
                 }
                 operands.push(tuplas);
-                System.out.println("Tamanho da Tupla: " + tuplas.length);
-                for (int i = 0; i < tuplas.length; i++) {
-                    System.out.println(tuplas[i]);
-                }
+               
+                
             } else {
                 Integer objectData = null;
                 Tupla tupla = new Tupla(type.toString(), objectData);
                 operands.push(tupla);
-                System.out.println(tupla);
+                
 
             }
         } else if (((String) type).equals("Float")) {
@@ -1108,15 +1104,15 @@ public class InterpretVisitor extends Visitor {
 
                 }
                 operands.push(tuplas);
-                System.out.println("Tamanho da Tupla: " + tuplas.length);
+                
                 for (int i = 0; i < tuplas.length; i++) {
-                    System.out.println(tuplas[i]);
+                    
                 }
             } else {
                 Integer objectData = null;
                 Tupla tupla = new Tupla(type.toString(), objectData);
                 operands.push(tupla);
-                System.out.println(tupla);
+                
 
             }
         } else if (((String) type).equals("Char")) {
@@ -1131,15 +1127,13 @@ public class InterpretVisitor extends Visitor {
 
                 }
                 operands.push(tuplas);
-                System.out.println("Tamanho da Tupla: " + tuplas.length);
-                for (int i = 0; i < tuplas.length; i++) {
-                    System.out.println(tuplas[i]);
-                }
+                
+              
             } else {
                 Integer objectData = null;
                 Tupla tupla = new Tupla(type.toString(), objectData);
                 operands.push(tupla);
-                System.out.println(tupla);
+           
 
             }
         }
@@ -1183,11 +1177,10 @@ public class InterpretVisitor extends Visitor {
             }
 
         }
-        System.out.println("FuncaoPre " + e.getIdentifier() + ": " + Arrays.asList(operands));
         this.analyseFunc = true;
         
         ((Func) func).accept(this);
-        System.out.println("FuncaoPos " + e.getIdentifier() + ": " + Arrays.asList(operands));
+
     }
 
     private class Tupla {
