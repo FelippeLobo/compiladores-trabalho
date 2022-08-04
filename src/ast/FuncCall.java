@@ -27,7 +27,12 @@ public class FuncCall extends Exp {
     }
 
     public String toString(){
-        return (this.id.toString() + "(" + this.parameters.toString() + ")[" + returnId.toString() + "]");
+        if(returnId != null){
+            return (this.id.toString() + "(" + this.parameters.toString() + ")[" + returnId.toString() + "]");
+        }else{
+            return (this.id.toString() + "[" + returnId.toString() + "]");
+        }
+        
     }
 
     public String getIdentifier(){

@@ -102,6 +102,8 @@ ParamList = Param.a COMMA ParamList.b  {:return new ParamList(a, b);:}
           ;
 
 Param = ID.a DBCOLON TYPE.b                 {:return new Param(a, new Type(b));:}
+     | ID.a DBCOLON TYPE.b LB Exp.c RB      {:return new Param(a, new Type(b), c);:}
+     | ID.a DBCOLON TYPE.b LB RB            {:return new Param(a, new Type(b));:}
      ;
 
 Lvalue = ID.l                                {:return new Lvalue(l);:}
@@ -180,14 +182,13 @@ Sexp = NOT Exp.l         {:return new Not(l, 0);:}
      | Pexp                                                     
 ;
 
-Pexp = Lvalue.l                    {:return l;:}                    
-     | NEW TYPE.l LB Exp.r RB      {:return new Inst(new Type(l), r);:}
-     | NEW TYPE.l                  {:return new Inst(new Type(l));:}
-     | ID.l AP Exps.b FP LB Exp.c RB   {:return new FuncCall(l, b, c); :}
-     
+Pexp = Lvalue.l                         {:return l;:}                    
+     | NEW TYPE.l LB Exp.r RB           {:return new Inst(new Type(l), r);:}
+     | NEW TYPE.l                       {:return new Inst(new Type(l));:}
+     | ID.l LB Exps.b RB                {:return new FuncCall(l, b);:}
+     | ID.l AP Exps.b FP LB Exp.c RB    {:return new FuncCall(l, b, c); :}    
 ;
 
-
-Exps = Exp.e          {: return new Exps(e);:}
+Exps = Exp.e              {: return new Exps(e);:}
      | Exp.e Exps.f       {: return new Exps(e, f);:}
 ;
