@@ -730,9 +730,16 @@ public class InterpretVisitor extends Visitor {
         Object toPrint = null;
         Object exp = operands.pop();
        
-
+        if(env.peek().get(operands.peek()) != null && env.peek().get(operands.peek()) instanceof Tupla &&  ){
+            System.out.println("Tupla:" + env.peek().get(operands.peek())); 
+            Tupla tupla = (Tupla) env.peek().get(operands.peek());
+            if(((HashMap)tupla.getObjectData()).get(exp) != null){
+                 toPrint = ((HashMap)tupla.getObjectData()).get(exp);
+                operands.pop();
+            }
+        }else{
              toPrint = returnValue(exp);
-        
+        }
         
         if (toPrint instanceof String) {
             String s = ((String) toPrint).replaceAll("\'", "");
@@ -778,7 +785,6 @@ public class InterpretVisitor extends Visitor {
         e.getDecl().accept(this);
 
         env.pop();
-        System.out.println(datas);
         this.isBlock = false;
 
     }
@@ -845,12 +851,11 @@ public class InterpretVisitor extends Visitor {
                             i--;
                         }
                     }
+                   
                     if (this.asReturn && !flag) {
 
-    
+                    
                         if (returnValue(ret) != ret) {
-                            // System.out.println(Arrays.asList("PeekSTRING: " + ret));
-                            // System.out.println(Arrays.asList("ValPeek: " + returnValue(ret)));
                             returnIndex = (int) returnValue(ret);
 
                         }
@@ -877,13 +882,12 @@ public class InterpretVisitor extends Visitor {
             }
 
             if (this.asReturn) {
-                // System.out.println("returnIndex: "+returnIndex);
+
                 if (returnValue(this.returnList.get((int) returnIndex)) == this.returnList.get((int) returnIndex)) {
                     operands.push(this.returnList.get((int) returnIndex));
                 } else {
                     operands.push(returnValue(this.returnList.get((int) returnIndex)));
                 }
-                // System.out.println(Arrays.asList(operands));
                 this.returnList = new ArrayList<>();
                 this.asReturn = false;
 
