@@ -1,13 +1,23 @@
+--Saída esperada
 
-f(x :: Int) : Int, Float{
-   y = 2*x  + 1;
-   if( y < 10)
-    return y, 1.5;
-  else
-    return y, 1.5;
+---- The marvelous env Debugger ------ 
+--p  :  {x=10, y=10}
+
+
+data Ponto{
+   x :: Float;
+   y :: Float;
 }
 
 main(){
-  z = f(10)[1];
-  h = 2*f(10)[0];
+   p = new Ponto ;
+   p.x = 10.0;
+   p.y = 10.0;
+   print '(';
+   print p.x;
+   print ',';
+   print ' ';
+   print p.y;
+   print ')';
+   print '\n';
 }

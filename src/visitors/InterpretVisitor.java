@@ -30,6 +30,7 @@ public class InterpretVisitor extends Visitor {
     private boolean isReturn;
     private String lastData;
     private boolean canFuncs;
+    private boolean entrouMain;
 
     public InterpretVisitor() {
         env = new Stack<>();
@@ -44,6 +45,7 @@ public class InterpretVisitor extends Visitor {
         asReturn = false;
         asParameters = false;
         canFuncs = false;
+        entrouMain = false;
     }
 
     @Override
@@ -54,8 +56,9 @@ public class InterpretVisitor extends Visitor {
             prog.getCommand2().accept(this);
         }
 
-        if (this.funcDefinitions.get("main") != null) {
+        if (this.funcDefinitions.get("main") != null && !entrouMain) {
             this.analyseFunc = true;
+            entrouMain = true;
             ((Func) this.funcDefinitions.get("main")).accept(this);
         }
 
@@ -475,9 +478,7 @@ public class InterpretVisitor extends Visitor {
 
                     Tupla[] tuplas = (Tupla[]) env.peek().get(lvalue);
                     tuplas[index].setObjectData(value);
-                    for (int i = 0; i < tuplas.length; i++) {
-                        System.out.println(tuplas[i].toString());
-                    }
+            
                     env.peek().put(lvalue, tuplas);
                 } else {
 
@@ -496,9 +497,6 @@ public class InterpretVisitor extends Visitor {
                         value = operands.pop();
                         Tupla[] tuplas = (Tupla[]) globalCtx.get(lvalue);
 
-                        for (int i = 0; i < tuplas.length; i++) {
-                            System.out.println(tuplas[i].toString());
-                        }
                         env.peek().put(lvalue, tuplas);
                     } else {
                         env.peek().put((String) variableName, value);
@@ -521,7 +519,7 @@ public class InterpretVisitor extends Visitor {
                     Object tupla = globalCtx.get(lvalue);
                     if (tupla instanceof Tupla) {
                         if (((Tupla) tupla).getObjectData() instanceof HashMap<?, ?>) {
-                            System.out.println("Sou Hash");
+                            
                             ((Tupla) tupla).putObjectData(atribute, value);
                         } else {
                             ((Tupla) tupla).setObjectData(value);
@@ -536,9 +534,6 @@ public class InterpretVisitor extends Visitor {
 
                     Tupla[] tuplas = (Tupla[]) globalCtx.get(lvalue);
                     tuplas[index].setObjectData(value);
-                    for (int i = 0; i < tuplas.length; i++) {
-                        System.out.println(tuplas[i].toString());
-                    }
                     globalCtx.put(lvalue, tuplas);
                 } else {
 
@@ -558,9 +553,6 @@ public class InterpretVisitor extends Visitor {
 
                         Tupla[] tuplas = (Tupla[]) globalCtx.get(lvalue);
                         tuplas[0].putObjectData(atribute, value);
-                        for (int i = 0; i < tuplas.length; i++) {
-                            System.out.println(tuplas[i].toString());
-                        }
                         globalCtx.put(lvalue, tuplas);
                     } else {
 
@@ -621,7 +613,6 @@ public class InterpretVisitor extends Visitor {
         if (isReturn) {
             return;
         }
-        // System.out.println(stmtList.toString());
         stmtList.getStmt().accept(this);
         if (isReturn) {
             return;
@@ -639,11 +630,9 @@ public class InterpretVisitor extends Visitor {
         exp = returnValue(exp);
 
         if ((boolean) exp) {
-            System.out.println(ifelse.getStmtList1().toString());
             ifelse.getStmtList1().accept(this);
         } else {
             if (ifelse.getStmtList2() != null) {
-                System.out.println(ifelse.getStmtList2().toString());
                 ifelse.getStmtList2().accept(this);
             }
         }
@@ -678,10 +667,7 @@ public class InterpretVisitor extends Visitor {
         } else {
             this.returnList.add(returnValue(returnV));
         }
-
-        //System.out.println(this.returnList);
-        //System.out.println(Arrays.asList(env));
-        //System.out.println(Arrays.asList(operands));    
+  
         if (ret.getRet() != null) {
             ret.getRet().accept(this);
         }
@@ -689,15 +675,10 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(GenRet genret) {
-        // System.out.println("Entrou no gen ret");
-
         if (this.isBlock) {
-
             genret.getRet().accept(this);
             this.isReturn = true;
-        } else {
-            // System.out.println("Erro: return chamado fora de um bloco");
-        }
+        } 
     }
 
     @Override
@@ -710,7 +691,6 @@ public class InterpretVisitor extends Visitor {
        
         if(!operands.isEmpty()){
             if ((env.peek().get(operands.peek()) != null) && env.peek().get(operands.peek()) instanceof Tupla) {
-                System.out.println("Entrei");
                 Tupla tupla = (Tupla) env.peek().get(operands.peek());
                 if (((HashMap) tupla.getObjectData()).get(exp) != null) {
                     toPrint = ((HashMap) tupla.getObjectData()).get(exp);
@@ -762,7 +742,6 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Data e) {
-        // System.out.println(e);
         this.isBlock = true;
         this.lastData = e.getIdentifier().getName();
         HashMap<String, Object> localEnv = new HashMap<>();
@@ -792,9 +771,6 @@ public class InterpretVisitor extends Visitor {
             }
             HashMap<String, Object> localEnv = new HashMap<>();
             env.push(localEnv);
-
-            // System.out.println("Func " + e.getIdentifier().getIdentifier() + " adicionado
-            // ao escopo Global");
 
             if (e.getParam() != null && this.asParameters) {
 
@@ -1133,7 +1109,6 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(FuncCall e) {
-        System.out.println(e.toString());
 
         String function = e.getIdentifier();
         List<Object> funcCallInputs = new ArrayList<>();
@@ -1143,7 +1118,6 @@ public class InterpretVisitor extends Visitor {
         if (e.getParamaters() != null) {
             this.asParameters = true;
             e.getParamaters().accept(this);
-            System.out.println("param exp: " + operands.peek());
         }
 
         if (e.getReturnId() != null) {

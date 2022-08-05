@@ -1,19 +1,12 @@
+
+
+main(){
+   print 't';
+}
+
 even(n :: Int) : Bool {
     if(n == 0)
         return true;
     else
-        return false;
-}
-
-main() {
-    r = even(2)[0];
-    print '\n';
-    print r;
-    print '\n';
-    if(r) {
-        print 'P'; print 'A'; print 'R';
-    }
-    else {
-        print 'I'; print 'M'; print 'P'; print 'A'; print 'R';
-    }
+        return odd(n-1)[0];
 }

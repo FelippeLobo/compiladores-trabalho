@@ -6,13 +6,11 @@
 ---z  :  7
 --n  :  13
 
-
 main(){
     n = 13;
     q = 5;
     w = divMod(n,q)[1];
     z = 2*w +1;
-    
     
     print 'Z';
     print ':';
