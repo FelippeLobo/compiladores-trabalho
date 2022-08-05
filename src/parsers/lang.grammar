@@ -79,14 +79,13 @@ Stmt = ID.l EQ Exp.r SEMI                                             {: return 
      | IF AP Exp.l FP AC StmtList.r FC ELSE AC StmtList.s FC          {: return new IfElse(l, r, s);:}
      | IF AP Exp.l FP AC StmtList.r FC                                {: return new IfElse(l, r);:}        
      | Exp SEMI
-     | READ Lvalue.l SEMI                                             {:return new Read(l);:}       
+     | READ Lvalue.l SEMI                                             {: return new Read(l);:}       
      | PRINT Exp.e SEMI                                               {: return new Print(e);:}
-     | RETURN Ret.l SEMI                                              {: return new GenRet(l);:}
-     | ID.a AP Exps.b FP LESSER Lvalue.c+ GREATER SEMI                      
+     | RETURN Ret.l SEMI                                              {: return new GenRet(l);:}          
      ;
 
 Func = ID.a AP ParamList.b FP COLON Return.c AC StmtList.d FC         {:return new Func(new Lvalue(a), b, c, d);:}
-     | ID.a AP ParamList.b FP AC StmtList.c FC                  {:return new Func(new Lvalue(a), b, c);:} 
+     | ID.a AP ParamList.b FP AC StmtList.c FC                        {:return new Func(new Lvalue(a), b, c);:} 
      | ID.a AP FP AC StmtList.b FC                                    {:return new Func(new Lvalue(a), b);:}
      ;
 
@@ -109,6 +108,7 @@ Param = ID.a DBCOLON TYPE.b                 {:return new Param(a, new Type(b));:
 
 Lvalue = ID.l                                {:return new Lvalue(l);:}
      | Lvalue.l LB Exp.r RB                  {:return new Lvalue(l,r);:}
+     | Lvalue.l LB Exp.r RB LB Exp.s RB     {:return new Lvalue(l,r,s);:}
      | Lvalue.l DOT ID.r                     {:return new Lvalue(l,r);:}
      ;
 
@@ -183,13 +183,16 @@ Sexp = NOT Exp.l         {:return new Not(l, 0);:}
      | Pexp                                                     
 ;
 
-Pexp = Lvalue.l                         {:return l;:}                    
-     | NEW TYPE.l LB Exp.r RB           {:return new Inst(new Type(l), r);:}
-     | NEW TYPE.l                       {:return new Inst(new Type(l));:}
-     | ID.l AP Exps.b FP LB Exp.c RB    {:return new FuncCall(l, b, c); :} 
-     | ID.l AP Exps.b FP                {:return new FuncCall(l, b);:}      
-     | ID.l AP FP LB Exp.c RB          {:return new FuncCall(l,c);:}
-     | ID.l AP FP                       {:return new FuncCall(l);:}
+Pexp = Lvalue.l                              {:return l;:}                    
+     | NEW TYPE.l LB Exp.r RB                {:return new Inst(new Type(l), r);:}
+     | NEW TYPE.l LB RB LB Exp.r RB          {:return new Inst(new Type(l), r, true);:}
+     | NEW TYPE.l LB Exp.r RB LB Exp.s RB    {:return new Inst(new Type(l), r, s);:}    
+     | NEW TYPE.l                            {:return new Inst(new Type(l));:}
+     | ID.l AP Exps.b FP LB Exp.c RB         {:return new FuncCall(l, b, c);:} 
+     | ID.l AP Exps.b FP                     {:return new FuncCall(l, b);:} 
+     | ID.l AP Exps.b FP LB RB               {:return new FuncCall(l, b);:}
+     | ID.l AP FP LB Exp.c RB                {:return new FuncCall(l,c);:}
+     | ID.l AP FP                            {:return new FuncCall(l);:}
 ;
 
 Exps = Exp.e                    {: return new Exps(e);:}
