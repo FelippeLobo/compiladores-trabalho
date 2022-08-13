@@ -1,0 +1,50 @@
+
+
+
+teste0 : Ok
+teste1 : Não Implementado (Função por Comando)
+teste1eMeio : Ok
+teste2 : Ok
+teste3 : Ok
+teste4 : Ok
+teste5 : Parcialmente,  Array já começa com nós instanciados  Desfazer >:( 
+teste6 : ????????????????? Uso de [] na criação de um Data ????????????????
+teste7 : MATRIX EVOLUTION PROBLEM
+teste8 : ExceÃ§Ã£o: java.util.ArrayList cannot be cast to java.lang.Integer (Função Spook)
+teste9 : Ok
+teste10 : ExceÃ§Ã£o: java.util.ArrayList cannot be cast to java.lang.Integer (Valor de Retorno do Fibonnaci Está Correto !!!)
+teste11
+
+
+//Left Array and Right Object attribute
+
+//Left Array Object and Right Object attribute
+
+   k = 50;
+   x = k;
+   ponto1 = new Ponto;
+   ponto1.x = 10;
+   ponto1.y = 15;
+
+   ponto2 = new Ponto;
+   ponto2.x = 20;
+   ponto2.y = 25;
+
+   ponto1.y = ponto2.y;
+   ponto1.x = x;
+
+   print 'A';
+   print '=';
+   print ponto1;
+   print '\n';
+
+   print 'B';
+   print '=';
+   print ponto2;
+   print '\n';
+
+   w = ponto1.x;
+
+   print 'w';
+   print ':';
+   print w;

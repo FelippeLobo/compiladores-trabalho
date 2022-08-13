@@ -1,5 +1,5 @@
 --Saída esperada
-
+-- (10, 10)
 ---- The marvelous env Debugger ------ 
 --p  :  {x=10, y=10}
 

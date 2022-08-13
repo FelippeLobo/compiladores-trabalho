@@ -1,5 +1,6 @@
 package src.visitors;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -54,9 +55,12 @@ public class InterpretVisitor extends Visitor {
             prog.getCommand2().accept(this);
         }
 
-        if (this.funcDefinitions.get("main") != null) {
-            this.analyseFunc = true;
-            ((Func) this.funcDefinitions.get("main")).accept(this);
+        if (prog.getCommand2() == null) {
+            if (this.funcDefinitions.get("main") != null) {
+                this.analyseFunc = true;
+                ((Func) this.funcDefinitions.get("main")).accept(this);
+                this.analyseFunc = false;
+            }
         }
 
     }
@@ -116,28 +120,26 @@ public class InterpretVisitor extends Visitor {
     }
 
     public Object returnValue(Object exp) {
-           
-            Object var = env.peek().get(exp);
-            Object global = globalCtx.get(exp);
-            if (var != null) {
-                if (env.peek().get(var) != null) {
-                    return env.peek().get(var);
-                } else {
-                    return env.peek().get(exp);
-                }
 
+        Object var = env.peek().get(exp);
+        Object global = globalCtx.get(exp);
+        if (var != null) {
+            if (env.peek().get(var) != null) {
+                return env.peek().get(var);
             } else {
-                if (globalCtx.get(exp) != null) {
-                    if (globalCtx.get(global) != null) {
-                        return globalCtx.get(global);
-                    } else {
-                        return globalCtx.get(exp);
-                    }
-                }
+                return env.peek().get(exp);
             }
 
-     
-        
+        } else {
+            if (globalCtx.get(exp) != null) {
+                if (globalCtx.get(global) != null) {
+                    return globalCtx.get(global);
+                } else {
+                    return globalCtx.get(exp);
+                }
+            }
+        }
+
         return exp;
     }
 
@@ -191,7 +193,7 @@ public class InterpretVisitor extends Visitor {
         e.getRight().accept(this);
         Object exp2 = operands.pop();
 
-        Object right = returnValue(exp2);  
+        Object right = returnValue(exp2);
         if (left instanceof Integer) {
             if (right instanceof Integer) {
                 operands.push((Integer) left - (Integer) right);
@@ -437,142 +439,247 @@ public class InterpretVisitor extends Visitor {
         operands.push((Boolean) left == (Boolean) right);
     }
 
+    public Object getDataValue(Object variableData, Object variableAtribute) {
+        if (((Tupla) env.peek().get(variableData)).getObjectData() instanceof HashMap) {
+            return ((HashMap) ((Tupla) env.peek().get(variableData)).getObjectData()).get(variableAtribute);
+        } else {
+            return ((Tupla) env.peek().get(variableData)).getObjectData();
+        }
+    }
+
+    public boolean attrDataAttribute(Object leftSide, Object rightSide) {
+
+        if (returnValue(rightSide) instanceof Number) {
+            if (!operands.isEmpty()) {
+                if (env.peek().get(operands.peek()) instanceof Tupla
+                        || env.peek().get(operands.peek()) instanceof Tupla[]) {
+
+                    Object attribute = leftSide;
+                    Integer index = (Integer) returnValue(rightSide);
+                    Object object = operands.pop();
+                    if(!operands.isEmpty()){
+                        rightSide = operands.pop();
+
+                        if (!operands.isEmpty()) {
+                            Object rightAttribute = rightSide;
+                            Object rightObject = operands.pop();
+    
+                            if (operands.isEmpty()) {
+                                if (env.peek().get(rightObject) instanceof Tupla) {
+                                    Tupla tupla = (Tupla) env.peek().get(rightObject);
+    
+                                    if (tupla.getObjectData() instanceof HashMap) {
+                                        rightSide = ((HashMap) tupla.getObjectData()).get(rightAttribute);
+                                    } else {
+                                        rightSide = tupla.getObjectData();
+                                    }
+    
+                                }
+    
+                            } else {
+                                Integer rightIndex = (Integer) returnValue(rightObject);
+                                rightObject = operands.pop();
+                                if (operands.isEmpty()) {
+                                    if (env.peek().get(rightObject) instanceof Tupla[]) {
+                                        Tupla[] tupla = (Tupla[]) env.peek().get(rightObject);
+    
+                                        if (tupla[rightIndex].getObjectData() instanceof HashMap) {
+                                            rightSide = ((HashMap) tupla[rightIndex].getObjectData()).get(rightAttribute);
+                                        } else {
+                                            rightSide = tupla[rightIndex].getObjectData();
+                                        }
+    
+                                    }
+    
+                                }
+                            }
+                        }
+    
+                        Tupla[] tupla = (Tupla[]) env.peek().get(object);
+    
+                        if (((Tupla) tupla[index]).getObjectData() instanceof HashMap<?, ?>) {
+                            ((Tupla) tupla[index]).putObjectData((String) attribute, returnValue(rightSide));
+                            return true;
+                        }
+    
+                    }else{
+                        operands.push(object);
+                    }
+                 
+                }
+            }
+        }
+
+        Object object = rightSide;
+
+        if (env.peek().get(object) != null) {
+
+            if (env.peek().get(object) instanceof Tupla[]) {
+                if (returnValue(leftSide) instanceof Integer) {
+                    Tupla[] tupla = (Tupla[]) env.peek().get(object);
+                    Integer index = (Integer) returnValue(leftSide);
+                    Object attribute = null;
+                    rightSide = operands.pop();
+
+                    if (!operands.isEmpty()) {
+                        Object rightAttribute = rightSide;
+                        Object rightObject = operands.pop();
+
+                        if (operands.isEmpty()) {
+                            if (env.peek().get(rightObject) instanceof Tupla) {
+                                Tupla tuplaRight = (Tupla) env.peek().get(rightObject);
+
+                                if (tuplaRight.getObjectData() instanceof HashMap) {
+                                    rightSide = ((HashMap) tuplaRight.getObjectData()).get(rightAttribute);
+                                } else {
+                                    rightSide = tuplaRight.getObjectData();
+                                }
+
+                            }
+
+                        } else {
+                            Integer rightIndex = (Integer) returnValue(rightObject);
+                            rightObject = operands.pop();
+                            if (operands.isEmpty()) {
+                                if (env.peek().get(rightObject) instanceof Tupla[]) {
+                                    Tupla[] tuplaRight = (Tupla[]) env.peek().get(rightObject);
+
+                                    if (tuplaRight[rightIndex].getObjectData() instanceof HashMap) {
+                                        rightSide = ((HashMap) tuplaRight[rightIndex].getObjectData())
+                                                .get(rightAttribute);
+                                    } else {
+                                        rightSide = tuplaRight[rightIndex].getObjectData();
+                                    }
+
+                                }
+
+                            }
+                        }
+                    }
+                    if(((Tupla) tupla[index]) != null){
+                        ((Tupla) tupla[index]).setObjectData(returnValue(rightSide));
+                        
+                    }else{
+                        tupla[index] = new Tupla(((Tupla)rightSide).getType(), ((Tupla)rightSide).getObjectData());
+                    }
+                 
+
+                    return true;
+
+                }
+            } else if (env.peek().get(object) instanceof Tupla) {
+
+                Tupla tupla = (Tupla) env.peek().get(object);
+                Object attribute = leftSide;
+                rightSide = operands.pop();
+                if (!operands.isEmpty()) {
+                    if (env.peek().get(operands.peek()) instanceof Tupla) {
+                        Tupla tuplaRight = (Tupla) env.peek().get(operands.pop());
+                        Object attributeRight = rightSide;
+
+                        if (((Tupla) tuplaRight).getObjectData() instanceof HashMap<?, ?>) {
+                            rightSide = ((HashMap<?, ?>) tuplaRight.getObjectData()).get(attributeRight);
+
+                        } else {
+                            rightSide = tuplaRight.getObjectData();
+                        }
+                    }
+                }
+
+                if (((Tupla) tupla).getObjectData() instanceof HashMap<?, ?>) {
+                    ((Tupla) tupla).putObjectData((String) attribute, returnValue(rightSide));
+                    return true;
+                } else {
+                    ((Tupla) tupla).setObjectData(returnValue(rightSide));
+                    return true;
+                }
+
+            }
+        }
+
+        if (!operands.isEmpty()) {
+      
+                Object rightAttribute = rightSide;
+                Object rightObject = operands.pop();
+
+                if (operands.isEmpty()) {
+                    if (env.peek().get(rightObject) instanceof Tupla) {
+                        Tupla tupla = (Tupla) env.peek().get(rightObject);
+
+                        if (tupla.getObjectData() instanceof HashMap) {
+                            rightSide = ((HashMap) tupla.getObjectData()).get(rightAttribute);
+                        } else {
+                            rightSide = tupla.getObjectData();
+                        }
+
+                    }
+
+                } else {
+                    Integer rightIndex = (Integer) returnValue(rightObject);
+                    rightObject = operands.pop();
+                    if (operands.isEmpty()) {
+                        if (env.peek().get(rightObject) instanceof Tupla[]) {
+                            Tupla[] tupla = (Tupla[]) env.peek().get(rightObject);
+
+                            if (tupla[rightIndex].getObjectData() instanceof HashMap) {
+                                rightSide = ((HashMap) tupla[rightIndex].getObjectData()).get(rightAttribute);
+                            } else {
+                                rightSide = tupla[rightIndex].getObjectData();
+                            }
+
+                        }
+
+                    }
+                }
+            
+            env.peek().put((String) leftSide, returnValue(rightSide));
+            return true;
+        }
+
+        return false;
+    }
+
     @Override
     public void visit(Attr e) {
-
+        //System.out.println(e);
+        //System.out.println("==========================" + e + "======================================");
         e.getExp().accept(this);
         e.getVar().accept(this);
 
-        Object variableName = operands.pop();
+        Object leftSide = operands.pop();
+        Object rightSide = operands.pop();
 
-        Object value = null;
-        value = operands.pop();
+        // System.out.println("LeftSide: " + leftSide);
+        // System.out.println("RightSide: " + rightSide);
+        // System.out.println("Operands: " + Arrays.asList(operands));
+
 
         if (this.isBlock) {
+           
+            if (!operands.empty()) {
 
-            if (env.peek().get(value) != null) {
-
-                if (env.peek().get(value) instanceof Tupla) {
-
-                    String atribute = (String) variableName; // ATRIBUTO QUE EU QUERO MEXER !!!
-                    String lvalue = (String) value; // Lvalue com o atribute
-                    value = operands.pop();
-
-                    Object tupla = env.peek().get(lvalue);
-                    if (tupla instanceof Tupla) {
-                        if (((Tupla) tupla).getObjectData() instanceof HashMap<?, ?>) {
-
-                            ((Tupla) tupla).putObjectData(atribute, value);
-                        } else {
-                            ((Tupla) tupla).setObjectData(value);
-                        }
-                    }
-
-                } else if (env.peek().get(value) instanceof Tupla[]) {
-                    int index = (int) variableName;
-                    String lvalue = (String) value;
-                    value = operands.pop();
-
-                    Tupla[] tuplas = (Tupla[]) env.peek().get(lvalue);
-                    tuplas[index].setObjectData(value);
-                    for (int i = 0; i < tuplas.length; i++) {
-                        System.out.println(tuplas[i].toString());
-                    }
-                    env.peek().put(lvalue, tuplas);
-                } else {
-
-                    env.peek().put((String) variableName, value);
-
-                }
+                // Left Array Object and Right LiteralValue
+                // Left Array Object and Right Variable
+                // Left Array and Right LiteralValue
+                // Left Array and Right Variable
+                // Left Object attribute and Right LiteralValue
+                // Left Object attribute and Right Variable
+                // Left Object attribute and Right Object attribute
+                // Left Variable and Right Object attribute
+                attrDataAttribute(leftSide, rightSide);
+       
 
             } else {
-
-                if (operands.size() > 0 && env.peek().get(operands.peek()) != null) {
-                    if (env.peek().get(operands.peek()) instanceof Tupla[]) {
-
-                        String atribute = (String) variableName;
-                        int index = (int) value;
-                        String lvalue = (String) operands.pop();
-                        value = operands.pop();
-                        Tupla[] tuplas = (Tupla[]) globalCtx.get(lvalue);
-
-                        for (int i = 0; i < tuplas.length; i++) {
-                            System.out.println(tuplas[i].toString());
-                        }
-                        env.peek().put(lvalue, tuplas);
-                    } else {
-                        env.peek().put((String) variableName, value);
-                    }
-                } else {
-
-                    env.peek().put((String) variableName, value);
-                }
+                // Left Variable and Right Variable
+                // Left Variable and Right LiteralValue
+              
+                env.peek().put((String) leftSide, returnValue(rightSide));
 
             }
 
-        } else {
-
-            if (globalCtx.get(value) != null) {
-                if (globalCtx.get(value) instanceof Tupla) {
-                    String atribute = (String) variableName; // ATRIBUTO QUE EU QUERO MEXER !!!
-                    String lvalue = (String) value; // Lvalue com o atribute
-                    value = operands.pop();
-
-                    Object tupla = globalCtx.get(lvalue);
-                    if (tupla instanceof Tupla) {
-                        if (((Tupla) tupla).getObjectData() instanceof HashMap<?, ?>) {
-                            System.out.println("Sou Hash");
-                            ((Tupla) tupla).putObjectData(atribute, value);
-                        } else {
-                            ((Tupla) tupla).setObjectData(value);
-                        }
-                    }
-
-                } else if (globalCtx.get(value) instanceof Tupla[]) {
-
-                    int index = (int) variableName;
-                    String lvalue = (String) value;
-                    value = operands.pop();
-
-                    Tupla[] tuplas = (Tupla[]) globalCtx.get(lvalue);
-                    tuplas[index].setObjectData(value);
-                    for (int i = 0; i < tuplas.length; i++) {
-                        System.out.println(tuplas[i].toString());
-                    }
-                    globalCtx.put(lvalue, tuplas);
-                } else {
-
-                    globalCtx.put((String) variableName, value);
-
-                }
-
-            } else {
-                if (operands.size() > 0 && globalCtx.get(operands.peek()) != null) {
-
-                    if (globalCtx.get(operands.peek()) instanceof Tupla[]) {
-
-                        String atribute = (String) variableName;
-                        int index = (int) value;
-                        String lvalue = (String) operands.pop();
-                        value = operands.pop();
-
-                        Tupla[] tuplas = (Tupla[]) globalCtx.get(lvalue);
-                        tuplas[0].putObjectData(atribute, value);
-                        for (int i = 0; i < tuplas.length; i++) {
-                            System.out.println(tuplas[i].toString());
-                        }
-                        globalCtx.put(lvalue, tuplas);
-                    } else {
-
-                        globalCtx.put((String) variableName, value);
-
-                    }
-                } else {
-
-                    globalCtx.put((String) variableName, value);
-                }
-            }
-
+        }else{
+            env.peek().put((String) leftSide, returnValue(rightSide));
+            this.isBlock = true;
         }
 
     }
@@ -639,12 +746,12 @@ public class InterpretVisitor extends Visitor {
         Object exp = operands.pop();
         // System.out.println("Pop: " + exp.getClass());
 
-        if ((boolean) exp) {
-            System.out.println(ifelse.getStmtList1().toString());
+        if ((boolean) returnValue(exp)) {
+            //System.out.println(ifelse.getStmtList1().toString());
             ifelse.getStmtList1().accept(this);
         } else {
             if (ifelse.getStmtList2() != null) {
-                System.out.println(ifelse.getStmtList2().toString());
+                //System.out.println(ifelse.getStmtList2().toString());
                 ifelse.getStmtList2().accept(this);
             }
         }
@@ -654,6 +761,7 @@ public class InterpretVisitor extends Visitor {
     public void visit(Iterate e) {
         e.getExp().accept(this);
         Object exp = operands.pop();
+
         exp = returnValue(exp);
 
         if (!(match(exp, "Integer"))) {
@@ -671,7 +779,7 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Ret ret) {
-        System.out.println(ret);
+        //System.out.println(ret);
 
         ret.getExp().accept(this);
         Object returnV = operands.pop();
@@ -680,9 +788,9 @@ public class InterpretVisitor extends Visitor {
         } else {
             this.returnList.add(returnValue(returnV));
         }
-        System.out.println(this.returnList);
-        System.out.println(Arrays.asList(env));
-        System.out.println(Arrays.asList(operands));    
+        // System.out.println(this.returnList);
+        // System.out.println(Arrays.asList(env));
+        // System.out.println(Arrays.asList(operands));
         if (ret.getRet() != null) {
             ret.getRet().accept(this);
         }
@@ -708,27 +816,61 @@ public class InterpretVisitor extends Visitor {
         Object toPrint = null;
 
         Object exp = operands.pop();
-       
-        if(!operands.isEmpty()){
-            if ((env.peek().get(operands.peek()) != null) && env.peek().get(operands.peek()) instanceof Tupla) {
-                System.out.println("Entrei");
-                Tupla tupla = (Tupla) env.peek().get(operands.peek());
-                if (((HashMap) tupla.getObjectData()).get(exp) != null) {
-                    toPrint = ((HashMap) tupla.getObjectData()).get(exp);
-                    operands.pop();
-                }
-            }else {
-   
-                toPrint = returnValue(exp);
-                
-            }
-        
-        }else{
+        // System.out.println("exp: "+exp);
+        // System.out.println("operands: "+Arrays.asList(operands));
 
+        if(!operands.isEmpty()){
+            
+                Object rightAttribute = exp;
+                Object rightObject = operands.pop();
+
+                if (operands.isEmpty()) {
+                    if (env.peek().get(rightObject) instanceof Tupla) {
+                        Tupla tupla = (Tupla) env.peek().get(rightObject);
+
+                        if (tupla.getObjectData() instanceof HashMap) {
+                            toPrint = ((HashMap) tupla.getObjectData()).get(rightAttribute);
+                        } else {
+                            toPrint = tupla.getObjectData();
+                        }
+
+                    }else  if (env.peek().get(rightObject) instanceof Tupla[]) {
+                        Tupla[] tupla = (Tupla[]) env.peek().get(rightObject);
+                        Integer rightIndex = (Integer) returnValue(rightAttribute);
+                        if (tupla[rightIndex].getObjectData() instanceof HashMap) {
+                            toPrint = ((HashMap) tupla[rightIndex].getObjectData()).get(rightAttribute);
+                        } else {
+                            toPrint = tupla[rightIndex].getObjectData();
+                        }
+
+                    }
+
+                } else {
+                    Integer rightIndex = (Integer) returnValue(rightObject);
+                    rightObject = operands.pop();
+                    if (operands.isEmpty()) {
+                        if (env.peek().get(rightObject) instanceof Tupla[]) {
+                            Tupla[] tupla = (Tupla[]) env.peek().get(rightObject);
+
+                            if (tupla[rightIndex].getObjectData() instanceof HashMap) {
+                                toPrint = ((HashMap) tupla[rightIndex].getObjectData()).get(rightAttribute);
+                            } else {
+                                toPrint = tupla[rightIndex].getObjectData();
+                            }
+
+                        }
+
+                    }
+                }
+            
+        }else{
             toPrint = returnValue(exp);
         }
-      
        
+        
+       
+        
+
         if (toPrint instanceof String) {
             String s = ((String) toPrint).replaceAll("\'", "");
             if (s.contains("\\n")) {
@@ -742,6 +884,7 @@ public class InterpretVisitor extends Visitor {
 
     }
 
+    
     @Override
     public void visit(Decl e) {
         if (this.isBlock) {
@@ -780,9 +923,8 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(Func e) {
-
         if (this.analyseFunc) {
-           
+
             int returnIndex = -1;
             this.isBlock = true;
             actualFunc = e;
@@ -863,7 +1005,10 @@ public class InterpretVisitor extends Visitor {
             }
 
             e.getBody().accept(this);
-
+            if(!operands.isEmpty()){
+                operands.pop();
+            }
+          
             if (e.getReturn() != null) {
                 this.asReturn = true;
             } else {
@@ -881,6 +1026,7 @@ public class InterpretVisitor extends Visitor {
                 this.asReturn = false;
 
             }
+            //System.out.println("Env "+ e.getIdentifier().getIdentifier() + " : " + env.peek());
             env.pop();
             this.isBlock = false;
             this.isReturn = false;
@@ -965,6 +1111,7 @@ public class InterpretVisitor extends Visitor {
             if (e.getIdentifier() != null) {
 
                 operands.push(e.getIdentifier());
+
             }
 
         }
@@ -974,6 +1121,7 @@ public class InterpretVisitor extends Visitor {
             e.getCtx().accept(this);
 
         }
+
     }
 
     @Override
@@ -1017,9 +1165,11 @@ public class InterpretVisitor extends Visitor {
 
     public void visit(Inst e) {
         e.getType().accept(this);
-
         Object type = operands.pop();
-
+        // System.out.println("========================"+e+"========================");
+        // System.out.println("Type: "+type);
+        // System.out.println("Operands: "+Arrays.asList(operands));
+     
         if (datas.get((String) type) != null) {
 
             HashMap<String, Object> data = (HashMap<String, Object>) datas.get((String) type);
@@ -1033,16 +1183,22 @@ public class InterpretVisitor extends Visitor {
             if (e.getSize() != null) {
                 e.getSize().accept(this);
                 Object size = operands.pop();
-                Tupla[] tuplas = new Tupla[(int) size];
 
-                for (int i = 0; i < tuplas.length; i++) {
-                    HashMap<String, Object> objectDataAr = new HashMap<>();
-                    for (String atribute : atributes) {
-                        objectDataAr.put(atribute, null);
-                    }
-                    tuplas[i] = new Tupla(type.toString(), objectDataAr);
-
+                Tupla[] tuplas = null;
+                if (returnValue(size) != size) {
+                    tuplas = new Tupla[(int) returnValue(size)];
+                } else {
+                    tuplas = new Tupla[(int) size];
                 }
+
+                // for (int i = 0; i < tuplas.length; i++) {
+                //     HashMap<String, Object> objectDataAr = new HashMap<>();
+                //     for (String atribute : atributes) {
+                //         objectDataAr.put(atribute, null);
+                //     }
+                //     tuplas[i] = new Tupla(type.toString(), objectDataAr);
+
+                // }
                 operands.push(tuplas);
 
             } else {
@@ -1136,7 +1292,7 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(FuncCall e) {
-        System.out.println(e.toString());
+       // System.out.println(e.toString());
 
         String function = e.getIdentifier();
         List<Object> funcCallInputs = new ArrayList<>();
@@ -1146,7 +1302,7 @@ public class InterpretVisitor extends Visitor {
         if (e.getParamaters() != null) {
             this.asParameters = true;
             e.getParamaters().accept(this);
-            System.out.println("param exp: " + operands.peek());
+            
         }
 
         if (e.getReturnId() != null) {
@@ -1158,10 +1314,9 @@ public class InterpretVisitor extends Visitor {
             }
 
         }
-        this.analyseFunc = true;
 
         ((Func) func).accept(this);
-
+        
     }
 
     private class Tupla {
