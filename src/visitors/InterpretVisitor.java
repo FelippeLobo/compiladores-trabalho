@@ -740,11 +740,10 @@ public class InterpretVisitor extends Visitor {
 
     @Override
     public void visit(IfElse ifelse) {
-        boolean interior = false;
-
         ifelse.getExp().accept(this);
         Object exp = operands.pop();
-        // System.out.println("Pop: " + exp.getClass());
+
+        exp = returnValue(exp);
 
         if ((boolean) returnValue(exp)) {
             //System.out.println(ifelse.getStmtList1().toString());
@@ -783,6 +782,7 @@ public class InterpretVisitor extends Visitor {
 
         ret.getExp().accept(this);
         Object returnV = operands.pop();
+
         if (returnValue(returnV) == returnV) {
             this.returnList.add(returnV);
         } else {
@@ -1082,11 +1082,9 @@ public class InterpretVisitor extends Visitor {
                 lvalue = env.peek().get(e.getIdentifier());
 
                 if (lvalue != null) {
-
                     operands.push(e.getIdentifier());
 
                 } else {
-
                     env.peek().put(e.getIdentifier(), e);
                     operands.push(e.getIdentifier());
                 }
@@ -1106,20 +1104,20 @@ public class InterpretVisitor extends Visitor {
         }
 
         if (e.getLvalue() != null) {
-
             e.getLvalue().accept(this);
             if (e.getIdentifier() != null) {
 
                 operands.push(e.getIdentifier());
 
             }
-
         }
 
         if (e.getCtx() != null) {
-
             e.getCtx().accept(this);
+        }
 
+        if(e.getSctx() != null) {
+            e.getSctx().accept(this);
         }
 
     }

@@ -36,9 +36,6 @@ printV( v :: Ponto[], n :: Int){
    print '}';
 }
 
-   printp()
-   printp[]
-
 -- Oredena em relação a coordenada x
 sort(v :: Ponto[], n :: Int){
     i = 0;
