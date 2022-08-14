@@ -1,0 +1,61 @@
+group php;
+
+prog(name, funcs) ::= <<
+<?php
+
+<funcs; separator="\n\n">
+
+inicio();
+
+?>
+>>
+
+func(name, params, stmt) ::= <<
+function <name>($<params; separator=", ">) {
+    <stmt>
+}
+>>
+
+array_type(type) ::= "<type>[]"
+int_type() ::= "int"
+float_type() ::= "float"
+boolean_type() ::= "bool"
+
+attr(var, expr) ::= "$<var> = <expr>;"
+
+print(exp) ::= "print(<exp>);"
+return(expr) ::= "return <expr>;"
+
+iterate(expr, stmt) ::= <<
+for($i = 0; $i < <expr>; $i++){
+    <stmt>
+}
+>>
+
+if(expr, thn) ::= <<
+if(<expr>) {
+    <thn>
+}
+>>
+
+ifelse(expr, thn, els) ::= <<
+if(<expr>) {
+    <thn>
+} else {
+    <els>
+}
+>>
+
+add_expr(left_expr, right_expr) ::= "(<left_expr> + <right_expr>)"
+sub_expr(left_expr, right_expr) ::= "(<left_expr> - <right_expr>)"
+mul_expr(left_expr, right_expr) ::= "(<left_expr> * <right_expr>)"
+div_expr(left_expr, right_expr) ::= "(<left_expr> / <right_expr>)"
+mod_expr(left_expr, right_expr) ::= "(<left_expr> % <right_expr>)"
+
+and_expr(left_expr, right_expr) ::= "(<left_expr> && <right_expr>)"
+greater_expr(left_expr, right_expr) ::= "(<left_expr> > <right_expr>)"
+greaterequal_expr(left_expr, right_expr) ::= "(<left_expr> >= <right_expr>)"
+lesser_expr(left_expr, right_expr) ::= "(<left_expr> < <right_expr>)"
+lesserqual_expr(left_expr, right_expr) ::= "(<left_expr> <= <right_expr>)"
+eq_expr(left_expr, right_expr) ::= "(<left_expr> == <right_expr>)"
+dif_expr(left_expr, right_expr) ::= "(<left_expr> != <right_expr>)"
